@@ -1,0 +1,16 @@
+remove Lock = Caps_Lock
+remove Control = Control_L
+keysym Control_L = Caps_Lock
+keysym Caps_Lock = Control_L
+add Lock = Caps_Lock
+add Control = Control_L
+
+! XXX parameterize by computer characteristic: has windows key
+remove Mod1 = Alt_L
+keysym Alt_L = Super_L
+add Mod4 = Alt_L
+
+! XXX parameterize by computer characteristic: using slimblade trackball
+! pointer = 1 8 3 4 5 6 7 2
+! pointer = 1 2 3 4 5 6 7 8
+

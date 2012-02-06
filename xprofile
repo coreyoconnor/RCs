@@ -1,0 +1,7 @@
+#!/bin/sh
+
+export XAPPLRESDIR=$HOME/.app-defaults
+#export GTK_MODULES=$GTK_MODULES:globalmenu-gnome
+#xcompmgr -n &
+xmodmap $HOME/Development/RCs/xmodmap
+

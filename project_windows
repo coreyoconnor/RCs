@@ -1,0 +1,6 @@
+#!/bin/sh
+xterm -class xterm-project-root &> /dev/null &
+(cd src && xterm -class xterm-project-src &> /dev/null &) &> /dev/null
+(cd src && xterm -class xterm-project-src &> /dev/null &) &> /dev/null
+(cd test && xterm -class xterm-project-test &> /dev/null &) &> /dev/null
+(cd test && xterm -class xterm-project-test &> /dev/null &) &> /dev/null

@@ -466,7 +466,7 @@ main = do
                          ( 
                            onWorkspace "2" gimpLayout
                            $ onWorkspace "3" fullscreenLayout
-                           $ avoidStruts $ Full ||| Tall 1 (5/100) (3/4)
+                           $ avoidStruts $ Full ||| Tall 1 (5/100) (1/2)
                          )
                          ,
             borderWidth = border_size,

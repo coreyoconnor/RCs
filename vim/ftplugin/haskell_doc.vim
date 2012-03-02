@@ -33,6 +33,8 @@
 " CTRL-X CTRL-U (user-defined insert mode completion) 
 "   suggests completions of unqualified names in popup menu
 
+finish
+
 let s:scriptname = "haskell_doc.vim"
 
 " script parameters

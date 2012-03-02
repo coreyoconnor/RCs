@@ -20,7 +20,7 @@
 ! leave the foreground/background colors alone (at the mercy of your desktop
 ! designer).
 
-! Color the popup/pulldown menu border to match the text widget's foreground.
+! Color the popup/pulldown menu border to match the text widgets foreground.
 !*SimpleMenu*borderColor: gray15
 
 ! Uncomment this to use color for underline attribute

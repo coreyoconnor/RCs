@@ -215,7 +215,6 @@
 *.Form.menubar.*.foreground: gray15
 *.Form.background: AntiqueWhite
 
-*VT100.scrollbar.thumb:         vlines2
 *VT100.scrollbar.width:         14
 *VT100.scrollbar.background:    gray60
 *VT100.scrollbar.foreground:    rgb:a/5/5

@@ -47,6 +47,16 @@
 (add-to-list 'default-frame-alist  '(width . 100) )
 (require 'fill-column-indicator)
 
+(add-to-list 'load-path "~/.emacs.d/color-theme")
+(require 'color-theme)
+
+(eval-after-load "color-theme"
+  '(progn
+     (color-theme-initialize)
+     (color-theme-dark-laptop)
+     )
+  )
+
 ; plugins
 (load-file "~/.emacs.d/ProofGeneral/generic/proof-site.el")
 
@@ -81,7 +91,7 @@
   ;; If there is more than one, they won't work right.
  )
 
-(load-file "~/.emacs.d/cedet/common/cedet.el")
+(load-file "~/.emacs.d/cedet/common/cedet.elc")
 
 (global-ede-mode 1)
 (semantic-load-enable-minimum-features)

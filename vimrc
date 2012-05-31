@@ -2,12 +2,12 @@ set nocompatible
 syn on
 
 autocmd GUIEnter * set lines=45 columns=143
-autocmd GUIEnter * set guifont=Consolas  14
+autocmd GUIEnter * set guifont=Menlo:h18
 
 set backspace=indent,eol,start
-set shiftwidth=4
-set tabstop=4
-set softtabstop=4
+set shiftwidth=2
+set tabstop=2
+set softtabstop=2
 set expandtab
 set autoindent
 set laststatus=2
@@ -18,6 +18,7 @@ set encoding=utf-8
 set fileformat=unix
 set scrolloff=3
 set wildmode=longest,list
+set tildeop
 filetype indent on
 set foldmethod=syntax
 
@@ -175,4 +176,7 @@ function! g:ScratchMarkBuffer()
     setlocal noswapfile
     setlocal buflisted
 endfunction
+
+set noerrorbells visualbell t_vb=
+autocmd GUIEnter * set visualbell t_vb=
 

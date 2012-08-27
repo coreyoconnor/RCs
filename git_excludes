@@ -1,0 +1,5 @@
+*.swp
+*.hi
+.DS_Store
+*_secure.rb
+.idea

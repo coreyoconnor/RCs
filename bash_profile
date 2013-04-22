@@ -31,13 +31,12 @@ function header-search ()
         | xargs -0 egrep -n --color=auto "$*"
 }
 
-# Meh. regular gvim sucks under xmonad
-# This doesn't work under CentOS due to a kernel bug?
-# https://bugzilla.redhat.com/show_bug.cgi?id=180353
-function gvim ()
-{
-    (xterm -e /bin/bash -l -c vim "$@") &
-}
+export GHC_HEAD=/home/coconnor/Development/ghc/inplace/bin/ghc-stage2
+
+export EDITOR=vim
+
+export P4CONFIG=.p4settings
+
 
 [ -z "$PS1" ] && return
 
@@ -48,10 +47,4 @@ alias gopen='gnome-open'
 alias global-cabal-install='cabal install --global -p --enable-documentation --root-cmd=sudo'
 alias user-cabal-install='cabal install --user -p --enable-documentation --root-cmd=sudo'
 alias head-cabal-install='cabal install --with-compiler=/home/coconnor/Development/ghc/inplace/bin/ghc-stage2 --with-hc-pkg=/home/coconnor/Development/ghc/inplace/bin/ghc-pkg'
-
-export GHC_HEAD=/home/coconnor/Development/ghc/inplace/bin/ghc-stage2
-
-export EDITOR=vim
-
-export P4CONFIG=.p4settings
 

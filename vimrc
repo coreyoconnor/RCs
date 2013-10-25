@@ -1,5 +1,4 @@
 set nocompatible
-syn on
 
 autocmd GUIEnter * set lines=45 columns=143
 autocmd GUIEnter * set guifont=Menlo:h18
@@ -188,3 +187,6 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundleCheck
 
+syn on
+
+autocmd VimEnter * NERDTree

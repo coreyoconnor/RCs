@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2001, 2003, 2009 Eric M. Ludlam
 
-;; Author:  <corey@dev>
-;; Created: 2012-03-02 17:43:02-0800
+;; Author: Corey O'Connor <corey@corey-mbp>
+;; Created: 2013-12-13 11:27:00-0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

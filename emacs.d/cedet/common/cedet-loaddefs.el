@@ -1,11 +1,74 @@
-;;; cedet-loaddefs.el --- automatically extracted autoloads
+;;; cedet-loaddefs.el --- Auto-generated CEDET autoloads
 ;;
 ;;; Code:
 
 
-;;;### (autoloads (cedet-update-autoloads) "cedet-autogen" "../../../../../.emacs.d/cedet/common/cedet-autogen.el"
-;;;;;;  (20304 37591))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/common/cedet-autogen.el
+;;;### (autoloads (cedet-android-sdk-update-classpath cedet-android-adb-shell
+;;;;;;  cedet-android-adb-version-check cedet-android-adb-devices
+;;;;;;  cedet-android-adb-help cedet-android-start-ddms cedet-android-layoutopt
+;;;;;;  cedet-android-target-list cedet-android-create-project) "cedet-android"
+;;;;;;  "cedet-android.el" (20362 59690 0 0))
+;;; Generated autoloads from cedet-android.el
+
+(autoload 'cedet-android-create-project "cedet-android" "\
+Create an android project with NAME.
+Your activity class will be created in the java PACKAGE.
+You need to specify a TARGET, which is a number specifying the desired type
+of package you intend to build.
+Create the project in optional DIR, or in the default directory if not specified.
+NAME will be used as the name of the project.
+
+\(fn NAME PACKAGE TARGET &optional DIR)" t nil)
+
+(autoload 'cedet-android-target-list "cedet-android" "\
+Get the list of available targets for an android environment.
+
+\(fn)" t nil)
+
+(autoload 'cedet-android-layoutopt "cedet-android" "\
+Get the list of available targets for an android environment.
+Argument PROJECTROOT is the directory root of some project to be optimized.
+
+\(fn PROJECTROOT)" t nil)
+
+(autoload 'cedet-android-start-ddms "cedet-android" "\
+Start Android's ddms debugging proxy.
+
+\(fn)" t nil)
+
+(autoload 'cedet-android-adb-help "cedet-android" "\
+Get help for Android Debug Bridge.
+
+\(fn)" t nil)
+
+(autoload 'cedet-android-adb-devices "cedet-android" "\
+The the list of attached devices from Android Debug Bridge.
+
+\(fn)" t nil)
+
+(autoload 'cedet-android-adb-version-check "cedet-android" "\
+Check the version of the installed Android ADB command.
+If optional programatic argument NOERROR is non-nil, then
+instead of throwing an error if Global isn't available, then
+return nil.
+
+\(fn &optional NOERROR)" t nil)
+
+(autoload 'cedet-android-adb-shell "cedet-android" "\
+Create an inferior shell for Android Debug Bridge.
+
+\(fn)" t nil)
+
+(autoload 'cedet-android-sdk-update-classpath "cedet-android" "\
+Update the classpath for `cedet-java' to include the android compile-time libraries.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (cedet-update-autoloads) "cedet-autogen" "cedet-autogen.el"
+;;;;;;  (20362 59689 0 0))
+;;; Generated autoloads from cedet-autogen.el
 
 (autoload 'cedet-update-autoloads "cedet-autogen" "\
 Update autoloads in file LOADDEFS from sources.
@@ -20,9 +83,9 @@ exists.
 
 ;;;***
 
-;;;### (autoloads (cedet-compat-utest) "cedet-compat" "../../../../../.emacs.d/cedet/common/cedet-compat.el"
-;;;;;;  (20304 37591))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/common/cedet-compat.el
+;;;### (autoloads (cedet-compat-utest) "cedet-compat" "cedet-compat.el"
+;;;;;;  (20362 59689 0 0))
+;;; Generated autoloads from cedet-compat.el
 
 (if (or (featurep 'xemacs) (inversion-test 'emacs "22.0")) (defalias 'cedet-split-string 'cedet-split-string-1) (defalias 'cedet-split-string 'split-string))
 
@@ -37,9 +100,8 @@ Test compatability functions.
 
 ;;;### (autoloads (cedet-cscope-version-check cedet-cscope-expand-filename
 ;;;;;;  cedet-cscope-search cedet-cscope-command) "cedet-cscope"
-;;;;;;  "../../../../../.emacs.d/cedet/common/cedet-cscope.el" (20304
-;;;;;;  37591))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/common/cedet-cscope.el
+;;;;;;  "cedet-cscope.el" (20362 59690 0 0))
+;;; Generated autoloads from cedet-cscope.el
 
 (defvar cedet-cscope-command "cscope" "\
 Command name for the CScope executable.")
@@ -74,9 +136,9 @@ return nil.
 
 ;;;***
 
-;;;### (autoloads nil "cedet-edebug" "../../../../../.emacs.d/cedet/common/cedet-edebug.el"
-;;;;;;  (20304 37591))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/common/cedet-edebug.el
+;;;### (autoloads nil "cedet-edebug" "cedet-edebug.el" (20362 59690
+;;;;;;  0 0))
+;;; Generated autoloads from cedet-edebug.el
 
 (add-hook 'edebug-setup-hook (lambda nil (require 'cedet-edebug) (defalias 'edebug-prin1-to-string 'cedet-edebug-prin1-to-string) (define-key edebug-mode-map "A" 'data-debug-edebug-expr)))
 
@@ -84,9 +146,9 @@ return nil.
 
 ;;;***
 
-;;;### (autoloads (cedet-files-utest) "cedet-files" "../../../../../.emacs.d/cedet/common/cedet-files.el"
-;;;;;;  (20304 37591))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/common/cedet-files.el
+;;;### (autoloads (cedet-files-utest) "cedet-files" "cedet-files.el"
+;;;;;;  (20362 59690 0 0))
+;;; Generated autoloads from cedet-files.el
 
 (autoload 'cedet-files-utest "cedet-files" "\
 Test out some file name conversions.
@@ -98,9 +160,8 @@ Test out some file name conversions.
 ;;;### (autoloads (cedet-gnu-global-version-check cedet-gnu-global-root
 ;;;;;;  cedet-gnu-global-show-root cedet-gnu-global-expand-filename
 ;;;;;;  cedet-gnu-global-search cedet-global-gtags-command cedet-global-command)
-;;;;;;  "cedet-global" "../../../../../.emacs.d/cedet/common/cedet-global.el"
-;;;;;;  (20304 37591))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/common/cedet-global.el
+;;;;;;  "cedet-global" "cedet-global.el" (20362 59690 0 0))
+;;; Generated autoloads from cedet-global.el
 
 (defvar cedet-global-command "global" "\
 Command name for the GNU Global executable.")
@@ -154,9 +215,9 @@ return nil.
 ;;;***
 
 ;;;### (autoloads (cedet-graphviz-dot-version-check cedet-graphviz-neato-command
-;;;;;;  cedet-graphviz-dot-command) "cedet-graphviz" "../../../../../.emacs.d/cedet/common/cedet-graphviz.el"
-;;;;;;  (20304 37591))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/common/cedet-graphviz.el
+;;;;;;  cedet-graphviz-dot-command) "cedet-graphviz" "cedet-graphviz.el"
+;;;;;;  (20362 59690 0 0))
+;;; Generated autoloads from cedet-graphviz.el
 
 (defvar cedet-graphviz-dot-command "dot" "\
 Command name for the Graphviz DOT executable.")
@@ -180,9 +241,8 @@ return nil.
 
 ;;;### (autoloads (cedet-idutils-version-check cedet-idutils-expand-filename
 ;;;;;;  cedet-idutils-make-command cedet-idutils-token-command cedet-idutils-file-command)
-;;;;;;  "cedet-idutils" "../../../../../.emacs.d/cedet/common/cedet-idutils.el"
-;;;;;;  (20304 37591))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/common/cedet-idutils.el
+;;;;;;  "cedet-idutils" "cedet-idutils.el" (20362 59690 0 0))
+;;; Generated autoloads from cedet-idutils.el
 
 (defvar cedet-idutils-file-command "fnid" "\
 Command name for the ID Utils executable for searching file names.")
@@ -215,10 +275,51 @@ return nil.
 
 ;;;***
 
+;;;### (autoloads (cedet-javap-dump-class cedet-java-version-check)
+;;;;;;  "cedet-java" "cedet-java.el" (20362 59690 0 0))
+;;; Generated autoloads from cedet-java.el
+
+(autoload 'cedet-java-version-check "cedet-java" "\
+Check the version of the installed java command.
+If optional programatic argument NOERROR is non-nil, then
+instead of throwing an error if Global isn't available, then
+return nil.
+
+\(fn &optional NOERROR)" t nil)
+
+(autoload 'cedet-javap-dump-class "cedet-java" "\
+Dump out a Java signatures for CLASS.
+Display in a javap output buffer.
+
+\(fn CLASS)" t nil)
+
+;;;***
+
+;;;### (autoloads (global-cedet-m3-minor-mode cedet-m3-minor-mode)
+;;;;;;  "cedet-m3" "cedet-m3.el" (20362 59690 0 0))
+;;; Generated autoloads from cedet-m3.el
+
+(autoload 'cedet-m3-minor-mode "cedet-m3" "\
+Toggle cedet-m3 minor mode, a mouse 3 context menu.
+With prefix argument ARG, turn on if positive, otherwise off.
+Return non-nil if the minor mode is enabled.
+
+\\{cedet-m3-mode-map}
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'global-cedet-m3-minor-mode "cedet-m3" "\
+Toggle global use of cedet-m3 minor mode.
+If ARG is positive, enable, if it is negative, disable.
+If ARG is nil, then toggle.
+
+\(fn &optional ARG)" t nil)
+
+;;;***
+
 ;;;### (autoloads (cedet-utest-batch cedet-utest) "cedet-utests"
-;;;;;;  "../../../../../.emacs.d/cedet/common/cedet-utests.el" (20304
-;;;;;;  37591))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/common/cedet-utests.el
+;;;;;;  "cedet-utests.el" (20362 59690 0 0))
+;;; Generated autoloads from cedet-utests.el
 
 (autoload 'cedet-utest "cedet-utests" "\
 Run the CEDET unittests.
@@ -238,9 +339,9 @@ Run the CEDET unit test in BATCH mode.
 ;;;;;;  data-debug-show-stuff data-debug-new-buffer data-debug-mode
 ;;;;;;  data-debug-insert-thing data-debug-insert-stuff-vector data-debug-insert-stuff-list
 ;;;;;;  data-debug-insert-widget-properties data-debug-insert-hash-table
-;;;;;;  data-debug-insert-property-list) "data-debug" "../../../../../.emacs.d/cedet/common/data-debug.el"
-;;;;;;  (20304 37591))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/common/data-debug.el
+;;;;;;  data-debug-insert-property-list) "data-debug" "data-debug.el"
+;;;;;;  (20362 59690 0 0))
+;;; Generated autoloads from data-debug.el
 
 (autoload 'data-debug-insert-property-list "data-debug" "\
 Insert the property list PROPLIST.
@@ -310,9 +411,9 @@ If the result is a list or vector, then use the data debugger to display it.
 
 ;;;***
 
-;;;### (autoloads (define-fame-channel) "fame" "../../../../../.emacs.d/cedet/common/fame.el"
-;;;;;;  (20304 37591))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/common/fame.el
+;;;### (autoloads (define-fame-channel) "fame" "fame.el" (20362 59690
+;;;;;;  0 0))
+;;; Generated autoloads from fame.el
 
 (autoload 'define-fame-channel "fame" "\
 Define the new message channel CHANNEL.
@@ -328,15 +429,14 @@ value of message levels.  And the functions `CHANNEL-send-debug',
 that respectively send debug, informational, warning, and error
 messages to CHANNEL.
 
-\(fn CHANNEL &optional DEFAULT DOCSTRING)" nil (quote macro))
+\(fn CHANNEL &optional DEFAULT DOCSTRING)" nil t)
 
 ;;;***
 
 ;;;### (autoloads (inversion-upgrade-package inversion-add-to-load-path
 ;;;;;;  inversion-find-version inversion-require-emacs inversion-require)
-;;;;;;  "inversion" "../../../../../.emacs.d/cedet/common/inversion.el"
-;;;;;;  (20304 37591))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/common/inversion.el
+;;;;;;  "inversion" "inversion.el" (20362 59689 0 0))
+;;; Generated autoloads from inversion.el
 
 (autoload 'inversion-require "inversion" "\
 Declare that you need PACKAGE with at least VERSION.
@@ -350,10 +450,10 @@ Optional argument RESERVED is saved for later use.
 \(fn PACKAGE VERSION &optional FILE DIRECTORY &rest RESERVED)" nil nil)
 
 (autoload 'inversion-require-emacs "inversion" "\
-Declare that you need either EMACS-VER, or XEMACS-VER.
+Declare that you need either EMACS-VER, XEMACS-VER or SXEMACE-ver.
 Only checks one based on which kind of Emacs is being run.
 
-\(fn EMACS-VER XEMACS-VER)" nil nil)
+\(fn EMACS-VER XEMACS-VER SXEMACS-VER)" nil nil)
 
 (autoload 'inversion-find-version "inversion" "\
 Search for the version and incompatible version of PACKAGE.
@@ -386,9 +486,9 @@ Try to upgrade PACKAGE in DIRECTORY is available.
 
 ;;;***
 
-;;;### (autoloads (mode-local-read-function) "mode-local" "../../../../../.emacs.d/cedet/common/mode-local.el"
-;;;;;;  (20304 37591))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/common/mode-local.el
+;;;### (autoloads (mode-local-read-function) "mode-local" "mode-local.el"
+;;;;;;  (20362 59690 0 0))
+;;; Generated autoloads from mode-local.el
 
 (autoload 'mode-local-read-function "mode-local" "\
 Interactively read in the name of a mode-local function.
@@ -399,8 +499,8 @@ PROMPT, INITIAL, HIST, and DEFAULT are the same as for `completing-read'.
 ;;;***
 
 ;;;### (autoloads (pprint-function pprint pprint-to-string) "pprint"
-;;;;;;  "../../../../../.emacs.d/cedet/common/pprint.el" (20304 37591))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/common/pprint.el
+;;;;;;  "pprint.el" (20362 59690 0 0))
+;;; Generated autoloads from pprint.el
 
 (autoload 'pprint-to-string "pprint" "\
 Return a string containing the pretty-printed representation of OBJECT.
@@ -431,8 +531,8 @@ See a pretty-printed representation of FUNCTION-NAME.
 ;;;### (autoloads (pulse-line-hook-function pulse-toggle-integration-advice
 ;;;;;;  pulse-momentary-highlight-region pulse-momentary-highlight-one-line
 ;;;;;;  pulse-momentary-highlight-overlay pulse-test pulse) "pulse"
-;;;;;;  "../../../../../.emacs.d/cedet/common/pulse.el" (20304 37591))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/common/pulse.el
+;;;;;;  "pulse.el" (20362 59690 0 0))
+;;; Generated autoloads from pulse.el
 
 (autoload 'pulse "pulse" "\
 Pulse the colors on our highlight face.
@@ -493,17 +593,8 @@ Only pulses the line if `pulse-command-advice-flag' is non-nil.
 
 ;;;***
 
-;;;### (autoloads nil nil ("../../../../../.emacs.d/cedet/common/cedet-autogen.el"
-;;;;;;  "../../../../../.emacs.d/cedet/common/cedet-compat.el" "../../../../../.emacs.d/cedet/common/cedet-cscope.el"
-;;;;;;  "../../../../../.emacs.d/cedet/common/cedet-edebug.el" "../../../../../.emacs.d/cedet/common/cedet-files.el"
-;;;;;;  "../../../../../.emacs.d/cedet/common/cedet-global.el" "../../../../../.emacs.d/cedet/common/cedet-graphviz.el"
-;;;;;;  "../../../../../.emacs.d/cedet/common/cedet-idutils.el" "../../../../../.emacs.d/cedet/common/cedet-load.el"
-;;;;;;  "../../../../../.emacs.d/cedet/common/cedet-utests.el" "../../../../../.emacs.d/cedet/common/cedet.el"
-;;;;;;  "../../../../../.emacs.d/cedet/common/data-debug.el" "../../../../../.emacs.d/cedet/common/ezimage.el"
-;;;;;;  "../../../../../.emacs.d/cedet/common/fame.el" "../../../../../.emacs.d/cedet/common/inversion.el"
-;;;;;;  "../../../../../.emacs.d/cedet/common/mode-local.el" "../../../../../.emacs.d/cedet/common/pprint.el"
-;;;;;;  "../../../../../.emacs.d/cedet/common/pulse.el" "../../../../../.emacs.d/cedet/common/working.el")
-;;;;;;  (20305 30483 533172))
+;;;### (autoloads nil nil ("cedet-load.el" "cedet.el" "ezimage.el"
+;;;;;;  "working.el") (21163 24428 763877 0))
 
 ;;;***
 

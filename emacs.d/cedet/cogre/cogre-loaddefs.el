@@ -1,15 +1,14 @@
-;;; cogre-loaddefs.el --- automatically extracted autoloads
+;;; cogre-loaddefs.el --- Auto-generated CEDET autoloads
 ;;
 ;;; Code:
 
 
-;;;### (autoloads (cogre) "cogre" "../../../../../.emacs.d/cedet/cogre/cogre.el"
-;;;;;;  (20304 37590))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/cogre/cogre.el
-
-(eieio-defclass-autoload 'cogre-base-graph '(eieio-persistent) "cogre" "A Connected Graph.\na connected graph contains a series of nodes and links which are\nrendered in a buffer, or serialized to disk.")
+;;;### (autoloads (cogre) "cogre" "cogre.el" (20362 59693 0 0))
+;;; Generated autoloads from cogre.el
 
 (eieio-defclass-autoload 'cogre-graph-element '(eieio-named) "cogre" "A Graph Element.\nGraph elements are anything that is drawn into a `cogre-base-graph'.\nGraph elements have a method for marking themselves dirty.")
+
+(eieio-defclass-autoload 'cogre-base-graph '(eieio-persistent) "cogre" "A Connected Graph.\na connected graph contains a series of nodes and links which are\nrendered in a buffer, or serialized to disk.")
 
 (eieio-defclass-autoload 'cogre-node '(cogre-graph-element) "cogre" "Connected Graph node.\nNodes are regions with a fill color, and some amount of text representing\na status, or values.")
 
@@ -26,9 +25,9 @@ Optional argument GRAPH-CLASS indicates the type of graph to create.
 
 ;;;***
 
-;;;### (autoloads (cogre-export-ascii) "cogre-ascii" "../../../../../.emacs.d/cedet/cogre/cogre-ascii.el"
-;;;;;;  (20304 37590))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/cogre/cogre-ascii.el
+;;;### (autoloads (cogre-export-ascii) "cogre-ascii" "cogre-ascii.el"
+;;;;;;  (20362 59693 0 0))
+;;; Generated autoloads from cogre-ascii.el
 
 (autoload 'cogre-export-ascii "cogre-ascii" "\
 Export the current diagram into an ASCII buffer.
@@ -38,9 +37,9 @@ Export the current diagram into an ASCII buffer.
 ;;;***
 
 ;;;### (autoloads (cogre-export-utest cogre-export-dot-method cogre-export-dot-postscript-print
-;;;;;;  cogre-export-dot-png cogre-export-dot) "cogre-convert" "../../../../../.emacs.d/cedet/cogre/cogre-convert.el"
-;;;;;;  (20304 37590))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/cogre/cogre-convert.el
+;;;;;;  cogre-export-dot-png cogre-export-dot) "cogre-convert" "cogre-convert.el"
+;;;;;;  (20362 59693 0 0))
+;;; Generated autoloads from cogre-convert.el
 
 (autoload 'cogre-export-dot "cogre-convert" "\
 Export the current COGRE graph to DOT notation.
@@ -66,7 +65,7 @@ DOT is a part of GraphVis.
 (autoload 'cogre-export-dot-method "cogre-convert" "\
 Convert G into DOT syntax of semantic tags.
 
-\(fn (G cogre-base-graph))" nil nil)
+\(fn (g cogre-base-graph))" nil nil)
 
 (autoload 'cogre-export-utest "cogre-convert" "\
 Run all the COGRE structured export/convert test.
@@ -75,9 +74,9 @@ Run all the COGRE structured export/convert test.
 
 ;;;***
 
-;;;### (autoloads (cogre-dot-mode) "cogre-dot-mode" "../../../../../.emacs.d/cedet/cogre/cogre-dot-mode.el"
-;;;;;;  (20304 37590))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/cogre/cogre-dot-mode.el
+;;;### (autoloads (cogre-dot-mode) "cogre-dot-mode" "cogre-dot-mode.el"
+;;;;;;  (20362 59693 0 0))
+;;; Generated autoloads from cogre-dot-mode.el
 
 (autoload 'cogre-dot-mode "cogre-dot-mode" "\
 Major mode for the dot language.
@@ -92,9 +91,9 @@ as a parsing engine.
 
 ;;;***
 
-;;;### (autoloads (cogre-layout) "cogre-layout" "../../../../../.emacs.d/cedet/cogre/cogre-layout.el"
-;;;;;;  (20304 37590))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/cogre/cogre-layout.el
+;;;### (autoloads (cogre-layout) "cogre-layout" "cogre-layout.el"
+;;;;;;  (20362 59693 0 0))
+;;; Generated autoloads from cogre-layout.el
 
 (autoload 'cogre-layout "cogre-layout" "\
 Layout the current graph.
@@ -104,9 +103,9 @@ This function depends on graphviz `dot' program.
 
 ;;;***
 
-;;;### (autoloads (cogre-mode) "cogre-mode" "../../../../../.emacs.d/cedet/cogre/cogre-mode.el"
-;;;;;;  (20304 37590))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/cogre/cogre-mode.el
+;;;### (autoloads (cogre-mode) "cogre-mode" "cogre-mode.el" (20362
+;;;;;;  59693 0 0))
+;;; Generated autoloads from cogre-mode.el
 
 (autoload 'cogre-mode "cogre-mode" "\
 Connected Graph Editor Mode.
@@ -119,9 +118,8 @@ Connected Graph Editor Mode.
 ;;;***
 
 ;;;### (autoloads (cogre-periodic-utest cogre-periodic) "cogre-periodic"
-;;;;;;  "../../../../../.emacs.d/cedet/cogre/cogre-periodic.el" (20304
-;;;;;;  37590))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/cogre/cogre-periodic.el
+;;;;;;  "cogre-periodic.el" (20362 59693 0 0))
+;;; Generated autoloads from cogre-periodic.el
 
 (autoload 'cogre-periodic "cogre-periodic" "\
 Create a periodic table of COGRE objects.
@@ -137,9 +135,8 @@ Also test various output mechanisms from the periodic table.
 ;;;***
 
 ;;;### (autoloads (cogre-uml-quick-class cogre-export-code cogre-semantic-tag-to-node)
-;;;;;;  "cogre-semantic" "../../../../../.emacs.d/cedet/cogre/cogre-semantic.el"
-;;;;;;  (20304 37590))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/cogre/cogre-semantic.el
+;;;;;;  "cogre-semantic" "cogre-semantic.el" (20362 59693 0 0))
+;;; Generated autoloads from cogre-semantic.el
 
 (autoload 'cogre-semantic-tag-to-node "cogre-semantic" "\
 Convert the Semantic tag TAG into a COGRE node.
@@ -165,9 +162,9 @@ The parent to CLASS, CLASS, and all of CLASSes children will be shown.
 ;;;***
 
 ;;;### (autoloads (srecode-semantic-handle-:dot srecode-semantic-handle-:cogre
-;;;;;;  cogre-srecode-setup) "cogre-srecode" "../../../../../.emacs.d/cedet/cogre/cogre-srecode.el"
-;;;;;;  (20304 37590))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/cogre/cogre-srecode.el
+;;;;;;  cogre-srecode-setup) "cogre-srecode" "cogre-srecode.el" (20362
+;;;;;;  59693 0 0))
+;;; Generated autoloads from cogre-srecode.el
 
 (autoload 'cogre-srecode-setup "cogre-srecode" "\
 Update various paths to get SRecode to identify COGRE macros.
@@ -189,9 +186,8 @@ Add macros to dictionary DICT based on the current DOT buffer.
 ;;;***
 
 ;;;### (autoloads (cogre-uml-sort-for-lineage cogre-uml-enable-unicode)
-;;;;;;  "cogre-uml" "../../../../../.emacs.d/cedet/cogre/cogre-uml.el"
-;;;;;;  (20304 37590))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/cogre/cogre-uml.el
+;;;;;;  "cogre-uml" "cogre-uml.el" (20362 59693 0 0))
+;;; Generated autoloads from cogre-uml.el
 
 (eieio-defclass-autoload 'cogre-package '(cogre-node) "cogre-uml" "A Package node.\nPackages represent other class diagrams, and list the major nodes\nwithin them.  They can be linked by dependency links.")
 
@@ -229,9 +225,8 @@ Return it as a list of lists.  Each entry is of the form:
 ;;;***
 
 ;;;### (autoloads (cogre-utest-quick-class cogre-utest) "cogre-utest"
-;;;;;;  "../../../../../.emacs.d/cedet/cogre/cogre-utest.el" (20304
-;;;;;;  37590))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/cogre/cogre-utest.el
+;;;;;;  "cogre-utest.el" (20362 59693 0 0))
+;;; Generated autoloads from cogre-utest.el
 
 (autoload 'cogre-utest "cogre-utest" "\
 Unit test Various aspects of COGRE.
@@ -246,9 +241,8 @@ Test the quick-class function.
 ;;;***
 
 ;;;### (autoloads (cogre-picture-insert-rectangle) "picture-hack"
-;;;;;;  "../../../../../.emacs.d/cedet/cogre/picture-hack.el" (20304
-;;;;;;  37590))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/cogre/picture-hack.el
+;;;;;;  "picture-hack.el" (20362 59693 0 0))
+;;; Generated autoloads from picture-hack.el
 
 (autoload 'cogre-picture-insert-rectangle "picture-hack" "\
 Overlay RECTANGLE with upper left corner at point.
@@ -258,9 +252,9 @@ Leaves the region surrounding the rectangle.
 
 ;;;***
 
-;;;### (autoloads (wisent-dot-setup-parser) "wisent-dot" "../../../../../.emacs.d/cedet/cogre/wisent-dot.el"
-;;;;;;  (20304 37590))
-;;; Generated autoloads from ../../../../../.emacs.d/cedet/cogre/wisent-dot.el
+;;;### (autoloads (wisent-dot-setup-parser) "wisent-dot" "wisent-dot.el"
+;;;;;;  (20362 59693 0 0))
+;;; Generated autoloads from wisent-dot.el
 
 (autoload 'wisent-dot-setup-parser "wisent-dot" "\
 Setup buffer for parse.
@@ -273,15 +267,8 @@ Setup buffer for parse.
 
 ;;;***
 
-;;;### (autoloads nil nil ("../../../../../.emacs.d/cedet/cogre/cogre-ascii.el"
-;;;;;;  "../../../../../.emacs.d/cedet/cogre/cogre-convert.el" "../../../../../.emacs.d/cedet/cogre/cogre-dot-mode.el"
-;;;;;;  "../../../../../.emacs.d/cedet/cogre/cogre-layout.el" "../../../../../.emacs.d/cedet/cogre/cogre-load.el"
-;;;;;;  "../../../../../.emacs.d/cedet/cogre/cogre-mode.el" "../../../../../.emacs.d/cedet/cogre/cogre-periodic.el"
-;;;;;;  "../../../../../.emacs.d/cedet/cogre/cogre-semantic.el" "../../../../../.emacs.d/cedet/cogre/cogre-srecode.el"
-;;;;;;  "../../../../../.emacs.d/cedet/cogre/cogre-uml.el" "../../../../../.emacs.d/cedet/cogre/cogre-utest.el"
-;;;;;;  "../../../../../.emacs.d/cedet/cogre/cogre.el" "../../../../../.emacs.d/cedet/cogre/picture-hack.el"
-;;;;;;  "../../../../../.emacs.d/cedet/cogre/wisent-dot-wy.el" "../../../../../.emacs.d/cedet/cogre/wisent-dot.el")
-;;;;;;  (20305 30509 233984))
+;;;### (autoloads nil nil ("cogre-load.el" "wisent-dot-wy.el") (21163
+;;;;;;  24461 744207 0))
 
 ;;;***
 

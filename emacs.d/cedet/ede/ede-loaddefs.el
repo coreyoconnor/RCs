@@ -443,8 +443,8 @@ Argument NEWVERSION is the version number to use in the current project.
 ;;;;;;  "ede-proj-elisp.el" "ede-proj-info.el" "ede-proj-misc.el"
 ;;;;;;  "ede-proj-obj.el" "ede-proj-prog.el" "ede-proj-scheme.el"
 ;;;;;;  "ede-proj-shared.el" "ede-proj-skel.el" "ede-source.el" "ede-speedbar.el"
-;;;;;;  "ede-system.el" "makefile-edit.el" "project-am.el") (21163
-;;;;;;  24458 118346 0))
+;;;;;;  "ede-system.el" "makefile-edit.el" "project-am.el") (21221
+;;;;;;  32282 124524 676000))
 
 ;;;***
 

@@ -2,8 +2,8 @@
 
 ;; Copyright (C) 2002, 2003, 2004 David Ponce
 
-;; Author: Corey O'Connor <corey@corey-mbp>
-;; Created: 2013-12-13 11:26:48-0800
+;; Author:  <coconnor@toast>
+;; Created: 2014-01-26 13:28:38-0800
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 

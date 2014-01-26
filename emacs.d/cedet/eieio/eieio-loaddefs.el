@@ -127,7 +127,7 @@ Works on grep, compile, or other type mode.
 ;;;### (autoloads nil nil ("eieio-base.el" "eieio-comp.el" "eieio-custom.el"
 ;;;;;;  "eieio-doc.el" "eieio-load.el" "eieio-speedbar.el" "eieio-test-methodinvoke.el"
 ;;;;;;  "eieio-test-mro.el" "eieio-test-persist.el" "eieio-tests.el"
-;;;;;;  "eieio.el") (21163 24431 158694 0))
+;;;;;;  "eieio.el") (21221 32250 405160 428000))
 
 ;;;***
 

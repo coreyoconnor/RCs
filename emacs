@@ -78,6 +78,9 @@
  '(ecb-windows-width 40)
  '(inhibit-startup-screen t))
 
+(setq auto-mode-alist (cons '("\\.v$" . coq-mode) auto-mode-alist))
+(autoload 'coq-mode "coq" "Major mode for editing Coq vernacular." t)
+
 (autoload 'markdown-mode "~/.emacs.d/markdown-mode/markdown-mode.el"
    "Major mode for editing Markdown files" t)
 

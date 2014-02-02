@@ -137,7 +137,7 @@ keybindings state_ref conf@(XConfig {XMonad.modMask = modMask}) = Map.fromList $
 
     -- quit, or restart
     , ((modMask .|. controlMask, xK_slash), restart "xmonad" True) -- @@ Restart xmonad
-    , ((modMask .|. controlMask .|. shiftMask, xK_slash), io (exitWith ExitSuccess)) -- @@ Restart xmonad
+    , ((modMask .|. controlMask .|. shiftMask, xK_slash), io (exitWith ExitSuccess)) -- @@ exit xmonad
 
     -- Toggle focus of the ghci prompt dedicated to this workspace.
     , ((modMask .|. controlMask, xK_p), toggle_ghci_prompt_focus state_ref)
@@ -415,7 +415,7 @@ manage_hook state_ref = do
             -- doF W.focusDown <+> doFullFloat
             doFullFloat
         , manageHook gnomeConfig
-        ] <+> manageDocks 
+        ] <+> manageDocks <+> pre_manage_hook state_ref
     
 startup :: IORef DesktopState -> X ()
 startup state_ref = do
@@ -427,14 +427,8 @@ spawn_startup_programs :: X ()
 spawn_startup_programs = do
     -- startup an xterm dedicated to a GHCI prompt. Use a specific class so we can identify it
     -- later.
-    -- spawn_GHCI
-    -- spawn "xterm +sb -class xmonad_TopTerm -e /bin/bash -c 'top'"
-    -- spawn "gnome-settings-daemon"
-    -- spawn "gnome-power-manager --verbose --no-daemon"
-    -- spawn "gnome-panel"
-    -- spawn "nm-applet --no-sm"
-    -- spawn "gnome-volume-control-applet"
-    -- spawn "gnome-screensaver"
+    spawn_GHCI
+    spawn "xterm +sb -class xmonad_TopTerm -e /bin/sh -lc 'top'"
     return ()
 
 spawn_GHCI :: X ()
@@ -473,7 +467,7 @@ main = do
             keys = keybindings state_ref,
             modMask = modMask,
             manageHook = manage_hook state_ref,
-            preManageHook = pre_manage_hook state_ref,
+            --preManageHook = pre_manage_hook state_ref,
             startupHook = startup state_ref,
             mouseBindings = mouse_bindings
         }

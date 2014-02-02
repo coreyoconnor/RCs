@@ -1,7 +1,8 @@
-#!/bin/sh
+# symlink to ~/.xprofile
+# sourced by Xsession script of nix
 
 export XAPPLRESDIR=$HOME/.app-defaults
 #export GTK_MODULES=$GTK_MODULES:globalmenu-gnome
-#xcompmgr -n &
+xcompmgr -n &
 xmodmap $HOME/Development/RCs/xmodmap
 

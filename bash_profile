@@ -35,4 +35,6 @@ alias gopen='gnome-open'
 alias global-cabal-install='cabal install --global -p --enable-documentation --root-cmd=sudo'
 alias user-cabal-install='cabal install --user -p --enable-documentation --root-cmd=sudo'
 alias head-cabal-install='cabal install --with-compiler=/home/coconnor/Development/ghc/inplace/bin/ghc-stage2 --with-hc-pkg=/home/coconnor/Development/ghc/inplace/bin/ghc-pkg'
+alias gcam='git commit -a -m'
+alias gp='git push'
 

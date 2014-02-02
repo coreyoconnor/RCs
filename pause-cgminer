@@ -1,0 +1,3 @@
+#!/bin/sh
+sudo systemctl stop cgminer.service
+nohup sudo bash -c 'sleep 1500; systemctl start cgminer.service' > /dev/null &

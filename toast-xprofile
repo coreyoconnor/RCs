@@ -5,4 +5,8 @@ export XAPPLRESDIR=$HOME/.app-defaults
 #export GTK_MODULES=$GTK_MODULES:globalmenu-gnome
 xcompmgr -n &
 xmodmap $HOME/Development/RCs/xmodmap
-
+xscreensaver -nosplash &
+xautolock -locker "$HOME/.nix-profile/bin/xscreensaver-command -lock" \
+          -nowlocker "$HOME/.nix-profile/bin/xscreensaver-command -lock" \
+          -corners '+000' &
+xautolock -enable

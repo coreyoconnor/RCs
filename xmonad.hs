@@ -106,8 +106,8 @@ keybindings state_ref conf@(XConfig {XMonad.modMask = modMask}) = Map.fromList $
      - Aside from a shortcut to launch an XTerm or two I rely on the handy autocomplete of
      - shellPrompt to launch everything.
      -}
-    [ ((modMask .|. shiftMask, xK_apostrophe ), spawn "xterm") -- @@ Launch an xterm
-    , ((modMask .|. shiftMask, xK_u          ), spawn "cd Development && xterm") -- @@ Launch an xterm
+    [ ((modMask .|. shiftMask, xK_apostrophe ), spawn "xterm -ls") -- @@ Launch an xterm
+    , ((modMask .|. shiftMask, xK_u          ), spawn "cd Development && xterm -ls") -- @@ Launch an xterm
     , ((modMask .|. controlMask, xK_apostrophe), shellPrompt defaultXPConfig)
     , ((modMask .|. controlMask, xK_k     ), kill) -- @@ Close the focused window
 

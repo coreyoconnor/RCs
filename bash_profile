@@ -37,4 +37,4 @@ alias user-cabal-install='cabal install --user -p --enable-documentation --root-
 alias head-cabal-install='cabal install --with-compiler=/home/coconnor/Development/ghc/inplace/bin/ghc-stage2 --with-hc-pkg=/home/coconnor/Development/ghc/inplace/bin/ghc-pkg'
 alias gcam='git commit -a -m'
 alias gp='git push'
-
+alias xh='xterm -ls &'

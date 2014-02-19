@@ -39,7 +39,7 @@ set shellcmdflag=-ic
 
 function! s:HsSearch(regex_txt)
     try
-        execute 'vim' . a:regex_txt . ' **/*.*hs'
+        execute 'noautocmd vim' . a:regex_txt . ' **/*.*hs'
 	catch /.*/
     endtry
     cope
@@ -59,12 +59,21 @@ command! -nargs=+ DefSearch :call s:FunSearch('<args>')
 
 function! s:CSearch(regex_txt)
     try
-        execute 'vim' . a:regex_txt . ' **/*.*c **/*.cpp **/*.h'
+        execute 'noautocmd vim' . a:regex_txt . ' **/*.*c **/*.cpp **/*.h'
 	catch /.*/
     endtry
     cope
 endfunction
 command! -nargs=+ CSearch :call s:CSearch('<args>')
+
+function! s:NixSearch(regex_txt)
+    try
+        execute 'noautocmd vim' . a:regex_txt . ' **/*.nix'
+	catch /.*/
+    endtry
+    cope
+endfunction
+command! -nargs=+ NixSearch :call s:NixSearch('<args>')
 
 let g:haddock_browser = "/usr/bin/chromium-browser"
 let g:haddock_docdir = "/usr/local/share/doc/ghc/"

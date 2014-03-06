@@ -30,9 +30,10 @@ if (!exists("b:ghc_staticoptions"))
 endif
 
 " set makeprg (for quickfix mode) 
-execute 'setlocal makeprg=' . g:ghc . '\ ' . escape(b:ghc_staticoptions,' ') .'\ -e\ :q\ %'
+" execute 'setlocal makeprg=' . g:ghc . '\ ' . escape(b:ghc_staticoptions,' ') .'\ -e\ :q\ %'
 "execute 'setlocal makeprg=' . g:ghc .'\ -e\ :q\ %'
 "execute 'setlocal makeprg=' . g:ghc .'\ --make\ %'
+execute 'setlocal makeprg=cabal\ test'
 
 " quickfix mode: 
 " fetch file/line-info from error message
@@ -79,7 +80,7 @@ set cmdheight=3
 command! GHCStaticOptions call GHC_StaticOptions()
 function! GHC_StaticOptions()
   let b:ghc_staticoptions = input('GHC static options: ',b:ghc_staticoptions)
-  execute 'setlocal makeprg=' . g:ghc . '\ ' . escape(b:ghc_staticoptions,' ') .'\ -e\ :q\ %'
+  " execute 'setlocal makeprg=' . g:ghc . '\ ' . escape(b:ghc_staticoptions,' ') .'\ -e\ :q\ %'
   let b:my_changedtick -=1
 endfunction
 

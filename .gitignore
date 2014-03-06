@@ -4,5 +4,4 @@ dist/
 _darcs
 *.elc
 *~
-vim/bundle/.neobundle/
-vim/bundle/vim-multiple-cursors/
+vim/bundle

@@ -195,6 +195,7 @@ endif
 call neobundle#rc(expand('~/.vim/bundle/'))
 NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'pbrisbin/html-template-syntax'
+NeoBundle 'vim-pandoc/vim-pandoc'
 NeoBundleCheck
 
 syn on

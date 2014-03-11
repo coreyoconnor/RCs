@@ -1,4 +1,4 @@
-set nocompatible
+set nocompatible | filetype indent plugin on | syn on
 
 autocmd GUIEnter * set lines=45 columns=143
 autocmd GUIEnter * set guifont=Menlo:h18
@@ -24,7 +24,6 @@ set foldmethod=syntax
 filetype plugin on
 colorscheme darkblue
 
-" setlocal spell spelllang=en_us
 map <F4> :let &lines=&lines-1
 map <S-F4> :let &lines=&lines+1
 
@@ -196,9 +195,30 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'pbrisbin/html-template-syntax'
 NeoBundle 'vim-pandoc/vim-pandoc'
+NeoBundle 'elzr/vim-json'
 NeoBundleCheck
 
 syn on
+
+set cmdheight=2
+
+fun! SetupVAM()
+  let c = get(g:, 'vim_addon_manager', {})
+  let g:vim_addon_manager = c
+  let c.plugin_root_dir = expand('$HOME', 1) . '/.vim/vim-addons'
+  " most used options you may want to use:
+  " let c.log_to_buf = 1
+  " let c.auto_install = 0
+  let &rtp.=(empty(&rtp)?'':',').c.plugin_root_dir.'/vim-addon-manager'
+  if !isdirectory(c.plugin_root_dir.'/vim-addon-manager/autoload')
+    execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '
+        \       shellescape(c.plugin_root_dir.'/vim-addon-manager', 1)
+  endif
+  call vam#ActivateAddons([], {'auto_install' : 0})
+endfun
+
+call SetupVAM()
+VAMActivate vim-addon-nix
 
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p

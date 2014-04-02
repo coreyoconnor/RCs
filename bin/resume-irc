@@ -1,0 +1,2 @@
+#!/bin/bash
+screen -d -R irssi -t irssi irssi

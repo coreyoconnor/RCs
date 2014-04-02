@@ -3,14 +3,14 @@ import XMonad
 import qualified XMonad.StackSet as W
 
 import XMonad.Config.Desktop (desktopLayoutModifiers)
-import XMonad.Config.Gnome
+import XMonad.Config.Kde
 import XMonad.Util.EZConfig
 
 -- Shell prompt FTW
 import XMonad.Prompt
 import XMonad.Prompt.Shell
 
--- I use xmonad in a Gnome session and I dedicate the top area of the screen to some windows managed
+-- I use xmonad in a KDE session and I dedicate the top area of the screen to some windows managed
 -- independently. ManageDocks is required for XMonad to respect the struts established for these
 -- areas.
 import XMonad.Hooks.ManageDocks
@@ -414,12 +414,14 @@ manage_hook state_ref = do
         , isFullscreen --> do
             -- doF W.focusDown <+> doFullFloat
             doFullFloat
-        , manageHook gnomeConfig
-        ] <+> manageDocks <+> pre_manage_hook state_ref
+        , manageHook kdeConfig
+        , manageDocks
+        , pre_manage_hook state_ref
+        ]
     
 startup :: IORef DesktopState -> X ()
 startup state_ref = do
-    gnomeRegister
+    -- gnomeRegister
     spawn_startup_programs
     return ()
 
@@ -453,7 +455,7 @@ main = do
     -- beyond alt/option and control. Which I think is required for good interaction with the window
     -- manager.
     let modMask = mod4Mask
-    xmonad $ gnomeConfig
+    xmonad $ kdeConfig
         {
             workspaces = workspace_IDs,
             layoutHook = desktopLayoutModifiers $ smartBorders 

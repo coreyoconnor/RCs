@@ -8,6 +8,7 @@
       };
 
       wine = pkgs.stdenv.lib.overrideDerivation pkgs.wineUnstable (oldAttrs: {
+        name = "wine-head";
         src = pkgs.fetchgit {
           url = "git@github.com:coreyoconnor/wine.git";
         };

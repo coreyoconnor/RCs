@@ -198,6 +198,8 @@ NeoBundle 'vim-pandoc/vim-pandoc'
 NeoBundle 'elzr/vim-json'
 NeoBundle 'junkblocker/patchreview-vim'
 NeoBundle 'derekwyatt/vim-fswitch'
+NeoBundle 'vim-scripts/genutils'
+NeoBundle 'pydave/vim-perforce'
 NeoBundleCheck
 
 syn on

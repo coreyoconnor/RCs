@@ -38,3 +38,6 @@ alias head-cabal-install='cabal install --with-compiler=/home/coconnor/Developme
 alias gcam='git commit -a -m'
 alias gp='git push'
 alias xh='xterm -ls &'
+
+alias ta='todo.sh add'
+alias tl='todo.sh list'

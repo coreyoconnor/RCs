@@ -7,9 +7,9 @@
           useInfinality = true;
       };
 
-      wine = pkgs.stdenv.lib.overrideDerivation pkgs.wineUnstable (oldAttrs: {
+      wine = pkgs.misc.debugVersion (pkgs.stdenv.lib.overrideDerivation pkgs.wineUnstable (oldAttrs: {
         name = "wine-head";
         src = ../wine;
-      });
+      }));
   };
 }

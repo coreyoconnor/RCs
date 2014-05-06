@@ -196,6 +196,8 @@ NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'pbrisbin/html-template-syntax'
 NeoBundle 'vim-pandoc/vim-pandoc'
 NeoBundle 'elzr/vim-json'
+NeoBundle 'junkblocker/patchreview-vim'
+NeoBundle 'derekwyatt/vim-fswitch'
 NeoBundleCheck
 
 syn on

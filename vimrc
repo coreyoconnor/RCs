@@ -199,7 +199,7 @@ NeoBundle 'elzr/vim-json'
 NeoBundle 'junkblocker/patchreview-vim'
 NeoBundle 'derekwyatt/vim-fswitch'
 NeoBundle 'vim-scripts/genutils'
-NeoBundle 'pydave/vim-perforce'
+NeoBundle 'coreyoconnor/vim-perforce'
 NeoBundleCheck
 
 syn on
@@ -226,3 +226,8 @@ VAMActivate vim-addon-nix
 
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
+
+"let g:p4Presets = 'localhost:4242 coconnor_SBReadFile_mac ben'
+"let g:p4DefaultPreset = 'localhost:4242 coconnor_SBReadFile_mac ben'
+"let g:p4EnableActiveStatus=1
+"let g:p4OptimizeActiveStatus=1

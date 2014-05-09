@@ -114,7 +114,9 @@ _lang	haskellmode.txt	/*_lang*
 _opt	haskellmode.txt	/*_opt*
 _si	haskellmode.txt	/*_si*
 _t	haskellmode.txt	/*_t*
+actions	vim-addon-actions.txt	/*actions*
 basic-snippet	snippets_emu.txt	/*basic-snippet*
+cached_file_contents	cached_file_contents.txt	/*cached_file_contents*
 cocoa	cocoa.txt	/*cocoa*
 cocoa-author	cocoa.txt	/*cocoa-author*
 cocoa-commands	cocoa.txt	/*cocoa-commands*
@@ -129,6 +131,10 @@ cocoa-suggested-plugins	cocoa.txt	/*cocoa-suggested-plugins*
 cocoa.txt	cocoa.txt	/*cocoa.txt*
 compiler-ghc	haskellmode.txt	/*compiler-ghc*
 creating-snippets	snippets_emu.txt	/*creating-snippets*
+faked-function-reference	funcref.txt	/*faked-function-reference*
+funcref	funcref.txt	/*funcref*
+funcref#Call	funcref.txt	/*funcref#Call*
+funcref#Function	funcref.txt	/*funcref#Function*
 g:ghc	haskellmode.txt	/*g:ghc*
 g:haddock_browser	haskellmode.txt	/*g:haddock_browser*
 g:haddock_browser_callformat	haskellmode.txt	/*g:haddock_browser_callformat*
@@ -182,6 +188,8 @@ snippets_emu-features	snippets_emu.txt	/*snippets_emu-features*
 snippets_emu-options	snippets_emu.txt	/*snippets_emu-options*
 snippets_emu-troubleshooting	snippets_emu.txt	/*snippets_emu-troubleshooting*
 snippets_emu.txt	snippets_emu.txt	/*snippets_emu.txt*
+tiny-cmd	tiny_cmd.txt	/*tiny-cmd*
+vim-addon-goto-thing-at-cursor.txt	vim-addon-goto-thing-at-currsor.txt	/*vim-addon-goto-thing-at-cursor.txt*
 xml-plugin-callbacks	xml-plugin.txt	/*xml-plugin-callbacks*
 xml-plugin-callbacks	xml-plugin.txt	/*xml-plugin-callbacks*
 xml-plugin-html	xml-plugin.txt	/*xml-plugin-html*

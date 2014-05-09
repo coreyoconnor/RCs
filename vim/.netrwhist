@@ -1,8 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_cnt =7
 let g:netrw_dirhist_1='/Users/corey/Development/testing/behavioral_tests/sikuli_development/capistrano'
 let g:netrw_dirhist_2='/Users/corey/Development/qa-tools/prod/hobson-jenkins/non_chef_config_data/vm-host'
 let g:netrw_dirhist_3='/Users/corey/Development/manifest'
 let g:netrw_dirhist_4='/Users/corey/Development/qa-tools/prod/alfred-jenkins-config/bin'
 let g:netrw_dirhist_5='/Users/corey/Development/chef/chef-repo'
 let g:netrw_dirhist_6='/home/coconnor/Development/nixpkgs/nixos/modules'
+let g:netrw_dirhist_7='/Users/coconnor/.vim'

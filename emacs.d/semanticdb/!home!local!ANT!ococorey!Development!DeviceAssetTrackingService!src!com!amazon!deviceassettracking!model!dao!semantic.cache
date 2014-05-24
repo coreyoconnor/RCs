@@ -1,0 +1,1129 @@
+;; Object dao/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "dao/"
+  :tables (list 
+   (semanticdb-table "DeviceDao.java"
+    :major-mode 'malabar-mode
+    :tags 
+        '( ("com.amazon.deviceassettracking.model.dao" package nil (reparse-symbol package_declaration) [1 50])
+            ("java.util.List" include nil (reparse-symbol import_declaration) [52 74])
+            ("java.util.Map" include nil (reparse-symbol import_declaration) [75 96])
+            ("java.util.Set" include nil (reparse-symbol import_declaration) [97 118])
+            ("com.amazon.deviceassettracking.Pagination" include nil (reparse-symbol import_declaration) [120 169])
+            ("com.amazon.deviceassettracking.model.domain.DeviceConditionDB" include nil (reparse-symbol import_declaration) [170 239])
+            ("com.amazon.deviceassettracking.model.domain.DeviceDB" include nil (reparse-symbol import_declaration) [240 300])
+            ("com.amazon.deviceassettracking.model.domain.DeviceStateDB" include nil (reparse-symbol import_declaration) [301 366])
+            ("com.amazon.deviceassettracking.model.domain.FinancialOwnerDB" include nil (reparse-symbol import_declaration) [367 435])
+            ("com.amazon.deviceassettracking.model.domain.FunctionalGroupDB" include nil (reparse-symbol import_declaration) [436 505])
+            ("com.amazon.deviceassettracking.model.domain.HardwareBuildDB" include nil (reparse-symbol import_declaration) [506 573])
+            ("com.amazon.deviceassettracking.model.domain.HardwareConfigDB" include nil (reparse-symbol import_declaration) [574 642])
+            ("com.amazon.deviceassettracking.model.domain.HardwareProgramDB" include nil (reparse-symbol import_declaration) [643 712])
+            ("com.amazon.deviceassettracking.model.domain.LocationDB" include nil (reparse-symbol import_declaration) [713 775])
+            ("com.amazon.deviceassettracking.model.domain.UserDB" include nil (reparse-symbol import_declaration) [776 834])
+            ("DeviceDao" type
+               (:typemodifiers ("public")
+                :interfaces ("BaseDao<DeviceDB>")
+                :members 
+                  ( ("getAllAssetTags" function
+                       (:typemodifiers ("public")
+                        :type "Set<String>")
+                        (reparse-symbol abstract_method_declaration) [1095 1132])
+                    ("getAllDeviceSerialNumbers" function
+                       (:typemodifiers ("public")
+                        :type "Set<String>")
+                        (reparse-symbol abstract_method_declaration) [1304 1351])
+                    ("getByAssetTag" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("assetTag" variable (:type "String") (reparse-symbol formal_parameter) [1545 1560]))                          
+                        :type "DeviceDB")
+                        (reparse-symbol abstract_method_declaration) [1515 1562])
+                    ("getByDeviceSerialNumber" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("deviceSerialNumber" variable (:type "String") (reparse-symbol formal_parameter) [1860 1885])
+                            ("flush" variable (:type "boolean") (reparse-symbol formal_parameter) [1887 1900]))                          
+                        :type "DeviceDB")
+                        (reparse-symbol abstract_method_declaration) [1820 1902])
+                    ("countWithHardwareConfig" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("hardwareConfig" variable (:type "HardwareConfigDB") (reparse-symbol formal_parameter) [2182 2213]))                          
+                        :type "Long")
+                        (reparse-symbol abstract_method_declaration) [2146 2215])
+                    ("countWithFinancialOwner" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("financialOwner" variable (:type "FinancialOwnerDB") (reparse-symbol formal_parameter) [2446 2477]))                          
+                        :type "long")
+                        (reparse-symbol abstract_method_declaration) [2410 2479])
+                    ("countWithFunctionalGroup" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("functionalGroup" variable (:type "FunctionalGroupDB") (reparse-symbol formal_parameter) [2764 2797]))                          
+                        :type "long")
+                        (reparse-symbol abstract_method_declaration) [2727 2799])
+                    ("countWithDeviceCondition" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("deviceCondition" variable (:type "DeviceConditionDB") (reparse-symbol formal_parameter) [3034 3067]))                          
+                        :type "long")
+                        (reparse-symbol abstract_method_declaration) [2997 3069])
+                    ("countWithHardwareBuildInStorage" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("hardwareBuild" variable
+                               (:typemodifiers ("final")
+                                :type "HardwareBuildDB")
+                                (reparse-symbol formal_parameter) [3455 3490]))                          
+                        :type "Map<HardwareConfigDB,Integer>")
+                        (reparse-symbol abstract_method_declaration) [3385 3492])
+                    ("countWithDeviceState" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("deviceState" variable (:type "DeviceStateDB") (reparse-symbol formal_parameter) [3711 3736]))                          
+                        :type "long")
+                        (reparse-symbol abstract_method_declaration) [3678 3738])
+                    ("countWithLocation" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("location" variable (:type "LocationDB") (reparse-symbol formal_parameter) [3946 3965]))                          
+                        :type "long")
+                        (reparse-symbol abstract_method_declaration) [3916 3967])
+                    ("countDevices" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("requester" variable (:type "String") (reparse-symbol formal_parameter) [4337 4353])
+                            ("termMap" variable (:type "Map<String,List<DeviceDaoFindTerm>>") (reparse-symbol formal_parameter) [4355 4399])
+                            ("groupBy" variable (:type "String") (reparse-symbol formal_parameter) [4401 4415]))                          
+                        :type "Map<Long,Integer>")
+                        (reparse-symbol abstract_method_declaration) [4298 4417])
+                    ("findDevices" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("requester" variable (:type "String") (reparse-symbol formal_parameter) [4724 4740])
+                            ("terms" variable (:type "Map<String,List<DeviceDaoFindTerm>>") (reparse-symbol formal_parameter) [4742 4784])
+                            ("pagination" variable (:type "Pagination") (reparse-symbol formal_parameter) [4794 4815]))                          
+                        :type "List<DeviceDB>")
+                        (reparse-symbol abstract_method_declaration) [4690 4817])
+                    ("findDevices" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("requester" variable (:type "String") (reparse-symbol formal_parameter) [5170 5186])
+                            ("terms" variable (:type "Map<String,List<DeviceDaoFindTerm>>") (reparse-symbol formal_parameter) [5188 5230])
+                            ("pagination" variable (:type "Pagination") (reparse-symbol formal_parameter) [5240 5261])
+                            ("skipHardwareProgramPermissions" variable (:type "boolean") (reparse-symbol formal_parameter) [5263 5301]))                          
+                        :type "List<DeviceDB>")
+                        (reparse-symbol abstract_method_declaration) [5136 5303])
+                    ("countDevicesAssignedTo" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("userDB" variable (:type "UserDB") (reparse-symbol formal_parameter) [5681 5694])
+                            ("hardwareProgramDB" variable (:type "HardwareProgramDB") (reparse-symbol formal_parameter) [5696 5731]))                          
+                        :type "long")
+                        (reparse-symbol abstract_method_declaration) [5646 5733])
+                    ("GroupBy" type
+                       (:typemodifiers ("public")
+                        :members 
+                          ( ("CONFIG_ID" type
+                               (:enum-constant-flag t
+                                :type "GroupBy")
+                                (reparse-symbol enum_constant) [5871 5893])
+                            ("value" variable
+                               (:typemodifiers ("private" "final")
+                                :type "String")
+                                (reparse-symbol field_declaration) [5904 5931])
+                            ("GroupBy" function
+                               (:constructor-flag t
+                                :typemodifiers ("private")
+                                :arguments 
+                                  ( ("value" variable
+                                       (:typemodifiers ("final")
+                                        :type "String")
+                                        (reparse-symbol formal_parameter) [5957 5975]))                                  )
+                                (reparse-symbol constructor_declaration) [5941 6020])
+                            ("equals" function
+                               (:typemodifiers ("public")
+                                :arguments 
+                                  ( ("value" variable (:type "String") (reparse-symbol formal_parameter) [6052 6064]))                                  
+                                :type "boolean")
+                                (reparse-symbol method_declaration) [6030 6122]))                          
+                        :type "enum")
+                        (reparse-symbol enum_declaration) [5841 6128]))                  
+                :type "interface")
+                (reparse-symbol interface_declaration) [891 6130]))          
+    :file "DeviceDao.java"
+    :pointmax 6131
+    :fsize 6130
+    :lastmodtime '(21366 33542 959223 64000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "BaseDao.java"
+    :major-mode 'malabar-mode
+    :tags 
+        '( ("com.amazon.deviceassettracking.model.dao" package nil (reparse-symbol package_declaration) [1 50])
+            ("java.util.List" include nil (reparse-symbol import_declaration) [52 74])
+            ("org.hibernate.Session" include nil (reparse-symbol import_declaration) [76 105])
+            ("org.hibernate.Transaction" include nil (reparse-symbol import_declaration) [106 139])
+            ("com.amazon.deviceassettracking.Id" include nil (reparse-symbol import_declaration) [141 182])
+            ("BaseDao" type
+               (:typemodifiers ("public")
+                :template-specifier "<T>"
+                :members 
+                  ( ("beginTransaction" function
+                       (:typemodifiers ("public")
+                        :type "Transaction")
+                        (reparse-symbol abstract_method_declaration) [387 425])
+                    ("getById" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("id" variable (:type "long") (reparse-symbol formal_parameter) [665 672]))                          
+                        :type "T")
+                        (reparse-symbol abstract_method_declaration) [648 674])
+                    ("evict" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("o" variable (:type "Object") (reparse-symbol formal_parameter) [911 919]))                          
+                        :type "void")
+                        (reparse-symbol abstract_method_declaration) [893 921])
+                    ("getById" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("id" variable (:type "Id") (reparse-symbol formal_parameter) [1194 1199]))                          
+                        :type "T")
+                        (reparse-symbol abstract_method_declaration) [1177 1201])
+                    ("list" function
+                       (:typemodifiers ("public")
+                        :type "List<T>")
+                        (reparse-symbol abstract_method_declaration) [1319 1341])
+                    ("save" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("o" variable (:type "T") (reparse-symbol formal_parameter) [1541 1544]))                          
+                        :type "T")
+                        (reparse-symbol abstract_method_declaration) [1527 1546])
+                    ("save" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("o" variable (:type "T") (reparse-symbol formal_parameter) [1877 1880])
+                            ("flush" variable (:type "boolean") (reparse-symbol formal_parameter) [1882 1895]))                          
+                        :type "T")
+                        (reparse-symbol abstract_method_declaration) [1863 1897])
+                    ("saveOrUpdate" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("o" variable (:type "T") (reparse-symbol formal_parameter) [2164 2167]))                          
+                        :type "T")
+                        (reparse-symbol abstract_method_declaration) [2142 2169])
+                    ("saveOrUpdate" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("o" variable (:type "T") (reparse-symbol formal_parameter) [2540 2543])
+                            ("flush" variable (:type "boolean") (reparse-symbol formal_parameter) [2545 2558]))                          
+                        :type "T")
+                        (reparse-symbol abstract_method_declaration) [2518 2560])
+                    ("update" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("o" variable (:type "T") (reparse-symbol formal_parameter) [2893 2896])
+                            ("flush" variable (:type "boolean") (reparse-symbol formal_parameter) [2898 2911]))                          
+                        :type "T")
+                        (reparse-symbol abstract_method_declaration) [2877 2913])
+                    ("sessionClear" function
+                       (:typemodifiers ("public")
+                        :type "void")
+                        (reparse-symbol abstract_method_declaration) [2976 3003]))                  
+                :type "interface")
+                (reparse-symbol interface_declaration) [246 3005]))          
+    :file "BaseDao.java"
+    :pointmax 3006
+    :fsize 3005
+    :lastmodtime '(21366 33542 959223 64000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "BaseDaoImpl.java"
+    :major-mode 'malabar-mode
+    :tags 
+        '( ("com.amazon.deviceassettracking.model.dao" package nil (reparse-symbol package_declaration) [1 50])
+            ("java.util.List" include nil (reparse-symbol import_declaration) [52 74])
+            ("org.apache.log4j.Logger" include nil (reparse-symbol import_declaration) [76 107])
+            ("org.hibernate.Criteria" include nil (reparse-symbol import_declaration) [108 138])
+            ("org.hibernate.HibernateException" include nil (reparse-symbol import_declaration) [139 179])
+            ("org.hibernate.NonUniqueResultException" include nil (reparse-symbol import_declaration) [180 226])
+            ("org.hibernate.Session" include nil (reparse-symbol import_declaration) [227 256])
+            ("org.hibernate.SessionFactory" include nil (reparse-symbol import_declaration) [257 293])
+            ("org.hibernate.Transaction" include nil (reparse-symbol import_declaration) [294 327])
+            ("org.hibernate.criterion.Criterion" include nil (reparse-symbol import_declaration) [328 369])
+            ("org.hibernate.criterion.Projections" include nil (reparse-symbol import_declaration) [370 413])
+            ("org.hibernate.criterion.Restrictions" include nil (reparse-symbol import_declaration) [414 458])
+            ("org.hibernate.exception.ConstraintViolationException" include nil (reparse-symbol import_declaration) [459 519])
+            ("org.springframework.beans.factory.annotation.Autowired" include nil (reparse-symbol import_declaration) [520 582])
+            ("org.springframework.stereotype.Repository" include nil (reparse-symbol import_declaration) [583 632])
+            ("com.amazon.deviceassettracking.Id" include nil (reparse-symbol import_declaration) [634 675])
+            ("com.amazon.deviceassettracking.exception.DatabaseRuntimeException" include nil (reparse-symbol import_declaration) [676 749])
+            ("com.amazon.deviceassettracking.exception.NameAlreadyExistsException" include nil (reparse-symbol import_declaration) [750 825])
+            ("com.amazon.deviceassettracking.helper.IdHelper" include nil (reparse-symbol import_declaration) [826 880])
+            ("com.amazon.kisit.metrics.coral.EventRecorder" include nil (reparse-symbol import_declaration) [881 933])
+            ("BaseDaoImpl" type
+               (:template-specifier "<T>"
+                :typemodifiers ("abstract" "public")
+                :interfaces ("BaseDao<T>")
+                :members 
+                  ( ("LOGGER" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "Logger")
+                        (reparse-symbol field_declaration) [1134 1207])
+                    ("COLUMN_IS_ACTIVE" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol field_declaration) [1255 1311])
+                    ("COLUMN_NAME" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol field_declaration) [1353 1402])
+                    ("CONSTRAINT_UNIQUE_NAME_PATTERN" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol field_declaration) [1468 1557])
+                    ("MODULE_NAME" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol field_declaration) [1620 1672])
+                    ("EVENT_GET_CURRENT_SESSION_HIBERNATE_EXCEPTION" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol field_declaration) [1757 1871])
+                    ("eventRecorder" variable
+                       (:typemodifiers ("private" "final")
+                        :type "EventRecorder")
+                        (reparse-symbol field_declaration) [1931 1973])
+                    ("sessionFactory" variable (:type "SessionFactory") (reparse-symbol field_declaration) [2039 2069])
+                    ("clazz" variable
+                       (:typemodifiers ("protected" "final")
+                        :type "Class<T>")
+                        (reparse-symbol field_declaration) [2152 2183])
+                    ("BaseDaoImpl" function
+                       (:constructor-flag t
+                        :typemodifiers ("protected")
+                        :arguments 
+                          ( ("clazz" variable (:type "Class<T>") (reparse-symbol formal_parameter) [2265 2279]))                          )
+                        (reparse-symbol constructor_declaration) [2243 2383])
+                    ("getSession" function
+                       (:typemodifiers ("protected")
+                        :type "Session")
+                        (reparse-symbol method_declaration) [2497 2806])
+                    ("beginTransaction" function (:type "Transaction") (reparse-symbol method_declaration) [2833 2995])
+                    ("evict" function
+                       (:arguments 
+                          ( ("o" variable (:type "Object") (reparse-symbol formal_parameter) [3037 3045]))                          
+                        :type "void")
+                        (reparse-symbol method_declaration) [3026 3085])
+                    ("countRows" function
+                       (:typemodifiers ("protected")
+                        :arguments 
+                          ( ("criteria" variable (:type "Criteria") (reparse-symbol formal_parameter) [3333 3350]))                          
+                        :type "Long")
+                        (reparse-symbol method_declaration) [3308 3578])
+                    ("createCriteria" function
+                       (:typemodifiers ("protected")
+                        :type "Criteria")
+                        (reparse-symbol method_declaration) [3702 3796])
+                    ("getById" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("id" variable (:type "long") (reparse-symbol formal_parameter) [3868 3875]))                          
+                        :type "T")
+                        (reparse-symbol method_declaration) [3851 4102])
+                    ("getById" function
+                       (:arguments 
+                          ( ("id" variable (:type "Id") (reparse-symbol formal_parameter) [4139 4144]))                          
+                        :type "T")
+                        (reparse-symbol method_declaration) [4129 4201])
+                    ("list" function
+                       (:typemodifiers ("public")
+                        :type "List<T>")
+                        (reparse-symbol method_declaration) [4256 4533])
+                    ("save" function
+                       (:arguments 
+                          ( ("o" variable (:type "T") (reparse-symbol formal_parameter) [4567 4570]))                          
+                        :type "T")
+                        (reparse-symbol method_declaration) [4560 4610])
+                    ("save" function
+                       (:arguments 
+                          ( ("o" variable (:type "T") (reparse-symbol formal_parameter) [4644 4647])
+                            ("flush" variable (:type "boolean") (reparse-symbol formal_parameter) [4649 4662]))                          
+                        :type "T")
+                        (reparse-symbol method_declaration) [4637 5392])
+                    ("saveOrUpdate" function
+                       (:arguments 
+                          ( ("o" variable (:type "T") (reparse-symbol formal_parameter) [5434 5437]))                          
+                        :type "T")
+                        (reparse-symbol method_declaration) [5419 5485])
+                    ("saveOrUpdate" function
+                       (:arguments 
+                          ( ("o" variable (:type "T") (reparse-symbol formal_parameter) [5527 5530])
+                            ("flush" variable (:type "boolean") (reparse-symbol formal_parameter) [5532 5545]))                          
+                        :type "T")
+                        (reparse-symbol method_declaration) [5512 6175])
+                    ("update" function
+                       (:arguments 
+                          ( ("o" variable (:type "T") (reparse-symbol formal_parameter) [6211 6214])
+                            ("flush" variable (:type "boolean") (reparse-symbol formal_parameter) [6216 6229]))                          
+                        :type "T")
+                        (reparse-symbol method_declaration) [6202 6925])
+                    ("getByName" function
+                       (:typemodifiers ("protected")
+                        :arguments 
+                          ( ("name" variable
+                               (:typemodifiers ("final")
+                                :type "String")
+                                (reparse-symbol formal_parameter) [7164 7181]))                          
+                        :type "T")
+                        (reparse-symbol method_declaration) [7142 7242])
+                    ("getByName" function
+                       (:arguments 
+                          ( ("name" variable
+                               (:typemodifiers ("final")
+                                :type "String")
+                                (reparse-symbol formal_parameter) [7603 7620])
+                            ("customCriteria" variable
+                               (:vararg-flag t
+                                :typemodifiers ("final")
+                                :type "Criterion")
+                                (reparse-symbol formal_parameter) [7622 7655]))                          
+                        :type "T")
+                        (reparse-symbol method_declaration) [7591 8166])
+                    ("listActive" function (:type "List<T>") (reparse-symbol method_declaration) [8342 8678])
+                    ("verifyNameNotADupe" function
+                       (:typemodifiers ("protected")
+                        :arguments 
+                          ( ("o" variable
+                               (:typemodifiers ("final")
+                                :type "T")
+                                (reparse-symbol formal_parameter) [9306 9315])
+                            ("name" variable
+                               (:typemodifiers ("final")
+                                :type "String")
+                                (reparse-symbol formal_parameter) [9317 9334])
+                            ("idFieldName" variable
+                               (:typemodifiers ("final")
+                                :type "String")
+                                (reparse-symbol formal_parameter) [9336 9360])
+                            ("id" variable
+                               (:typemodifiers ("final")
+                                :type "Long")
+                                (reparse-symbol formal_parameter) [9362 9375])
+                            ("customCriteria" variable
+                               (:vararg-flag t
+                                :typemodifiers ("final")
+                                :type "Criterion")
+                                (reparse-symbol formal_parameter) [9385 9418]))                          
+                        :type "void")
+                        (reparse-symbol method_declaration) [9272 10266])
+                    ("createIsActiveRestriction" function
+                       (:typemodifiers ("protected" "static")
+                        :type "Criterion")
+                        (reparse-symbol method_declaration) [10454 10572])
+                    ("sessionClear" function (:type "void") (reparse-symbol method_declaration) [10603 10660]))                  
+                :type "class")
+                (reparse-symbol class_declaration) [1041 10662]))          
+    :file "BaseDaoImpl.java"
+    :pointmax 10663
+    :fsize 10662
+    :lastmodtime '(21366 33542 959223 64000)
+    :unmatched-syntax '((PUBLIC 10596 . 10602) (PROTECTED 8332 . 8341) (STRING_LITERAL 8315 . 8326) (PROTECTED 7581 . 7590) (STRING_LITERAL 7564 . 7575) (PUBLIC 6195 . 6201) (PUBLIC 5505 . 5511) (PUBLIC 5412 . 5418) (PUBLIC 4630 . 4636) (PUBLIC 4553 . 4559) (IDENTIFIER 4242 . 4251) (STRING_LITERAL 4225 . 4236) (PUBLIC 4122 . 4128) (IDENTIFIER 3837 . 3846) (STRING_LITERAL 3820 . 3831) (PUBLIC 3019 . 3025) (PUBLIC 2826 . 2832) (PRIVATE 2031 . 2038) (IDENTIFIER 1029 . 1040))
+    )
+   (semanticdb-table "DeviceDaoFindTerm.java"
+    :major-mode 'malabar-mode
+    :tags 
+        '( ("com.amazon.deviceassettracking.model.dao" package nil (reparse-symbol package_declaration) [1 50])
+            ("java.util.List" include nil (reparse-symbol import_declaration) [52 74])
+            ("DeviceDaoFindTerm" type
+               (:typemodifiers ("public")
+                :members 
+                  ( ("getQueries" function
+                       (:typemodifiers ("public")
+                        :type "List<Object>")
+                        (reparse-symbol method_declaration) [374 438])
+                    ("setQueries" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("queries" variable (:type "List<Object>") (reparse-symbol formal_parameter) [467 487]))                          
+                        :type "void")
+                        (reparse-symbol method_declaration) [444 528])
+                    ("getOperator" function
+                       (:typemodifiers ("public")
+                        :type "String")
+                        (reparse-symbol method_declaration) [534 594])
+                    ("setOperator" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("operator" variable (:type "String") (reparse-symbol formal_parameter) [624 639]))                          
+                        :type "void")
+                        (reparse-symbol method_declaration) [600 682])
+                    ("isComplement" function
+                       (:typemodifiers ("public")
+                        :type "boolean")
+                        (reparse-symbol method_declaration) [688 752])
+                    ("setComplement" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("complement" variable (:type "boolean") (reparse-symbol formal_parameter) [784 802]))                          
+                        :type "void")
+                        (reparse-symbol method_declaration) [758 849])
+                    ("queries" variable
+                       (:typemodifiers ("private")
+                        :type "List<Object>")
+                        (reparse-symbol field_declaration) [855 884])
+                    ("operator" variable
+                       (:typemodifiers ("private")
+                        :type "String")
+                        (reparse-symbol field_declaration) [889 913])
+                    ("complement" variable
+                       (:typemodifiers ("private")
+                        :type "boolean")
+                        (reparse-symbol field_declaration) [918 945]))                  
+                :type "class")
+                (reparse-symbol class_declaration) [337 947]))          
+    :file "DeviceDaoFindTerm.java"
+    :pointmax 948
+    :fsize 947
+    :lastmodtime '(21366 33542 959223 64000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "DeviceDaoImpl.java"
+    :major-mode 'malabar-mode
+    :tags 
+        '( ("com.amazon.deviceassettracking.model.dao" package nil (reparse-symbol package_declaration) [1 50])
+            ("java.util.ArrayList" include nil (reparse-symbol import_declaration) [52 79])
+            ("java.util.HashMap" include nil (reparse-symbol import_declaration) [80 105])
+            ("java.util.HashSet" include nil (reparse-symbol import_declaration) [106 131])
+            ("java.util.List" include nil (reparse-symbol import_declaration) [132 154])
+            ("java.util.Map" include nil (reparse-symbol import_declaration) [155 176])
+            ("java.util.Set" include nil (reparse-symbol import_declaration) [177 198])
+            ("org.apache.commons.lang3.StringUtils" include nil (reparse-symbol import_declaration) [201 245])
+            ("org.apache.log4j.Logger" include nil (reparse-symbol import_declaration) [246 277])
+            ("org.hibernate.Criteria" include nil (reparse-symbol import_declaration) [278 308])
+            ("org.hibernate.criterion.CriteriaSpecification" include nil (reparse-symbol import_declaration) [309 362])
+            ("org.hibernate.criterion.Criterion" include nil (reparse-symbol import_declaration) [363 404])
+            ("org.hibernate.criterion.Disjunction" include nil (reparse-symbol import_declaration) [405 448])
+            ("org.hibernate.criterion.Order" include nil (reparse-symbol import_declaration) [449 486])
+            ("org.hibernate.criterion.ProjectionList" include nil (reparse-symbol import_declaration) [487 533])
+            ("org.hibernate.criterion.Projections" include nil (reparse-symbol import_declaration) [534 577])
+            ("org.hibernate.criterion.PropertyProjection" include nil (reparse-symbol import_declaration) [578 628])
+            ("org.hibernate.criterion.Restrictions" include nil (reparse-symbol import_declaration) [629 673])
+            ("org.hibernate.criterion.SimpleExpression" include nil (reparse-symbol import_declaration) [674 722])
+            ("org.springframework.beans.factory.annotation.Autowired" include nil (reparse-symbol import_declaration) [723 785])
+            ("com.amazon.deviceassettracking.DeviceFindOperatorValues" include nil (reparse-symbol import_declaration) [787 850])
+            ("com.amazon.deviceassettracking.PageCursor" include nil (reparse-symbol import_declaration) [851 900])
+            ("com.amazon.deviceassettracking.Pagination" include nil (reparse-symbol import_declaration) [901 950])
+            ("com.amazon.deviceassettracking.exception.DatabaseRuntimeException" include nil (reparse-symbol import_declaration) [951 1024])
+            ("com.amazon.deviceassettracking.exception.InvalidHelperArgumentException" include nil (reparse-symbol import_declaration) [1025 1104])
+            ("com.amazon.deviceassettracking.helper.AccessServiceHelper" include nil (reparse-symbol import_declaration) [1105 1170])
+            ("com.amazon.deviceassettracking.model.domain.DeviceConditionDB" include nil (reparse-symbol import_declaration) [1171 1240])
+            ("com.amazon.deviceassettracking.model.domain.DeviceDB" include nil (reparse-symbol import_declaration) [1241 1301])
+            ("com.amazon.deviceassettracking.model.domain.DeviceStateDB" include nil (reparse-symbol import_declaration) [1302 1367])
+            ("com.amazon.deviceassettracking.model.domain.FinancialOwnerDB" include nil (reparse-symbol import_declaration) [1368 1436])
+            ("com.amazon.deviceassettracking.model.domain.FunctionalGroupDB" include nil (reparse-symbol import_declaration) [1437 1506])
+            ("com.amazon.deviceassettracking.model.domain.HardwareBuildDB" include nil (reparse-symbol import_declaration) [1507 1574])
+            ("com.amazon.deviceassettracking.model.domain.HardwareConfigDB" include nil (reparse-symbol import_declaration) [1575 1643])
+            ("com.amazon.deviceassettracking.model.domain.HardwareProgramDB" include nil (reparse-symbol import_declaration) [1644 1713])
+            ("com.amazon.deviceassettracking.model.domain.LocationDB" include nil (reparse-symbol import_declaration) [1714 1776])
+            ("com.amazon.deviceassettracking.model.domain.UserDB" include nil (reparse-symbol import_declaration) [1777 1835])
+            ("DeviceDaoImpl" type
+               (:typemodifiers ("public")
+                :interfaces ("DeviceDao")
+                :superclasses "BaseDaoImpl<DeviceDB>"
+                :members 
+                  ( ("LOGGER" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "Logger")
+                        (reparse-symbol field_declaration) [2008 2083])
+                    ("PROPERTY_ASSET_TAG" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol field_declaration) [2129 2189])
+                    ("PROPERTY_DEVICE_CONDITION" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol field_declaration) [2254 2328])
+                    ("PROPERTY_DEVICE_SERIAL_NUMBER" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol field_declaration) [2384 2465])
+                    ("PROPERTY_DEVICE_STATE" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol field_declaration) [2526 2592])
+                    ("PROPERTY_FINANCIAL_OWNER" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol field_declaration) [2656 2728])
+                    ("PROPERTY_FUNCTIONAL_GROUP" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol field_declaration) [2733 2807])
+                    ("PROPERTY_HARDWARE_CONFIG" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol field_declaration) [2871 2943])
+                    ("PROPERTY_HARDWARE_BUILD" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol field_declaration) [3002 3100])
+                    ("PROPERTY_HARDWARE_PROGRAM" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol field_declaration) [3142 3230])
+                    ("PROPERTY_LOCATION" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol field_declaration) [3288 3347])
+                    ("RESULTS_ORDER_COLUMN" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol field_declaration) [3398 3488])
+                    ("FIELD_CURRENT_ASSIGNEE" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "String")
+                        (reparse-symbol field_declaration) [3543 3623])
+                    ("accessServiceHelper" variable (:type "AccessServiceHelper") (reparse-symbol field_declaration) [3683 3723])
+                    ("DeviceDaoImpl" function
+                       (:constructor-flag t
+                        :typemodifiers ("public"))
+                        (reparse-symbol constructor_declaration) [3772 3833])
+                    ("countWithDeviceCondition" function
+                       (:arguments 
+                          ( ("deviceCondition" variable (:type "DeviceConditionDB") (reparse-symbol formal_parameter) [3890 3923]))                          
+                        :type "long")
+                        (reparse-symbol method_declaration) [3860 4115])
+                    ("countWithDeviceState" function
+                       (:arguments 
+                          ( ("deviceState" variable (:type "DeviceStateDB") (reparse-symbol formal_parameter) [4168 4193]))                          
+                        :type "long")
+                        (reparse-symbol method_declaration) [4142 4377])
+                    ("countWithFinancialOwner" function
+                       (:arguments 
+                          ( ("financialOwner" variable (:type "FinancialOwnerDB") (reparse-symbol formal_parameter) [4433 4464]))                          
+                        :type "long")
+                        (reparse-symbol method_declaration) [4404 4636])
+                    ("countWithFunctionalGroup" function
+                       (:arguments 
+                          ( ("functionalGroup" variable (:type "FunctionalGroupDB") (reparse-symbol formal_parameter) [4693 4726]))                          
+                        :type "long")
+                        (reparse-symbol method_declaration) [4663 4900])
+                    ("countWithLocation" function
+                       (:arguments 
+                          ( ("location" variable (:type "LocationDB") (reparse-symbol formal_parameter) [4950 4969]))                          
+                        :type "long")
+                        (reparse-symbol method_declaration) [4927 5128])
+                    ("countWithHardwareBuildInStorage" function
+                       (:arguments 
+                          ( ("hardwareBuild" variable
+                               (:typemodifiers ("final")
+                                :type "HardwareBuildDB")
+                                (reparse-symbol formal_parameter) [5218 5253]))                          
+                        :type "Map<HardwareConfigDB,Integer>")
+                        (reparse-symbol method_declaration) [5155 6284])
+                    ("countWithHardwareConfig" function
+                       (:arguments 
+                          ( ("hardwareConfig" variable
+                               (:typemodifiers ("final")
+                                :type "HardwareConfigDB")
+                                (reparse-symbol formal_parameter) [6340 6377]))                          
+                        :type "Long")
+                        (reparse-symbol method_declaration) [6311 6642])
+                    ("getAllAssetTags" function (:type "Set<String>") (reparse-symbol method_declaration) [6669 7244])
+                    ("getAllDeviceSerialNumbers" function (:type "Set<String>") (reparse-symbol method_declaration) [7271 7906])
+                    ("ignoreCase" function
+                       (:typemodifiers ("private" "static")
+                        :arguments 
+                          ( ("expr" variable (:type "SimpleExpression") (reparse-symbol formal_parameter) [8314 8335])
+                            ("field" variable (:type "String") (reparse-symbol formal_parameter) [8337 8349]))                          
+                        :type "SimpleExpression")
+                        (reparse-symbol method_declaration) [8271 8515])
+                    ("criteriaMappers" variable
+                       (:typemodifiers ("private" "static")
+                        :type "Map<String,CriteriaMapper>")
+                        (reparse-symbol field_declaration) [9137 9236])
+                    ("block" block nil (reparse-symbol block_statements) [9258 14466])
+                    ("countDevices" function
+                       (:arguments 
+                          ( ("requester" variable (:type "String") (reparse-symbol formal_parameter) [14531 14547])
+                            ("termMap" variable (:type "Map<String,List<DeviceDaoFindTerm>>") (reparse-symbol formal_parameter) [14549 14593])
+                            ("groupBy" variable (:type "String") (reparse-symbol formal_parameter) [14603 14617]))                          
+                        :type "Map<Long,Integer>")
+                        (reparse-symbol method_declaration) [14499 16412])
+                    ("findDevices" function
+                       (:arguments 
+                          ( ("requester" variable (:type "String") (reparse-symbol formal_parameter) [16466 16482])
+                            ("termMap" variable (:type "Map<String,List<DeviceDaoFindTerm>>") (reparse-symbol formal_parameter) [16484 16528])
+                            ("pagination" variable (:type "Pagination") (reparse-symbol formal_parameter) [16538 16559]))                          
+                        :type "List<DeviceDB>")
+                        (reparse-symbol method_declaration) [16439 16635])
+                    ("findDevices" function
+                       (:arguments 
+                          ( ("requester" variable (:type "String") (reparse-symbol formal_parameter) [16689 16705])
+                            ("termMap" variable (:type "Map<String,List<DeviceDaoFindTerm>>") (reparse-symbol formal_parameter) [16707 16751])
+                            ("pagination" variable (:type "Pagination") (reparse-symbol formal_parameter) [16761 16782])
+                            ("skipHardwareProgramPermissions" variable (:type "boolean") (reparse-symbol formal_parameter) [16784 16822]))                          
+                        :type "List<DeviceDB>")
+                        (reparse-symbol method_declaration) [16662 20521])
+                    ("configureFindDevicesCriteria" function
+                       (:typemodifiers ("private")
+                        :arguments 
+                          ( ("criteria" variable (:type "Criteria") (reparse-symbol formal_parameter) [20784 20801])
+                            ("aliases" variable (:type "Set<String>") (reparse-symbol formal_parameter) [20803 20822])
+                            ("termMap" variable (:type "Map<String,List<DeviceDaoFindTerm>>") (reparse-symbol formal_parameter) [20832 20876]))                          
+                        :type "Criteria")
+                        (reparse-symbol method_declaration) [20738 22691])
+                    ("countDevicesAssignedTo" function
+                       (:arguments 
+                          ( ("userDB" variable (:type "UserDB") (reparse-symbol formal_parameter) [22746 22759])
+                            ("hardwareProgramDB" variable (:type "HardwareProgramDB") (reparse-symbol formal_parameter) [22761 22796]))                          
+                        :type "long")
+                        (reparse-symbol method_declaration) [22718 23210])
+                    ("addAliasesForFind" function
+                       (:typemodifiers ("private")
+                        :arguments 
+                          ( ("aliases" variable (:type "Set<String>") (reparse-symbol formal_parameter) [23717 23736])
+                            ("criteria" variable (:type "Criteria") (reparse-symbol formal_parameter) [23738 23755])
+                            ("fieldName" variable (:type "String") (reparse-symbol formal_parameter) [23757 23773]))                          
+                        :type "void")
+                        (reparse-symbol method_declaration) [23686 25641])
+                    ("CriteriaMapper" type
+                       (:typemodifiers ("protected")
+                        :members 
+                          ( ("getCriterionForField" function
+                               (:typemodifiers ("public")
+                                :arguments 
+                                  ( ("field" variable (:type "String") (reparse-symbol formal_parameter) [25850 25862])
+                                    ("query" variable (:type "Object") (reparse-symbol formal_parameter) [25864 25876]))                                  
+                                :type "Criterion")
+                                (reparse-symbol abstract_method_declaration) [25812 25878]))                          
+                        :type "interface")
+                        (reparse-symbol interface_declaration) [25767 25884])
+                    ("getByAssetTag" function
+                       (:arguments 
+                          ( ("assetTag" variable (:type "String") (reparse-symbol formal_parameter) [25934 25949]))                          
+                        :type "DeviceDB")
+                        (reparse-symbol method_declaration) [25911 26322])
+                    ("getByDeviceSerialNumber" function
+                       (:arguments 
+                          ( ("deviceSerialNumber" variable (:type "String") (reparse-symbol formal_parameter) [26382 26407])
+                            ("flush" variable (:type "boolean") (reparse-symbol formal_parameter) [26409 26422]))                          
+                        :type "DeviceDB")
+                        (reparse-symbol method_declaration) [26349 26992]))                  
+                :type "class")
+                (reparse-symbol class_declaration) [1896 26994]))          
+    :file "DeviceDaoImpl.java"
+    :pointmax 26994
+    :fsize 26993
+    :lastmodtime '(21366 33542 959223 64000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "DeviceStateDaoImpl.java"
+    :major-mode 'malabar-mode
+    :tags 
+        '( ("com.amazon.deviceassettracking.model.dao" package nil (reparse-symbol package_declaration) [1 50])
+            ("java.util.List" include nil (reparse-symbol import_declaration) [52 74])
+            ("java.util.Set" include nil (reparse-symbol import_declaration) [75 96])
+            ("java.util.TreeSet" include nil (reparse-symbol import_declaration) [97 122])
+            ("org.apache.log4j.Logger" include nil (reparse-symbol import_declaration) [124 155])
+            ("com.amazon.deviceassettracking.model.domain.DeviceStateDB" include nil (reparse-symbol import_declaration) [157 222])
+            ("DeviceStateDaoImpl" type
+               (:typemodifiers ("public")
+                :interfaces ("DeviceStateDao")
+                :superclasses "DeleteableDaoImpl<DeviceStateDB>"
+                :members 
+                  ( ("LOGGER" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "Logger")
+                        (reparse-symbol field_declaration) [422 502])
+                    ("DeviceStateDaoImpl" function
+                       (:constructor-flag t
+                        :typemodifiers ("public"))
+                        (reparse-symbol constructor_declaration) [551 622])
+                    ("getByName" function
+                       (:arguments 
+                          ( ("name" variable (:type "String") (reparse-symbol formal_parameter) [673 684]))                          
+                        :type "DeviceStateDB")
+                        (reparse-symbol method_declaration) [649 789])
+                    ("getNames" function (:type "Set<String>") (reparse-symbol method_declaration) [816 1153]))                  
+                :type "class")
+                (reparse-symbol class_declaration) [289 1155]))          
+    :file "DeviceStateDaoImpl.java"
+    :pointmax 1156
+    :fsize 1155
+    :lastmodtime '(21366 33542 959223 64000)
+    :unmatched-syntax '((PUBLIC 809 . 815) (PUBLIC 642 . 648))
+    )
+   (semanticdb-table "DeviceStateDao.java"
+    :major-mode 'malabar-mode
+    :tags 
+        '( ("com.amazon.deviceassettracking.model.dao" package nil (reparse-symbol package_declaration) [1 50])
+            ("java.util.Set" include nil (reparse-symbol import_declaration) [52 73])
+            ("com.amazon.deviceassettracking.model.domain.DeviceStateDB" include nil (reparse-symbol import_declaration) [75 140])
+            ("DeviceStateDao" type
+               (:typemodifiers ("public")
+                :interfaces ("DeleteableDao<DeviceStateDB>")
+                :members 
+                  ( ("getByName" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("name" variable
+                               (:typemodifiers ("final")
+                                :type "String")
+                                (reparse-symbol formal_parameter) [539 556]))                          
+                        :type "DeviceStateDB")
+                        (reparse-symbol abstract_method_declaration) [508 558])
+                    ("getNames" function
+                       (:typemodifiers ("public")
+                        :type "Set<String>")
+                        (reparse-symbol abstract_method_declaration) [677 707]))                  
+                :type "interface")
+                (reparse-symbol interface_declaration) [203 709]))          
+    :file "DeviceStateDao.java"
+    :pointmax 710
+    :fsize 709
+    :lastmodtime '(21366 33542 959223 64000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "DeviceRequestStateDaoImpl.java"
+    :major-mode 'malabar-mode
+    :tags 
+        '( ("com.amazon.deviceassettracking.model.dao" package nil (reparse-symbol package_declaration) [1 50])
+            ("com.amazon.deviceassettracking.model.domain.DeviceRequestStateDB" include nil (reparse-symbol import_declaration) [52 124])
+            ("DeviceRequestStateDaoImpl" type
+               (:typemodifiers ("public")
+                :interfaces ("DeviceRequestStateDao")
+                :superclasses "BaseDaoImpl<DeviceRequestStateDB>"
+                :members 
+                  ( ("DeviceRequestStateDaoImpl" function
+                       (:constructor-flag t
+                        :typemodifiers ("public"))
+                        (reparse-symbol constructor_declaration) [247 332]))                  
+                :type "class")
+                (reparse-symbol class_declaration) [126 335]))          
+    :file "DeviceRequestStateDaoImpl.java"
+    :pointmax 336
+    :fsize 335
+    :lastmodtime '(21366 33542 959223 64000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "DeviceRequestLogEntryDao.java"
+    :major-mode 'malabar-mode
+    :tags 
+        '( ("com.amazon.deviceassettracking.model.dao" package nil (reparse-symbol package_declaration) [1 50])
+            ("com.amazon.deviceassettracking.model.domain.DeviceRequestLogEntryDB" include nil (reparse-symbol import_declaration) [52 127])
+            ("DeviceRequestLogEntryDao" type
+               (:typemodifiers ("public")
+                :interfaces ("DeleteableDao<DeviceRequestLogEntryDB>")
+                :type "interface")
+                (reparse-symbol interface_declaration) [199 292]))          
+    :file "DeviceRequestLogEntryDao.java"
+    :pointmax 293
+    :fsize 292
+    :lastmodtime '(21366 33542 959223 64000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "DeviceRequestDao.java"
+    :major-mode 'malabar-mode
+    :tags 
+        '( ("com.amazon.deviceassettracking.model.dao" package nil (reparse-symbol package_declaration) [1 50])
+            ("java.util.Date" include nil (reparse-symbol import_declaration) [52 74])
+            ("java.util.List" include nil (reparse-symbol import_declaration) [75 97])
+            ("java.util.Set" include nil (reparse-symbol import_declaration) [98 119])
+            ("com.amazon.deviceassettracking.model.domain.DeviceRequestDB" include nil (reparse-symbol import_declaration) [121 188])
+            ("com.amazon.deviceassettracking.model.domain.DeviceRequestStateDB" include nil (reparse-symbol import_declaration) [189 261])
+            ("com.amazon.deviceassettracking.model.domain.FunctionalGroupDB" include nil (reparse-symbol import_declaration) [262 331])
+            ("com.amazon.deviceassettracking.model.domain.HardwareBuildDB" include nil (reparse-symbol import_declaration) [332 399])
+            ("com.amazon.deviceassettracking.model.domain.LocationDB" include nil (reparse-symbol import_declaration) [400 462])
+            ("com.amazon.deviceassettracking.model.domain.UserDB" include nil (reparse-symbol import_declaration) [463 521])
+            ("DeviceRequestDao" type
+               (:typemodifiers ("public")
+                :interfaces ("DeleteableDao<DeviceRequestDB>")
+                :members 
+                  ( ("countWithFunctionalGroup" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("functionalGroup" variable (:type "FunctionalGroupDB") (reparse-symbol formal_parameter) [963 996]))                          
+                        :type "long")
+                        (reparse-symbol abstract_method_declaration) [926 998])
+                    ("search" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("requester" variable (:type "UserDB") (reparse-symbol formal_parameter) [1912 1928])
+                            ("programIds" variable (:type "Set<Long>") (reparse-symbol formal_parameter) [1930 1950])
+                            ("hardwareBuild" variable (:type "HardwareBuildDB") (reparse-symbol formal_parameter) [1960 1989])
+                            ("minLastUpdated" variable (:type "Date") (reparse-symbol formal_parameter) [1991 2010])
+                            ("isAllocationRequest" variable (:type "Boolean") (reparse-symbol formal_parameter) [2012 2039])
+                            ("minCreated" variable (:type "Date") (reparse-symbol formal_parameter) [2041 2056])
+                            ("maxCreated" variable (:type "Date") (reparse-symbol formal_parameter) [2066 2081])
+                            ("stateDB" variable (:type "DeviceRequestStateDB") (reparse-symbol formal_parameter) [2083 2111]))                          
+                        :type "List<DeviceRequestDB>")
+                        (reparse-symbol abstract_method_declaration) [1876 2113])
+                    ("countWithHardwareBuild" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("hardwareBuildDB" variable (:type "HardwareBuildDB") (reparse-symbol formal_parameter) [2389 2420]))                          
+                        :type "Long")
+                        (reparse-symbol abstract_method_declaration) [2354 2422])
+                    ("countWithLocation" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("location" variable (:type "LocationDB") (reparse-symbol formal_parameter) [2668 2687]))                          
+                        :type "long")
+                        (reparse-symbol abstract_method_declaration) [2638 2689]))                  
+                :type "interface")
+                (reparse-symbol interface_declaration) [580 2691]))          
+    :file "DeviceRequestDao.java"
+    :pointmax 2692
+    :fsize 2691
+    :lastmodtime '(21366 33542 959223 64000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "DeviceRequestConfigDao.java"
+    :major-mode 'malabar-mode
+    :tags 
+        '( ("com.amazon.deviceassettracking.model.dao" package nil (reparse-symbol package_declaration) [1 50])
+            ("com.amazon.deviceassettracking.model.domain.DeviceRequestConfigDB" include nil (reparse-symbol import_declaration) [52 125])
+            ("com.amazon.deviceassettracking.model.domain.DeviceRequestDB" include nil (reparse-symbol import_declaration) [126 193])
+            ("com.amazon.deviceassettracking.model.domain.HardwareConfigDB" include nil (reparse-symbol import_declaration) [194 262])
+            ("DeviceRequestConfigDao" type
+               (:typemodifiers ("public")
+                :interfaces ("DeleteableDao<DeviceRequestConfigDB>")
+                :members 
+                  ( ("getByRequestAndConfig" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("deviceRequestDB" variable (:type "DeviceRequestDB") (reparse-symbol formal_parameter) [814 845])
+                            ("hardwareConfigDB" variable (:type "HardwareConfigDB") (reparse-symbol formal_parameter) [855 888]))                          
+                        :type "DeviceRequestConfigDB")
+                        (reparse-symbol abstract_method_declaration) [763 890])
+                    ("countWithHardwareConfig" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("hardwareConfigDB" variable (:type "HardwareConfigDB") (reparse-symbol formal_parameter) [1175 1208]))                          
+                        :type "Long")
+                        (reparse-symbol abstract_method_declaration) [1139 1210]))                  
+                :type "interface")
+                (reparse-symbol interface_declaration) [332 1212]))          
+    :file "DeviceRequestConfigDao.java"
+    :pointmax 1213
+    :fsize 1212
+    :lastmodtime '(21366 33542 959223 64000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "DeviceOriginDao.java"
+    :major-mode 'malabar-mode
+    :tags 
+        '( ("com.amazon.deviceassettracking.model.dao" package nil (reparse-symbol package_declaration) [1 50])
+            ("java.util.Set" include nil (reparse-symbol import_declaration) [52 73])
+            ("com.amazon.deviceassettracking.model.domain.DeviceOriginDB" include nil (reparse-symbol import_declaration) [75 141])
+            ("DeviceOriginDao" type
+               (:typemodifiers ("public")
+                :interfaces ("BaseDao<DeviceOriginDB>")
+                :members 
+                  ( ("getByName" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("name" variable
+                               (:typemodifiers ("final")
+                                :type "String")
+                                (reparse-symbol formal_parameter) [541 558]))                          
+                        :type "DeviceOriginDB")
+                        (reparse-symbol abstract_method_declaration) [509 560])
+                    ("getNames" function
+                       (:typemodifiers ("public")
+                        :type "Set<String>")
+                        (reparse-symbol abstract_method_declaration) [681 711]))                  
+                :type "interface")
+                (reparse-symbol interface_declaration) [205 713]))          
+    :file "DeviceOriginDao.java"
+    :pointmax 714
+    :fsize 713
+    :lastmodtime '(21366 33542 959223 64000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "DeviceConditionDao.java"
+    :major-mode 'malabar-mode
+    :tags 
+        '( ("com.amazon.deviceassettracking.model.dao" package nil (reparse-symbol package_declaration) [1 50])
+            ("java.util.Set" include nil (reparse-symbol import_declaration) [52 73])
+            ("com.amazon.deviceassettracking.model.domain.DeviceConditionDB" include nil (reparse-symbol import_declaration) [75 144])
+            ("DeviceConditionDao" type
+               (:typemodifiers ("public")
+                :interfaces ("DeleteableDao<DeviceConditionDB>")
+                :members 
+                  ( ("getByName" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("name" variable
+                               (:typemodifiers ("final")
+                                :type "String")
+                                (reparse-symbol formal_parameter) [571 588]))                          
+                        :type "DeviceConditionDB")
+                        (reparse-symbol abstract_method_declaration) [536 590])
+                    ("getNames" function
+                       (:typemodifiers ("public")
+                        :type "Set<String>")
+                        (reparse-symbol abstract_method_declaration) [717 747]))                  
+                :type "interface")
+                (reparse-symbol interface_declaration) [211 749]))          
+    :file "DeviceConditionDao.java"
+    :pointmax 750
+    :fsize 749
+    :lastmodtime '(21366 33542 959223 64000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "DeviceConditionDaoImpl.java"
+    :major-mode 'malabar-mode
+    :tags 
+        '( ("com.amazon.deviceassettracking.model.dao" package nil (reparse-symbol package_declaration) [1 50])
+            ("java.util.List" include nil (reparse-symbol import_declaration) [52 74])
+            ("java.util.Set" include nil (reparse-symbol import_declaration) [75 96])
+            ("java.util.TreeSet" include nil (reparse-symbol import_declaration) [97 122])
+            ("org.apache.log4j.Logger" include nil (reparse-symbol import_declaration) [124 155])
+            ("com.amazon.deviceassettracking.model.domain.DeviceConditionDB" include nil (reparse-symbol import_declaration) [157 226])
+            ("DeviceConditionDaoImpl" type
+               (:typemodifiers ("public")
+                :interfaces ("DeviceConditionDao")
+                :superclasses "DeleteableDaoImpl<DeviceConditionDB>"
+                :members 
+                  ( ("LOGGER" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "Logger")
+                        (reparse-symbol field_declaration) [442 526])
+                    ("DeviceConditionDaoImpl" function
+                       (:constructor-flag t
+                        :typemodifiers ("public"))
+                        (reparse-symbol constructor_declaration) [575 654])
+                    ("getByName" function
+                       (:arguments 
+                          ( ("name" variable (:type "String") (reparse-symbol formal_parameter) [709 720]))                          
+                        :type "DeviceConditionDB")
+                        (reparse-symbol method_declaration) [681 825])
+                    ("getNames" function (:type "Set<String>") (reparse-symbol method_declaration) [852 1205]))                  
+                :type "class")
+                (reparse-symbol class_declaration) [297 1207]))          
+    :file "DeviceConditionDaoImpl.java"
+    :pointmax 1208
+    :fsize 1207
+    :lastmodtime '(21366 33542 959223 64000)
+    :unmatched-syntax '((PUBLIC 845 . 851) (PUBLIC 674 . 680))
+    )
+   (semanticdb-table "CompanyDao.java"
+    :major-mode 'malabar-mode
+    :tags 
+        '( ("com.amazon.deviceassettracking.model.dao" package nil (reparse-symbol package_declaration) [1 50])
+            ("com.amazon.deviceassettracking.model.domain.CompanyDB" include nil (reparse-symbol import_declaration) [52 113])
+            ("CompanyDao" type
+               (:typemodifiers ("public")
+                :interfaces ("DeleteableDao<CompanyDB>")
+                :type "interface")
+                (reparse-symbol interface_declaration) [115 180]))          
+    :file "CompanyDao.java"
+    :pointmax 181
+    :fsize 180
+    :lastmodtime '(21366 33542 959223 64000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "CompanyDaoImpl.java"
+    :major-mode 'malabar-mode
+    :tags 
+        '( ("com.amazon.deviceassettracking.model.dao" package nil (reparse-symbol package_declaration) [1 50])
+            ("com.amazon.deviceassettracking.model.domain.CompanyDB" include nil (reparse-symbol import_declaration) [52 113])
+            ("CompanyDaoImpl" type
+               (:typemodifiers ("public")
+                :interfaces ("CompanyDao")
+                :superclasses "DeleteableDaoImpl<CompanyDB>"
+                :members 
+                  ( ("CompanyDaoImpl" function
+                       (:constructor-flag t
+                        :typemodifiers ("public"))
+                        (reparse-symbol constructor_declaration) [252 315]))                  
+                :type "class")
+                (reparse-symbol class_declaration) [115 317]))          
+    :file "CompanyDaoImpl.java"
+    :pointmax 319
+    :fsize 317
+    :lastmodtime '(21366 33542 959223 64000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "DeleteableDao.java"
+    :major-mode 'malabar-mode
+    :tags 
+        '( ("com.amazon.deviceassettracking.model.dao" package nil (reparse-symbol package_declaration) [1 50])
+            ("com.amazon.deviceassettracking.model.domain.Deleteable" include nil (reparse-symbol import_declaration) [52 114])
+            ("DeleteableDao" type
+               (:typemodifiers ("public")
+                :template-specifier "<Textends Deleteable>"
+                :interfaces ("BaseDao<T>")
+                :members 
+                  ( ("delete" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("o" variable (:type "T") (reparse-symbol formal_parameter) [397 400]))                          
+                        :type "void")
+                        (reparse-symbol abstract_method_declaration) [378 402]))                  
+                :type "interface")
+                (reparse-symbol interface_declaration) [173 404]))          
+    :file "DeleteableDao.java"
+    :pointmax 405
+    :fsize 404
+    :lastmodtime '(21366 33542 959223 64000)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "DeleteableDaoImpl.java"
+    :major-mode 'malabar-mode
+    :tags 
+        '( ("com.amazon.deviceassettracking.model.dao" package nil (reparse-symbol package_declaration) [1 50])
+            ("org.apache.log4j.Logger" include nil (reparse-symbol import_declaration) [52 83])
+            ("org.hibernate.Criteria" include nil (reparse-symbol import_declaration) [84 114])
+            ("org.hibernate.criterion.Restrictions" include nil (reparse-symbol import_declaration) [115 159])
+            ("com.amazon.deviceassettracking.model.domain.Deleteable" include nil (reparse-symbol import_declaration) [161 223])
+            ("DeleteableDaoImpl" type
+               (:template-specifier "<Textends Deleteable>"
+                :typemodifiers ("public")
+                :interfaces ("DeleteableDao<T>")
+                :superclasses "BaseDaoImpl<T>"
+                :members 
+                  ( ("LOGGER" variable
+                       (:typemodifiers ("private" "static" "final")
+                        :type "Logger")
+                        (reparse-symbol field_declaration) [434 513])
+                    ("COLUMN_IS_DELETED" variable
+                       (:typemodifiers ("protected" "static" "final")
+                        :type "String")
+                        (reparse-symbol field_declaration) [561 621])
+                    ("DeleteableDaoImpl" function
+                       (:constructor-flag t
+                        :typemodifiers ("protected")
+                        :arguments 
+                          ( ("clazz" variable (:type "Class<T>") (reparse-symbol formal_parameter) [837 851]))                          )
+                        (reparse-symbol constructor_declaration) [809 882])
+                    ("createCriteria" function (:type "Criteria") (reparse-symbol method_declaration) [1062 1237])
+                    ("delete" function
+                       (:arguments 
+                          ( ("o" variable (:type "T") (reparse-symbol formal_parameter) [1276 1279]))                          
+                        :type "void")
+                        (reparse-symbol method_declaration) [1264 1391])
+                    ("getById" function
+                       (:arguments 
+                          ( ("id" variable (:type "long") (reparse-symbol formal_parameter) [1428 1435]))                          
+                        :type "T")
+                        (reparse-symbol method_declaration) [1418 1625]))                  
+                :type "class")
+                (reparse-symbol class_declaration) [296 1627]))          
+    :file "DeleteableDaoImpl.java"
+    :pointmax 1628
+    :fsize 1627
+    :lastmodtime '(21366 33542 959223 64000)
+    :unmatched-syntax '((PUBLIC 1411 . 1417) (PUBLIC 1257 . 1263) (PROTECTED 1052 . 1061))
+    )
+   )
+  :file "!home!local!ANT!ococorey!Development!DeviceAssetTrackingService!src!com!amazon!deviceassettracking!model!dao!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

@@ -1,5 +1,10 @@
 (add-to-list 'load-path "~/.emacs.d")
 
+(require 'package)
+(package-initialize)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
 ;; default text formatting options
 (setq-default indent-tabs-mode nil)
 (setq-default fill-column 101)
@@ -37,8 +42,8 @@
 (setq-default c-indent-level 4)
 
 ; keyboard interface options
-(add-to-list 'load-path "~/.emacs.d/evil")
-(require 'evil)
+; (add-to-list 'load-path "~/.emacs.d/evil")
+; (require 'evil)
 (evil-mode 1)
 (setq scroll-conservatively 5)
 (setq scroll-margin 5)
@@ -94,16 +99,25 @@
   ;; If there is more than one, they won't work right.
  )
 
-(load-file "~/.emacs.d/cedet/common/cedet.elc")
+;; (load-file "~/.emacs.d/cedet/common/cedet.elc")
 
-(global-ede-mode 1)
-(semantic-load-enable-minimum-features)
-(semantic-load-enable-code-helpers)
+;; (global-ede-mode 1)
+;; (semantic-load-enable-minimum-features)
+;; (semantic-load-enable-code-helpers)
 
-(add-to-list 'load-path "~/.emacs.d/ecb")
-(load-file "~/.emacs.d/ecb/ecb.el")
+;; (add-to-list 'load-path "~/.emacs.d/ecb")
+;; (load-file "~/.emacs.d/ecb/ecb.el")
 
-(setq rsense-home (expand-file-name "~/Development/rsense"))
-(add-to-list 'load-path (concat rsense-home "/etc"))
-(require 'rsense)
+; (setq rsense-home (expand-file-name "~/Development/rsense"))
+; (add-to-list 'load-path (concat rsense-home "/etc"))
+; (require 'rsense)
+(setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
+                                  global-semanticdb-minor-mode
+                                  global-semantic-idle-summary-mode
+                                  global-semantic-mru-bookmark-mode))
+(semantic-mode 1)
+(require 'malabar-mode)
+(setq malabar-groovy-lib-dir "/path/to/malabar/lib")
+(add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
 
+(require 'dirtree)

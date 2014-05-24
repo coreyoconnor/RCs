@@ -4,3 +4,6 @@
 [submodule "vim/bundle/neobundle.vim"]
 	path = vim/bundle/neobundle.vim
 	url = git://github.com/Shougo/neobundle.vim
+[submodule "cask"]
+	path = cask
+	url = https://github.com/cask/cask.git

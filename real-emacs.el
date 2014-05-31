@@ -140,9 +140,6 @@
 ;; default to unified diffs
 (setq diff-switches "-u")
 
-(add-to-list 'load-path "/apollo/env/EmacsAmazonLibs/share/emacs/site-lisp")
-(require 'amz-common)
-
 (add-to-list 'load-path "~/.emacs.d/jdee-2.4.1/lisp")
 (load "jde")
 (require 'nav)

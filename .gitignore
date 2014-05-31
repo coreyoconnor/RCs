@@ -7,3 +7,5 @@ _darcs
 vim/bundle
 vim/vim-addons
 nohup.out
+*#
+emacs.d/semanticdb

@@ -1,0 +1,10 @@
+#!/bin/sh
+# Ubuntu:
+#    Add to .bashrc:
+#        source $HOME/.bash_profile
+#    symlink $HOME/.bash_profile to <repo>/bash_profile
+#    
+#    ln -s /home/coconnor/dev/RCs/screenrc $HOME/.screenrc
+#
+# OS X:
+#    source $HOME/Development/RCs/bash_profile

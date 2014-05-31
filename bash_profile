@@ -39,5 +39,7 @@ alias gcam='git commit -a -m'
 alias gp='git push'
 alias xh='xterm -ls &'
 
+alias td='todo.sh'
 alias ta='todo.sh add'
 alias tl='todo.sh list'
+alias e='emacs -nw'

@@ -1,3 +1,4 @@
+(setq message-log-max t)
 (add-to-list 'load-path "~/.emacs.d")
 
 (require 'package)
@@ -23,12 +24,12 @@
 
 (add-hook 'ruby-mode-hook
   (function (lambda ()
-              (setq evil-shift-width ruby-indent-level)
-              ;; (evil-define-key 'insert 
-              ;;                  ruby-mode-map
-              ;;                  (kbd "C-n")
-              ;;                  'rsense-complete
-              ;;   )
+              ; (setq evil-shift-width ruby-indent-level)
+              ; (evil-define-key 'insert 
+              ;                  ruby-mode-map
+              ;                  (kbd "C-n")
+              ;                  'rsense-complete
+              ;   )
             )
   )
 )
@@ -52,6 +53,7 @@
 (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
 (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
 (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+(global-evil-tabs-mode t)
 
 (setq scroll-conservatively 5)
 (setq scroll-margin 5)
@@ -60,8 +62,8 @@
 (add-to-list 'default-frame-alist  '(width . 100) )
 (require 'fill-column-indicator)
 
-(add-to-list 'load-path "~/.emacs.d/color-theme")
-(require 'color-theme)
+;(add-to-list 'load-path "~/.emacs.d/color-theme")
+;(require 'color-theme)
 
 (eval-after-load "color-theme"
   '(progn
@@ -140,7 +142,8 @@
 ;; default to unified diffs
 (setq diff-switches "-u")
 
-(add-to-list 'load-path "~/.emacs.d/jdee-2.4.1/lisp")
-(load "jde")
+(autoload 'java-mode "~/.emacs.d/jdee-2.4.1/lisp/jde.el"
+  "JDEE for java" t)
+
 (require 'nav)
 (nav-disable-overeager-window-splitting)

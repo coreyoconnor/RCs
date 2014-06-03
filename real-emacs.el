@@ -152,11 +152,12 @@
 ; fuck this shit. doesn't work at all
 (defun compilation-mode-longlines-hook ()
   "Set visual-line-mode when entering compilation mode."
-  (longlines-mode t))
+  (visual-line-mode t))
 
 (add-hook 'compilation-mode-hook 'compilation-mode-longlines-hook)
 
 ; enable visual-line-mode by default cause the above doesn't work
 (setq-default global-visual-line-mode t)
+(global-visual-line-mode t)
 ; which also doesn't work
 ; I think emacs has just bit rotted into uselessness....

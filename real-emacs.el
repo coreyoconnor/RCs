@@ -62,15 +62,7 @@
 (add-to-list 'default-frame-alist  '(width . 100) )
 (require 'fill-column-indicator)
 
-;(add-to-list 'load-path "~/.emacs.d/color-theme")
-;(require 'color-theme)
-
-(eval-after-load "color-theme"
-  '(progn
-     (color-theme-initialize)
-     (color-theme-dark-laptop)
-     )
-  )
+(load-theme 'solarized-dark t)
 
 ; plugins
 (autoload 'coq-mode "ProofGeneral" "~/.emacs.d/ProofGeneral/generic/proof-site.el"
@@ -92,6 +84,7 @@
  '(ecb-show-sources-in-directories-buffer (quote always))
  '(ecb-tip-of-the-day nil)
  '(ecb-windows-width 40)
+ '(evil-overriding-maps (quote ((Buffer-menu-mode-map) (color-theme-mode-map) (comint-mode-map) (compilation-mode-map) (dictionary-mode-map) (ert-results-mode-map . motion) (Info-mode-map . motion) (speedbar-key-map) (speedbar-file-key-map) (speedbar-buffers-key-map) (nav-mode-map))))
  '(inhibit-startup-screen t)
  '(nav-width 40))
 
@@ -111,6 +104,9 @@
   ;; If there is more than one, they won't work right.
  )
 
+(when (file-readable-p "~/.emacs-local.el")
+  (load-file "~/.emacs-local.el")
+)
 
 ;; (load-file "~/.emacs.d/cedet/common/cedet.elc")
 
@@ -142,7 +138,8 @@
 ;; default to unified diffs
 (setq diff-switches "-u")
 
-(autoload 'java-mode "~/.emacs.d/jdee-2.4.1/lisp/jde.el"
+(add-to-list 'load-path "~/.emacs.d/jdee-2.4.1/lisp")
+(autoload 'java-mode "jde.el"
   "JDEE for java" t)
 
 (require 'nav)

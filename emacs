@@ -34,7 +34,6 @@
  '(ecb-show-sources-in-directories-buffer (quote always))
  '(ecb-tip-of-the-day nil)
  '(ecb-windows-width 40)
- '(evil-overriding-maps (quote ((Buffer-menu-mode-map) (color-theme-mode-map) (comint-mode-map) (compilation-mode-map) (dictionary-mode-map) (ert-results-mode-map . motion) (Info-mode-map . motion) (speedbar-key-map) (speedbar-file-key-map) (speedbar-buffers-key-map) (nav-mode-map))))
  '(foreground-color nil)
  '(inhibit-startup-screen t)
  '(nav-width 40))

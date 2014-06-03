@@ -7,3 +7,6 @@
 [submodule "cask"]
 	path = cask
 	url = https://github.com/cask/cask.git
+[submodule "emacs.d/evil-tabs"]
+	path = emacs.d/evil-tabs
+	url = git@github.com:krisajenkins/evil-tabs.git

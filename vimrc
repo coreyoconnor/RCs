@@ -191,16 +191,16 @@ if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-call neobundle#rc(expand('~/.vim/bundle/'))
-NeoBundle 'terryma/vim-multiple-cursors'
-NeoBundle 'pbrisbin/html-template-syntax'
-NeoBundle 'vim-pandoc/vim-pandoc'
-NeoBundle 'elzr/vim-json'
-NeoBundle 'junkblocker/patchreview-vim'
-NeoBundle 'derekwyatt/vim-fswitch'
-NeoBundle 'vim-scripts/genutils'
-NeoBundle 'coreyoconnor/vim-perforce'
-NeoBundleCheck
+" call neobundle#rc(expand('~/.vim/bundle/'))
+" NeoBundle 'terryma/vim-multiple-cursors'
+" NeoBundle 'pbrisbin/html-template-syntax'
+" NeoBundle 'vim-pandoc/vim-pandoc'
+" NeoBundle 'elzr/vim-json'
+" NeoBundle 'junkblocker/patchreview-vim'
+" NeoBundle 'derekwyatt/vim-fswitch'
+" NeoBundle 'vim-scripts/genutils'
+" NeoBundle 'coreyoconnor/vim-perforce'
+" NeoBundleCheck
 
 syn on
 

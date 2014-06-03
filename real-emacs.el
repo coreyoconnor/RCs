@@ -1,10 +1,16 @@
 (setq message-log-max t)
 (add-to-list 'load-path "~/.emacs.d")
 
-(require 'package)
+(setq package-enable-at-startup nil)
 (package-initialize)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
+(add-to-list 'load-path "~/.emacs.d/evil")
+(add-to-list 'load-path "~/.emacs.d/evil-tabs")
+
+(require 'evil)
+(require 'evil-tabs)
 
 ;; default text formatting options
 (setq-default indent-tabs-mode nil)
@@ -44,7 +50,6 @@
 (setq-default c-indent-level 4)
 
 ; keyboard interface options
-(require 'evil)
 (evil-mode 1)
 (define-key evil-normal-state-map [escape] 'keyboard-quit)
 (define-key evil-visual-state-map [escape] 'keyboard-quit)
@@ -84,7 +89,6 @@
  '(ecb-show-sources-in-directories-buffer (quote always))
  '(ecb-tip-of-the-day nil)
  '(ecb-windows-width 40)
- '(evil-overriding-maps (quote ((Buffer-menu-mode-map) (color-theme-mode-map) (comint-mode-map) (compilation-mode-map) (dictionary-mode-map) (ert-results-mode-map . motion) (Info-mode-map . motion) (speedbar-key-map) (speedbar-file-key-map) (speedbar-buffers-key-map) (nav-mode-map))))
  '(inhibit-startup-screen t)
  '(nav-width 40))
 
@@ -108,19 +112,6 @@
   (load-file "~/.emacs-local.el")
 )
 
-;; (load-file "~/.emacs.d/cedet/common/cedet.elc")
-
-;; (global-ede-mode 1)
-;;(require 'cedit)
-;;(semantic-load-enable-minimum-features)
-;;(semantic-load-enable-code-helpers)
-
-;; (add-to-list 'load-path "~/.emacs.d/ecb")
-;; (load-file "~/.emacs.d/ecb/ecb.el")
-
-; (setq rsense-home (expand-file-name "~/Development/rsense"))
-; (add-to-list 'load-path (concat rsense-home "/etc"))
-; (require 'rsense)
 (setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
                                   global-semanticdb-minor-mode
                                   global-semantic-idle-summary-mode
@@ -142,5 +133,30 @@
 (autoload 'java-mode "jde.el"
   "JDEE for java" t)
 
-(require 'nav)
-(nav-disable-overeager-window-splitting)
+(autoload 'nav "nav" "nav" t)
+(eval-after-load 'nav
+  '(progn
+      (nav-disable-overeager-window-splitting)
+      (evil-make-overriding-map nav-mode-map 'normal t)
+      (evil-define-key 'normal nav-mode-map
+        "j" 'evil-next-line
+        "k" 'evil-previous-line)))
+
+(eval-after-load 'compilation-mode
+  '(progn
+    (evil-make-overriding-map compilation-mode 'normal t)
+    (evil-define-key 'normal nav-mode-map
+      "gt" 'elscreen-next
+      "gT" 'elscreen-previous)))
+
+; fuck this shit. doesn't work at all
+(defun compilation-mode-longlines-hook ()
+  "Set visual-line-mode when entering compilation mode."
+  (longlines-mode t))
+
+(add-hook 'compilation-mode-hook 'compilation-mode-longlines-hook)
+
+; enable visual-line-mode by default cause the above doesn't work
+(setq-default global-visual-line-mode t)
+; which also doesn't work
+; I think emacs has just bit rotted into uselessness....

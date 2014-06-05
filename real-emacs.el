@@ -149,8 +149,8 @@
       "gt" 'elscreen-next
       "gT" 'elscreen-previous)))
 
-(add-hook 'compilation-mode-hook '(visual-line-mode t))
-(add-hook 'compilation-minor-mode-hook '(visual-line-mode t))
+(add-hook 'compilation-mode-hook (lambda () (visual-line-mode t)))
+(add-hook 'compilation-minor-mode-hook (lambda () (visual-line-mode t)))
 
 ; from: https://zuttobenkyou.wordpress.com/2012/06/15/emacs-vimlike-tabwindow-navigation/
 (defun vimlike-quit ()

@@ -20,8 +20,8 @@
 (add-hook 'after-change-major-mode-hook
           (function
             (lambda ()
-                (fci-mode)
-                (turn-on-auto-fill)
+                ;(fci-mode)
+                ;(turn-on-auto-fill)
             )
           )
 )
@@ -149,15 +149,33 @@
       "gt" 'elscreen-next
       "gT" 'elscreen-previous)))
 
-; fuck this shit. doesn't work at all
-(defun compilation-mode-longlines-hook ()
-  "Set visual-line-mode when entering compilation mode."
-  (visual-line-mode t))
+(add-hook 'compilation-mode-hook '(visual-line-mode t))
+(add-hook 'compilation-minor-mode-hook '(visual-line-mode t))
 
-(add-hook 'compilation-mode-hook 'compilation-mode-longlines-hook)
+; from: https://zuttobenkyou.wordpress.com/2012/06/15/emacs-vimlike-tabwindow-navigation/
+(defun vimlike-quit ()
+  "Vimlike ':q' behavior: close current window if there are split windows;
+otherwise, close current tab (elscreen)."
+  (interactive)
+  (let ((one-elscreen (elscreen-one-screen-p))
+        (one-window (one-window-p))
+        )
+    (cond
+     ; if current tab has split windows in it, close the current live window
+     ((not one-window)
+      (delete-window) ; delete the current window
+      (balance-windows) ; balance remaining windows
+      nil)
+     ; if there are multiple elscreens (tabs), close the current elscreen
+     ((not one-elscreen)
+      (elscreen-kill)
+      nil)
+     ; if there is only one elscreen, just try to quit (calling elscreen-kill
+     ; will not work, because elscreen-kill fails if there is only one
+     ; elscreen)
+     (one-elscreen
+      (evil-quit)
+      nil)
+     )))
 
-; enable visual-line-mode by default cause the above doesn't work
-(setq-default global-visual-line-mode t)
-(global-visual-line-mode t)
-; which also doesn't work
-; I think emacs has just bit rotted into uselessness....
+(evil-ex-define-cmd "q[uit]" 'vimlike-quit)

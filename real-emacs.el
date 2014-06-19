@@ -16,6 +16,7 @@
 (setq-default indent-tabs-mode nil)
 (setq make-backup-files nil)
 (setq-default fill-column 101)
+(setq column-number-mode t)
 
 (add-hook 'after-change-major-mode-hook
           (function
@@ -165,7 +166,7 @@ otherwise, close current tab (elscreen)."
      ; if current tab has split windows in it, close the current live window
      ((not one-window)
       (delete-window) ; delete the current window
-      (balance-windows) ; balance remaining windows
+      ; (balance-windows) ; balance remaining windows
       nil)
      ; if there are multiple elscreens (tabs), close the current elscreen
      ((not one-elscreen)

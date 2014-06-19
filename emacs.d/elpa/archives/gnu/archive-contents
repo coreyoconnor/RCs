@@ -38,7 +38,7 @@
 	  nil "Integrated environment for *TeX*" tar
 	  ((:url . "http://www.gnu.org/software/auctex/"))])
  (chess .
-	[(2 0 0)
+	[(2 0 2)
 	 ((cl-lib
 	   (0 5)))
 	 "Play chess in GNU Emacs" tar
@@ -257,7 +257,7 @@
 	    ((:url . "http://elpa.gnu.org/packages/omn-mode.html")
 	     (:keywords))])
  (org .
-      [(20140602)
+      [(20140616)
        nil "Outline-based notes management and organizer" tar nil])
  (osc .
       [(0 1)
@@ -310,7 +310,7 @@
 		  ((:url . "http://xwl.appspot.com/ref/smart-operator.el")
 		   (:keywords))])
  (sml-mode .
-	   [(6 4)
+	   [(6 5)
 	    nil "Major mode for editing (Standard) ML" single
 	    ((:url . "http://elpa.gnu.org/packages/sml-mode.html")
 	     (:keywords "sml"))])
@@ -400,7 +400,7 @@
 	 ((:url . "http://elpa.gnu.org/packages/xclip.html")
 	  (:keywords "convenience" "tools"))])
  (xpm .
-      [(1 0 2)
+      [(1 0 3)
        nil "edit XPM images" tar
        ((:keywords "multimedia" "xpm")
 	(:url . "http://www.gnuvola.org/software/xpm/"))])

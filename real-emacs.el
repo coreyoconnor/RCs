@@ -32,7 +32,7 @@
 
 (add-hook 'ruby-mode-hook
   (function (lambda ()
-              ; (setq evil-shift-width ruby-indent-level)
+              (setq evil-shift-width ruby-indent-level)
               ; (evil-define-key 'insert 
               ;                  ruby-mode-map
               ;                  (kbd "C-n")
@@ -92,7 +92,8 @@
  '(ecb-tip-of-the-day nil)
  '(ecb-windows-width 40)
  '(inhibit-startup-screen t)
- '(nav-width 40))
+ '(nav-width 40)
+ '(nxml-slash-auto-complete-flag t))
 
 (setq auto-mode-alist (cons '("\\.v$" . coq-mode) auto-mode-alist))
 (autoload 'coq-mode "coq" "Major mode for editing Coq vernacular." t)

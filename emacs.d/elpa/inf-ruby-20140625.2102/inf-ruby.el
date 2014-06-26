@@ -10,7 +10,7 @@
 ;; URL: http://github.com/nonsequitur/inf-ruby
 ;; Created: 8 April 1998
 ;; Keywords: languages ruby
-;; Version: 20140531.2302
+;; Version: 20140625.2102
 ;; X-Original-Version: 2.3.2
 
 ;; This program is free software: you can redistribute it and/or modify
@@ -110,8 +110,8 @@ graphical char in all other prompts.")
   "Mode map for `inf-ruby-mode'.")
 
 (defvar inf-ruby-implementations
-  '(("ruby"     . "irb --prompt default -r irb/completion")
-    ("jruby"    . "jruby -S irb --prompt default -r irb/completion")
+  '(("ruby"     . "irb --prompt default --noreadline -r irb/completion")
+    ("jruby"    . "jruby -S irb --prompt default --noreadline -r irb/completion")
     ("rubinius" . "rbx -r irb/completion")
     ("yarv"     . "irb1.9 -r irb/completion")
     ("macruby"  . "macirb -r irb/completion")

@@ -3,8 +3,8 @@
 ;; Copyright (C) 2008, 2013 Nikolaj Schumacher
 ;;
 ;; Author: Nikolaj Schumacher <bugs * nschum de>
-;; Version: 20130519.741
-;; X-Original-Version: 1.0.1
+;; Version: 20140620.1409
+;; X-Original-Version: 1.0.2
 ;; Keywords: lisp
 ;; URL: http://nschum.de/src/emacs/fringe-helper/
 ;; Compatibility: GNU Emacs 22.x, GNU Emacs 23.x, GNU Emacs 24.x
@@ -76,6 +76,9 @@
 ;;
 ;;; Change Log:
 ;;
+;;    Added slash and backslash bitmaps to library.
+;;
+;; 2013-05-25 (1.0.2)
 ;;    Workaround for deleted overlay during callback.
 ;;
 ;; 2013-05-10 (1.0.1)
@@ -230,6 +233,10 @@ once. PATTERN can be one of the following:
 
 `fringe-lib-question-mark':  a question mark
 
+`fringe-lib-slash':  a slash
+
+`fringe-lib-backslash':  a backslash
+
 `fringe-lib-zig-zag':  a zig-zag pattern
 
 `fringe-lib-wave':  a wavy-line pattern
@@ -298,6 +305,55 @@ SIDE should be either 'left-fringe or 'right-fringe and defaults to the former."
                                  "........"
                                  ".XX....."
                                  ".XX.....")))))
+
+
+(defconst fringe-lib-slash
+  `((5 fringe-lib-slash-5 .
+       ,(eval-when-compile
+          (fringe-helper-convert ".....XX."
+                                 ".....XX."
+                                 "....XX.."
+                                 "....XX.."
+                                 "...XX..."
+                                 "..XX...."
+                                 "..XX...."
+                                 ".XX....."
+                                 ".XX.....")))
+    (0 fringe-lib-slash-0 .
+       ,(eval-when-compile
+          (fringe-helper-convert "...X...."
+                                 "...X...."
+                                 "..XX...."
+                                 "..X....."
+                                 ".XX....."
+                                 ".X......"
+                                 "XX......"
+                                 "X......."
+                                 "X.......")))))
+
+(defconst fringe-lib-backslash
+  `((5 fringe-lib-backslash-5 .
+       ,(eval-when-compile
+          (fringe-helper-convert ".XX....."
+                                 ".XX....."
+                                 "..XX...."
+                                 "..XX...."
+                                 "...XX..."
+                                 "....XX.."
+                                 "....XX.."
+                                 ".....XX."
+                                 ".....XX.")))
+    (0 fringe-lib-backslash-0 .
+       ,(eval-when-compile
+          (fringe-helper-convert "X......."
+                                 "X......."
+                                 "XX......"
+                                 ".X......"
+                                 ".XX....."
+                                 "..X....."
+                                 "..XX...."
+                                 "...X...."
+                                 "...X....")))))
 
 (defconst fringe-lib-zig-zag
   `(repeat

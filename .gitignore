@@ -9,3 +9,4 @@ vim/vim-addons
 nohup.out
 *#
 emacs.d/semanticdb
+emacs.d/places

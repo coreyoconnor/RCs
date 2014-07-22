@@ -12,6 +12,7 @@
 (require 'evil)
 (require 'evil-tabs)
 
+(projectile-global-mode)
 ;; default text formatting options
 (setq-default indent-tabs-mode nil)
 (setq make-backup-files nil)
@@ -30,9 +31,12 @@
 (electric-indent-mode 1)
 ;; ruby 
 
+(setq-default ruby-indent-level 2)
+(setq-default evil-shift-width 2)
 (add-hook 'ruby-mode-hook
   (function (lambda ()
-              (setq evil-shift-width ruby-indent-level)
+              (inf-ruby-keys)
+              (setq-default evil-shift-width ruby-indent-level)
               ; (evil-define-key 'insert 
               ;                  ruby-mode-map
               ;                  (kbd "C-n")

@@ -102,12 +102,6 @@
 (setq auto-mode-alist (cons '("\\.v$" . coq-mode) auto-mode-alist))
 (autoload 'coq-mode "coq" "Major mode for editing Coq vernacular." t)
 
-(autoload 'markdown-mode "~/.emacs.d/markdown-mode/markdown-mode.el"
-   "Major mode for editing Markdown files" t)
-
-(setq auto-mode-alist
-   (cons '("\\.md" . markdown-mode) auto-mode-alist))
-
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.

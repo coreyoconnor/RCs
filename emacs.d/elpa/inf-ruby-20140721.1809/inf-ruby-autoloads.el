@@ -3,10 +3,11 @@
 ;;; Code:
 
 
-;;;### (autoloads (inf-ruby-console-default inf-ruby-console-gem
-;;;;;;  inf-ruby-console-rails inf-ruby-console-auto inf-ruby-switch-setup
-;;;;;;  run-ruby inf-ruby inf-ruby-minor-mode inf-ruby-setup-keybindings)
-;;;;;;  "inf-ruby" "inf-ruby.el" (21438 55506 0 0))
+;;;### (autoloads (inf-ruby-file-contents-match inf-ruby-console-default
+;;;;;;  inf-ruby-console-gem inf-ruby-console-rails inf-ruby-console-auto
+;;;;;;  inf-ruby-switch-setup run-ruby inf-ruby inf-ruby-minor-mode
+;;;;;;  inf-ruby-setup-keybindings) "inf-ruby" "inf-ruby.el" (21454
+;;;;;;  45580 304592 546000))
 ;;; Generated autoloads from inf-ruby.el
 
 (defvar ruby-source-modes '(ruby-mode enh-ruby-mode) "\
@@ -78,12 +79,17 @@ Gemfile, it should use the `gemspec' instruction.
 Run racksh, custom console.rb, or just IRB, in DIR.
 
 \(fn DIR)" t nil)
+
+(autoload 'inf-ruby-file-contents-match "inf-ruby" "\
+
+
+\(fn FILE REGEXP)" nil nil)
  (dolist (mode ruby-source-modes) (add-hook (intern (format "%s-hook" mode)) 'inf-ruby-minor-mode))
 
 ;;;***
 
-;;;### (autoloads nil nil ("inf-ruby-pkg.el") (21438 55506 578472
-;;;;;;  0))
+;;;### (autoloads nil nil ("inf-ruby-pkg.el") (21454 45580 396074
+;;;;;;  567000))
 
 ;;;***
 

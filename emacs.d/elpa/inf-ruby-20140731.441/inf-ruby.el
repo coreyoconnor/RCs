@@ -10,7 +10,7 @@
 ;; URL: http://github.com/nonsequitur/inf-ruby
 ;; Created: 8 April 1998
 ;; Keywords: languages ruby
-;; Version: 20140721.1809
+;; Version: 20140731.441
 ;; X-Original-Version: 2.3.2
 
 ;; This program is free software: you can redistribute it and/or modify
@@ -59,6 +59,10 @@
 (require 'compile)
 (require 'ruby-mode)
 (require 'thingatpt)
+
+(eval-when-compile
+  (defvar rspec-compilation-mode-map)
+  (defvar ruby-compilation-mode-map))
 
 (defgroup inf-ruby nil
   "Run Ruby process in a buffer"
@@ -629,8 +633,12 @@ automatically."
   (let* ((default-directory (file-name-as-directory dir))
          (envs (inf-ruby-console-rails-envs))
          (env (completing-read "Rails environment: " envs nil t
-                               nil nil (car (member "development" envs)))))
-    (run-ruby (format "rails console %s" env) "rails")))
+                               nil nil (car (member "development" envs))))
+         (with-bundler (file-exists-p "Gemfile")))
+    (run-ruby (concat (when with-bundler "bundle exec ")
+                      "rails console "
+                      env)
+              "rails")))
 
 (defun inf-ruby-console-rails-envs ()
   (let ((files (file-expand-wildcards "config/environments/*.rb")))
@@ -652,21 +660,27 @@ Gemfile, it should use the `gemspec' instruction."
                   "bundle exec irb"
                 "bundle exec irb -I lib")
             "irb -I lib"))
-         files)
+         (name (inf-ruby-file-contents-match
+                gemspec "\\.name[ \t]*=[ \t]*\"\\([^\"]+\\)\"" 1))
+         args files)
     (unless (file-exists-p "lib")
       (error "The directory must contain a 'lib' subdirectory"))
-    (dolist (item (directory-files "lib"))
-      (unless (file-directory-p (format "lib/%s" item))
-        (setq files (cons item files))))
-    (run-ruby (concat base-command " "
-                      ;; If there are several files under 'lib'
-                      ;; (unlikely), load them all.
-                      (mapconcat
-                       (lambda (file)
-                         (concat " -r " (file-name-sans-extension file)))
-                       files
-                       ""))
-              "gem")))
+    (let ((feature (and name (replace-regexp-in-string "-" "/" name))))
+      (if (and feature (file-exists-p (concat "lib/" feature ".rb")))
+          ;; There exists the main file corresponding to the gem name,
+          ;; let's require it.
+          (setq args (concat " -r " feature))
+        ;; Let's require all non-directory files under lib, instead.
+        (dolist (item (directory-files "lib"))
+          (unless (file-directory-p (format "lib/%s" item))
+            (push item files)))
+        (setq args
+              (mapconcat
+               (lambda (file)
+                 (concat " -r " (file-name-sans-extension file)))
+               files
+               ""))))
+    (run-ruby (concat base-command args) "gem")))
 
 ;;;###autoload
 (defun inf-ruby-console-default (dir)
@@ -684,10 +698,13 @@ Gemfile, it should use the `gemspec' instruction."
       (run-ruby "bundle console")))))
 
 ;;;###autoload
-(defun inf-ruby-file-contents-match (file regexp)
+(defun inf-ruby-file-contents-match (file regexp &optional match-group)
   (with-temp-buffer
     (insert-file-contents file)
-    (re-search-forward regexp nil t)))
+    (when (re-search-forward regexp nil t)
+      (if match-group
+          (match-string match-group)
+        t))))
 
 ;;;###autoload (dolist (mode ruby-source-modes) (add-hook (intern (format "%s-hook" mode)) 'inf-ruby-minor-mode))
 

@@ -144,32 +144,33 @@ Key bindings:
   (set (make-local-variable 'haskell-interactive-mode-completion-cache) nil)
 
   (setq next-error-function 'haskell-interactive-next-error-function)
-  (setq completion-at-point-functions '(haskell-interactive-mode-completion-at-point-function))
+  (add-hook 'completion-at-point-functions
+            'haskell-interactive-mode-completion-at-point-function nil t)
 
   (haskell-interactive-mode-prompt))
 
 (defface haskell-interactive-face-prompt
-  '((t :inherit 'font-lock-function-name-face))
+  '((t :inherit font-lock-function-name-face))
   "Face for the prompt."
   :group 'haskell-interactive)
 
 (defface haskell-interactive-face-compile-error
-  '((t :inherit 'compilation-error))
+  '((t :inherit compilation-error))
   "Face for compile errors."
   :group 'haskell-interactive)
 
 (defface haskell-interactive-face-compile-warning
-  '((t :inherit 'compilation-warning))
+  '((t :inherit compilation-warning))
   "Face for compiler warnings."
   :group 'haskell-interactive)
 
 (defface haskell-interactive-face-result
-  '((t :inherit 'font-lock-string-face))
+  '((t :inherit font-lock-string-face))
   "Face for the result."
   :group 'haskell-interactive)
 
 (defface haskell-interactive-face-garbage
-  '((t :inherit 'font-lock-string-face))
+  '((t :inherit font-lock-string-face))
   "Face for trailing garbage after a command has completed."
   :group 'haskell-interactive)
 
@@ -368,8 +369,12 @@ Key bindings:
 
 (defun haskell-interactive-mode-expr-result (state response)
   "Print the result of evaluating the expression."
-  (let ((response (haskell-interactive-mode-cleanup-response
-                   (caddr state) response)))
+  (let ((response
+         (with-temp-buffer
+           (insert (haskell-interactive-mode-cleanup-response
+                    (caddr state) response))
+           (haskell-interactive-mode-handle-h (point-min))
+           (buffer-string))))
     (cond
      (haskell-interactive-mode-eval-mode
       (unless (haskell-process-sent-stdin-p (cadr state))
@@ -378,6 +383,23 @@ Key bindings:
       (let ((haskell-interactive-mode-eval-mode 'haskell-mode))
         (haskell-interactive-mode-eval-as-mode (car state) response)))))
   (haskell-interactive-mode-prompt (car state)))
+
+(defun haskell-interactive-mode-handle-h (&optional bound)
+  "Handle ^H in output."
+  (let ((bound (point-min))
+        (inhibit-read-only t))
+    (save-excursion
+      (while (search-backward "\b" bound t 1)
+        (save-excursion
+          (forward-char)
+          (let ((end (point)))
+            (if (search-backward-regexp "[^\b]" bound t 1)
+                (forward-char)
+              (goto-char (point-min)))
+            (let ((start (point)))
+              (delete-region (max (- (point) (- end start))
+                                  (point-min))
+                             end))))))))
 
 (defun haskell-interactive-mode-cleanup-response (expr response)
   "Ignore the mess that GHCi outputs on multi-line input."
@@ -524,12 +546,14 @@ SESSION, otherwise operate on the current buffer.
   "Insert the result of an eval as plain text."
   (with-current-buffer (haskell-session-interactive-buffer session)
     (goto-char (point-max))
-    (insert (propertize text
-                        'face 'haskell-interactive-face-result
-                        'rear-nonsticky t
-                        'read-only t
-                        'prompt t
-                        'result t))
+    (let ((start (point)))
+      (insert (propertize text
+                          'face 'haskell-interactive-face-result
+                          'rear-nonsticky t
+                          'read-only t
+                          'prompt t
+                          'result t))
+      (haskell-interactive-mode-handle-h start))
     (let ((marker (set (make-local-variable 'haskell-interactive-mode-result-end)
                        (make-marker))))
       (set-marker marker
@@ -948,7 +972,7 @@ FILE-NAME only."
   (let ((start (point))
         (type (car slot))
         (id (cadr slot)))
-    (insert (propertize type 'face '(:height 0.8 :underline t :inherit 'font-lock-comment-face)))
+    (insert (propertize type 'face '(:height 0.8 :underline t :inherit font-lock-comment-face)))
     (let ((button (make-text-button start (point)
                                     :type 'haskell-presentation-slot-button)))
       (button-put button 'hide-on-click t)

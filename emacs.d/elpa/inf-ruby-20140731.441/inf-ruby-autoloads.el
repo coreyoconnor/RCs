@@ -6,8 +6,8 @@
 ;;;### (autoloads (inf-ruby-file-contents-match inf-ruby-console-default
 ;;;;;;  inf-ruby-console-gem inf-ruby-console-rails inf-ruby-console-auto
 ;;;;;;  inf-ruby-switch-setup run-ruby inf-ruby inf-ruby-minor-mode
-;;;;;;  inf-ruby-setup-keybindings) "inf-ruby" "inf-ruby.el" (21454
-;;;;;;  45580 304592 546000))
+;;;;;;  inf-ruby-setup-keybindings) "inf-ruby" "inf-ruby.el" (21466
+;;;;;;  32277 0 0))
 ;;; Generated autoloads from inf-ruby.el
 
 (defvar ruby-source-modes '(ruby-mode enh-ruby-mode) "\
@@ -83,13 +83,13 @@ Run racksh, custom console.rb, or just IRB, in DIR.
 (autoload 'inf-ruby-file-contents-match "inf-ruby" "\
 
 
-\(fn FILE REGEXP)" nil nil)
+\(fn FILE REGEXP &optional MATCH-GROUP)" nil nil)
  (dolist (mode ruby-source-modes) (add-hook (intern (format "%s-hook" mode)) 'inf-ruby-minor-mode))
 
 ;;;***
 
-;;;### (autoloads nil nil ("inf-ruby-pkg.el") (21454 45580 396074
-;;;;;;  567000))
+;;;### (autoloads nil nil ("inf-ruby-pkg.el") (21466 32277 849878
+;;;;;;  0))
 
 ;;;***
 

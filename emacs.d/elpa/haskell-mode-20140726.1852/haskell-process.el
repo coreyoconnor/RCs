@@ -796,7 +796,8 @@ from `module-buffer'."
            (or (string-match " -X\\([A-Z][A-Za-z]+\\)" msg)
                (string-match "Use \\([A-Z][A-Za-z]+\\) to permit this" msg)
                (string-match "Use \\([A-Z][A-Za-z]+\\) to allow" msg)
-               (string-match "use \\([A-Z][A-Za-z]+\\)" msg)))
+               (string-match "use \\([A-Z][A-Za-z]+\\)" msg)
+               (string-match "You need \\([A-Z][A-Za-z]+\\)" msg)))
          (when haskell-process-suggest-language-pragmas
            (haskell-process-suggest-pragma session "LANGUAGE" (match-string 1 msg) file)))
         ((string-match " The \\(qualified \\)?import of[ ][‘`‛]\\([^ ]+\\)['’] is redundant" msg)
@@ -833,43 +834,7 @@ from `module-buffer'."
            (format "Add `%s' to %s?"
                    package-name
                    cabal-file))
-      (haskell-process-add-dependency package-name version))))
-
-(defun haskell-process-add-dependency (package &optional version no-prompt)
-  "Add PACKAGE (and optionally suffix -VERSION) to the cabal
-file. Prompts the user before doing so."
-  (interactive
-   (list (read-from-minibuffer "Package entry: ")
-         nil
-         t))
-  (let ((buffer (current-buffer)))
-    (find-file (haskell-cabal-find-file))
-    (let ((entry (if no-prompt
-                     package
-                   (read-from-minibuffer "Package entry: "
-                                         (concat package
-                                                 (if version
-                                                     (concat " >= "
-                                                             version)
-                                                   ""))))))
-      (save-excursion
-        (goto-char (point-min))
-        (when (search-forward-regexp "^library$" nil t 1)
-          (search-forward-regexp "build-depends:[ ]+")
-          (let ((column (current-column)))
-            (when (y-or-n-p "Add to library?")
-              (insert entry ",\n")
-              (indent-to column))))
-        (goto-char (point-min))
-        (while (search-forward-regexp "^executable " nil t 1)
-          (let ((name (buffer-substring-no-properties (point) (line-end-position))))
-            (search-forward-regexp "build-depends:[ ]+")
-            (let ((column (current-column)))
-              (when (y-or-n-p (format "Add to executable `%s'?" name))
-                (insert entry ",\n")
-                (indent-to column)))))
-        (save-buffer)
-        (switch-to-buffer buffer)))))
+      (haskell-cabal-add-dependency package-name version nil t))))
 
 (defun haskell-process-suggest-hoogle-imports (session msg file)
   "Given an out of scope identifier, Hoogle for that identifier,
@@ -946,8 +911,8 @@ now."
 (defun haskell-process-haskell-docs-ident (ident)
   "Search with haskell-docs for IDENT, returns a list of modules."
   (remove-if-not (lambda (a) (string-match "^[A-Z][A-Za-b0-9_'.]+$" a))
-             (split-string (shell-command-to-string (concat "haskell-docs --modules " ident))
-                           "\n")))
+                 (split-string (shell-command-to-string (concat "haskell-docs --modules " ident))
+                               "\n")))
 
 (defun haskell-process-hoogle-ident (ident)
   "Hoogle for IDENT, returns a list of modules."

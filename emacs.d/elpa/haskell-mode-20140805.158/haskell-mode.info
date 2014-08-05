@@ -1,5 +1,5 @@
 This is
-/tmp/haskell-mode8896Zym/haskell-mode-20140726.1852/haskell-mode.info,
+/tmp/haskell-mode8489ibQ/haskell-mode-20140805.158/haskell-mode.info,
 produced by makeinfo version 4.13 from
 /home/melpa/melpa/working/haskell-mode/haskell-mode.texi.
 
@@ -616,25 +616,25 @@ Variable index
 
 
 Tag Table:
-Node: Top780
-Node: Introduction1419
-Node: Getting Help and Reporting Bugs1930
-Node: Getting Started3372
-Node: Editing Haskell Code4575
-Ref: Editing Haskell Code-Footnote-16452
-Ref: Editing Haskell Code-Footnote-26555
-Ref: Editing Haskell Code-Footnote-36606
-Node: Unicode6705
-Node: Indentation8318
-Ref: Indentation-Footnote-112196
-Node: haskell-decl-scan-mode12380
-Node: Compilation14511
-Node: inferior-haskell-mode17159
-Node: haskell-interactive-mode18036
-Node: haskell-cabal-mode19845
-Node: Concept index20696
-Node: Function index21440
-Node: Variable index23910
+Node: Top779
+Node: Introduction1418
+Node: Getting Help and Reporting Bugs1929
+Node: Getting Started3371
+Node: Editing Haskell Code4574
+Ref: Editing Haskell Code-Footnote-16451
+Ref: Editing Haskell Code-Footnote-26554
+Ref: Editing Haskell Code-Footnote-36605
+Node: Unicode6704
+Node: Indentation8317
+Ref: Indentation-Footnote-112195
+Node: haskell-decl-scan-mode12379
+Node: Compilation14510
+Node: inferior-haskell-mode17158
+Node: haskell-interactive-mode18035
+Node: haskell-cabal-mode19844
+Node: Concept index20695
+Node: Function index21439
+Node: Variable index23909
 
 End Tag Table
 

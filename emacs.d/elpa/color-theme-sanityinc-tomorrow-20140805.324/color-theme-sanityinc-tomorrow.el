@@ -120,8 +120,8 @@
   `(let* ((colors (or (cdr (assoc ,mode color-theme-sanityinc-tomorrow-colors))
                       (error "no such theme flavor")))
           (background   (cdr (assoc 'background colors)))
-          (current-line (cdr (assoc 'current-line colors)))
-          (selection    (cdr (assoc 'selection colors)))
+          (contrast-bg  (cdr (assoc 'selection colors)))
+          (highlight    (cdr (assoc 'current-line colors)))
           (foreground   (cdr (assoc 'foreground colors)))
           (comment      (cdr (assoc 'comment colors)))
           (red          (cdr (assoc 'red colors)))
@@ -173,9 +173,9 @@ names to which it refers are bound."
       ;; Flycheck
       (flycheck-error (:underline (:style wave :color ,red)))
       (flycheck-warning (:underline (:style wave :color ,orange)))
-      (flycheck-fringe-error (:foreground ,red :inverse-video t))
-      (flycheck-fringe-info (:foreground ,yellow :inverse-video t))
-      (flycheck-fringe-warning (:foreground ,orange :inverse-video t))
+      (flycheck-fringe-error (:foreground ,background :background ,red))
+      (flycheck-fringe-info (:foreground ,background :background ,yellow))
+      (flycheck-fringe-warning (:foreground ,background :background ,orange))
 
       ;; Flymake
       (flymake-warnline (:underline (:style wave :color ,orange) :background ,background))
@@ -214,9 +214,9 @@ names to which it refers are bound."
       (rainbow-delimiters-unmatched-face (:foreground ,red))
 
       ;; MMM-mode
-      (mmm-code-submode-face (:background ,current-line))
+      (mmm-code-submode-face (:background ,contrast-bg))
       (mmm-comment-submode-face (:inherit font-lock-comment-face))
-      (mmm-output-submode-face (:background ,current-line))
+      (mmm-output-submode-face (:background ,contrast-bg))
 
       ;; Search
       (match (:foreground ,blue :background ,background :inverse-video t))
@@ -244,38 +244,39 @@ names to which it refers are bound."
 
       ;; Emacs interface
       (cursor (:background ,red))
-      (fringe (:background ,current-line))
-      (linum (:background ,current-line :foreground ,green :italic nil))
-      (border (:background ,current-line))
+      (fringe (:background ,contrast-bg))
+      (linum (:background ,contrast-bg :foreground ,green :italic nil))
+      (vertical-border (:foreground ,highlight))
+      (border (:background ,contrast-bg :foreground ,contrast-bg))
       (border-glyph (nil))
-      (highlight (:inverse-video nil :background ,current-line))
-      (gui-element (:background ,current-line :foreground ,foreground))
-      (mode-line (:foreground nil :background ,current-line :weight normal
-                              :box (:line-width 1 :color ,foreground)))
+      (highlight (:inverse-video nil :background ,contrast-bg))
+      (gui-element (:background ,contrast-bg :foreground ,foreground))
+      (mode-line (:foreground nil :background ,contrast-bg :weight normal
+                              :box (:line-width 1 :color ,highlight)))
       (mode-line-buffer-id (:foreground ,purple :background nil))
       (mode-line-inactive (:inherit mode-line
                                     :foreground ,comment
-                                    :background ,current-line :weight normal
-                                    :box (:line-width 1 :color ,foreground)))
+                                    :background ,contrast-bg :weight normal
+                                    :box (:line-width 1 :color ,highlight)))
       (mode-line-emphasis (:foreground ,foreground :slant italic))
       (mode-line-highlight (:foreground ,purple :box nil :weight bold))
       (minibuffer-prompt (:foreground ,blue))
-      (region (:background ,selection))
-      (secondary-selection (:background ,current-line))
+      (region (:background ,highlight))
+      (secondary-selection (:background ,contrast-bg))
 
       (header-line (:inherit mode-line :foreground ,purple :background nil))
 
       (trailing-whitespace (:background ,red :foreground ,yellow))
       (whitespace-empty (:foreground ,red :background ,yellow))
-      (whitespace-hspace (:background ,current-line :foreground ,comment))
-      (whitespace-indentation (:background ,current-line :foreground ,comment))
-      (whitespace-line (:background ,current-line :foreground ,red))
-      (whitespace-newline (:background ,current-line :foreground ,comment))
-      (whitespace-space (:background ,current-line :foreground ,comment))
-      (whitespace-space-after-tab (:background ,current-line :foreground ,yellow))
-      (whitespace-space-before-tab (:background ,current-line :foreground ,red))
-      (whitespace-tab (:background ,current-line :foreground ,comment))
-      (whitespace-trailing (:background ,current-line :foreground ,red))
+      (whitespace-hspace (:background ,contrast-bg :foreground ,comment))
+      (whitespace-indentation (:background ,contrast-bg :foreground ,comment))
+      (whitespace-line (:background ,contrast-bg :foreground ,red))
+      (whitespace-newline (:background ,contrast-bg :foreground ,comment))
+      (whitespace-space (:background ,contrast-bg :foreground ,comment))
+      (whitespace-space-after-tab (:background ,contrast-bg :foreground ,yellow))
+      (whitespace-space-before-tab (:background ,contrast-bg :foreground ,red))
+      (whitespace-tab (:background ,contrast-bg :foreground ,comment))
+      (whitespace-trailing (:background ,contrast-bg :foreground ,red))
 
       ;; Parenthesis matching (built-in)
       (show-paren-match (:background ,purple :foreground ,background))
@@ -389,7 +390,7 @@ names to which it refers are bound."
 
       (link (:foreground nil :underline t))
       (widget-button (:underline t))
-      (widget-field (:background ,current-line :box (:line-width 1 :color ,foreground)))
+      (widget-field (:background ,contrast-bg :box (:line-width 1 :color ,foreground)))
 
       ;; Compilation (most faces politely inherit from 'success, 'error, 'warning etc.)
       (compilation-column-number (:foreground ,yellow))
@@ -430,7 +431,7 @@ names to which it refers are bound."
       (org-agenda-dimmed-todo-face (:foreground ,comment))
       (org-block (:foreground ,orange))
       (org-code (:foreground ,yellow))
-      (org-column (:background ,current-line))
+      (org-column (:background ,contrast-bg))
       (org-column-title (:inherit org-column :weight bold :underline t))
       (org-date (:foreground ,blue :underline t))
       (org-document-info (:foreground ,aqua))
@@ -454,9 +455,9 @@ names to which it refers are bound."
       (markdown-url-face (:inherit link))
       (markdown-link-face (:foreground ,blue :underline t))
 
-      (hl-sexp-face (:background ,current-line))
-      (highlight-symbol-face (:background ,current-line :weight bold))
-      (highlight-80+ (:background ,current-line))
+      (hl-sexp-face (:background ,contrast-bg))
+      (highlight-symbol-face (:background ,contrast-bg :weight bold))
+      (highlight-80+ (:background ,contrast-bg))
 
       ;; Python-specific overrides
       (py-builtins-face (:foreground ,orange :weight normal))
@@ -495,13 +496,13 @@ names to which it refers are bound."
       (rng-error-face (:underline ,red))
 
       ;; RHTML
-      (erb-delim-face (:background ,current-line))
-      (erb-exec-face (:background ,current-line :weight bold))
-      (erb-exec-delim-face (:background ,current-line))
-      (erb-out-face (:background ,current-line :weight bold))
-      (erb-out-delim-face (:background ,current-line))
-      (erb-comment-face (:background ,current-line :weight bold :slant italic))
-      (erb-comment-delim-face (:background ,current-line))
+      (erb-delim-face (:background ,contrast-bg))
+      (erb-exec-face (:background ,contrast-bg :weight bold))
+      (erb-exec-delim-face (:background ,contrast-bg))
+      (erb-out-face (:background ,contrast-bg :weight bold))
+      (erb-out-delim-face (:background ,contrast-bg))
+      (erb-comment-face (:background ,contrast-bg :weight bold :slant italic))
+      (erb-comment-delim-face (:background ,contrast-bg))
 
       ;; Message-mode
       (message-header-other (:foreground nil :background nil :weight normal))
@@ -533,8 +534,8 @@ names to which it refers are bound."
       (jabber-activity-personal-face (:foreground ,aqua))
 
       ;; Powerline
-      (powerline-active1 (:foreground ,foreground :background ,selection))
-      (powerline-active2 (:foreground ,foreground :background ,current-line))
+      (powerline-active1 (:foreground ,foreground :background ,highlight))
+      (powerline-active2 (:foreground ,foreground :background ,contrast-bg))
 
       ;; Outline
       (outline-1 (:inherit nil :foreground ,blue))
@@ -648,7 +649,7 @@ names to which it refers are bound."
 
       (erc-direct-msg-face (:foreground ,orange))
       (erc-error-face (:foreground ,red))
-      (erc-header-face (:foreground ,foreground :background ,selection))
+      (erc-header-face (:foreground ,foreground :background ,highlight))
       (erc-input-face (:foreground ,green))
       (erc-keyword-face (:foreground ,yellow))
       (erc-current-nick-face (:foreground ,green))
@@ -714,7 +715,7 @@ are bound."
                (color-theme-sanityinc-tomorrow--face-specs))
         (custom-theme-set-variables
          ',name
-         `(fci-rule-color ,current-line)
+         `(fci-rule-color ,contrast-bg)
          `(vc-annotate-color-map
            '((20  . ,red)
              (40  . ,orange)

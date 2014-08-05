@@ -4,7 +4,7 @@
 
 ;; Author:            Adam Sokolnicki <adam.sokolnicki@gmail.com>
 ;; URL:               https://github.com/asok/projectile-rails
-;; Version: 20140707.1126
+;; Version: 20140801.145
 ;; X-Original-Version:           0.5.0
 ;; Keywords:          rails, projectile
 ;; Package-Requires:  ((projectile "1.0.0-cvs") (inflections "1.1") (inf-ruby "2.2.6") (f "0.13.0"))
@@ -965,6 +965,7 @@ Killing the buffer will terminate to server's process."
 
 (define-derived-mode projectile-rails-compilation-mode compilation-mode "Projectile Rails Compilation"
   "Compilation mode used by `projectile-rails'."
+  (add-hook 'compilation-filter-hook 'projectile-rails-apply-ansi-color nil t)
   (projectile-rails-mode +1))
 
 (define-derived-mode projectile-rails-generate-mode projectile-rails-compilation-mode "Projectile Rails Generate"

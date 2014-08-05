@@ -1,6 +1,11 @@
 (setq message-log-max t)
 (add-to-list 'load-path "~/.emacs.d")
 
+(setq term-setup-hook
+      '(lambda ()
+         (setq keyboard-translate-table "\C-@\C-a\C-b\C-c\C-d\C-e\C-f\C-g\C-?")
+         (global-set-key "\M-h" 'help-for-help)))
+
 (setq package-enable-at-startup nil)
 (package-initialize)
 (add-to-list 'package-archives

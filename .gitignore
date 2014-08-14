@@ -11,3 +11,5 @@ nohup.out
 emacs.d/semanticdb
 emacs.d/places
 emacs.d/projectile-bookmarks.eld
+emacs.d/.smex-items
+vim/.netrwhist

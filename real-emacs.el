@@ -185,3 +185,4 @@ otherwise, close current tab (elscreen)."
      )))
 
 (evil-ex-define-cmd "q[uit]" 'vimlike-quit)
+(add-hook 'haskell-mode-hook 'haskell-indentation-mode)

@@ -5,7 +5,7 @@
 ;; Author: Bozhidar Batsov <bozhidar@batsov.com>
 ;; URL: https://github.com/bbatsov/projectile
 ;; Keywords: project, convenience
-;; Version: 20140831.1336
+;; Version: 20140906.1456
 ;; X-Original-Version: 0.11.0
 ;; Package-Requires: ((s "1.6.0") (dash "1.5.0") (pkg-info "0.4"))
 
@@ -47,7 +47,13 @@
 
 (eval-when-compile
   (defvar ack-and-a-half-arguments)
-  (defvar ggtags-completion-table))
+  (defvar ggtags-completion-table)
+  (defvar tags-completion-table))
+
+(declare-function ack-and-a-half "ack-and-a-half")
+(declare-function ggtags-ensure-project "ggtags")
+(declare-function ggtags-update-tags "ggtags")
+(declare-function tags-completion-table "etags")
 
 ;;;; Compatibility
 (eval-and-compile
@@ -1068,7 +1074,7 @@ https://github.com/d11wtq/grizzl")))
 (defun projectile-process-current-project-files (action)
   "Process the current project's files using ACTION."
   (let ((project-files (projectile-current-project-files))
-        default-directory (projectile-project-root))
+        (default-directory (projectile-project-root)))
     (dolist (filename project-files)
      (funcall action filename))))
 
@@ -1306,6 +1312,7 @@ With a prefix ARG invalidates the cache first."
 (defvar projectile-make '("Makefile"))
 (defvar projectile-grunt '("Gruntfile.js"))
 (defvar projectile-gulp '("gulpfile.js"))
+(defvar projectile-haskell-cabal '("*.cabal"))
 
 (defun projectile-go ()
   (-any? (lambda (file)
@@ -1337,6 +1344,7 @@ With a prefix ARG invalidates the cache first."
    ((projectile-verify-files projectile-make) 'make)
    ((projectile-verify-files projectile-gulp) 'gulp)
    ((projectile-verify-files projectile-grunt) 'grunt)
+   ((projectile-verify-files projectile-haskell-cabal) 'haskell-cabal)
    ((funcall projectile-go-function) 'go)
    (t 'generic)))
 
@@ -1345,8 +1353,9 @@ With a prefix ARG invalidates the cache first."
   (-all? 'projectile-verify-file files))
 
 (defun projectile-verify-file (file)
-  "Check whether FILE exists in the current project."
-  (projectile-file-exists-p (projectile-expand-root file)))
+  "Check whether FILE exists in the current project.
+Expands wildcards using `file-expand-wildcards' before checking."
+  (file-expand-wildcards (projectile-expand-root file)))
 
 (defun projectile-project-vcs ()
   "Determine the VCS used by the project if any."
@@ -1393,12 +1402,6 @@ With a prefix ARG invalidates the cache first."
   (find-file
    (projectile-find-implementation-or-test (buffer-file-name))))
 
-(defun projectile-test-affix (project-type)
-  "Find test files affix based on PROJECT-TYPE."
-  (or (funcall projectile-test-prefix-function project-type)
-      (funcall projectile-test-suffix-function project-type)
-      (error "Project type not supported!")))
-
 (defcustom projectile-test-prefix-function 'projectile-test-prefix
   "Function to find test files prefix based on PROJECT-TYPE."
   :group 'projectile
@@ -1408,6 +1411,12 @@ With a prefix ARG invalidates the cache first."
   "Function to find test files suffix based on PROJECT-TYPE."
   :group 'projectile
   :type 'function)
+
+(defun projectile-test-affix (project-type)
+  "Find test files affix based on PROJECT-TYPE."
+  (or (funcall projectile-test-prefix-function project-type)
+      (funcall projectile-test-suffix-function project-type)
+      (error "Project type not supported!")))
 
 (defun projectile-test-prefix (project-type)
   "Find default test files prefix based on PROJECT-TYPE."
@@ -1592,6 +1601,7 @@ regular expression."
   (let ((find-tag-function (if (boundp 'ggtags-mode) 'ggtags-find-tag 'find-tag))
         (tags (if (boundp 'ggtags-mode)
                   (projectile--tags (all-completions "" ggtags-completion-table))
+                (require 'etags)
                 ;; we have to manually reset the tags-completion-table every time
                 (setq tags-completion-table nil)
                 (tags-completion-table)
@@ -1794,6 +1804,8 @@ For git projects `magit-status' is used if available."
 (defvar projectile-gulp-test-cmd "gulp test")
 (defvar projectile-go-compile-cmd "go build ./...")
 (defvar projectile-go-test-cmd "go test ./...")
+(defvar projectile-haskell-cabal-compile-cmd "cabal build")
+(defvar projectile-haskell-cabal-test-cmd "cabal test")
 
 (cl-dolist (var '(projectile-rails-compile-cmd
                   projectile-ruby-compile-cmd
@@ -1818,7 +1830,9 @@ For git projects `magit-status' is used if available."
                   projectile-make-compile-cmd
                   projectile-make-test-cmd
                   projectile-grunt-compile-cmd
-                  projectile-grunt-test-cmd))
+                  projectile-grunt-test-cmd
+                  projectile-haskell-cabal-compile-cmd
+                  projectile-haskell-cabal-test-cmd))
   (put var 'safe-local-variable #'stringp))
 
 
@@ -1848,6 +1862,7 @@ For git projects `magit-status' is used if available."
    ((eq project-type 'grunt) projectile-grunt-compile-cmd)
    ((eq project-type 'gulp) projectile-gulp-compile-cmd)
    ((eq project-type 'go) projectile-go-compile-cmd)
+   ((eq project-type 'haskell-cabal) projectile-haskell-cabal-compile-cmd)
    (t projectile-make-compile-cmd)))
 
 (defun projectile-default-test-command (project-type)
@@ -1869,6 +1884,7 @@ For git projects `magit-status' is used if available."
    ((eq project-type 'grunt) projectile-grunt-test-cmd)
    ((eq project-type 'gulp) projectile-gulp-test-cmd)
    ((eq project-type 'go) projectile-go-test-cmd)
+   ((eq project-type 'haskell-cabal) projectile-haskell-cabal-test-cmd)
    (t projectile-make-test-cmd)))
 
 (defun projectile-compilation-command (project)

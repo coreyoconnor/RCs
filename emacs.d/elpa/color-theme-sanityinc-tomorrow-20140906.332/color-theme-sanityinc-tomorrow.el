@@ -419,11 +419,12 @@ names to which it refers are bound."
       (helm-buffer-size (:foreground ,yellow))
       (helm-buffer-not-saved (:foreground ,orange))
       (helm-buffer-process (:foreground ,aqua))
+      (helm-buffer-directory (:foreground ,blue))
       (helm-ff-directory (:foreground ,aqua))
       (helm-candidate-number (:foreground ,red))
       (helm-selection (:inherit highlight))
       (helm-separator (:foreground ,purple))
-      (helm-source-header (:inherit org-document-title))
+      (helm-source-header (:weight bold :foreground ,orange :height 1.44))
 
       (org-agenda-structure (:foreground ,purple))
       (org-agenda-date (:foreground ,blue :underline nil))

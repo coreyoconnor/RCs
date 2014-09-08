@@ -4,7 +4,7 @@
 
 
 ;;;### (autoloads (ido-ubiquitous-mode) "ido-ubiquitous" "ido-ubiquitous.el"
-;;;;;;  (21491 43802 0 0))
+;;;;;;  (21517 62041 0 0))
 ;;; Generated autoloads from ido-ubiquitous.el
 
 (define-obsolete-variable-alias 'ido-ubiquitous 'ido-ubiquitous-mode "0.8")
@@ -34,8 +34,8 @@ Use `ido-completing-read' instead of `completing-read' almost everywhere.
 
 ;;;***
 
-;;;### (autoloads nil nil ("ido-ubiquitous-pkg.el") (21491 43802
-;;;;;;  318221 0))
+;;;### (autoloads nil nil ("ido-ubiquitous-pkg.el") (21517 62041
+;;;;;;  511046 0))
 
 ;;;***
 

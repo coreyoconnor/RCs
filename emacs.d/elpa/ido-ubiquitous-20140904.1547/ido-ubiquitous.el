@@ -4,8 +4,8 @@
 
 ;; Author: Ryan C. Thompson
 ;; URL: https://github.com/DarwinAwardWinner/ido-ubiquitous
-;; Version: 20140818.1552
-;; X-Original-Version: 2.14
+;; Version: 20140904.1547
+;; X-Original-Version: 2.15
 ;; Created: 2011-09-01
 ;; Keywords: convenience, completion, ido
 ;; EmacsWiki: InteractivelyDoThings
@@ -21,6 +21,26 @@
 ;; does! ido-ubiquitous is here to enable ido-style completion for
 ;; (almost) every function that uses the standard completion function
 ;; `completing-read'.
+
+;; To use this package, call `ido-ubiquitous-mode' to enable the mode,
+;; or use `M-x customize-variable ido-ubiquitous-mode' it to enable it
+;; permanently. Note that `ido-ubiquotous-mode' has no effect unless
+;; `ido-mode' is also enabled. Once the mode is enabled, most
+;; functions that use `completing-read' will now have ido completion.
+;; If you decide in the middle of a command that you would rather not
+;; use ido, just C-f or C-b at the end/beginning of the input to fall
+;; back to non-ido completion (this is the same shortcut as when using
+;; ido for buffers or files).
+
+;; Note that `completing-read' has some quirks and complex behavior
+;; that ido cannot emulate. Ido-ubiquitous attempts to detect some of
+;; these quirks and avoid using ido when it sees them. So some
+;; functions will not have ido completion even when this mode is
+;; enabled. Some other functions have ido disabled in them because
+;; their packages already provide support for ido via other means (for
+;; example, org-mode and magit). See `M-x customize-group
+;; ido-ubiquitous' and read about the override variables for more
+;; information.
 
 ;;; License:
 
@@ -41,7 +61,7 @@
 
 ;;; Code:
 
-(defconst ido-ubiquitous-version "2.14"
+(defconst ido-ubiquitous-version "2.15"
   "Currently running version of ido-ubiquitous.
 
 Note that when you update ido-ubiquitous, this variable may not
@@ -458,7 +478,12 @@ this to non-nil, but this is not recommended."
   "This holds the override being applied to the current call to `completing-read'.")
 
 (defun ido-ubiquitous-completing-read (&rest args)
-  "Wrapper for `ido-completing-read' that enables ido-ubiquitous features."
+  "Wrapper for `ido-completing-read' that enables ido-ubiquitous features.
+
+Unlike `ido-completing-read', this function can return with
+`ido-exit' set to `fallback', and any function that calls this
+should check the value of `ido-exit' and handle this case
+appropriately. For example, see `completing-read-ido'."
   (let ((ido-ubiquitous-next-call-replaces-completing-read t))
     (apply 'ido-completing-read args)))
 
@@ -471,7 +496,9 @@ This advice implements the logic required for
 `ido-completing-read' is called through
 `ido-ubiquitous-completing-read', so other packages that use
 `ido-completing-read', such as `smex', will not be affected."
-  (let* ((ido-ubiquitous-this-call-replaces-completing-read ido-ubiquitous-next-call-replaces-completing-read)
+  (let* ((orig-args (ad-get-args 0))
+         (ido-ubiquitous-this-call-replaces-completing-read
+          ido-ubiquitous-next-call-replaces-completing-read)
          (ido-ubiquitous-next-call-replaces-completing-read nil)
          (error-during-setup nil))
     (when ido-ubiquitous-this-call-replaces-completing-read
@@ -510,10 +537,8 @@ This advice implements the logic required for
     (if (not error-during-setup)
         ad-do-it
       (setq ad-return-value
-            (funcall
-             ido-ubiquitous-fallback-completing-read-function
-             prompt choices predicate require-match initial-input
-             hist def inherit-input-method)))))
+            (apply ido-ubiquitous-fallback-completing-read-function
+                   orig-args)))))
 
 (defun completing-read-ido (prompt collection &optional predicate
                                    require-match initial-input
@@ -526,7 +551,12 @@ This function is a wrapper for `ido-completing-read' designed to
 be used as the value of `completing-read-function'. Importantly,
 it detects edge cases that ido cannot handle and uses normal
 completion for them."
-  (let* (;; Set the active override and clear the "next" one so it
+  (let* (;; Save the original arguments in case we need to do the
+         ;; fallback
+         (orig-args
+          (list prompt collection predicate require-match
+          initial-input hist def inherit-input-method))
+         ;; Set the active override and clear the "next" one so it
          ;; doesn't apply to nested calls.
          (ido-ubiquitous-active-override ido-ubiquitous-next-override)
          (ido-ubiquitous-next-override nil)
@@ -566,14 +596,36 @@ completion for them."
                    (<= (length collection) ido-ubiquitous-max-items))))
          ;; Final check for everything
          (ido-allowed (and ido-allowed collection-ok))
-         (comp-read-fun
+         (result
           (if ido-allowed
-              'ido-ubiquitous-completing-read
-            ido-ubiquitous-fallback-completing-read-function)))
-    (funcall comp-read-fun
-	     prompt collection predicate
-	     require-match initial-input
-	     hist def inherit-input-method)))
+              (ido-ubiquitous-completing-read prompt collection
+               predicate require-match initial-input hist def
+               inherit-input-method)
+            (setq ido-exit 'fallback))))
+    ;; (message "Result: %S" result)
+    ;; (message "ido-exit: %S" ido-exit)
+    ;; Do the fallback if necessary. This could either be because ido
+    ;; can't handle the arguments, or the user indicated during
+    ;; completion that they wanted to fall back to non-ido completion.
+    (if (memq 'fallback (list ido-exit result))
+        (apply ido-ubiquitous-fallback-completing-read-function
+               orig-args)
+      result)))
+
+;; Fallback on magic C-f and C-b
+(defadvice ido-magic-forward-char (before ido-ubiquitous-fallback activate)
+  "Allow falling back in ido-ubiquitous."
+  (when ido-ubiquitous-this-call-replaces-completing-read
+    ;; `ido-context-switch-command' is already let-bound at this
+    ;; point.
+    (setq ido-context-switch-command #'ido-fallback-command)))
+
+(defadvice ido-magic-backward-char (before ido-ubiquitous-fallback activate)
+  "Allow falling back in ido-ubiquitous."
+  (when ido-ubiquitous-this-call-replaces-completing-read
+    ;; `ido-context-switch-command' is already let-bound at this
+    ;; point.
+    (setq ido-context-switch-command #'ido-fallback-command)))
 
 ;;; Old-style default support
 

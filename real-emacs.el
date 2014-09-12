@@ -187,7 +187,6 @@ otherwise, close current tab (elscreen)."
 (evil-ex-define-cmd "q[uit]" 'vimlike-quit)
 (add-hook 'haskell-mode-hook 'haskell-indentation-mode)
 
-(setq compilation-scroll-output t)
 (defun cc-goto-first-error( buffer exit-condition )
   (with-current-buffer buffer (goto-char (point-min)) (compilation-next-error 1)))
 

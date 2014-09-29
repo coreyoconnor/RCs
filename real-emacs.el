@@ -122,7 +122,7 @@
                                   global-semanticdb-minor-mode
                                   global-semantic-idle-summary-mode
                                   global-semantic-mru-bookmark-mode))
-(semantic-mode 1)
+; (semantic-mode 1)
 
 (autoload 'dirtree "dirtree" "dirtree" t)
 
@@ -185,10 +185,11 @@ otherwise, close current tab (elscreen)."
      )))
 
 (evil-ex-define-cmd "q[uit]" 'vimlike-quit)
-(add-hook 'haskell-mode-hook 'haskell-indentation-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
 (defun cc-goto-first-error( buffer exit-condition )
   (with-current-buffer buffer (goto-char (point-min)) (compilation-next-error 1)))
 
 (add-to-list 'compilation-finish-functions 'cc-goto-first-error)
 (setq scala-indent:align-parameters t)
+(setq blink-matching-paren nil)

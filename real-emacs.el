@@ -135,9 +135,19 @@
 ;; default to unified diffs
 (setq diff-switches "-u")
 
+;; Java stuff
 (add-to-list 'load-path "~/.emacs.d/jdee-2.4.1/lisp")
 (autoload 'java-mode "jde.el"
   "JDEE for java" t)
+
+(eval-after-load 'java-mode
+  '(add-hook ‘java-mode-hook
+              (lambda () (add-to-list ‘write-file-functions
+                                 ‘delete-trailing-whitespace
+                                  )
+               )
+             )
+  )
 
 (autoload 'nav "nav" "nav" t)
 (eval-after-load 'nav
@@ -187,9 +197,5 @@ otherwise, close current tab (elscreen)."
 (evil-ex-define-cmd "q[uit]" 'vimlike-quit)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
-(defun cc-goto-first-error( buffer exit-condition )
-  (with-current-buffer buffer (goto-char (point-min)) (compilation-next-error 1)))
-
-(add-to-list 'compilation-finish-functions 'cc-goto-first-error)
 (setq scala-indent:align-parameters t)
 (setq blink-matching-paren nil)

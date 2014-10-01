@@ -4,7 +4,7 @@
 
 ;; Author:            Adam Sokolnicki <adam.sokolnicki@gmail.com>
 ;; URL:               https://github.com/asok/projectile-rails
-;; Version: 20140901.239
+;; Version: 20140929.254
 ;; X-Original-Version:           0.5.0
 ;; Keywords:          rails, projectile
 ;; Package-Requires:  ((projectile "1.0.0-cvs") (inflections "1.1") (inf-ruby "2.2.6") (f "0.13.0"))
@@ -277,46 +277,78 @@ Returns a hash table with keys being short names and values being relative paths
     (maphash (lambda (key value) (setq keys (cons key keys))) hash)
     keys))
 
-(defun projectile-rails-find-resource (prompt dirs)
-  (let ((choices (projectile-rails-choices dirs)))
-    (projectile-rails-goto-file
-     (gethash (projectile-completing-read prompt (projectile-rails-hash-keys choices)) choices))))
+(defmacro projectile-rails-find-resource (prompt dirs &optional newfile-template)
+  "Presents files from DIRS to the user using `projectile-completing-read'.
+
+If users chooses a non existant file and NEWFILE-TEMPLATE is not nil
+it will use that variable to interpolate the name for the new file.
+NEWFILE-TEMPLATE will be the argument for `s-lex-format'.
+The binded variable is \"filename\"."
+  `(let* ((choices (projectile-rails-choices ,dirs))
+         (filename (or
+                    (projectile-completing-read ,prompt (projectile-rails-hash-keys choices))
+                    (user-error "The completion system you're using does not allow inputting arbitrary value.")))
+         (filepath (gethash filename choices)))
+         (if filepath
+             (projectile-rails-goto-file filepath)
+           (when ,newfile-template
+               (projectile-rails-goto-file (s-lex-format ,newfile-template) t)))))
 
 (defun projectile-rails-find-model ()
   (interactive)
-  (projectile-rails-find-resource "model: " '(("app/models/" "/models/\\(.+\\)\\.rb$"))))
+  (projectile-rails-find-resource
+   "model: "
+   '(("app/models/" "/models/\\(.+\\)\\.rb$"))
+   "app/models/${filename}.rb"))
 
 (defun projectile-rails-find-controller ()
   (interactive)
-  (projectile-rails-find-resource "controller: " '(("app/controllers/" "/controllers/\\(.+\\)_controller\\.rb$"))))
+  (projectile-rails-find-resource
+   "controller: "
+   '(("app/controllers/" "/controllers/\\(.+\\)_controller\\.rb$"))
+   "app/controllers/${filename}_controller.rb"))
 
 (defun projectile-rails-find-view ()
   (interactive)
   (projectile-rails-find-resource
    "view: "
-   `(("app/views/" ,(concat "app/views/\\(.+\\)" projectile-rails-views-re)))))
+   `(("app/views/" ,(concat "app/views/\\(.+\\)" projectile-rails-views-re)))
+   "app/views/${filename}"))
 
 (defun projectile-rails-find-layout ()
   (interactive)
   (projectile-rails-find-resource
    "layout: "
-   `(("app/views/layouts/" ,(concat "app/views/layouts/\\(.+\\)" projectile-rails-views-re)))))
+   `(("app/views/layouts/" ,(concat "app/views/layouts/\\(.+\\)" projectile-rails-views-re)))
+   "app/views/layouts/${filename}"))
 
 (defun projectile-rails-find-helper ()
   (interactive)
-  (projectile-rails-find-resource "helper: " '(("app/helpers/" "/helpers/\\(.+\\)_helper\\.rb$"))))
+  (projectile-rails-find-resource
+   "helper: "
+   '(("app/helpers/" "/helpers/\\(.+\\)_helper\\.rb$"))
+   "app/helpers/${filename}_helper.rb"))
 
 (defun projectile-rails-find-lib ()
   (interactive)
-  (projectile-rails-find-resource "lib: " '(("lib/" "lib/\\(.+\\)\\.rb$"))))
+  (projectile-rails-find-resource
+   "lib: "
+   '(("lib/" "lib/\\(.+\\)\\.rb$"))
+   "lib/${filename}.rb"))
 
 (defun projectile-rails-find-spec ()
   (interactive)
-  (projectile-rails-find-resource "spec: " '(("spec/" "spec/\\(.+\\)_spec\\.rb$"))))
+  (projectile-rails-find-resource
+   "spec: "
+   '(("spec/" "spec/\\(.+\\)_spec\\.rb$"))
+   "spec/${filename}_spec.rb"))
 
 (defun projectile-rails-find-feature ()
   (interactive)
-  (projectile-rails-find-resource "feature: " '(("features/" "features/\\(.+\\)\\.feature$"))))
+  (projectile-rails-find-resource
+   "feature: "
+   '(("features/" "features/\\(.+\\)\\.feature$"))
+   "features/${filename}.feature"))
 
 (defun projectile-rails-find-migration ()
   (interactive)
@@ -336,22 +368,31 @@ Returns a hash table with keys being short names and values being relative paths
 
 (defun projectile-rails-find-initializer ()
   (interactive)
-  (projectile-rails-find-resource "initializer: " '(("config/initializers/" "config/initializers/\\(.+\\)\\.rb$"))))
+  (projectile-rails-find-resource
+   "initializer: "
+   '(("config/initializers/" "config/initializers/\\(.+\\)\\.rb$"))
+   "config/initializers/${filename}.rb"))
 
 (defun projectile-rails-find-environment ()
   (interactive)
   (projectile-rails-find-resource
    "environment: "
-   '(("config/" "/\\(application\\|environment\\)\\.rb$")
-     ("config/environments/" "/\\([^/]+\\)\\.rb$"))))
+   '(("config/" "/\\(application\\|environment\\)\\.rb$") ("config/environments/" "/\\([^/]+\\)\\.rb$"))))
 
 (defun projectile-rails-find-locale ()
   (interactive)
-  (projectile-rails-find-resource "locale: " '(("config/locales/" "config/locales/\\(.+\\)\\.\\(?:rb\\|yml\\)$"))))
+  (projectile-rails-find-resource
+   "locale: "
+   '(("config/locales/"
+      "config/locales/\\(.+\\)\\.\\(?:rb\\|yml\\)$"))
+   "config/locales/${filename}"))
 
 (defun projectile-rails-find-mailer ()
   (interactive)
-  (projectile-rails-find-resource "mailer: " '(("app/mailers/" "app/mailers/\\(.+\\)\\.rb$"))))
+  (projectile-rails-find-resource
+   "mailer: "
+   '(("app/mailers/" "app/mailers/\\(.+\\)\\.rb$"))
+   "app/mailer/${filename}.rb"))
 
 (defun projectile-rails-find-current-model ()
   (interactive)
@@ -475,16 +516,15 @@ Returns a hash table with keys being short names and values being relative paths
     (projectile-completing-read
      "Rake (default: default): "
      (projectile-rails-pcmpl-rake-tasks))))
-  (let ((default-directory (projectile-rails-root)))
-    (projectile-rails-with-root
-     (compile
-      (concat
-       (projectile-rails-with-preloader
-        :spring "spring rake "
-        :zeus "zeus rake "
-        :vanilla "bundle exec rake ")
-       (if (= 0 (length task)) "default" task))
-      'projectile-rails-compilation-mode))))
+  (projectile-rails-with-root
+   (compile
+    (concat
+     (projectile-rails-with-preloader
+      :spring "spring rake "
+      :zeus "zeus rake "
+      :vanilla "bundle exec rake ")
+     (if (= 0 (length task)) "default" task))
+    'projectile-rails-compilation-mode)))
 
 (defun projectile-rails-root ()
   "Returns rails root directory if this file is a part of a Rails application else nil"
@@ -583,9 +623,9 @@ Returns a hash table with keys being short names and values being relative paths
    (concat
     (projectile-rails-sanitize-dir-name dir) (projectile-rails-declassify name) ext)))
 
-(defun projectile-rails-goto-file (filepath)
+(defun projectile-rails-goto-file (filepath &optional ask)
   "Finds the FILEPATH after expanding root."
-  (projectile-rails-ff (projectile-expand-root filepath)))
+  (projectile-rails-ff (projectile-expand-root filepath) ask))
 
 (defun projectile-rails-goto-gem (gem)
   "Uses `bundle-open' to open GEM. If the function is not defined notifies user."

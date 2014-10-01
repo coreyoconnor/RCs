@@ -6,10 +6,40 @@
          (setq keyboard-translate-table "\C-@\C-a\C-b\C-c\C-d\C-e\C-f\C-g\C-?")
          (global-set-key "\M-h" 'help-for-help)))
 
-(setq package-enable-at-startup nil)
+(defun cleanup-on-save ()
+  (add-hook 'write-contents-functions
+            (lambda()
+              (save-excursion
+                (delete-trailing-whitespace))))
+  )
+
+(add-hook 'c-mode-common-hook (lambda() (cleanup-on-save)))
+
+(eval-after-load "scala-mode"
+  (add-hook 'scala-mode-hook
+            (lambda() (cleanup-on-save))))
+
+(autoload 'nav "nav" "nav" t)
+(eval-after-load 'nav
+  '(progn
+      (nav-disable-overeager-window-splitting)
+      (evil-make-overriding-map nav-mode-map 'normal t)
+      (evil-define-key 'normal nav-mode-map
+        "j" 'evil-next-line
+        "k" 'evil-previous-line)))
+
+(eval-after-load 'compilation-mode
+  '(progn
+    (evil-make-overriding-map compilation-mode 'normal t)
+    (evil-define-key 'normal nav-mode-map
+      "gt" 'elscreen-next
+      "gT" 'elscreen-previous)))
+
 (package-initialize)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
+(setq package-enable-at-startup nil)
 
 (add-to-list 'load-path "~/.emacs.d/evil")
 (add-to-list 'load-path "~/.emacs.d/evil-tabs")
@@ -34,7 +64,7 @@
 )
 
 ; (electric-indent-mode 1)
-;; ruby 
+;; ruby
 
 (setq-default ruby-indent-level 2)
 (setq-default evil-shift-width 2)
@@ -42,7 +72,7 @@
   (function (lambda ()
               (inf-ruby-keys)
               (setq-default evil-shift-width ruby-indent-level)
-              ; (evil-define-key 'insert 
+              ; (evil-define-key 'insert
               ;                  ruby-mode-map
               ;                  (kbd "C-n")
               ;                  'rsense-complete
@@ -140,30 +170,6 @@
 (autoload 'java-mode "jde.el"
   "JDEE for java" t)
 
-(eval-after-load 'java-mode
-  '(add-hook ‘java-mode-hook
-              (lambda () (add-to-list ‘write-file-functions
-                                 ‘delete-trailing-whitespace
-                                  )
-               )
-             )
-  )
-
-(autoload 'nav "nav" "nav" t)
-(eval-after-load 'nav
-  '(progn
-      (nav-disable-overeager-window-splitting)
-      (evil-make-overriding-map nav-mode-map 'normal t)
-      (evil-define-key 'normal nav-mode-map
-        "j" 'evil-next-line
-        "k" 'evil-previous-line)))
-
-(eval-after-load 'compilation-mode
-  '(progn
-    (evil-make-overriding-map compilation-mode 'normal t)
-    (evil-define-key 'normal nav-mode-map
-      "gt" 'elscreen-next
-      "gT" 'elscreen-previous)))
 
 (add-hook 'compilation-mode-hook (lambda () (visual-line-mode 1)))
 (add-hook 'compilation-minor-mode-hook (lambda () (visual-line-mode 1)))

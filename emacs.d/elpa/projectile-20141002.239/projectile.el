@@ -5,7 +5,7 @@
 ;; Author: Bozhidar Batsov <bozhidar@batsov.com>
 ;; URL: https://github.com/bbatsov/projectile
 ;; Keywords: project, convenience
-;; Version: 20140906.1456
+;; Version: 20141002.239
 ;; X-Original-Version: 0.11.0
 ;; Package-Requires: ((s "1.6.0") (dash "1.5.0") (pkg-info "0.4"))
 
@@ -617,7 +617,7 @@ Returns a project root directory path or nil if not found."
    (or list projectile-project-root-files-bottom-up (list))))
 
 (defun projectile-root-top-down (dir &optional list)
-  "Identify a project root in DIR by looking at `projectile-project-root-files-top-down'.
+  "Identify a project root in DIR by looking at `projectile-project-root-files'.
 Returns a project root directory path or nil if not found."
   (projectile-locate-dominating-file
    dir

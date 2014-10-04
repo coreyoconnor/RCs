@@ -1,3 +1,5 @@
+(setq ring-bell-function 'ignore)
+(setq warning-minimum-level :emergency)
 (setq message-log-max t)
 (add-to-list 'load-path "~/.emacs.d")
 

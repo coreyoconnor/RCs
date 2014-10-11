@@ -4,8 +4,8 @@
 
 
 ;;;### (autoloads (projectile-global-mode projectile-mode projectile-mode-line
-;;;;;;  projectile-commander) "projectile" "projectile.el" (21549
-;;;;;;  35524 0 0))
+;;;;;;  projectile-commander) "projectile" "projectile.el" (21560
+;;;;;;  55168 44156 753000))
 ;;; Generated autoloads from projectile.el
 
 (autoload 'projectile-commander "projectile" "\
@@ -70,8 +70,8 @@ See `projectile-mode' for more information on Projectile mode.
 
 ;;;***
 
-;;;### (autoloads nil nil ("projectile-pkg.el") (21549 35524 237965
-;;;;;;  0))
+;;;### (autoloads nil nil ("projectile-pkg.el") (21560 55168 56454
+;;;;;;  335000))
 
 ;;;***
 

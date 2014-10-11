@@ -5,7 +5,7 @@
 ;; Author: Bozhidar Batsov <bozhidar@batsov.com>
 ;; URL: https://github.com/bbatsov/projectile
 ;; Keywords: project, convenience
-;; Version: 20141002.1125
+;; Version: 20141010.201
 ;; X-Original-Version: 0.11.0
 ;; Package-Requires: ((s "1.6.0") (dash "1.5.0") (pkg-info "0.4"))
 
@@ -350,9 +350,7 @@ The saved data can be restored with `projectile-unserialize'."
       (insert-file-contents filename)
       (read (buffer-string)))))
 
-(defvar projectile-projects-cache
-  (or (projectile-unserialize projectile-cache-file)
-      (make-hash-table :test 'equal))
+(defvar projectile-projects-cache nil
   "A hashmap used to cache project file names to speed up related operations.")
 
 (defvar projectile-known-projects nil
@@ -523,7 +521,7 @@ The cache is created both in memory and on the hard drive."
 ;; cache opened files automatically to reduce the need for cache invalidation
 (defun projectile-cache-files-find-file-hook ()
   "Function for caching files with `find-file-hook'."
-  (when (and (projectile-project-p) projectile-enable-caching)
+  (when (and projectile-enable-caching (projectile-project-p))
     (projectile-cache-current-file)))
 
 (defun projectile-cache-projects-find-file-hook ()
@@ -536,6 +534,7 @@ The cache is created both in memory and on the hard drive."
   "Invalidate if FORCE or project's dirconfig newer than cache."
   (when (or force (file-newer-than-file-p (projectile-dirconfig-file)
                                           projectile-cache-file))
+    (setq projectile--project-root nil)
     (projectile-invalidate-cache nil)))
 
 
@@ -576,6 +575,14 @@ Returns nil if no window configuration was found"
   (when (and projectile-remember-window-configs
              (projectile-project-p))
     (projectile-restore-window-config (projectile-project-name))))
+
+(defadvice delete-file (before purge-from-projectile-cache (filename &optional trash))
+  (if (and (projectile-project-p) projectile-enable-caching)
+      (let* ((project-root (projectile-project-root))
+             (true-filename (file-truename filename))
+             (relative-filename (file-relative-name true-filename project-root)))
+        (if (projectile-file-cached-p relative-filename project-root)
+            (projectile-purge-file-from-cache relative-filename)))))
 
 
 ;;; Project root related utilities
@@ -639,17 +646,22 @@ Returns a project root directory path or nil if not found."
    nil
    (or list projectile-project-root-files-top-down-recurring (list))))
 
+(defvar-local projectile--project-root nil "Cached value of `projectile-project-root`.")
+
 (defun projectile-project-root ()
   "Retrieves the root directory of a project if available.
 The current directory is assumed to be the project's root otherwise."
-  (file-truename
-   (let ((dir (file-truename default-directory)))
-     (or (--reduce-from
-          (or acc (funcall it dir)) nil
-          projectile-project-root-files-functions)
-         (if projectile-require-project-root
-             (error "You're not in a project")
-           default-directory)))))
+  (if projectile--project-root
+      projectile--project-root
+    (setq projectile--project-root
+          (file-truename
+           (let ((dir (file-truename default-directory)))
+             (or (--reduce-from
+                  (or acc (funcall it dir)) nil
+                  projectile-project-root-files-functions)
+                 (if projectile-require-project-root
+                     (error "You're not in a project")
+                   default-directory)))))))
 
 (defun projectile-file-truename (file-name)
   "Return the truename of FILE-NAME.
@@ -2429,16 +2441,23 @@ Otherwise behave as if called interactively.
   :require 'projectile
   (cond
    (projectile-mode
+    ;; initialize the projects cache if needed
+    (unless projectile-projects-cache
+      (setq projectile-projects-cache
+            (or (projectile-unserialize projectile-cache-file)
+                (make-hash-table :test 'equal))))
     (add-hook 'find-file-hook 'projectile-cache-files-find-file-hook t t)
     (add-hook 'find-file-hook 'projectile-cache-projects-find-file-hook t t)
     (add-hook 'projectile-find-dir-hook 'projectile-cache-projects-find-file-hook)
     (add-hook 'find-file-hook 'projectile-visit-project-tags-table t t)
-    (ad-activate 'compilation-find-file))
+    (ad-activate 'compilation-find-file)
+    (ad-activate 'delete-file))
    (t
     (remove-hook 'find-file-hook 'projectile-cache-files-find-file-hook t)
     (remove-hook 'find-file-hook 'projectile-cache-projects-find-file-hook t)
     (remove-hook 'find-file-hook 'projectile-visit-project-tags-table t)
-    (ad-deactivate 'compilation-find-file))))
+    (ad-deactivate 'compilation-find-file)
+    (ad-deactivate 'delete-file))))
 
 ;;;###autoload
 (define-globalized-minor-mode projectile-global-mode

@@ -1,6 +1,11 @@
 *.swp
 *.hi
 .DS_Store
-*_secure.rb
 .idea
 result
+dist
+*.o
+*.prof
+Setup
+.cabal-sandbox
+cabal.sandbox.config

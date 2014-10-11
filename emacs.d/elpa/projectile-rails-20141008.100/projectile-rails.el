@@ -4,7 +4,7 @@
 
 ;; Author:            Adam Sokolnicki <adam.sokolnicki@gmail.com>
 ;; URL:               https://github.com/asok/projectile-rails
-;; Version: 20140929.254
+;; Version: 20141008.100
 ;; X-Original-Version:           0.5.0
 ;; Keywords:          rails, projectile
 ;; Package-Requires:  ((projectile "1.0.0-cvs") (inflections "1.1") (inf-ruby "2.2.6") (f "0.13.0"))
@@ -562,7 +562,11 @@ The binded variable is \"filename\"."
 (defun projectile-rails-expand-corresponding-snippet ()
   (let ((name (buffer-file-name)))
     (yas-expand-snippet
-     (cond ((string-match "app/controllers/\\(.+\\)\\.rb$" name)
+     (cond ((string-match "app/[^/]+/concerns/\\(.+\\)\\.rb$" name)
+            (format
+             "module %s\n  extend ActiveSupport::Concern\n$1\nend"
+             (s-join "::" (projectile-rails-classify (match-string 1 name)))))
+           ((string-match "app/controllers/\\(.+\\)\\.rb$" name)
             (format
              "class %s < ${1:ApplicationController}\n$2\nend"
              (s-join "::" (projectile-rails-classify (match-string 1 name)))))

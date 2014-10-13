@@ -172,6 +172,32 @@
 (autoload 'java-mode "jde.el"
   "JDEE for java" t)
 
+(defvar java-src-dir "src/")
+(defun java-src-stack-trace-regexp-to-filename ()
+  "Generates a relative filename from java-stack-trace regexp match data."
+  (concat java-src-dir
+          (replace-regexp-in-string "\\." "/" (match-string 1))
+          (match-string 2)))
+
+;; regexps are not case sensitive so we jump throuhg hoops to get this regex to match as expected
+(add-to-list 'compilation-error-regexp-alist 'java-src-stack-trace)
+(add-to-list 'compilation-error-regexp-alist-alist
+  '(java-src-stack-trace .
+    ("at \\(\\(?:[[:alnum:]]+\\.\\)+\\)+[[:alnum:]]+\\.[[:alnum:]]+(\\([[:alnum:]]+\\.java\\):\\([[:digit:]]+\\))$"
+     java-src-stack-trace-regexp-to-filename 3)))
+
+(defvar java-tst-dir "tst/")
+(defun java-tst-stack-trace-regexp-to-filename ()
+  "Generates a relative filename from java-stack-trace regexp match data."
+  (concat java-tst-dir
+          (replace-regexp-in-string "\\." "/" (match-string 1))
+          (match-string 2)))
+
+(add-to-list 'compilation-error-regexp-alist 'java-tst-stack-trace)
+(add-to-list 'compilation-error-regexp-alist-alist
+  '(java-tst-stack-trace .
+    ("at \\(\\(?:[[:alnum:]]+\\.\\)+\\)+[[:alnum:]]+\\.[[:alnum:]]+(\\([[:alnum:]]+\\Test.java\\):\\([[:digit:]]+\\))$"
+     java-tst-stack-trace-regexp-to-filename 3)))
 
 (add-hook 'compilation-mode-hook (lambda () (visual-line-mode 1)))
 (add-hook 'compilation-minor-mode-hook (lambda () (visual-line-mode 1)))

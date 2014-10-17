@@ -45,9 +45,14 @@
 
 (add-to-list 'load-path "~/.emacs.d/evil")
 (add-to-list 'load-path "~/.emacs.d/evil-tabs")
+(add-to-list 'load-path "~/.emacs.d/evil-numbers")
 
 (require 'evil)
 (require 'evil-tabs)
+(require 'evil-numbers)
+
+(define-key evil-normal-state-map (kbd "C-c +") 'evil-numbers/inc-at-pt)
+(define-key evil-normal-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt)
 
 (projectile-global-mode)
 ;; default text formatting options
@@ -233,3 +238,4 @@ otherwise, close current tab (elscreen)."
 
 (setq scala-indent:align-parameters t)
 (setq blink-matching-paren nil)
+(setq dabbrev-case-replace nil)

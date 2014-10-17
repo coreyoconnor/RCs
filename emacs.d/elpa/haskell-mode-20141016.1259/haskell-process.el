@@ -519,10 +519,11 @@ to be loaded by ghci."
 (defun haskell-process-type ()
   "Return `haskell-process-type', or a guess if that variable is 'auto."
   (if (eq 'auto haskell-process-type)
-      (if (locate-dominating-file default-directory
-                                  (lambda (f)
-                                    (or (string= ".cabal-sandbox" f)
-                                        (string-match-p "\\.cabal\\'" f))))
+      (if (locate-dominating-file
+           default-directory
+           (lambda (d)
+             (or (file-directory-p (expand-file-name ".cabal-sandbox" d))
+                 (cl-find-if (lambda (f) (string-match-p "\\.cabal\\'" f)) (directory-files d)))))
           'cabal-repl
         'ghci)
     haskell-process-type))
@@ -1670,7 +1671,7 @@ function and remove this comment.
     (define-key map (kbd "M-.") 'haskell-mode-jump-to-def-or-tag)
     (define-key map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
     (define-key map (kbd "C-c C-c") 'haskell-process-cabal-build)
-    (define-key map (kbd "C-c c") 'haskell-process-cabal)
+    (define-key map (kbd "C-c C-x") 'haskell-process-cabal)
     (define-key map [?\C-c ?\C-b] 'haskell-interactive-switch)
     (define-key map [?\C-c ?\C-z] 'haskell-interactive-switch)
     map)

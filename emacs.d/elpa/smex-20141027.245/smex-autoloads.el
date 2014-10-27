@@ -4,7 +4,7 @@
 
 
 ;;;### (autoloads (smex-initialize smex-major-mode-commands smex)
-;;;;;;  "smex" "smex.el" (21411 6037 0 0))
+;;;;;;  "smex" "smex.el" (21582 34493 0 0))
 ;;; Generated autoloads from smex.el
 
 (autoload 'smex "smex" "\
@@ -24,7 +24,7 @@ Like `smex', but limited to commands that are relevant to the active major mode.
 
 ;;;***
 
-;;;### (autoloads nil nil ("smex-pkg.el") (21411 6037 850592 0))
+;;;### (autoloads nil nil ("smex-pkg.el") (21582 34494 136547 0))
 
 ;;;***
 

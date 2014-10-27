@@ -4,7 +4,7 @@
 
 ;; Author:            Adam Sokolnicki <adam.sokolnicki@gmail.com>
 ;; URL:               https://github.com/asok/projectile-rails
-;; Version: 20141008.100
+;; Version: 20141024.1347
 ;; X-Original-Version:           0.5.0
 ;; Keywords:          rails, projectile
 ;; Package-Requires:  ((projectile "1.0.0-cvs") (inflections "1.1") (inf-ruby "2.2.6") (f "0.13.0"))
@@ -668,6 +668,9 @@ The binded variable is \"filename\"."
            (projectile-rails-ff (expand-file-name (concat (thing-at-point 'filename) ".rb"))))
 
           ((string-match-p "\\_<require\\_>" line)
+           (projectile-rails-goto-gem (thing-at-point 'filename)))
+          
+          ((string-match-p "\\_<gem\\_>" line)
            (projectile-rails-goto-gem (thing-at-point 'filename)))
 
           ((not (string-match-p "^[A-Z]" name))

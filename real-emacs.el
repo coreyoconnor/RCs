@@ -70,7 +70,7 @@
           )
 )
 
-; (electric-indent-mode 1)
+(electric-indent-mode 1)
 ;; ruby
 
 (setq-default ruby-indent-level 2)
@@ -188,7 +188,7 @@
 (add-to-list 'compilation-error-regexp-alist 'java-src-stack-trace)
 (add-to-list 'compilation-error-regexp-alist-alist
   '(java-src-stack-trace .
-    ("at \\(\\(?:[[:alnum:]]+\\.\\)+\\)+[[:alnum:]]+\\.[[:alnum:]]+(\\([[:alnum:]]+\\.java\\):\\([[:digit:]]+\\))$"
+    ("at \\(\\(?:[[:alnum:]]+\\.\\)+\\)+[[:alnum:]]+\\..+(\\([[:alnum:]]+\\.java\\):\\([[:digit:]]+\\))$"
      java-src-stack-trace-regexp-to-filename 3)))
 
 (defvar java-tst-dir "tst/")
@@ -201,7 +201,7 @@
 (add-to-list 'compilation-error-regexp-alist 'java-tst-stack-trace)
 (add-to-list 'compilation-error-regexp-alist-alist
   '(java-tst-stack-trace .
-    ("at \\(\\(?:[[:alnum:]]+\\.\\)+\\)+[[:alnum:]]+\\.[[:alnum:]]+(\\([[:alnum:]]+\\Test.java\\):\\([[:digit:]]+\\))$"
+    ("at \\(\\(?:[[:alnum:]]+\\.\\)+\\)+[[:alnum:]]+\\..+(\\([[:alnum:]]+\\Test.java\\):\\([[:digit:]]+\\))$"
      java-tst-stack-trace-regexp-to-filename 3)))
 
 (add-hook 'compilation-mode-hook (lambda () (visual-line-mode 1)))

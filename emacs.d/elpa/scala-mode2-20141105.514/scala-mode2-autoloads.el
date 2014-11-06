@@ -4,7 +4,7 @@
 
 
 ;;;### (autoloads (scala-mode scala-mode:set-scala-syntax-mode) "scala-mode2"
-;;;;;;  "scala-mode2.el" (21427 16766 0 0))
+;;;;;;  "scala-mode2.el" (21595 59899 0 0))
 ;;; Generated autoloads from scala-mode2.el
 
 (autoload 'scala-mode:set-scala-syntax-mode "scala-mode2" "\
@@ -30,7 +30,7 @@ When started, runs `scala-mode-hook'.
 ;;;### (autoloads nil nil ("scala-mode2-fontlock.el" "scala-mode2-indent.el"
 ;;;;;;  "scala-mode2-lib.el" "scala-mode2-map.el" "scala-mode2-paragraph.el"
 ;;;;;;  "scala-mode2-pkg.el" "scala-mode2-sbt.el" "scala-mode2-syntax.el")
-;;;;;;  (21427 16766 954951 0))
+;;;;;;  (21595 59918 646597 0))
 
 ;;;***
 

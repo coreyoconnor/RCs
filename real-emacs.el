@@ -17,6 +17,10 @@
 
 (add-hook 'c-mode-common-hook (lambda() (cleanup-on-save)))
 
+(eval-after-load "ruby-mode"
+  (add-hook 'ruby-mode-hook
+            (lambda() (cleanup-on-save))))
+
 (eval-after-load "scala-mode"
   (add-hook 'scala-mode-hook
             (lambda() (cleanup-on-save))))

@@ -13,3 +13,7 @@ emacs.d/places
 emacs.d/projectile-bookmarks.eld
 emacs.d/.smex-items
 vim/.netrwhist
+emacs.d/elpa/archives/melpa/archive-contents
+emacs.d/elpa/archives/gnu/archive-contents
+emacs.d/elpa/archives/gnu/archive-contents.signed
+emacs.d/elpa/gnupg

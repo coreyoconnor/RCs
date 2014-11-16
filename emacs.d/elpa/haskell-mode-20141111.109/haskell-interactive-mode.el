@@ -402,13 +402,9 @@ be nil.")
                     (cl-caddr state) response))
            (haskell-interactive-mode-handle-h (point-min))
            (buffer-string))))
-    (cond
-     (haskell-interactive-mode-eval-mode
-      (unless (haskell-process-sent-stdin-p (cadr state))
-        (haskell-interactive-mode-eval-as-mode (car state) response)))
-     ((haskell-interactive-mode-line-is-query (elt state 2))
-      (let ((haskell-interactive-mode-eval-mode 'haskell-mode))
-        (haskell-interactive-mode-eval-as-mode (car state) response)))))
+    (when haskell-interactive-mode-eval-mode
+     (unless (haskell-process-sent-stdin-p (cadr state))
+       (haskell-interactive-mode-eval-as-mode (car state) response))))
   (haskell-interactive-mode-prompt (car state)))
 
 (defun haskell-interactive-mode-handle-h (&optional bound)
@@ -530,7 +526,10 @@ do the
       (remove-overlays)
       (haskell-interactive-mode-prompt session)
       (haskell-session-set session 'next-error-region nil)
-      (haskell-session-set session 'next-error-locus nil))))
+      (haskell-session-set session 'next-error-locus nil))
+    (with-current-buffer (get-buffer-create "*haskell-process-log*")
+      (delete-region (point-min) (point-max))
+      (remove-overlays))))
 
 (defun haskell-interactive-mode-input-partial ()
   "Get the interactive mode input up to point."

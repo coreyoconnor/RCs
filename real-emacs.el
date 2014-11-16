@@ -65,14 +65,6 @@
 (setq-default fill-column 101)
 (setq column-number-mode t)
 
-(add-hook 'after-change-major-mode-hook
-          (function
-            (lambda ()
-                ;(fci-mode)
-                ;(turn-on-auto-fill)
-            )
-          )
-)
 
 (electric-indent-mode 1)
 ;; ruby
@@ -80,17 +72,7 @@
 (setq-default ruby-indent-level 2)
 (setq-default evil-shift-width 2)
 (add-hook 'ruby-mode-hook
-  (function (lambda ()
-              (inf-ruby-keys)
-              (setq-default evil-shift-width ruby-indent-level)
-              ; (evil-define-key 'insert
-              ;                  ruby-mode-map
-              ;                  (kbd "C-n")
-              ;                  'rsense-complete
-              ;   )
-            )
-  )
-)
+  (lambda () (setq-default evil-shift-width ruby-indent-level)))
 
 (setq auto-mode-alist (cons '("\\.rake\\'" . ruby-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("Rakefile" . ruby-mode) auto-mode-alist))

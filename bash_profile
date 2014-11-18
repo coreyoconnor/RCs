@@ -1,5 +1,9 @@
 source $HOME/.bashrc
 
+if [[ -f ${RCS_PRIVATE_DIR}/profile_private ]] ; then
+  source ${RCS_PRIVATE_DIR}/profile_private
+fi
+
 function hs-search () 
 { 
     find . -name '*.hs' -print0 -or -name '*.lhs' -print0 | xargs -0 egrep -n --color=auto "$*"

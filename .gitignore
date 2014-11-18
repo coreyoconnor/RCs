@@ -18,3 +18,5 @@ emacs.d/elpa/archives/gnu/archive-contents
 emacs.d/elpa/archives/gnu/archive-contents.signed
 emacs.d/elpa/gnupg
 emacs.d/projectile.cache
+sbt/boot
+sbt/staging

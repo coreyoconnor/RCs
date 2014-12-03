@@ -5,7 +5,7 @@
 
 ;;;### (autoloads (projectile-global-mode projectile-mode projectile-mode-line
 ;;;;;;  projectile-commander projectile-kill-buffers) "projectile"
-;;;;;;  "projectile.el" (21602 30515 0 0))
+;;;;;;  "projectile.el" (21609 7581 0 0))
 ;;; Generated autoloads from projectile.el
 
 (autoload 'projectile-kill-buffers "projectile" "\
@@ -75,7 +75,7 @@ See `projectile-mode' for more information on Projectile mode.
 
 ;;;***
 
-;;;### (autoloads nil nil ("projectile-pkg.el") (21602 30515 206801
+;;;### (autoloads nil nil ("projectile-pkg.el") (21609 7581 190783
 ;;;;;;  0))
 
 ;;;***

@@ -1,6 +1,6 @@
 [submodule "emacs.d/evil"]
 	path = emacs.d/evil
-	url = git://gitorious.org/evil/evil.git
+	url = https://gitorious.org/evil/evil.git
 [submodule "vim/bundle/neobundle.vim"]
 	path = vim/bundle/neobundle.vim
 	url = git://github.com/Shougo/neobundle.vim

@@ -25,6 +25,10 @@
   (add-hook 'scala-mode-hook
             (lambda() (cleanup-on-save))))
 
+(eval-after-load "javascript-mode"
+  (add-hook 'javascript-mode-hook
+            (lambda() (cleanup-on-save))))
+
 (autoload 'nav "nav" "nav" t)
 (eval-after-load 'nav
   '(progn
@@ -101,7 +105,7 @@
 (add-to-list 'default-frame-alist  '(width . 100) )
 (require 'fill-column-indicator)
 
-(load-theme 'solarized-dark t)
+;(load-theme 'solarized-dark t)
 
 ; plugins
 (autoload 'coq-mode "ProofGeneral" "~/.emacs.d/ProofGeneral/generic/proof-site.el"
@@ -170,7 +174,9 @@
           (replace-regexp-in-string "\\." "/" (match-string 1))
           (match-string 2)))
 
-;; regexps are not case sensitive so we jump throuhg hoops to get this regex to match as expected
+(require 'compile)
+
+;; regexps are not case sensitive so we jump through hoops to get this regex to match as expected
 (add-to-list 'compilation-error-regexp-alist 'java-src-stack-trace)
 (add-to-list 'compilation-error-regexp-alist-alist
   '(java-src-stack-trace .

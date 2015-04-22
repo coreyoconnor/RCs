@@ -105,7 +105,7 @@
 (add-to-list 'default-frame-alist  '(width . 100) )
 (require 'fill-column-indicator)
 
-;(load-theme 'solarized-dark t)
+(load-theme 'solarized-dark t)
 
 ; plugins
 (autoload 'coq-mode "ProofGeneral" "~/.emacs.d/ProofGeneral/generic/proof-site.el"

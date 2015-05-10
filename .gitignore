@@ -20,3 +20,9 @@ emacs.d/elpa/gnupg
 emacs.d/projectile.cache
 sbt/boot
 sbt/staging
+sbt/0.13/plugins/project/
+sbt/0.13/plugins/target/
+sbt/plugins/project/
+sbt/plugins/target/
+emacs.d/session.*
+emacs.d/ensime/classpath_*

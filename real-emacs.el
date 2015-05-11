@@ -29,6 +29,10 @@
   (add-hook 'javascript-mode-hook
             (lambda() (cleanup-on-save))))
 
+(eval-after-load "js-mode"
+  (add-hook 'js-mode-hook
+            (lambda() (cleanup-on-save))))
+
 (autoload 'nav "nav" "nav" t)
 (eval-after-load 'nav
   '(progn

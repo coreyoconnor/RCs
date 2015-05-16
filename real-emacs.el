@@ -22,8 +22,14 @@
             (lambda() (cleanup-on-save))))
 
 (eval-after-load "scala-mode"
-  (add-hook 'scala-mode-hook
-            (lambda() (cleanup-on-save))))
+                 '(progn
+                    (add-hook 'scala-mode-hook (lambda() (cleanup-on-save)))
+                    (require 'ensime)
+                    (require 'ensime-ecb)
+                    (require 'ensime-layout-defs)
+                    (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+                    )
+                 )
 
 (eval-after-load "javascript-mode"
   (add-hook 'javascript-mode-hook

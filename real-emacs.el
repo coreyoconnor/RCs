@@ -62,10 +62,29 @@
 (require 'evil)
 (require 'evil-tabs)
 (require 'evil-numbers)
+(loop for (mode . state) in '((inferior-emacs-lisp-mode . emacs)
+                              (nrepl-mode . insert)
+                              (pylookup-mode . emacs)
+                              (comint-mode . normal)
+                              (shell-mode . insert)
+                              (git-commit-mode . insert)
+                              (git-rebase-mode . emacs)
+                              (term-mode . emacs)
+                              (help-mode . emacs)
+                              (helm-grep-mode . emacs)
+                              (grep-mode . emacs)
+                              (bc-menu-mode . emacs)
+                              (magit-branch-manager-mode . emacs)
+                              (rdictcc-buffer-mode . emacs)
+                              (dired-mode . emacs)
+                              (wdired-mode . normal)
+                              (ensime-inf-mode . emacs))
+      do (evil-set-initial-state mode state))
 
 (define-key evil-normal-state-map (kbd "C-c +") 'evil-numbers/inc-at-pt)
 (define-key evil-normal-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt)
 
+(window-numbering-mode)
 (projectile-global-mode)
 ;; default text formatting options
 (setq-default indent-tabs-mode nil)
@@ -109,7 +128,7 @@
 (add-to-list 'default-frame-alist  '(width . 100) )
 (require 'fill-column-indicator)
 
-(load-theme 'solarized-dark t)
+; (load-theme 'solarized-dark t)
 
 ; plugins
 (autoload 'coq-mode "ProofGeneral" "~/.emacs.d/ProofGeneral/generic/proof-site.el"

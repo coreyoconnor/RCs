@@ -192,9 +192,9 @@
 (setq diff-switches "-u")
 
 ;; Java stuff
-(add-to-list 'load-path "~/.emacs.d/jdee-2.4.1/lisp")
-(autoload 'java-mode "jde.el"
-  "JDEE for java" t)
+; (add-to-list 'load-path "~/.emacs.d/jdee-2.4.1/lisp")
+; (autoload 'java-mode "jde.el"
+;   "JDEE for java" t)
 
 (defvar java-src-dir "src/")
 (defun java-src-stack-trace-regexp-to-filename ()

@@ -3,8 +3,8 @@
 ;;; Code:
 
 
-;;;### (autoloads (ensime-remote ensime) "ensime" "ensime.el" (21880
-;;;;;;  45911 0 0))
+;;;### (autoloads (ensime-remote ensime) "ensime" "ensime.el" (21888
+;;;;;;  42612 0 0))
 ;;; Generated autoloads from ensime.el
 
 (autoload 'ensime "ensime" "\
@@ -28,8 +28,8 @@ Read config file for settings. Then connect to an existing ENSIME server.
 ;;;;;;  "ensime-pkg.el" "ensime-popup.el" "ensime-refactor.el" "ensime-sbt.el"
 ;;;;;;  "ensime-scalex.el" "ensime-search.el" "ensime-semantic-highlight.el"
 ;;;;;;  "ensime-stacktrace.el" "ensime-startup.el" "ensime-ui.el"
-;;;;;;  "ensime-undo.el" "ensime-util.el" "ensime-vars.el") (21880
-;;;;;;  45911 983588 0))
+;;;;;;  "ensime-undo.el" "ensime-util.el" "ensime-vars.el") (21888
+;;;;;;  42612 752338 0))
 
 ;;;***
 

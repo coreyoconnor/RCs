@@ -4,7 +4,7 @@
 
 
 ;;;### (autoloads (global-company-mode company-mode) "company" "company.el"
-;;;;;;  (21880 45915 0 0))
+;;;;;;  (21888 42616 0 0))
 ;;; Generated autoloads from company.el
 
 (autoload 'company-mode "company" "\
@@ -24,6 +24,9 @@ inactive, as well.
 The completion data is retrieved using `company-backends' and displayed
 using `company-frontends'.  If you want to start a specific back-end, call
 it interactively or use `company-begin-backend'.
+
+By default, the completions list is sorted alphabetically, unless the
+backend chooses otherwise, or `company-transformers' changes it later.
 
 regular keymap (`company-mode-map'):
 
@@ -58,7 +61,7 @@ See `company-mode' for more information on Company mode.
 ;;;***
 
 ;;;### (autoloads (company-abbrev) "company-abbrev" "company-abbrev.el"
-;;;;;;  (21880 45915 0 0))
+;;;;;;  (21888 42616 0 0))
 ;;; Generated autoloads from company-abbrev.el
 
 (autoload 'company-abbrev "company-abbrev" "\
@@ -69,7 +72,7 @@ See `company-mode' for more information on Company mode.
 ;;;***
 
 ;;;### (autoloads (company-bbdb) "company-bbdb" "company-bbdb.el"
-;;;;;;  (21880 45915 0 0))
+;;;;;;  (21888 42616 0 0))
 ;;; Generated autoloads from company-bbdb.el
 
 (autoload 'company-bbdb "company-bbdb" "\
@@ -79,8 +82,8 @@ See `company-mode' for more information on Company mode.
 
 ;;;***
 
-;;;### (autoloads (company-css) "company-css" "company-css.el" (21880
-;;;;;;  45915 0 0))
+;;;### (autoloads (company-css) "company-css" "company-css.el" (21888
+;;;;;;  42616 0 0))
 ;;; Generated autoloads from company-css.el
 
 (autoload 'company-css "company-css" "\
@@ -91,7 +94,7 @@ See `company-mode' for more information on Company mode.
 ;;;***
 
 ;;;### (autoloads (company-dabbrev) "company-dabbrev" "company-dabbrev.el"
-;;;;;;  (21880 45915 0 0))
+;;;;;;  (21888 42616 0 0))
 ;;; Generated autoloads from company-dabbrev.el
 
 (autoload 'company-dabbrev "company-dabbrev" "\
@@ -102,7 +105,7 @@ dabbrev-like `company-mode' completion back-end.
 ;;;***
 
 ;;;### (autoloads (company-dabbrev-code) "company-dabbrev-code" "company-dabbrev-code.el"
-;;;;;;  (21880 45915 0 0))
+;;;;;;  (21888 42616 0 0))
 ;;; Generated autoloads from company-dabbrev-code.el
 
 (autoload 'company-dabbrev-code "company-dabbrev-code" "\
@@ -115,7 +118,7 @@ comments or strings.
 ;;;***
 
 ;;;### (autoloads (company-elisp) "company-elisp" "company-elisp.el"
-;;;;;;  (21880 45915 0 0))
+;;;;;;  (21888 42617 0 0))
 ;;; Generated autoloads from company-elisp.el
 
 (autoload 'company-elisp "company-elisp" "\
@@ -126,7 +129,7 @@ comments or strings.
 ;;;***
 
 ;;;### (autoloads (company-etags) "company-etags" "company-etags.el"
-;;;;;;  (21880 45915 0 0))
+;;;;;;  (21888 42616 0 0))
 ;;; Generated autoloads from company-etags.el
 
 (autoload 'company-etags "company-etags" "\
@@ -137,7 +140,7 @@ comments or strings.
 ;;;***
 
 ;;;### (autoloads (company-files) "company-files" "company-files.el"
-;;;;;;  (21880 45915 0 0))
+;;;;;;  (21888 42616 0 0))
 ;;; Generated autoloads from company-files.el
 
 (autoload 'company-files "company-files" "\
@@ -150,7 +153,7 @@ File paths with spaces are only supported inside strings.
 ;;;***
 
 ;;;### (autoloads (company-gtags) "company-gtags" "company-gtags.el"
-;;;;;;  (21880 45915 0 0))
+;;;;;;  (21888 42616 0 0))
 ;;; Generated autoloads from company-gtags.el
 
 (autoload 'company-gtags "company-gtags" "\
@@ -161,7 +164,7 @@ File paths with spaces are only supported inside strings.
 ;;;***
 
 ;;;### (autoloads (company-ispell) "company-ispell" "company-ispell.el"
-;;;;;;  (21880 45915 0 0))
+;;;;;;  (21888 42617 0 0))
 ;;; Generated autoloads from company-ispell.el
 
 (autoload 'company-ispell "company-ispell" "\
@@ -172,7 +175,7 @@ File paths with spaces are only supported inside strings.
 ;;;***
 
 ;;;### (autoloads (company-keywords) "company-keywords" "company-keywords.el"
-;;;;;;  (21880 45915 0 0))
+;;;;;;  (21888 42616 0 0))
 ;;; Generated autoloads from company-keywords.el
 
 (autoload 'company-keywords "company-keywords" "\
@@ -183,7 +186,7 @@ File paths with spaces are only supported inside strings.
 ;;;***
 
 ;;;### (autoloads (company-nxml) "company-nxml" "company-nxml.el"
-;;;;;;  (21880 45915 0 0))
+;;;;;;  (21888 42616 0 0))
 ;;; Generated autoloads from company-nxml.el
 
 (autoload 'company-nxml "company-nxml" "\
@@ -194,7 +197,7 @@ File paths with spaces are only supported inside strings.
 ;;;***
 
 ;;;### (autoloads (company-oddmuse) "company-oddmuse" "company-oddmuse.el"
-;;;;;;  (21880 45915 0 0))
+;;;;;;  (21888 42616 0 0))
 ;;; Generated autoloads from company-oddmuse.el
 
 (autoload 'company-oddmuse "company-oddmuse" "\
@@ -205,7 +208,7 @@ File paths with spaces are only supported inside strings.
 ;;;***
 
 ;;;### (autoloads (company-semantic) "company-semantic" "company-semantic.el"
-;;;;;;  (21880 45915 0 0))
+;;;;;;  (21888 42616 0 0))
 ;;; Generated autoloads from company-semantic.el
 
 (autoload 'company-semantic "company-semantic" "\
@@ -216,7 +219,7 @@ File paths with spaces are only supported inside strings.
 ;;;***
 
 ;;;### (autoloads (company-tempo) "company-tempo" "company-tempo.el"
-;;;;;;  (21880 45915 0 0))
+;;;;;;  (21888 42616 0 0))
 ;;; Generated autoloads from company-tempo.el
 
 (autoload 'company-tempo "company-tempo" "\
@@ -227,7 +230,7 @@ File paths with spaces are only supported inside strings.
 ;;;***
 
 ;;;### (autoloads (company-xcode) "company-xcode" "company-xcode.el"
-;;;;;;  (21880 45915 0 0))
+;;;;;;  (21888 42616 0 0))
 ;;; Generated autoloads from company-xcode.el
 
 (autoload 'company-xcode "company-xcode" "\
@@ -238,7 +241,7 @@ File paths with spaces are only supported inside strings.
 ;;;***
 
 ;;;### (autoloads (company-yasnippet) "company-yasnippet" "company-yasnippet.el"
-;;;;;;  (21880 45915 0 0))
+;;;;;;  (21888 42616 0 0))
 ;;; Generated autoloads from company-yasnippet.el
 
 (autoload 'company-yasnippet "company-yasnippet" "\
@@ -270,7 +273,7 @@ shadow back-ends that come after it.  Recommended usages:
 
 ;;;### (autoloads nil nil ("company-capf.el" "company-clang.el" "company-cmake.el"
 ;;;;;;  "company-eclim.el" "company-pkg.el" "company-template.el")
-;;;;;;  (21880 45915 569781 0))
+;;;;;;  (21888 42617 13349 0))
 
 ;;;***
 

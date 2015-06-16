@@ -4,7 +4,7 @@
 
 
 ;;;### (autoloads (ghc-core-mode ghc-core-create-core) "ghc-core"
-;;;;;;  "ghc-core.el" (21880 45906 0 0))
+;;;;;;  "ghc-core.el" (21888 42608 0 0))
 ;;; Generated autoloads from ghc-core.el
 
 (autoload 'ghc-core-create-core "ghc-core" "\
@@ -24,7 +24,7 @@ Major mode for GHC Core files.
 ;;;***
 
 ;;;### (autoloads (ghci-script-mode) "ghci-script-mode" "ghci-script-mode.el"
-;;;;;;  (21880 45906 0 0))
+;;;;;;  (21888 42608 0 0))
 ;;; Generated autoloads from ghci-script-mode.el
 
 (autoload 'ghci-script-mode "ghci-script-mode" "\
@@ -44,7 +44,7 @@ Major mode for working with .ghci files.
 ;;;;;;  haskell-kill-session-process haskell-session-change haskell-interactive-switch
 ;;;;;;  haskell-session haskell-interactive-kill haskell-session-kill
 ;;;;;;  haskell-interactive-mode-return interactive-haskell-mode)
-;;;;;;  "haskell" "haskell.el" (21880 45906 0 0))
+;;;;;;  "haskell" "haskell.el" (21888 42608 0 0))
 ;;; Generated autoloads from haskell.el
 
 (autoload 'interactive-haskell-mode "haskell" "\
@@ -155,7 +155,7 @@ Dump minimal imports.
 ;;;***
 
 ;;;### (autoloads (haskell-align-imports) "haskell-align-imports"
-;;;;;;  "haskell-align-imports.el" (21880 45906 0 0))
+;;;;;;  "haskell-align-imports.el" (21888 42609 0 0))
 ;;; Generated autoloads from haskell-align-imports.el
 
 (autoload 'haskell-align-imports "haskell-align-imports" "\
@@ -167,7 +167,7 @@ Align all the imports in the buffer.
 
 ;;;### (autoloads (haskell-cabal-visit-file haskell-cabal-get-dir
 ;;;;;;  haskell-cabal-guess-setting haskell-cabal-mode) "haskell-cabal"
-;;;;;;  "haskell-cabal.el" (21880 45906 0 0))
+;;;;;;  "haskell-cabal.el" (21888 42609 0 0))
 ;;; Generated autoloads from haskell-cabal.el
 
 (add-to-list 'auto-mode-alist '("\\.cabal\\'" . haskell-cabal-mode))
@@ -205,7 +205,7 @@ OTHER-WINDOW use `find-file-other-window'.
 ;;;***
 
 ;;;### (autoloads (haskell-lint-command) "haskell-checkers" "haskell-checkers.el"
-;;;;;;  (21880 45906 0 0))
+;;;;;;  (21888 42609 0 0))
 ;;; Generated autoloads from haskell-checkers.el
 
 (defvar haskell-lint-command "hlint" "\
@@ -222,7 +222,7 @@ The default lint command for \\[hlint].")
 ;;;;;;  haskell-process-do-type haskell-process-do-info haskell-rgrep
 ;;;;;;  haskell-describe haskell-process-touch-buffer haskell-process-interrupt
 ;;;;;;  haskell-process-clear haskell-process-restart) "haskell-commands"
-;;;;;;  "haskell-commands.el" (21880 45906 0 0))
+;;;;;;  "haskell-commands.el" (21888 42609 0 0))
 ;;; Generated autoloads from haskell-commands.el
 
 (autoload 'haskell-process-restart "haskell-commands" "\
@@ -357,7 +357,7 @@ Find use cases of the identifier at point and highlight them all.
 ;;;***
 
 ;;;### (autoloads (haskell-compile) "haskell-compile" "haskell-compile.el"
-;;;;;;  (21880 45906 0 0))
+;;;;;;  (21888 42609 0 0))
 ;;; Generated autoloads from haskell-compile.el
 
 (autoload 'haskell-compile "haskell-compile" "\
@@ -386,7 +386,7 @@ node `(haskell-mode)compilation' for more details.
 ;;;***
 
 ;;;### (autoloads (haskell-customize) "haskell-customize" "haskell-customize.el"
-;;;;;;  (21880 45906 0 0))
+;;;;;;  (21888 42609 0 0))
 ;;; Generated autoloads from haskell-customize.el
 
 (autoload 'haskell-customize "haskell-customize" "\
@@ -400,7 +400,7 @@ sure all haskell customize definitions have been loaded.
 
 ;;;### (autoloads (haskell-decl-scan-mode turn-on-haskell-decl-scan
 ;;;;;;  haskell-ds-create-imenu-index) "haskell-decl-scan" "haskell-decl-scan.el"
-;;;;;;  (21880 45906 0 0))
+;;;;;;  (21888 42609 0 0))
 ;;; Generated autoloads from haskell-decl-scan.el
 
 (autoload 'haskell-ds-create-imenu-index "haskell-decl-scan" "\
@@ -456,7 +456,7 @@ Invokes `haskell-decl-scan-mode-hook' on activation.
 ;;;***
 
 ;;;### (autoloads (haskell-doc-show-type haskell-doc-current-info
-;;;;;;  haskell-doc-mode) "haskell-doc" "haskell-doc.el" (21880 45906
+;;;;;;  haskell-doc-mode) "haskell-doc" "haskell-doc.el" (21888 42608
 ;;;;;;  0 0))
 ;;; Generated autoloads from haskell-doc.el
 
@@ -488,7 +488,7 @@ current buffer.
 ;;;***
 
 ;;;### (autoloads (haskell-font-lock-choose-keywords) "haskell-font-lock"
-;;;;;;  "haskell-font-lock.el" (21880 45906 0 0))
+;;;;;;  "haskell-font-lock.el" (21888 42609 0 0))
 ;;; Generated autoloads from haskell-font-lock.el
 
 (autoload 'haskell-font-lock-choose-keywords "haskell-font-lock" "\
@@ -499,7 +499,7 @@ current buffer.
 ;;;***
 
 ;;;### (autoloads (haskell-indent-mode turn-on-haskell-indent) "haskell-indent"
-;;;;;;  "haskell-indent.el" (21880 45906 0 0))
+;;;;;;  "haskell-indent.el" (21888 42609 0 0))
 ;;; Generated autoloads from haskell-indent.el
 
 (autoload 'turn-on-haskell-indent "haskell-indent" "\
@@ -536,7 +536,7 @@ Invokes `haskell-indent-hook' if not nil.
 ;;;***
 
 ;;;### (autoloads (turn-on-haskell-indentation haskell-indentation-mode)
-;;;;;;  "haskell-indentation" "haskell-indentation.el" (21880 45906
+;;;;;;  "haskell-indentation" "haskell-indentation.el" (21888 42609
 ;;;;;;  0 0))
 ;;; Generated autoloads from haskell-indentation.el
 
@@ -564,7 +564,7 @@ Turn on the haskell-indentation minor mode.
 
 ;;;### (autoloads (haskell-process-show-repl-response haskell-interactive-mode-echo
 ;;;;;;  haskell-interactive-mode-reset-error) "haskell-interactive-mode"
-;;;;;;  "haskell-interactive-mode.el" (21880 45906 0 0))
+;;;;;;  "haskell-interactive-mode.el" (21888 42608 0 0))
 ;;; Generated autoloads from haskell-interactive-mode.el
 
 (autoload 'haskell-interactive-mode-reset-error "haskell-interactive-mode" "\
@@ -588,7 +588,7 @@ function `haskell-presentation-present', depending on variable
 ;;;***
 
 ;;;### (autoloads (haskell-process-reload-devel-main) "haskell-load"
-;;;;;;  "haskell-load.el" (21880 45906 0 0))
+;;;;;;  "haskell-load.el" (21888 42608 0 0))
 ;;; Generated autoloads from haskell-load.el
 
 (autoload 'haskell-process-reload-devel-main "haskell-load" "\
@@ -604,7 +604,7 @@ access the running context across :load/:reloads in GHCi.
 ;;;***
 
 ;;;### (autoloads (haskell-menu) "haskell-menu" "haskell-menu.el"
-;;;;;;  (21880 45906 0 0))
+;;;;;;  (21888 42609 0 0))
 ;;; Generated autoloads from haskell-menu.el
 
 (autoload 'haskell-menu "haskell-menu" "\
@@ -616,8 +616,8 @@ Launch the Haskell sessions menu.
 
 ;;;### (autoloads (haskell-hayoo hoogle-lookup-from-local haskell-hoogle
 ;;;;;;  literate-haskell-mode haskell-mode haskell-mode-view-news
-;;;;;;  haskell-version) "haskell-mode" "haskell-mode.el" (21880
-;;;;;;  45906 0 0))
+;;;;;;  haskell-version) "haskell-mode" "haskell-mode.el" (21888
+;;;;;;  42609 0 0))
 ;;; Generated autoloads from haskell-mode.el
 
 (autoload 'haskell-version "haskell-mode" "\
@@ -745,7 +745,7 @@ Do a Hayoo search for QUERY.
 
 ;;;### (autoloads (haskell-session-project-modules haskell-session-all-modules
 ;;;;;;  haskell-session-installed-modules) "haskell-modules" "haskell-modules.el"
-;;;;;;  (21880 45906 0 0))
+;;;;;;  (21888 42609 0 0))
 ;;; Generated autoloads from haskell-modules.el
 
 (autoload 'haskell-session-installed-modules "haskell-modules" "\
@@ -770,7 +770,7 @@ If DONTCREATE is non-nil don't create a new session.
 
 ;;;### (autoloads (haskell-move-nested-left haskell-move-nested-right
 ;;;;;;  haskell-move-nested) "haskell-move-nested" "haskell-move-nested.el"
-;;;;;;  (21880 45906 0 0))
+;;;;;;  (21888 42609 0 0))
 ;;; Generated autoloads from haskell-move-nested.el
 
 (autoload 'haskell-move-nested "haskell-move-nested" "\
@@ -805,7 +805,7 @@ of the region instead.
 
 ;;;### (autoloads (haskell-navigate-imports-return haskell-navigate-imports-go
 ;;;;;;  haskell-navigate-imports) "haskell-navigate-imports" "haskell-navigate-imports.el"
-;;;;;;  (21880 45906 0 0))
+;;;;;;  (21888 42609 0 0))
 ;;; Generated autoloads from haskell-navigate-imports.el
 
 (autoload 'haskell-navigate-imports "haskell-navigate-imports" "\
@@ -827,7 +827,7 @@ Return to the non-import point we were at before going to the module list.
 ;;;***
 
 ;;;### (autoloads (haskell-session-process haskell-session-maybe)
-;;;;;;  "haskell-session" "haskell-session.el" (21880 45906 0 0))
+;;;;;;  "haskell-session" "haskell-session.el" (21888 42609 0 0))
 ;;; Generated autoloads from haskell-session.el
 
 (autoload 'haskell-session-maybe "haskell-session" "\
@@ -843,8 +843,8 @@ Get the session process.
 ;;;***
 
 ;;;### (autoloads (turn-on-haskell-simple-indent haskell-simple-indent-mode)
-;;;;;;  "haskell-simple-indent" "haskell-simple-indent.el" (21880
-;;;;;;  45906 0 0))
+;;;;;;  "haskell-simple-indent" "haskell-simple-indent.el" (21888
+;;;;;;  42608 0 0))
 ;;; Generated autoloads from haskell-simple-indent.el
 
 (autoload 'haskell-simple-indent-mode "haskell-simple-indent" "\
@@ -868,7 +868,7 @@ Turn on function `haskell-simple-indent-mode'.
 ;;;***
 
 ;;;### (autoloads (haskell-sort-imports) "haskell-sort-imports" "haskell-sort-imports.el"
-;;;;;;  (21880 45906 0 0))
+;;;;;;  (21888 42609 0 0))
 ;;; Generated autoloads from haskell-sort-imports.el
 
 (autoload 'haskell-sort-imports "haskell-sort-imports" "\
@@ -883,7 +883,7 @@ within that region.
 ;;;***
 
 ;;;### (autoloads (turn-on-haskell-unicode-input-method) "haskell-unicode-input-method"
-;;;;;;  "haskell-unicode-input-method.el" (21880 45906 0 0))
+;;;;;;  "haskell-unicode-input-method.el" (21888 42608 0 0))
 ;;; Generated autoloads from haskell-unicode-input-method.el
 
 (autoload 'turn-on-haskell-unicode-input-method "haskell-unicode-input-method" "\
@@ -895,7 +895,7 @@ See Info node `Unicode(haskell-mode)' for more details.
 ;;;***
 
 ;;;### (autoloads (highlight-uses-mode) "highlight-uses-mode" "highlight-uses-mode.el"
-;;;;;;  (21880 45906 0 0))
+;;;;;;  (21888 42609 0 0))
 ;;; Generated autoloads from highlight-uses-mode.el
 
 (autoload 'highlight-uses-mode "highlight-uses-mode" "\
@@ -909,7 +909,7 @@ Minor mode for highlighting and jumping between uses.
 ;;;;;;  inferior-haskell-find-definition inferior-haskell-info inferior-haskell-kind
 ;;;;;;  inferior-haskell-type inferior-haskell-send-decl inferior-haskell-load-and-run
 ;;;;;;  inferior-haskell-load-file switch-to-haskell) "inf-haskell"
-;;;;;;  "inf-haskell.el" (21880 45906 0 0))
+;;;;;;  "inf-haskell.el" (21888 42608 0 0))
 ;;; Generated autoloads from inf-haskell.el
 
 (defalias 'run-haskell 'switch-to-haskell)
@@ -983,11 +983,11 @@ Minor mode for enabling inf-haskell process interaction.
 ;;;***
 
 ;;;### (autoloads nil nil ("haskell-bot.el" "haskell-collapse.el"
-;;;;;;  "haskell-compat.el" "haskell-complete-module.el" "haskell-debug.el"
-;;;;;;  "haskell-mode-pkg.el" "haskell-package.el" "haskell-presentation-mode.el"
-;;;;;;  "haskell-process.el" "haskell-repl.el" "haskell-sandbox.el"
-;;;;;;  "haskell-string.el" "haskell-utils.el" "w3m-haddock.el")
-;;;;;;  (21880 45906 728844 0))
+;;;;;;  "haskell-compat.el" "haskell-complete-module.el" "haskell-completions.el"
+;;;;;;  "haskell-debug.el" "haskell-mode-pkg.el" "haskell-package.el"
+;;;;;;  "haskell-presentation-mode.el" "haskell-process.el" "haskell-repl.el"
+;;;;;;  "haskell-sandbox.el" "haskell-string.el" "haskell-utils.el"
+;;;;;;  "w3m-haddock.el") (21888 42609 135956 0))
 
 ;;;***
 

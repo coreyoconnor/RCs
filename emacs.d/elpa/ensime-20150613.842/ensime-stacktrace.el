@@ -4,7 +4,8 @@
   (require 'cl)
   (require 'ensime-macros))
 
-(require 'fold-this)
+(require 'hideshow)
+(require 'dash)
 
 (defconst ensime-stacktrace-buffer-name-base "*ensime-stacktrace*")
 
@@ -12,7 +13,7 @@
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-c C-c") 'ensime-stacktrace-highlight)
     (define-key map (kbd "C-c C-f") 'ensime-stacktrace-fold-buffer)
-    (define-key map (kbd "C-c C-p") 'fold-this-unfold-at-point)
+    (define-key map (kbd "C-c C-p") 'hs-show-block)
     (define-key map (kbd "C-c C-q") 'quit-window)
     map)
   "Keymap for `ensime-stacktrace-buffer-mode'.")
@@ -47,6 +48,9 @@
          (switch-to-buffer-other-window buf)
          (setq ensime-buffer-connection conn)
          (ensime-stacktrace-buffer-mode 1)
+         (setq comment-start ";")
+         (setq comment-end "$")
+         (hs-minor-mode 1)
          (font-lock-mode 1)
          (when (= (buffer-size buf) 0)
            (insert ";; Stack trace buffer\n")
@@ -78,7 +82,7 @@ Create links to the source code."
            (point-max)
            t)
         (let ((stackframe (buffer-substring (point-at-bol) (point-at-eol))))
-          (when (--any (s-matches? it stackframe) foldable-stackframes)
+          (when (--any? (s-matches? it stackframe) foldable-stackframes)
             (add-to-list 'lines-to-fold (line-number-at-pos)))))
       lines-to-fold)))
 
@@ -94,13 +98,13 @@ Create links to the source code."
   (save-excursion
     (let ((first-line (car lines)))
       (goto-line first-line)
-      (fold-this (point-at-bol) (point-at-eol (- (car (last lines)) (- first-line 1)))))))
+      (hs-hide-comment-region (point-at-bol) (point-at-eol (- (car (last lines)) (- first-line 1)))))))
 
 (defun ensime-stacktrace-fold-buffer ()
   (interactive)
   "Folds all stackframe lines in buffer that starts with
 package present in ENSIME-STACKFRAME-FOLDABLE-STACKFRAMES"
-  (fold-this-unfold-all)
+  (hs-show-all)
   (let* ((lines (ensime-stacktrace-pick-lines-to-fold ensime-stacktrace-foldable-stackframes))
          (groups (ensime-stacktrace-group-lines-to-fold lines)))
     (while groups

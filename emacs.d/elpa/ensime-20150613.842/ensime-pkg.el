@@ -1,4 +1,4 @@
-(define-package "ensime" "20150607.437" "ENhanced Scala Interaction Mode for Emacs"
+(define-package "ensime" "20150613.842" "ENhanced Scala Interaction Mode for Emacs"
   '((s "1.3.0")
     (dash "2.10.0")
     (auto-complete "1.5.0")
@@ -6,8 +6,7 @@
     (company "0.8.7")
     (yasnippet "0.8.0")
     (popup "0.5.0")
-    (scala-mode2 "0.21")
-    (fold-this "0.3.0")))
+    (scala-mode2 "0.21")))
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:

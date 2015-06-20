@@ -31,15 +31,16 @@
                     )
                  )
 
-(eval-after-load "javascript-mode"
+(eval-after-load 'javascript-mode
   (add-hook 'javascript-mode-hook
             (lambda() (cleanup-on-save))))
 
-(eval-after-load "js-mode"
+(eval-after-load 'js-mode
   (add-hook 'js-mode-hook
             (lambda() (cleanup-on-save))))
 
 (autoload 'nav "nav" "nav" t)
+
 (eval-after-load 'nav
   '(progn
       (nav-disable-overeager-window-splitting)
@@ -99,7 +100,14 @@
 (setq column-number-mode t)
 
 
+;; Enable electric indent but disable ?\n in some modes.
 (electric-indent-mode 1)
+(eval-after-load 'haml-mode
+  (add-hook 'haml-mode-hook
+            (lambda ()
+              (setq-local electric-indent-chars (remq ?\n electric-indent-chars))))
+  )
+
 ;; ruby
 
 (setq-default ruby-indent-level 2)

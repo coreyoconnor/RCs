@@ -15,15 +15,17 @@
                 (delete-trailing-whitespace))))
   )
 
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 (add-hook 'c-mode-common-hook (lambda() (cleanup-on-save)))
 
 (eval-after-load "ruby-mode"
   (add-hook 'ruby-mode-hook
             (lambda() (cleanup-on-save))))
 
-(eval-after-load "scala-mode"
+(eval-after-load 'scala-mode
                  '(progn
-                    (add-hook 'scala-mode-hook (lambda() (cleanup-on-save)))
+                    (add-hook 'scala-mode-hook 'cleanup-on-save)
                     (require 'ensime)
                     (require 'ensime-ecb)
                     (require 'ensime-layout-defs)

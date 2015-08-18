@@ -64,7 +64,6 @@
 
 (setq package-enable-at-startup nil)
 
-(add-to-list 'load-path "~/.emacs.d/evil")
 (add-to-list 'load-path "~/.emacs.d/evil-tabs")
 (add-to-list 'load-path "~/.emacs.d/evil-numbers")
 

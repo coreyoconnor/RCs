@@ -9,3 +9,5 @@ dist
 Setup
 .cabal-sandbox
 cabal.sandbox.config
+*#
+#*#

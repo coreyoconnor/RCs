@@ -1,3 +1,4 @@
+;; coreyoconnor: I don't have a good understanding of Lisp or Emacs
 (setq ring-bell-function 'ignore)
 (setq warning-minimum-level :emergency)
 (setq message-log-max t)
@@ -93,7 +94,10 @@
 (define-key evil-normal-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt)
 
 (window-numbering-mode)
+(setq projectile-enable-caching t)
+(setq projectile-indexing-method 'native)
 (projectile-global-mode)
+
 ;; default text formatting options
 (setq-default indent-tabs-mode nil)
 (setq make-backup-files nil)
@@ -264,7 +268,10 @@ otherwise, close current tab (elscreen)."
      )))
 
 (evil-ex-define-cmd "q[uit]" 'vimlike-quit)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+(add-hook 'haskell-mode-hook
+          '(lambda ()
+             (turn-on-haskell-indentation)
+             (haskell-indentation-enable-show-indentations)))
 
 (setq scala-indent:align-parameters t)
 (setq blink-matching-paren nil)

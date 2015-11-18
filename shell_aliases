@@ -1,0 +1,10 @@
+alias ll='ls -l'
+alias lla='ls -la'
+alias ghci='ghci -XScopedTypeVariables'
+alias gcam='git commit -a -m'
+alias gp='git push'
+
+alias td='todo.sh'
+alias ta='todo.sh add'
+alias tl='todo.sh list'
+alias e='emacs -nw'

@@ -68,6 +68,9 @@
 (add-to-list 'load-path "~/.emacs.d/evil-tabs")
 (add-to-list 'load-path "~/.emacs.d/evil-numbers")
 
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+
 (require 'evil)
 (require 'evil-tabs)
 (require 'evil-numbers)

@@ -98,7 +98,7 @@
 
 (window-numbering-mode)
 (setq projectile-enable-caching t)
-(setq projectile-indexing-method 'native)
+(when (string-equal system-type "windows-nt") (setq projectile-indexing-method 'native))
 (projectile-global-mode)
 
 ;; default text formatting options

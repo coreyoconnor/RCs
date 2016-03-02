@@ -34,9 +34,15 @@
                     )
                  )
 
-(eval-after-load 'javascript-mode
-  (add-hook 'javascript-mode-hook
-            (lambda() (cleanup-on-save))))
+(eval-after-load 'js-mode
+  (add-hook 'js-mode-hook
+            (lambda()
+              (setq js-indent-level 2)
+              (setq tab-width 2)
+              (setq c-basic-offset 2)
+              (setq evil-shift-width 2)
+              (cleanup-on-save)
+              )))
 
 (eval-after-load 'js-mode
   (add-hook 'js-mode-hook

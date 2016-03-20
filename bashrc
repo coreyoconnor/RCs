@@ -13,3 +13,8 @@ export EDITOR=vim
 
 export P4CONFIG=${HOME}/.p4settings
 export SBT_OPTS=-XX:MaxPermSize=256m
+
+if [[ -z $SCREENRC_HACK && -n $STY ]] ; then
+   export SCREENRC_HACK=HACK
+   source ${HOME}/.bash_profile
+fi

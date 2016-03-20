@@ -1,4 +1,6 @@
-source $HOME/.bashrc
+if [[ -z $SCREENRC_HACK ]] ; then
+   source $HOME/.bashrc
+fi
 
 if [[ -f ${RCS_PRIVATE_DIR}/profile_private ]] ; then
   source ${RCS_PRIVATE_DIR}/profile_private

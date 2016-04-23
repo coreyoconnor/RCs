@@ -104,7 +104,11 @@
 
 (window-numbering-mode)
 (setq projectile-enable-caching t)
-(when (string-equal system-type "windows-nt") (setq projectile-indexing-method 'native))
+(when (string-equal system-type "windows-nt")
+  (progn
+    (setq projectile-indexing-method 'native)
+    )
+  )
 (projectile-global-mode)
 
 ;; default text formatting options
@@ -159,8 +163,7 @@
 ; (load-theme 'solarized-dark t)
 
 ; plugins
-(autoload 'coq-mode "ProofGeneral" "~/.emacs.d/ProofGeneral/generic/proof-site.el"
-  "ProofGeneral for coq")
+(load-file "~/.emacs.d/ProofGeneral/generic/proof-site.el")
 
 (custom-set-variables
   ;; custom-set-variables was added by Custom.

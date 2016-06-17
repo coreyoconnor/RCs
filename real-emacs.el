@@ -26,10 +26,11 @@
 
 (eval-after-load 'scala-mode
                  '(progn
+                    (setq scala-indent:align-parameters t)
                     (add-hook 'scala-mode-hook 'cleanup-on-save)
                     (require 'ensime)
-                    (require 'ensime-ecb)
-                    (require 'ensime-layout-defs)
+                    ;; (require 'ensime-ecb)
+                    ;; (require 'ensime-layout-defs)
                     (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
                     )
                  )
@@ -285,6 +286,7 @@ otherwise, close current tab (elscreen)."
              (turn-on-haskell-indentation)
              (haskell-indentation-enable-show-indentations)))
 
-(setq scala-indent:align-parameters t)
 (setq blink-matching-paren nil)
 (setq dabbrev-case-replace nil)
+
+(setq ac-ignore-case nil)

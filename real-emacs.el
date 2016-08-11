@@ -1,8 +1,15 @@
 ;; coreyoconnor: I don't have a good understanding of Lisp or Emacs
+(add-to-list 'load-path "~/.emacs.d/local")
+(add-to-list 'load-path (expand-file-name "local/ensime-emacs" user-emacs-directory))
+
 (setq ring-bell-function 'ignore)
 (setq warning-minimum-level :emergency)
 (setq message-log-max t)
-(add-to-list 'load-path "~/.emacs.d/local")
+(setq create-lockfiles nil
+      use-package-always-ensure t)
+(setq-default indent-tabs-mode nil
+              tab-width 4
+              c-basic-offset 4)
 
 (setq term-setup-hook
       '(lambda ()
@@ -28,10 +35,6 @@
                  '(progn
                     (setq scala-indent:align-parameters t)
                     (add-hook 'scala-mode-hook 'cleanup-on-save)
-                    (require 'ensime)
-                    ;; (require 'ensime-ecb)
-                    ;; (require 'ensime-layout-defs)
-                    (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
                     )
                  )
 
@@ -66,14 +69,43 @@
       "gt" 'elscreen-next
       "gT" 'elscreen-previous)))
 
-(package-initialize)
+(require 'package)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+             '(("gnu" . "http://elpa.gnu.org/packages/")
+               ("org" . "http://orgmode.org/elpa/")
+               ("melpa" . "http://melpa.org/packages/")
+               ("melpa-stable" . "http://stable.melpa.org/packages/")))
 
 (setq package-enable-at-startup nil)
+(package-initialize)
+
+(when (not package-archive-contents)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(require 'use-package)
+
+(use-package scala-mode
+             :interpreter
+             ("scala" . scala-mode))
 
 (add-to-list 'load-path "~/.emacs.d/evil-tabs")
 (add-to-list 'load-path "~/.emacs.d/evil-numbers")
+
+(require 'ensime)
+(setq ensime-startup-snapshot-notification nil)
+
+(defadvice ensime-config (around ensime-config-path-fixup activate)
+  (let* ((config ad-do-it)
+         (subprojects (plist-get config :subprojects))
+         (new-subprojects
+          (-map (lambda (subproject)
+                  (let* ((source-roots (plist-get subproject :source-roots))
+                         (new-source-roots
+                          (-map (lambda (source-root) (file-truename source-root))
+                                source-roots)))
+                    (plist-put subproject :source-roots new-source-roots)))
+                subprojects)))
+    (plist-put config :subprojects new-subprojects)))
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
@@ -113,7 +145,6 @@
 (projectile-global-mode)
 
 ;; default text formatting options
-(setq-default indent-tabs-mode nil)
 (setq make-backup-files nil)
 (setq-default fill-column 101)
 (setq column-number-mode t)
@@ -137,8 +168,6 @@
 (setq auto-mode-alist (cons '("\\.rake\\'" . ruby-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("Rakefile" . ruby-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("Gemfile" . ruby-mode) auto-mode-alist))
-
-; use rsense autocomplete for C-n in insert
 
 ; C
 (setq-default c-indent-level 4)

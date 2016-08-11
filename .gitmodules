@@ -19,3 +19,7 @@
 [submodule "dependencies/todo_distributed"]
 	path = dependencies/todo_distributed
 	url = git@github.com:crobinsonut/todo_distributed.git
+[submodule "emacs.d/local/ensime-emacs"]
+	path = emacs.d/local/ensime-emacs
+	url = git@github.com:coreyoconnor/ensime-emacs.git
+	branch = master

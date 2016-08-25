@@ -187,42 +187,9 @@ endfunction
 set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
 
-if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
-
-" call neobundle#rc(expand('~/.vim/bundle/'))
-" NeoBundle 'terryma/vim-multiple-cursors'
-" NeoBundle 'pbrisbin/html-template-syntax'
-" NeoBundle 'vim-pandoc/vim-pandoc'
-" NeoBundle 'elzr/vim-json'
-" NeoBundle 'junkblocker/patchreview-vim'
-" NeoBundle 'derekwyatt/vim-fswitch'
-" NeoBundle 'vim-scripts/genutils'
-" NeoBundle 'coreyoconnor/vim-perforce'
-" NeoBundleCheck
-
 syn on
 
 set cmdheight=2
-
-fun! SetupVAM()
-  let c = get(g:, 'vim_addon_manager', {})
-  let g:vim_addon_manager = c
-  let c.plugin_root_dir = expand('$HOME', 1) . '/.vim/vim-addons'
-  " most used options you may want to use:
-  " let c.log_to_buf = 1
-  " let c.auto_install = 0
-  let &rtp.=(empty(&rtp)?'':',').c.plugin_root_dir.'/vim-addon-manager'
-  if !isdirectory(c.plugin_root_dir.'/vim-addon-manager/autoload')
-    execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '
-        \       shellescape(c.plugin_root_dir.'/vim-addon-manager', 1)
-  endif
-  call vam#ActivateAddons([], {'auto_install' : 0})
-endfun
-
-call SetupVAM()
-VAMActivate vim-addon-nix
 
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p

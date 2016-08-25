@@ -1,6 +1,6 @@
 ;; coreyoconnor: I don't have a good understanding of Lisp or Emacs
-(add-to-list 'load-path "~/.emacs.d/local")
-(add-to-list 'load-path (expand-file-name "local/ensime-emacs" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/local"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/local/ensime-emacs"))
 
 (setq ring-bell-function 'ignore)
 (setq warning-minimum-level :emergency)
@@ -87,8 +87,8 @@
              :interpreter
              ("scala" . scala-mode))
 
-(add-to-list 'load-path "~/.emacs.d/evil-tabs")
-(add-to-list 'load-path "~/.emacs.d/evil-numbers")
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/evil-tabs"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/evil-numbers"))
 
 (require 'ensime)
 (setq ensime-startup-snapshot-notification nil)
@@ -192,7 +192,7 @@
 ; (load-theme 'solarized-dark t)
 
 ; plugins
-(load-file "~/.emacs.d/ProofGeneral/generic/proof-site.el")
+(load-file (expand-file-name "~/.emacs.d/ProofGeneral/generic/proof-site.el"))
 
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
@@ -224,8 +224,8 @@
   ;; If there is more than one, they won't work right.
  )
 
-(when (file-readable-p "~/.emacs-local.el")
-  (load-file "~/.emacs-local.el")
+(when (file-readable-p (expand-file-name "~/.emacs-local.el"))
+  (load-file (expand-file-name "~/.emacs-local.el"))
 )
 
 (setq semantic-default-submodes '(global-semantic-idle-scheduler-mode

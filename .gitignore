@@ -27,3 +27,4 @@ sbt/plugins/target/
 emacs.d/session.*
 emacs.d/ensime/classpath_*
 emacs.d/SessionDesktop.el
+target

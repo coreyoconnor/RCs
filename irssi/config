@@ -103,7 +103,9 @@ channels = (
   { name = "#irssi"; chatnet = "ircnet"; autojoin = "No"; },
   { name = "silc"; chatnet = "silc"; autojoin = "No"; },
   { name = "#haskell"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#puthtml"; chatnet = "freenode"; autojoin = "yes"; }
+  { name = "#puthtml"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#nixos"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#scala"; chatnet = "freenode"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -269,12 +271,13 @@ statusbar = {
 };
 settings = {
   core = {
-    real_name = "Unknown";
-    user_name = "coconnor";
-    nick = "coconnor";
+    real_name = "Corey O'Connor";
+    user_name = "UFODivebomb";
+    nick = "UFODivebomb";
   };
   "fe-text" = { actlist_sort = "refnum"; };
 };
-ignores = ( 
-  { level = "JOINS PARTS QUITS"; channels = ( "#haskell" ); }
+ignores = (
+  { level = "JOINS PARTS QUITS"; channels = ( "#haskell" ); },
+  { level = "JOINS PARTS QUITS"; }
 );

@@ -3,4 +3,4 @@ set -ex
 
 cd $RCS_DIR
 git pull -r
-git submodule update --update
+git submodule update --init

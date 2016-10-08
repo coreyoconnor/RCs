@@ -1,0 +1,7 @@
+#!/bin/sh
+set -ex
+
+cd $RCS_DIR
+git commit -a -m '~'
+update-RCs
+git push

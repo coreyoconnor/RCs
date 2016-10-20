@@ -27,9 +27,6 @@
 
 (add-hook 'c-mode-common-hook (lambda() (cleanup-on-save)))
 
-(eval-after-load "ruby-mode"
-  (add-hook 'ruby-mode-hook
-            (lambda() (cleanup-on-save))))
 
 (eval-after-load 'scala-mode
                  '(progn
@@ -106,6 +103,8 @@
                 subprojects)))
     (plist-put config :subprojects new-subprojects)))
 
+(autoload 'inf-ruby-minor-mode "inf-ruby" "Inferior ruby process" t)
+(require 'inf-ruby)
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 
@@ -158,11 +157,14 @@
   )
 
 ;; ruby
-
-(setq-default ruby-indent-level 2)
-(setq-default evil-shift-width 2)
-(add-hook 'ruby-mode-hook
-  (lambda () (setq-default evil-shift-width ruby-indent-level)))
+(eval-after-load 'ruby-mode
+ '(progn
+    (setq-default ruby-indent-level 2)
+    (setq-default evil-shift-width 2)
+    (add-hook 'ruby-mode-hook
+      (lambda () (setq-default evil-shift-width ruby-indent-level)))
+    (add-hook 'ruby-mode-hook
+      (lambda() (cleanup-on-save)))))
 
 (setq auto-mode-alist (cons '("\\.rake\\'" . ruby-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("Rakefile" . ruby-mode) auto-mode-alist))

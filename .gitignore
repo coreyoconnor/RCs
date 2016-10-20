@@ -28,3 +28,5 @@ emacs.d/session.*
 emacs.d/ensime/classpath_*
 emacs.d/SessionDesktop.el
 target
+emacs.d/elpa/archives/melpa-stable/archive-contents
+emacs.d/elpa/archives/org/archive-contents

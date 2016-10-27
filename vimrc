@@ -27,14 +27,14 @@ colorscheme darkblue
 map <F4> :let &lines=&lines-1
 map <S-F4> :let &lines=&lines+1
 
-map t :tabnew 
+map t :tabnew
 
 " Workaround the cursor disappearing bug :-(
 map <C-L> :let &guifont=&guifont
 runtime ftplugin/man.vim
 
 
-set shellcmdflag=-ic
+" set shellcmdflag=-i
 
 function! s:HsSearch(regex_txt)
     try

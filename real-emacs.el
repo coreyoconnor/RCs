@@ -23,31 +23,6 @@
                 (delete-trailing-whitespace))))
   )
 
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-(add-hook 'c-mode-common-hook (lambda() (cleanup-on-save)))
-
-
-(eval-after-load 'scala-mode
-                 '(progn
-                    (setq scala-indent:align-parameters t)
-                    (add-hook 'scala-mode-hook 'cleanup-on-save)
-                    )
-                 )
-
-(eval-after-load 'js-mode
-  (add-hook 'js-mode-hook
-            (lambda()
-              (setq js-indent-level 2)
-              (setq tab-width 2)
-              (setq c-basic-offset 2)
-              (setq evil-shift-width 2)
-              (cleanup-on-save)
-              )))
-
-(eval-after-load 'js-mode
-  (add-hook 'js-mode-hook
-            (lambda() (cleanup-on-save))))
 
 (autoload 'nav "nav" "nav" t)
 
@@ -147,6 +122,27 @@
 (setq-default fill-column 101)
 (setq column-number-mode t)
 
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(add-hook 'c-mode-common-hook (lambda() (cleanup-on-save)))
+
+(setq scala-indent:align-parameters t)
+(add-hook 'scala-mode-hook 'cleanup-on-save)
+(add-hook 'scala-mode-hook 'ensime-mode)
+
+(eval-after-load 'js-mode
+  (add-hook 'js-mode-hook
+            (lambda()
+              (setq js-indent-level 2)
+              (setq tab-width 2)
+              (setq c-basic-offset 2)
+              (setq evil-shift-width 2)
+              (cleanup-on-save)
+              )))
+
+(eval-after-load 'js-mode
+  (add-hook 'js-mode-hook
+            (lambda() (cleanup-on-save))))
 
 ;; Enable electric indent but disable ?\n in some modes.
 (electric-indent-mode 1)
@@ -248,9 +244,7 @@
 (setq diff-switches "-u")
 
 ;; Java stuff
-; (add-to-list 'load-path "~/.emacs.d/jdee-2.4.1/lisp")
-; (autoload 'java-mode "jde.el"
-;   "JDEE for java" t)
+(add-hook 'java-mode-hook 'ensime-mode)
 
 (defvar java-src-dir "src/")
 (defun java-src-stack-trace-regexp-to-filename ()

@@ -10,6 +10,7 @@
 (setq-default indent-tabs-mode nil
               tab-width 4
               c-basic-offset 4)
+(setq-default buffer-file-coding-system 'utf-8-unix)
 
 (setq term-setup-hook
       '(lambda ()

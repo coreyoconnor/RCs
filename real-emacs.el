@@ -1,6 +1,5 @@
 ;; coreyoconnor: I don't have a good understanding of Lisp or Emacs
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/local"))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/local/ensime-emacs"))
 
 (setq ring-bell-function 'ignore)
 (setq warning-minimum-level :emergency)

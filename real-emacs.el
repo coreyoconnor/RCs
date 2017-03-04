@@ -144,6 +144,7 @@
 (setq projectile-enable-caching t)
 (when (string-equal system-type "windows-nt")
   (setq projectile-indexing-method 'native)
+  (set-default-font "Consolas 14")
   )
 (projectile-global-mode)
 

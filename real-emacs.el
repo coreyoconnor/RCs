@@ -1,20 +1,65 @@
 ;; coreyoconnor: I don't have a good understanding of Lisp or Emacs
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/local"))
 
-(setq ring-bell-function 'ignore)
-(setq warning-minimum-level :emergency)
-(setq message-log-max t)
-(setq create-lockfiles nil
-      use-package-always-ensure t)
-(setq-default indent-tabs-mode nil
-              tab-width 4
-              c-basic-offset 4)
-(setq-default buffer-file-coding-system 'utf-8-unix)
+(defun configure-nav ()
+  (autoload 'nav "nav" "nav" t)
+  (enable-evil-nav)
+  )
 
-(setq term-setup-hook
-      '(lambda ()
-         (setq keyboard-translate-table "\C-@\C-a\C-b\C-c\C-d\C-e\C-f\C-g\C-?")
-         (global-set-key "\M-h" 'help-for-help)))
+(defun enable-evil-nav ()
+  (eval-after-load 'nav
+    '(progn
+       (nav-disable-overeager-window-splitting)
+       (evil-make-overriding-map nav-mode-map 'normal t)
+       (evil-define-key 'normal nav-mode-map
+         "j" 'evil-next-line
+         "k" 'evil-previous-line)
+       )
+    )
+  )
+
+(defun configure-UI ()
+  (setq ring-bell-function 'ignore)
+  (setq warning-minimum-level :emergency)
+  (setq message-log-max t)
+  (setq term-setup-hook
+        '(lambda ()
+            (setq keyboard-translate-table "\C-@\C-a\C-b\C-c\C-d\C-e\C-f\C-g\C-?")
+            (global-set-key "\M-h" 'help-for-help)
+            )
+        )
+  (configure-nav)
+  )
+
+(defun configure-elisp ()
+  (add-to-list 'load-path (expand-file-name "~/.emacs.d/local"))
+  (add-to-list 'load-path (expand-file-name "~/.emacs.d/evil-tabs"))
+  (add-to-list 'load-path (expand-file-name "~/.emacs.d/evil-numbers"))
+  )
+
+(defun configure-data-handling ()
+  (setq create-lockfiles nil)
+  )
+
+(defun configure-default-formatting ()
+  (setq-default indent-tabs-mode nil
+                tab-width 4
+                c-basic-offset 4)
+  (setq-default buffer-file-coding-system 'utf-8-unix)
+  )
+
+(defun configure-packages ()
+  (setq use-package-always-ensure t)
+  )
+
+(defun configure ()
+  (configure-elisp)
+  (configure-data-handling)
+  (configure-default-formatting)
+  (configure-packages)
+  (configure-UI)
+  )
+
+(configure)
 
 (defun cleanup-on-save ()
   (add-hook 'write-contents-functions
@@ -22,17 +67,6 @@
               (save-excursion
                 (delete-trailing-whitespace))))
   )
-
-
-(autoload 'nav "nav" "nav" t)
-
-(eval-after-load 'nav
-  '(progn
-      (nav-disable-overeager-window-splitting)
-      (evil-make-overriding-map nav-mode-map 'normal t)
-      (evil-define-key 'normal nav-mode-map
-        "j" 'evil-next-line
-        "k" 'evil-previous-line)))
 
 (eval-after-load 'compilation-mode
   '(progn
@@ -58,9 +92,6 @@
 (use-package scala-mode
              :interpreter
              ("scala" . scala-mode))
-
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/evil-tabs"))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/evil-numbers"))
 
 (require 'ensime)
 (setq ensime-startup-snapshot-notification nil)

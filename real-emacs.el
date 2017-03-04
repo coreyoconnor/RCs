@@ -143,9 +143,7 @@
 (window-numbering-mode)
 (setq projectile-enable-caching t)
 (when (string-equal system-type "windows-nt")
-  (progn
-    (setq projectile-indexing-method 'native)
-    )
+  (setq projectile-indexing-method 'native)
   )
 (projectile-global-mode)
 

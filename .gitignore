@@ -30,3 +30,4 @@ emacs.d/SessionDesktop.el
 target
 emacs.d/elpa/archives/melpa-stable/archive-contents
 emacs.d/elpa/archives/org/archive-contents
+emacs.d/tramp

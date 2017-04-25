@@ -2,6 +2,7 @@
 set -ex
 
 cd $RCS_DIR
+git add emacs.d
 git commit -a -m '~'
 update-RCs
 git push

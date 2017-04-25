@@ -1,10 +1,51 @@
 #!/bin/sh
+# Depending on the OS shell configuration and the shell this process is slightly
+# different.
+#
+# In short: symlink everything under ~/. Unless it should only be sourced from
+# the OS provided RC.
+#
 # Ubuntu:
 #    Add to .bashrc:
 #        source $HOME/.bash_profile
 #    symlink $HOME/.bash_profile to <repo>/bash_profile
-#    
+#
 #    ln -s /home/coconnor/dev/RCs/screenrc $HOME/.screenrc
 #
 # OS X:
 #    source $HOME/Development/RCs/bash_profile
+#
+# The below is for NixOS
+
+if [ ! -f /etc/NIXOS ] ; then
+    echo "The install script is automatic for NixOS only"
+    exit 1
+fi
+
+function link_if_missing () {
+    rcBaseName="$1"
+    targetPath="$HOME/.$rcBaseName"
+
+    if [ -e "$targetPath" ] ; then
+       echo "Not linking $rcBaseName. Already present"
+       return
+    fi
+
+    if [ ! -e "$PWD/$rcBaseName" ] ; then
+        echo "Run from RCs directory."
+        exit 1
+    fi
+
+    ln -s "$PWD/$rcBaseName" "$targetPath"
+}
+
+set -ex
+
+link_if_missing 'bash_profile'
+link_if_missing 'bashrc'
+link_if_missing 'emacs'
+link_if_missing 'emacs.d'
+link_if_missing 'sbt'
+link_if_missing 'screenrc'
+link_if_missing 'vim'
+link_if_missing 'vimrc'

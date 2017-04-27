@@ -1,9 +1,9 @@
 ;;; ensime-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
+(add-to-list 'load-path (directory-file-name (or (file-name-directory #$) (car load-path))))
 
-;;;### (autoloads nil "ensime" "ensime.el" (22783 30346 936398 360000))
+;;;### (autoloads nil "ensime" "ensime.el" (22786 13777 349345 93000))
 ;;; Generated autoloads from ensime.el
 
 (autoload 'ensime "ensime" "\
@@ -19,7 +19,7 @@ Read config file for settings. Then connect to an existing ENSIME server.
 ;;;***
 
 ;;;### (autoloads nil "ensime-auto-complete" "ensime-auto-complete.el"
-;;;;;;  (22783 30346 939398 387000))
+;;;;;;  (22786 13777 359345 179000))
 ;;; Generated autoloads from ensime-auto-complete.el
 
 (autoload 'ensime-ac-enable "ensime-auto-complete" "\
@@ -29,8 +29,8 @@ Read config file for settings. Then connect to an existing ENSIME server.
 
 ;;;***
 
-;;;### (autoloads nil "ensime-company" "ensime-company.el" (22783
-;;;;;;  30346 910398 133000))
+;;;### (autoloads nil "ensime-company" "ensime-company.el" (22786
+;;;;;;  13777 309344 745000))
 ;;; Generated autoloads from ensime-company.el
 
 (autoload 'ensime-company-enable "ensime-company" "\
@@ -40,8 +40,8 @@ Read config file for settings. Then connect to an existing ENSIME server.
 
 ;;;***
 
-;;;### (autoloads nil "ensime-mode" "ensime-mode.el" (22783 30346
-;;;;;;  924398 256000))
+;;;### (autoloads nil "ensime-mode" "ensime-mode.el" (22786 13777
+;;;;;;  319344 831000))
 ;;; Generated autoloads from ensime-mode.el
 
 (autoload 'ensime-mode "ensime-mode" "\
@@ -63,7 +63,7 @@ ENSIME: The ENhanced Scala Interaction Mode for Emacs (minor-mode).
 ;;;;;;  "ensime-popup.el" "ensime-refactor.el" "ensime-sbt.el" "ensime-search.el"
 ;;;;;;  "ensime-semantic-highlight.el" "ensime-stacktrace.el" "ensime-startup.el"
 ;;;;;;  "ensime-ui.el" "ensime-undo.el" "ensime-util.el" "ensime-vars.el")
-;;;;;;  (22783 30346 951062 760000))
+;;;;;;  (22786 13777 369345 265000))
 
 ;;;***
 

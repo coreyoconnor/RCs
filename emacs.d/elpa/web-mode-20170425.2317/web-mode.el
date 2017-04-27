@@ -3,8 +3,8 @@
 
 ;; Copyright 2011-2017 François-Xavier Bois
 
-;; Version: 14.1.14
-;; Package-Version: 20170419.132
+;; Version: 14.1.15
+;; Package-Version: 20170425.2317
 ;; Author: François-Xavier Bois <fxbois AT Google Mail Service>
 ;; Maintainer: François-Xavier Bois
 ;; Package-Requires: ((emacs "23.1"))
@@ -25,7 +25,7 @@
 
 ;;---- CONSTS ------------------------------------------------------------------
 
-(defconst web-mode-version "14.1.14"
+(defconst web-mode-version "14.1.15"
   "Web Mode version.")
 
 ;;---- GROUPS ------------------------------------------------------------------
@@ -7027,12 +7027,12 @@ another auto-completion with different ac-sources (e.g. ac-php)")
                         (line-end-position))))
       (setq curr-char (if (string= curr-line "") 0 (aref curr-line 0)))
 
-      (when (or (member language '("php" "blade" "javascript" "jsx" "razor"))
+      (when (or (member language '("php" "blade" "javascript" "jsx" "razor" "css"))
                 (and (member language '("html" "xml"))
                      (not (eq ?\< curr-char))))
         (let (prev)
           (cond
-           ((member language '("html" "xml" "javascript" "jsx"))
+           ((member language '("html" "xml" "javascript" "jsx" "css"))
             (when (setq prev (web-mode-part-previous-live-line reg-beg))
               (setq prev-line (nth 0 prev)
                     prev-indentation (nth 1 prev)
@@ -7351,11 +7351,18 @@ another auto-completion with different ac-sources (e.g. ac-php)")
 
          ((string= language "css")
           (when debug (message "I270(%S) css-indentation" pos))
-          (setq offset (car (web-mode-css-indentation pos
-                                                      reg-col
-                                                      curr-indentation
-                                                      language
-                                                      reg-beg))))
+          ;;(message "prev=%c" prev-char)
+          (cond
+           ((eq prev-char ?:)
+            (setq offset (+ prev-indentation web-mode-css-indent-offset)))
+           ((eq prev-char ?,)
+            (setq offset prev-indentation))
+           (t
+            (setq offset (car (web-mode-css-indentation pos
+                                                        reg-col
+                                                        curr-indentation
+                                                        language
+                                                        reg-beg))))))
 
          ((string= language "sql")
           (when debug (message "I280(%S) sql" pos))

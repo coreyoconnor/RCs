@@ -56,16 +56,16 @@
  '(ecb-show-sources-in-directories-buffer (quote always))
  '(ecb-tip-of-the-day nil)
  '(ecb-windows-width 40)
- '(ensime-typecheck-interval 4)
+ '(ensime-startup-notification nil t)
  '(ensime-typecheck-idle-interval 4)
- '(ensime-startup-notification nil)
+ '(ensime-typecheck-interval 4)
  '(foreground-color nil)
  '(inhibit-startup-screen t)
  '(nav-width 40)
  '(nxml-slash-auto-complete-flag t)
  '(package-selected-packages
    (quote
-    (yasnippet yard-mode yaml-mode window-numbering web-mode swiper smex scala-mode sbt-mode rubocop robe projectile-rails paredit omniref nix-mode nav mediawiki markdown-mode ido-ubiquitous idle-highlight-mode hydra hindent haskell-mode haml-mode groovy-mode gradle-mode git-rebase-mode git-commit-mode fringe-helper fold-this flymake-ruby find-file-in-project evil enh-ruby-mode elscreen ecb dirtree company color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized auto-complete)))
+    (ensime yasnippet yard-mode yaml-mode window-numbering web-mode swiper smex scala-mode sbt-mode rubocop robe projectile-rails paredit omniref nix-mode nav mediawiki markdown-mode ido-ubiquitous idle-highlight-mode hydra hindent haskell-mode haml-mode groovy-mode gradle-mode git-rebase-mode git-commit-mode fringe-helper fold-this flymake-ruby find-file-in-project evil enh-ruby-mode elscreen ecb dirtree company color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized auto-complete)))
  '(safe-local-variable-values
    (quote
     ((haskell-indentation-where-post-offset . 4)

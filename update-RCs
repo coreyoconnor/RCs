@@ -4,3 +4,9 @@ set -ex
 cd $RCS_DIR
 git pull -r
 git submodule update --init
+
+if [ -d $RCS_PRIVATE_DIR ] ; then (
+  cd $RCS_PRIVATE_DIR
+  git pull -r
+  git submodule update --init
+) fi

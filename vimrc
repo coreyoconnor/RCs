@@ -191,9 +191,6 @@ syn on
 
 set cmdheight=2
 
-autocmd VimEnter * NERDTree
-autocmd VimEnter * wincmd p
-
 "let g:p4Presets = 'localhost:4242 coconnor_SBReadFile_mac ben'
 "let g:p4DefaultPreset = 'localhost:4242 coconnor_SBReadFile_mac ben'
 "let g:p4EnableActiveStatus=1

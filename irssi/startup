@@ -1,5 +1,4 @@
 /network add freenode
 /server add -auto -network freenode chat.freenode.net
-/channel add -auto #haskell freenode
 /channel add -auto #nixos freenode
 /channel add -auto #scala freenode

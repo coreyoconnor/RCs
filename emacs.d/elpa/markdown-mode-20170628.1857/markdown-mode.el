@@ -7,7 +7,7 @@
 ;; Maintainer: Jason R. Blevins <jrblevin@sdf.org>
 ;; Created: May 24, 2007
 ;; Version: 2.3-dev
-;; Package-Version: 20170627.900
+;; Package-Version: 20170628.1857
 ;; Package-Requires: ((emacs "24") (cl-lib "0.5"))
 ;; Keywords: Markdown, GitHub Flavored Markdown, itex
 ;; URL: http://jblevins.org/projects/markdown-mode/
@@ -8510,6 +8510,7 @@ position."
   (make-local-variable 'comment-column)
   (setq comment-column 0)
   (set (make-local-variable 'comment-auto-fill-only-comments) nil)
+  (set (make-local-variable 'comment-use-syntax) t)
   ;; Syntax
   (add-hook 'syntax-propertize-extend-region-functions
             'markdown-syntax-propertize-extend-region)

@@ -3,7 +3,7 @@ libraryDependencies += "com.lihaoyi" % "ammonite" % "0.8.3" % "test" cross Cross
 initialCommands in (Test, console) := """ammonite.Main().run()"""
 
 import org.ensime.EnsimeKeys._
-ensimeJavaFlags in ThisBuild := Seq("-Xmx8g", "-XX:MaxMetaspaceSize=2g")
+ensimeJavaFlags in ThisBuild := Seq("-Xmx8g", "-XX:MaxMetaspaceSize=2g", "-XX:MaxDirectMemorySize=29965m")
 
 /*
 import org.ensime.EnsimeCoursierKeys._

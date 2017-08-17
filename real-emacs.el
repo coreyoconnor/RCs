@@ -146,6 +146,7 @@
   (setq projectile-indexing-method 'native)
   (set-default-font "Consolas 14")
   )
+(setq projectile-git-command "cat <(git ls-files -zco --exclude-standard) <(git --no-pager submodule --quiet foreach 'git ls-files --full-name -zco --exclude-standard | sed s!^!$path/!')")
 (projectile-global-mode)
 
 ;; default text formatting options

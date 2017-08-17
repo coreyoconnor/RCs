@@ -141,13 +141,13 @@
 (define-key evil-normal-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt)
 
 (window-numbering-mode)
+(projectile-global-mode)
+
 (setq projectile-enable-caching t)
 (when (string-equal system-type "windows-nt")
   (setq projectile-indexing-method 'native)
   (set-default-font "Consolas 14")
   )
-(setq projectile-git-command "cat <(git ls-files -zco --exclude-standard) <(git --no-pager submodule --quiet foreach 'git ls-files --full-name -zco --exclude-standard | sed s!^!$path/!')")
-(projectile-global-mode)
 
 ;; default text formatting options
 (setq make-backup-files nil)

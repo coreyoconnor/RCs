@@ -1,8 +1,0 @@
-#!/bin/sh
-(cd build/kdebase/workspace/  && xterm -class xterm-project-root &> /dev/null &) &> /dev/null
-(cd kdebase/workspace/ && xterm -class xterm-project-root &> /dev/null &) &> /dev/null
-(cd kdebase/workspace/plasma/desktop/  && xterm -class xterm-project-src &> /dev/null &) &> /dev/null
-(cd kdebase/workspace/plasma/desktop/ && xterm -class xterm-project-src &> /dev/null &) &> /dev/null
-(cd ~/kde/bin/  && xterm -class xterm-project-test &> /dev/null &) &> /dev/null
-(cd ~/kde/bin/  && xterm -class xterm-project-test &> /dev/null &) &> /dev/null
-

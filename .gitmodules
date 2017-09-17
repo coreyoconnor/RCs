@@ -10,15 +10,15 @@
 [submodule "emacs.d/evil-numbers"]
 	path = emacs.d/evil-numbers
 	url = git@github.com:cofi/evil-numbers.git
-[submodule "dependencies/todo.txt-cli"]
-	path = dependencies/todo.txt-cli
-	url = git@github.com:ginatrapani/todo.txt-cli.git
-[submodule "dependencies/todo.sh-commit"]
-	path = dependencies/todo.sh-commit
-	url = git@github.com:FND/todo.txt-cli.git
-[submodule "dependencies/todo_distributed"]
-	path = dependencies/todo_distributed
-	url = git@github.com:crobinsonut/todo_distributed.git
+#[submodule "dependencies/todo.txt-cli"]
+#	path = dependencies/todo.txt-cli
+#	url = git@github.com:ginatrapani/todo.txt-cli.git
+#[submodule "dependencies/todo.sh-commit"]
+#	path = dependencies/todo.sh-commit
+#	url = git@github.com:FND/todo.txt-cli.git
+#[submodule "dependencies/todo_distributed"]
+#	path = dependencies/todo_distributed
+#	url = git@github.com:crobinsonut/todo_distributed.git
 #[submodule "emacs.d/local/ensime-emacs"]
 #	path = emacs.d/local/ensime-emacs
 #	url = git@github.com:coreyoconnor/ensime-emacs.git

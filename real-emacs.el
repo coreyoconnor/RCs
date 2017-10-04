@@ -147,6 +147,7 @@
 (when (string-equal system-type "windows-nt")
   (setq projectile-indexing-method 'native)
   (set-default-font "Consolas 14")
+  (scroll-bar-mode -1)
   )
 
 ;; default text formatting options

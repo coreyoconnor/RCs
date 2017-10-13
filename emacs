@@ -29,6 +29,7 @@
    ["black" "red" "green" "yellow" "blue" "magenta" "cyan" "yellow"])
  '(background-color nil)
  '(background-mode dark)
+ '(company-idle-delay nil)
  '(coq-prog-args
    (quote
     ("-I" "/home/corey/Development/cpdt_coconnor/cpdt/src")))
@@ -56,6 +57,7 @@
  '(ecb-show-sources-in-directories-buffer (quote always))
  '(ecb-tip-of-the-day nil)
  '(ecb-windows-width 40)
+ '(ensime-company-idle-delay 0)
  '(ensime-startup-notification nil)
  '(ensime-typecheck-idle-interval 4)
  '(ensime-typecheck-interval 4)

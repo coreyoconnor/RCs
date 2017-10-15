@@ -20,6 +20,8 @@ set wildmode=longest,list
 set tildeop
 filetype indent on
 set foldmethod=syntax
+set mouse=
+set ttymouse=
 
 filetype plugin on
 colorscheme darkblue

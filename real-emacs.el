@@ -40,11 +40,15 @@
   (setq create-lockfiles nil)
   )
 
-(defun configure-default-formatting ()
+(defun configure-formatting ()
   (setq-default indent-tabs-mode nil
                 tab-width 4
                 c-basic-offset 4)
   (setq-default buffer-file-coding-system 'utf-8-unix)
+  (eval-after-load 'nix-mode
+    (add-hook 'nix-mode-hook
+              (lambda ()
+                (setq-local indent-line-function #'indent-relative))))
   )
 
 (defun configure-packages ()
@@ -54,7 +58,7 @@
 (defun configure ()
   (configure-elisp)
   (configure-data-handling)
-  (configure-default-formatting)
+  (configure-formatting)
   (configure-packages)
   (configure-UI)
   )

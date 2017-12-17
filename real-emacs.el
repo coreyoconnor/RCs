@@ -1,6 +1,6 @@
 ;; coreyoconnor: I don't have a good understanding of Lisp or Emacs
 
-(defun configure-nav ()
+(defun configure-nav-package ()
   (autoload 'nav "nav" "nav" t)
   (enable-evil-nav)
   )
@@ -17,7 +17,19 @@
     )
   )
 
-(defun configure-UI ()
+(defun configure-outline-minor-mode ()
+  (define-prefix-command 'cm-map nil "outline-")
+  (define-key cm-map "f" 'outline-minor-mode)
+  (define-key cm-map "t" 'outline-toggle-children)
+  (global-set-key "\M-f" cm-map)
+  )
+
+(defun configure-navigation ()
+  (configure-nav-package)
+  (configure-outline-minor-mode)
+  )
+
+(defun configure-display ()
   (setq ring-bell-function 'ignore)
   (setq warning-minimum-level :emergency)
   (setq message-log-max t)
@@ -27,7 +39,6 @@
             (global-set-key "\M-h" 'help-for-help)
             )
         )
-  (configure-nav)
   )
 
 (defun configure-elisp ()
@@ -60,7 +71,8 @@
   (configure-data-handling)
   (configure-formatting)
   (configure-packages)
-  (configure-UI)
+  (configure-display)
+  (configure-navigation)
   )
 
 (configure)

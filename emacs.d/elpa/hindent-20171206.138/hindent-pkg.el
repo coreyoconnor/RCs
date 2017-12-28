@@ -1,1 +1,0 @@
-(define-package "hindent" "20171206.138" "Indent haskell code using the \"hindent\" program" '((cl-lib "0.5")) :commit "318df98d52429d85e8e244d60efb7072461c3e81" :url "https://github.com/chrisdone/hindent")

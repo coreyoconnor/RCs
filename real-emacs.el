@@ -1,96 +1,81 @@
 ;; coreyoconnor: I don't have a good understanding of Lisp or Emacs
-
-(defun configure-nav-package ()
-  (autoload 'nav "nav" "nav" t)
-  (enable-evil-nav)
+(defun configure ()
+  (configure-package-manager)
+  (configure-data-handling)
+  (configure-modes)
+  (configure-formatting)
+  (configure-display)
+  (configure-navigation)
+  (configure-local-overrides)
   )
 
-(defun enable-evil-nav ()
-  (eval-after-load 'nav
-    '(progn
-       (nav-disable-overeager-window-splitting)
-       (evil-make-overriding-map nav-mode-map 'normal t)
-       (evil-define-key 'normal nav-mode-map
-         "j" 'evil-next-line
-         "k" 'evil-previous-line)
-       )
-    )
+(defun configure-package-manager ()
+  (setq inhibit-default-init t)
+  (configure-load-path)
+  (enable-package-package)
+  (configure-package-repos)
+  (enable-use-package-package)
   )
 
-(defun configure-outline-minor-mode ()
-  (define-prefix-command 'cm-map nil "outline-")
-  (define-key cm-map "f" 'outline-minor-mode)
-  (define-key cm-map "t" 'outline-toggle-children)
-  (global-set-key "\M-f" cm-map)
-  )
-
-(defun configure-navigation ()
-  (configure-nav-package)
-  (configure-outline-minor-mode)
-  )
-
-(defun configure-display ()
-  (setq ring-bell-function 'ignore)
-  (setq warning-minimum-level :emergency)
-  (setq message-log-max t)
-  (setq term-setup-hook
-        '(lambda ()
-            (setq keyboard-translate-table "\C-@\C-a\C-b\C-c\C-d\C-e\C-f\C-g\C-?")
-            (global-set-key "\M-h" 'help-for-help)
-            )
-        )
-  )
-
-(defun configure-elisp ()
+(defun configure-load-path ()
   (add-to-list 'load-path (expand-file-name "~/.emacs.d/local"))
   (add-to-list 'load-path (expand-file-name "~/.emacs.d/evil-tabs"))
   (add-to-list 'load-path (expand-file-name "~/.emacs.d/evil-numbers"))
   )
 
-(defun configure-data-handling ()
-  (setq create-lockfiles nil)
+(defun enable-package-package ()
+  (require 'package)
+  (setq package-enable-at-startup nil)
   )
 
-(defun configure-gdscript-formatting () (eval-after-load 'gdscript-mode '(progn
-  (setq evil-shift-width 4)
-  (setq tab-width 4)
-  (setq c-basic-offset 4)
-  (setq indent-tabs-mode t)
-  )))
+(defun configure-package-repos ()
+  (add-to-list 'package-archives
+               '("gnu" . "http://elpa.gnu.org/packages/"))
+  (add-to-list 'package-archives
+               '("org" . "http://orgmode.org/elpa/"))
+  (add-to-list 'package-archives
+               '("melpa" . "http://melpa.org/packages/"))
+  (add-to-list 'package-archives
+               '("melpa-stable" . "http://stable.melpa.org/packages/"))
 
-(defun configure-formatting ()
-  (setq-default indent-tabs-mode nil
-                tab-width 4
-                c-basic-offset 4)
-  (setq-default buffer-file-coding-system 'utf-8-unix)
-  (eval-after-load 'nix-mode
-    (add-hook 'nix-mode-hook
-              (lambda ()
-                (setq-local indent-line-function #'indent-relative))))
-  (configure-gdscript-formatting)
+  (package-initialize)
   )
 
-(defun configure-packages ()
+(defun enable-use-package-package ()
+  (when (not package-archive-contents)
+    (package-refresh-contents)
+    (package-install 'use-package))
+  (require 'use-package)
   (setq use-package-always-ensure t)
   )
 
-(defun configure ()
-  (configure-elisp)
-  (configure-data-handling)
-  (configure-formatting)
-  (configure-packages)
-  (configure-display)
-  (configure-navigation)
+(defun configure-data-handling ()
+  (require 'configure-data-handling)
+  )
+
+(defun configure-modes ()
+  (require 'configure-modes)
+  )
+
+(defun configure-formatting ()
+  (require 'configure-formatting)
+  )
+
+(defun configure-display ()
+  (require 'configure-display)
+  )
+
+(defun configure-navigation ()
+  (require 'configure-navigation)
+  )
+
+(defun configure-local-overrides ()
+  (when (file-readable-p (expand-file-name "~/.emacs-local.el"))
+    (load-file (expand-file-name "~/.emacs-local.el"))
+    )
   )
 
 (configure)
-
-(defun cleanup-on-save ()
-  (add-hook 'write-contents-functions
-            (lambda()
-              (save-excursion
-                (delete-trailing-whitespace))))
-  )
 
 (eval-after-load 'compilation-mode
   '(progn
@@ -98,20 +83,6 @@
     (evil-define-key 'normal nav-mode-map
       "gt" 'elscreen-next
       "gT" 'elscreen-previous)))
-
-(require 'package)
-(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
-
-(setq package-enable-at-startup nil)
-(package-initialize)
-
-(when (not package-archive-contents)
-  (package-refresh-contents)
-  (package-install 'use-package))
-(require 'use-package)
 
 (use-package scala-mode
              :interpreter
@@ -164,22 +135,6 @@
 (define-key evil-normal-state-map (kbd "C-c +") 'evil-numbers/inc-at-pt)
 (define-key evil-normal-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt)
 
-(window-numbering-mode)
-(projectile-global-mode)
-
-(setq projectile-enable-caching t)
-(when (string-equal system-type "windows-nt")
-  (setq projectile-indexing-method 'native)
-  (set-default-font "Consolas 14")
-  (scroll-bar-mode -1)
-  )
-
-;; default text formatting options
-(setq make-backup-files nil)
-(setq column-number-mode t)
-
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
 (add-hook 'c-mode-common-hook (lambda() (cleanup-on-save)))
 
 (setq scala-indent:align-parameters t)
@@ -200,8 +155,6 @@
   (add-hook 'js-mode-hook
             (lambda() (cleanup-on-save))))
 
-;; Enable electric indent but disable ?\n in some modes.
-(electric-indent-mode 1)
 (eval-after-load 'haml-mode
   (add-hook 'haml-mode-hook
             (lambda ()
@@ -236,58 +189,16 @@
 ;; (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
 (global-evil-tabs-mode t)
 
-(setq scroll-conservatively 5)
-(setq scroll-margin 5)
-
 ; GUI options
 (add-to-list 'default-frame-alist  '(width . 100) )
 
-; plugins
-(load-file (expand-file-name "~/.emacs.d/ProofGeneral/generic/proof-site.el"))
-
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(coq-prog-args (quote ("-I" "/home/corey/Development/cpdt_coconnor/cpdt/src")))
- '(ecb-auto-activate t)
- '(ecb-display-default-dir-after-start t)
- '(ecb-fix-window-size (quote width))
- '(ecb-layout-name "dironly")
- '(ecb-layout-window-sizes (quote (("basic" (ecb-directories-buffer-name 0.25728155339805825 . 0.48214285714285715) (ecb-analyse-buffer-name 0.25728155339805825 . 0.5)) ("left8" (ecb-directories-buffer-name 0.1796116504854369 . 0.26785714285714285) (ecb-sources-buffer-name 0.1796116504854369 . 0.25) (ecb-methods-buffer-name 0.1796116504854369 . 0.2857142857142857) (ecb-history-buffer-name 0.1796116504854369 . 0.17857142857142858)))))
- '(ecb-options-version "2.40")
- '(ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
- '(ecb-show-sources-in-directories-buffer (quote always))
- '(ecb-tip-of-the-day nil)
- '(ecb-windows-width 40)
- '(inhibit-startup-screen t)
- '(nav-width 40)
- '(nxml-slash-auto-complete-flag t))
-
 (setq auto-mode-alist (cons '("\\.v$" . coq-mode) auto-mode-alist))
 (autoload 'coq-mode "coq" "Major mode for editing Coq vernacular." t)
-
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
-
-(when (file-readable-p (expand-file-name "~/.emacs-local.el"))
-  (load-file (expand-file-name "~/.emacs-local.el"))
-)
 
 (setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
                                   global-semanticdb-minor-mode
                                   global-semantic-idle-summary-mode
                                   global-semantic-mru-bookmark-mode))
-; (semantic-mode 1)
-
-(autoload 'dirtree "dirtree" "dirtree" t)
-
-(setq inhibit-default-init t)
 
 ;; default to better frame titles
 (setq frame-title-format
@@ -358,58 +269,7 @@ otherwise, close current tab (elscreen)."
      )))
 
 (evil-ex-define-cmd "q[uit]" 'vimlike-quit)
-(add-hook 'haskell-mode-hook
-          '(lambda ()
-             (turn-on-haskell-indentation)
-             (haskell-indentation-enable-show-indentations)))
 
-(setq blink-matching-paren nil)
 (setq dabbrev-case-replace nil)
 
 (setq ac-ignore-case nil)
-
-;; from http://blog.bookworm.at/2007/03/pretty-print-xml-with-emacs.html
-(defun bf-pretty-print-xml-region (begin end)
-    "Pretty format XML markup in region. You need to have nxml-mode
-http://www.emacswiki.org/cgi-bin/wiki/NxmlMode installed to do
-this.  The function inserts linebreaks to separate tags that have
-nothing but whitespace between them.  It then indents the markup
-by using nxml's indentation rules."
-    (interactive "r")
-    (save-excursion
-      (nxml-mode)
-      (goto-char begin)
-      (while (search-forward-regexp "\>[ \\t]*\<" nil t)
-        (backward-char) (insert "\n"))
-      (indent-region begin end))
-        (message "Ah, much better!"))
-
-;; Originally from stevey, adapted to support moving to a new directory.
-;; http://stackoverflow.com/questions/384284/how-do-i-rename-an-open-file-in-emacs#384612
-(defun rename-file-and-buffer (new-name)
-  "Renames both current buffer and file it's visiting to NEW-NAME."
-  (interactive
-   (progn
-     (if (not (buffer-file-name))
-         (error "Buffer '%s' is not visiting a file!" (buffer-name)))
-     (list (read-file-name (format "Rename %s to: " (file-name-nondirectory
-                                                     (buffer-file-name)))))))
-  (if (equal new-name "")
-      (error "Aborted rename"))
-  (setq new-name (if (file-directory-p new-name)
-                     (expand-file-name (file-name-nondirectory
-                                        (buffer-file-name))
-                                       new-name)
-                   (expand-file-name new-name)))
-  ;; If the file isn't saved yet, skip the file rename, but still update the
-  ;; buffer name and visited file.
-  (if (file-exists-p (buffer-file-name))
-      (rename-file (buffer-file-name) new-name 1))
-  (let ((was-modified (buffer-modified-p)))
-    ;; This also renames the buffer, and works with uniquify
-    (set-visited-file-name new-name)
-    (if was-modified
-        (save-buffer)
-      ;; Clear buffer-modified flag caused by set-visited-file-name
-      (set-buffer-modified-p nil))
-      (message "Renamed to %s." new-name)))

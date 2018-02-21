@@ -168,7 +168,6 @@
 
 ;; default text formatting options
 (setq make-backup-files nil)
-(setq-default fill-column 101)
 (setq column-number-mode t)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -234,7 +233,6 @@
 
 ; GUI options
 (add-to-list 'default-frame-alist  '(width . 100) )
-(require 'fill-column-indicator)
 
 ; plugins
 (load-file (expand-file-name "~/.emacs.d/ProofGeneral/generic/proof-site.el"))

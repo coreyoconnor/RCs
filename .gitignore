@@ -33,3 +33,4 @@ emacs.d/elpa/archives/org/archive-contents
 emacs.d/tramp
 sbt/preloaded/
 sbt/1.0/zinc
+sbt/1.0/templates

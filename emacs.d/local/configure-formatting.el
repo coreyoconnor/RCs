@@ -1,12 +1,5 @@
 ;; configuration of mode agnostic formatting
 
-(setq-default indent-tabs-mode nil
-              tab-width 4
-              c-basic-offset 4)
-(electric-indent-mode 1)
-(setq-default fill-column 101)
-(setq column-number-mode t)
-
 (defun cleanup-on-save ()
   (add-hook 'write-contents-functions
             (lambda()

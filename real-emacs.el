@@ -144,10 +144,10 @@
 (eval-after-load 'js-mode
   (add-hook 'js-mode-hook
             (lambda()
-              (setq js-indent-level 2)
-              (setq tab-width 2)
-              (setq c-basic-offset 2)
-              (setq evil-shift-width 2)
+              (setq-local js-indent-level 2)
+              (setq-local tab-width 2)
+              (setq-local c-basic-offset 2)
+              (setq-local evil-shift-width 2)
               (cleanup-on-save)
               )))
 
@@ -165,18 +165,14 @@
 (eval-after-load 'ruby-mode
  '(progn
     (setq-default ruby-indent-level 2)
-    (setq-default evil-shift-width 2)
     (add-hook 'ruby-mode-hook
-      (lambda () (setq-default evil-shift-width ruby-indent-level)))
+      (lambda () (setq-local evil-shift-width ruby-indent-level)))
     (add-hook 'ruby-mode-hook
-      (lambda() (cleanup-on-save)))))
+      (lambda () (cleanup-on-save)))))
 
 (setq auto-mode-alist (cons '("\\.rake\\'" . ruby-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("Rakefile" . ruby-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("Gemfile" . ruby-mode) auto-mode-alist))
-
-; C
-(setq-default c-indent-level 4)
 
 ; keyboard interface options
 (evil-mode 1)
@@ -199,10 +195,6 @@
                                   global-semanticdb-minor-mode
                                   global-semantic-idle-summary-mode
                                   global-semantic-mru-bookmark-mode))
-
-;; default to better frame titles
-(setq frame-title-format
-      (concat  "%b - emacs@" (system-name)))
 
 ;; default to unified diffs
 (setq diff-switches "-u")

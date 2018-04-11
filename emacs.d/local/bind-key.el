@@ -23,7 +23,6 @@
 ;; along with gnu emacs; see the file copying.  if not, write to the
 ;; free software foundation, inc., 59 temple place - suite 330,
 ;; boston, ma 02111-1307, usa.
-
 ;;; Commentary:
 
 ;; If you have lots of keybindings set in your .emacs file, it can be hard to

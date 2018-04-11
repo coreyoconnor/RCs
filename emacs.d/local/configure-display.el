@@ -22,4 +22,8 @@
 
 (setq column-number-mode t)
 
+;; default to better frame titles
+(setq frame-title-format
+      (concat  "%b - emacs@" (system-name)))
+
 (provide 'configure-display)

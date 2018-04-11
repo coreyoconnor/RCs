@@ -13,6 +13,7 @@
   )
 
 (setq make-backup-files nil)
+(setq auto-save-default nil)
 
 ;; Originally from stevey, adapted to support moving to a new directory.
 ;; http://stackoverflow.com/questions/384284/how-do-i-rename-an-open-file-in-emacs#384612

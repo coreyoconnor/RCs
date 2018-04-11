@@ -51,6 +51,13 @@
   (setq create-lockfiles nil)
   )
 
+(defun configure-gdscript-formatting () (eval-after-load 'gdscript-mode '(progn
+  (setq evil-shift-width 4)
+  (setq tab-width 4)
+  (setq c-basic-offset 4)
+  (setq indent-tabs-mode t)
+  )))
+
 (defun configure-formatting ()
   (setq-default indent-tabs-mode nil
                 tab-width 4
@@ -60,6 +67,7 @@
     (add-hook 'nix-mode-hook
               (lambda ()
                 (setq-local indent-line-function #'indent-relative))))
+  (configure-gdscript-formatting)
   )
 
 (defun configure-packages ()

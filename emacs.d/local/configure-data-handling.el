@@ -1,4 +1,5 @@
 ;; configuration of data handling
+(setq browse-url-browser-function 'eww-browse-url)
 
 (setq-default buffer-file-coding-system 'utf-8-unix)
 

@@ -67,7 +67,7 @@
  '(nxml-slash-auto-complete-flag t)
  '(package-selected-packages
    (quote
-    (evil-collection gdscript-mode js2-highlight-vars js2-mode evil-magit string-inflection yasnippet yard-mode yaml-mode window-numbering web-mode swiper smex scala-mode sbt-mode rubocop robe projectile-rails paredit omniref nix-mode nav mediawiki markdown-mode ido-ubiquitous idle-highlight-mode hydra hindent haskell-mode haml-mode groovy-mode gradle-mode fringe-helper fold-this flymake-ruby find-file-in-project evil enh-ruby-mode elscreen ecb dirtree company color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized auto-complete)))
+    (go-mode evil-collection gdscript-mode js2-highlight-vars js2-mode evil-magit string-inflection yasnippet yard-mode yaml-mode window-numbering web-mode swiper smex scala-mode sbt-mode rubocop robe projectile-rails paredit omniref nix-mode nav mediawiki markdown-mode ido-ubiquitous idle-highlight-mode hydra hindent haskell-mode haml-mode groovy-mode gradle-mode fringe-helper fold-this flymake-ruby find-file-in-project evil enh-ruby-mode elscreen ecb dirtree company color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized auto-complete)))
  '(safe-local-variable-values
    (quote
     ((haskell-indentation-where-post-offset . 4)

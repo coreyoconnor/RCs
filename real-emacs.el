@@ -84,26 +84,6 @@
       "gt" 'elscreen-next
       "gT" 'elscreen-previous)))
 
-(use-package scala-mode
-             :interpreter
-             ("scala" . scala-mode))
-
-(require 'ensime)
-(setq ensime-startup-snapshot-notification nil)
-
-(defadvice ensime-config (around ensime-config-path-fixup activate)
-  (let* ((config ad-do-it)
-         (subprojects (plist-get config :subprojects))
-         (new-subprojects
-          (-map (lambda (subproject)
-                  (let* ((source-roots (plist-get subproject :source-roots))
-                         (new-source-roots
-                          (-map (lambda (source-root) (file-truename source-root))
-                                source-roots)))
-                    (plist-put subproject :source-roots new-source-roots)))
-                subprojects)))
-    (plist-put config :subprojects new-subprojects)))
-
 (autoload 'inf-ruby-minor-mode "inf-ruby" "Inferior ruby process" t)
 (require 'inf-ruby)
 (require 'web-mode)
@@ -145,42 +125,6 @@
 
 (add-hook 'c-mode-common-hook (lambda() (cleanup-on-save)))
 
-(setq scala-indent:align-parameters t)
-(add-hook 'scala-mode-hook 'cleanup-on-save)
-(add-hook 'scala-mode-hook 'ensime-mode)
-
-(eval-after-load 'js-mode
-  (add-hook 'js-mode-hook
-            (lambda()
-              (setq-local js-indent-level 2)
-              (setq-local tab-width 2)
-              (setq-local c-basic-offset 2)
-              (setq-local evil-shift-width 2)
-              (cleanup-on-save)
-              )))
-
-(eval-after-load 'js-mode
-  (add-hook 'js-mode-hook
-            (lambda() (cleanup-on-save))))
-
-(eval-after-load 'haml-mode
-  (add-hook 'haml-mode-hook
-            (lambda ()
-              (setq-local electric-indent-chars (remq ?\n electric-indent-chars))))
-  )
-
-;; ruby
-(eval-after-load 'ruby-mode
- '(progn
-    (setq-default ruby-indent-level 2)
-    (add-hook 'ruby-mode-hook
-      (lambda () (setq-local evil-shift-width ruby-indent-level)))
-    (add-hook 'ruby-mode-hook
-      (lambda () (cleanup-on-save)))))
-
-(setq auto-mode-alist (cons '("\\.rake\\'" . ruby-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("Rakefile" . ruby-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("Gemfile" . ruby-mode) auto-mode-alist))
 
 ; keyboard interface options
 (evil-mode 1)

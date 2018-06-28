@@ -13,6 +13,17 @@
   (scroll-bar-mode -1)
   )
 
+(setq projectile-globally-ignored-directories
+      (append '(".git"
+                ".svn"
+                "out"
+                "repl"
+                "target"
+                "venv")
+              projectile-globally-ignored-directories
+              )
+      )
+
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 

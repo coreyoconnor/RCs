@@ -8,6 +8,8 @@
 (projectile-global-mode)
 
 (setq projectile-enable-caching t)
+;; always index using native. otherwise .projectile is ignored?
+(setq projectile-indexing-method 'native)
 (when (string-equal system-type "windows-nt")
   (setq projectile-indexing-method 'native)
   (scroll-bar-mode -1)

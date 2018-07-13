@@ -59,4 +59,7 @@
       (set-buffer-modified-p nil))
       (message "Renamed to %s." new-name)))
 
+(setq auto-mode-alist (cons '("\\.v$" . coq-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.pl$" . prolog-mode) auto-mode-alist))
+
 (provide 'configure-data-handling)

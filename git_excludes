@@ -11,3 +11,6 @@ Setup
 cabal.sandbox.config
 *#
 #*#
+target
+.projectile
+

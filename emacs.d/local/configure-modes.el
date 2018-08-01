@@ -11,6 +11,10 @@
 (eval-after-load 'nix-mode
   (add-hook 'nix-mode-hook
             (lambda ()
+              (setq-local evil-shift-width 2)
+              (setq-local tab-width 2)
+              (setq-local c-basic-offset 2)
+              (setq-local indent-line-function 'insert-tab)
               (setq-local indent-line-function 'indent-relative))))
 
 (eval-after-load 'haskell-mode

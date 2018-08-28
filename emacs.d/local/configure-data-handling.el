@@ -6,6 +6,7 @@
 (setq create-lockfiles nil)
 
 (projectile-global-mode)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 (setq projectile-enable-caching t)
 ;; always index using native. otherwise .projectile is ignored?

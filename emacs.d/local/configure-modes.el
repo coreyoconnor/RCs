@@ -8,6 +8,10 @@
 
 (electric-indent-mode 1)
 
+(use-package nix-mode
+             :mode ("nix" . nix-mode)
+             )
+
 (eval-after-load 'nix-mode
   (add-hook 'nix-mode-hook
             (lambda ()
@@ -37,11 +41,12 @@
   )
 
 (use-package scala-mode
-             :interpreter
-             ("scala" . scala-mode))
+             :interpreter ("scala" . scala-mode)
+             )
 
-(require 'ensime)
-(setq ensime-startup-snapshot-notification nil)
+(use-package ensime
+             :config (setq ensime-startup-snapshot-notification nil)
+             )
 
 (defadvice ensime-config (around ensime-config-path-fixup activate)
   (let* ((config ad-do-it)

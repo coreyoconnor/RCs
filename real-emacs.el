@@ -93,7 +93,6 @@
 (setq evil-want-integration nil)
 (require 'evil)
 (require 'evil-collection)
-(require 'evil-tabs)
 (require 'evil-numbers)
 
 (dolist (mode '(diff-mode))

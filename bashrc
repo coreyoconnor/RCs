@@ -12,7 +12,7 @@ export GHC_HEAD=/home/coconnor/Development/ghc/inplace/bin/ghc-stage2
 export EDITOR=vim
 
 export P4CONFIG=${HOME}/.p4settings
-export SBT_OPTS=-XX:MaxPermSize=256m
+export SBT_OPTS="-XX:MaxPermSize=256m -Xmx10g"
 
 if [[ -z $SCREENRC_HACK && -n $STY ]] ; then
    export SCREENRC_HACK=HACK

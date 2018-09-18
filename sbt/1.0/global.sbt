@@ -15,6 +15,6 @@ sourceGenerators in Test += Def.task {
  */
 
 import org.ensime.EnsimeKeys._
-ensimeJavaFlags in ThisBuild := Seq("-Xmx8g", "-XX:MaxMetaspaceSize=2g", "-XX:MaxDirectMemorySize=29965m")
+ensimeJavaFlags in ThisBuild := Seq("-Xmx8g", "-XX:MaxMetaspaceSize=2g", "-XX:MaxDirectMemorySize=30g")
 
 ensimeServerJars in ThisBuild := Seq(BuildPaths.defaultGlobalBase / "ensime_2.12-2.0-SNAPSHOT-assembly.jar")

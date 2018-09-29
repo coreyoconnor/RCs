@@ -6,3 +6,6 @@ alias gp='git push'
 alias sync-all='git pull -r && git submodule update --init'
 
 alias e='emacs -nw'
+
+alias project-screen='screen -dr $(basename $PWD) || screen -S $(basename $PWD)'
+alias cast-screen='screen -dr $(basename $PWD) || screen -c $RCS_DIR/cast-screenrc -S $(basename $PWD)'

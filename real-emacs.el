@@ -90,40 +90,29 @@
 (setq-default web-mode-code-indent-offset 2)
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 
-(setq evil-want-integration nil)
-(require 'evil)
-(require 'evil-collection)
-(require 'evil-numbers)
+(setq-default evil-want-integration t)
+(setq-default evil-want-keybinding nil)
 
-(dolist (mode '(diff-mode))
-  (setq-default evil-collection-mode-list (delq mode evil-collection-mode-list)))
+(use-package evil
+  :ensure t
+  :config
+  (progn
+    (require 'evil-collection)
+    (require 'evil-numbers)
+    (evil-collection-init)
 
-(evil-collection-init)
+    (dolist (mode '(diff-mode))
+      (setq-default evil-collection-mode-list (delq mode evil-collection-mode-list)))
 
-;;(loop for (mode . state) in '((inferior-emacs-lisp-mode . emacs)
-;;                              (nrepl-mode . insert)
-;;                              (pylookup-mode . emacs)
-;;                              (comint-mode . normal)
-;;                              (shell-mode . insert)
-;;                              (git-commit-mode . insert)
-;;                              (git-rebase-mode . emacs)
-;;                              (term-mode . emacs)
-;;                              (help-mode . emacs)
-;;                              (helm-grep-mode . emacs)
-;;                              (grep-mode . emacs)
-;;                              (bc-menu-mode . emacs)
-;;                              (magit-branch-manager-mode . emacs)
-;;                              (rdictcc-buffer-mode . emacs)
-;;                              (dired-mode . emacs)
-;;                              (wdired-mode . normal)
-;;                              (ensime-inf-mode . emacs))
-;;      do (evil-set-initial-state mode state))
+    (define-key evil-normal-state-map (kbd "C-c +") 'evil-numbers/inc-at-pt)
+    (define-key evil-normal-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt)
 
-(define-key evil-normal-state-map (kbd "C-c +") 'evil-numbers/inc-at-pt)
-(define-key evil-normal-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt)
+    (global-evil-tabs-mode t)
+
+    )
+  )
 
 (add-hook 'c-mode-common-hook (lambda() (cleanup-on-save)))
-
 
 ; keyboard interface options
 (evil-mode 1)
@@ -134,10 +123,9 @@
 ;; (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
 ;; (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
 ;; (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
-(global-evil-tabs-mode t)
 
 ; GUI options
-(add-to-list 'default-frame-alist  '(width . 100) )
+(add-to-list 'default-frame-alist  '(width . 80) )
 
 (setq auto-mode-alist (cons '("\\.v$" . coq-mode) auto-mode-alist))
 (autoload 'coq-mode "coq" "Major mode for editing Coq vernacular." t)

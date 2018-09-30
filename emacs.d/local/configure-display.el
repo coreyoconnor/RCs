@@ -41,7 +41,6 @@
             (global-origami-mode 1)
             (add-hook 'prog-mode-hook
                       (lambda ()
-                        (setq-local origami-fold-style 'triple-braces)
                         (origami-mode)
                         (origami-close-all-nodes (current-buffer))))
             (evil-define-key 'normal prog-mode-map (kbd "TAB") 'nin-origami-toggle-node)

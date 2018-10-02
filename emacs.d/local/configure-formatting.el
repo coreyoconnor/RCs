@@ -28,7 +28,14 @@ by using nxml's indentation rules."
 (defun dos2unix ()
   "Replace DOS eolns CR LF with Unix eolns CR"
   (interactive)
-    (goto-char (point-min))
-      (while (search-forward (string ?\C-m) nil t) (replace-match "")))
+  (save-excursion
+    (let ((inhibit-modification-hooks t))
+      (progn
+        (goto-char (point-min))
+        (while (search-forward (string ?\C-m) nil t) (replace-match ""))
+        )
+      )
+    )
+  )
 
 (provide 'configure-formatting)

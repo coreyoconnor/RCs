@@ -56,6 +56,7 @@
             (define-key evil-normal-state-map "zk" 'origami-previous-fold)
 
             (setq origami-parser-alist (cons '(scala-mode . origami-c-style-parser) origami-parser-alist))
+            (setq origami-parser-alist (cons '(glsl-mode . origami-c-style-parser) origami-parser-alist))
             )
   )
 

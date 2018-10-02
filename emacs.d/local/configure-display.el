@@ -54,6 +54,8 @@
             (define-key evil-normal-state-map "zc" 'origami-close-node)
             (define-key evil-normal-state-map "zj" 'origami-forward-fold)
             (define-key evil-normal-state-map "zk" 'origami-previous-fold)
+
+            (setq origami-parser-alist (cons '(scala-mode . origami-c-style-parser) origami-parser-alist))
             )
   )
 

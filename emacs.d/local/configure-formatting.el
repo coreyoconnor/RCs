@@ -25,4 +25,10 @@ by using nxml's indentation rules."
       (indent-region begin end))
         (message "Ah, much better!"))
 
+(defun dos2unix ()
+  "Replace DOS eolns CR LF with Unix eolns CR"
+  (interactive)
+    (goto-char (point-min))
+      (while (search-forward (string ?\C-m) nil t) (replace-match "")))
+
 (provide 'configure-formatting)

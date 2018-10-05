@@ -41,13 +41,16 @@
             (global-origami-mode 1)
             (add-hook 'prog-mode-hook
                       (lambda ()
-                        (origami-mode)
-                        (origami-close-all-nodes (current-buffer))))
+                        (origami-mode)))
+
+            ;; I'd like this hook added
+            ;; (origami-close-all-nodes (current-buffer))))
+            ;; but that exacerbates issues using find/replace with mark based folds.
             (evil-define-key 'normal prog-mode-map (kbd "TAB") 'nin-origami-toggle-node)
 
             (define-key evil-normal-state-map "za" 'origami-forward-toggle-node)
-            (define-key evil-normal-state-map "zR" 'origami-close-all-nodes)
-            (define-key evil-normal-state-map "zM" 'origami-open-all-nodes)
+            (define-key evil-normal-state-map "zR" 'origami-open-all-nodes)
+            (define-key evil-normal-state-map "zM" 'origami-close-all-nodes)
             (define-key evil-normal-state-map "zr" 'origami-close-node-recursively)
             (define-key evil-normal-state-map "zm" 'origami-open-node-recursively)
             (define-key evil-normal-state-map "zo" 'origami-show-node)

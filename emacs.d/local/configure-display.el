@@ -26,27 +26,19 @@
 (setq frame-title-format
       (concat  "%b - emacs@" (system-name)))
 
-;; from https://www.reddit.com/r/emacs/comments/5ei7wa/awesome_vimlike_folding_for_evilmode_with_markers/
-(defun nin-origami-toggle-node ()
-  (interactive)
-  (if (equal major-mode 'org-mode)
-      (org-cycle)
-    (save-excursion ;; leave point where it is
-      (goto-char (point-at-eol))             ;; then go to the end of line
-      (origami-toggle-node (current-buffer) (point)))))                 ;; and try to fold
-
 (use-package origami :ensure t
   :after (:all evil)
   :config (progn
             (global-origami-mode 1)
             (add-hook 'prog-mode-hook
                       (lambda ()
-                        (origami-mode)))
+                        (origami-mode)
+                        ;; I'd like this hook added
+                        ;; (origami-close-all-nodes (current-buffer))
+                        ;; but that exacerbates issues using find/replace with mark based folds.
+                        ))
 
-            ;; I'd like this hook added
-            ;; (origami-close-all-nodes (current-buffer))))
-            ;; but that exacerbates issues using find/replace with mark based folds.
-            (evil-define-key 'normal prog-mode-map (kbd "TAB") 'nin-origami-toggle-node)
+            (evil-define-key 'normal prog-mode-map (kbd "TAB") 'origami-forward-toggle-node)
 
             (define-key evil-normal-state-map "za" 'origami-forward-toggle-node)
             (define-key evil-normal-state-map "zR" 'origami-open-all-nodes)

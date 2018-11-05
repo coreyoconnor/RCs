@@ -12,7 +12,6 @@ sourceGenerators in Test += Def.task {
   IO.write(file, """object amm extends App { ammonite.Main.main(args) }""")
   Seq(file)
 }.taskValue
- */
 
 import org.ensime.EnsimeKeys._
 ensimeJavaFlags in ThisBuild := Seq("-Xmx8g", "-XX:MaxMetaspaceSize=2g", "-XX:MaxDirectMemorySize=30g")
@@ -20,3 +19,4 @@ ensimeJavaFlags in ThisBuild := Seq("-Xmx8g", "-XX:MaxMetaspaceSize=2g", "-XX:Ma
 ensimeServerJars in ThisBuild := {
   Seq(BuildPaths.defaultGlobalBase / s"ensime_${scalaBinaryVersion.value}-2.0-SNAPSHOT-assembly.jar")
 }
+ */

@@ -19,7 +19,6 @@
 
 (defun configure-load-path ()
   (add-to-list 'load-path (expand-file-name "~/.emacs.d/local"))
-  (add-to-list 'load-path (expand-file-name "~/.emacs.d/evil-tabs"))
   (add-to-list 'load-path (expand-file-name "~/.emacs.d/evil-numbers"))
   )
 
@@ -77,13 +76,6 @@
 
 (configure)
 
-(eval-after-load 'compilation-mode
-  '(progn
-    (evil-make-overriding-map compilation-mode 'normal t)
-    (evil-define-key 'normal nav-mode-map
-      "gt" 'elscreen-next
-      "gT" 'elscreen-previous)))
-
 (autoload 'inf-ruby-minor-mode "inf-ruby" "Inferior ruby process" t)
 (require 'inf-ruby)
 (require 'web-mode)
@@ -106,8 +98,6 @@
 
     (define-key evil-normal-state-map (kbd "C-c +") 'evil-numbers/inc-at-pt)
     (define-key evil-normal-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt)
-
-    (global-evil-tabs-mode t)
 
     )
   )
@@ -140,34 +130,6 @@
 
 (add-hook 'compilation-mode-hook (lambda () (visual-line-mode 1)))
 (add-hook 'compilation-minor-mode-hook (lambda () (visual-line-mode 1)))
-
-; from: https://zuttobenkyou.wordpress.com/2012/06/15/emacs-vimlike-tabwindow-navigation/
-(defun vimlike-quit ()
-  "Vimlike ':q' behavior: close current window if there are split windows;
-otherwise, close current tab (elscreen)."
-  (interactive)
-  (let ((one-elscreen (elscreen-one-screen-p))
-        (one-window (one-window-p))
-        )
-    (cond
-     ; if current tab has split windows in it, close the current live window
-     ((not one-window)
-      (delete-window) ; delete the current window
-      ; (balance-windows) ; balance remaining windows
-      nil)
-     ; if there are multiple elscreens (tabs), close the current elscreen
-     ((not one-elscreen)
-      (elscreen-kill)
-      nil)
-     ; if there is only one elscreen, just try to quit (calling elscreen-kill
-     ; will not work, because elscreen-kill fails if there is only one
-     ; elscreen)
-     (one-elscreen
-      (evil-quit)
-      nil)
-     )))
-
-(evil-ex-define-cmd "q[uit]" 'vimlike-quit)
 
 (setq dabbrev-case-replace nil)
 

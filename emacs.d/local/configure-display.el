@@ -56,11 +56,19 @@
   )
 
 
-(use-package elscreen :ensure t
+(use-package evil-tabs :ensure t
   :after (:all evil)
   :config (progn
+            (define-key evil-normal-state-map "gt" 'elscreen-next)
+            (define-key evil-normal-state-map "gT" 'elscreen-previous)
+            )
+  )
+
+(use-package elscreen :ensure t
+  :after (:all evil evil-tabs)
+  :config (progn
             (elscreen-start)
-            (require 'evil-elscreen)
+            ;; (require 'evil-elscreen)
 
             ; from: https://zuttobenkyou.wordpress.com/2012/06/15/emacs-vimlike-tabwindow-navigation/
             (evil-define-command vimlike-quit ()

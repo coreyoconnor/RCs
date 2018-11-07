@@ -30,4 +30,32 @@
 (configure-outline-minor-mode)
 (enable-evil-nav)
 
+(require 'subr-x)
+
+; hack to add back string-trim that was in 25
+(defun string-trim (string)
+  (string-trim-right string))
+
+(projectile-global-mode)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
+(setq projectile-enable-caching t)
+;; always index using native. otherwise .projectile is ignored?
+(setq projectile-indexing-method 'native)
+(when (string-equal system-type "windows-nt")
+  (setq projectile-indexing-method 'native)
+  (scroll-bar-mode -1)
+  )
+
+(setq projectile-globally-ignored-directories
+      (append '(".git"
+                ".svn"
+                "out"
+                "repl"
+                "target"
+                "venv")
+              projectile-globally-ignored-directories
+              )
+      )
+
 (provide 'configure-navigation)

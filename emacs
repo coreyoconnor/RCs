@@ -57,6 +57,7 @@
  '(ecb-show-sources-in-directories-buffer (quote always))
  '(ecb-tip-of-the-day nil)
  '(ecb-windows-width 40)
+ '(elscreen-display-tab nil)
  '(ensime-company-idle-delay 0)
  '(ensime-startup-notification nil)
  '(ensime-typecheck-idle-interval 4)

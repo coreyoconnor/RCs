@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "evil-tabs" "evil-tabs.el" (0 0 0 0))
-;;; Generated autoloads from evil-tabs.el
+;;;### (autoloads nil "evil-tabs" "../../../../../.emacs.d/elpa/evil-tabs-20160217.1520/evil-tabs.el"
+;;;;;;  "8e488b8fb77de86ae765a1ba49d4757f")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/evil-tabs-20160217.1520/evil-tabs.el
 
 (defvar evil-tabs-mode nil "\
 Non-nil if Evil-Tabs mode is enabled.
@@ -55,8 +56,20 @@ Evil-Tabs mode is enabled in all buffers where
 See `evil-tabs-mode' for more information on Evil-Tabs mode.
 
 \(fn &optional ARG)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "evil-tabs" "../../../../../.emacs.d/elpa/evil-tabs-20160217.1520/evil-tabs.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/evil-tabs-20160217.1520/evil-tabs.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "evil-tabs" '("evil-tabs-mode-map")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/evil-tabs-20160217.1520/evil-tabs-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/evil-tabs-20160217.1520/evil-tabs.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

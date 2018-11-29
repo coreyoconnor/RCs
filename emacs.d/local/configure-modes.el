@@ -10,16 +10,19 @@
 
 (use-package nix-mode
              :mode ("nix" . nix-mode)
+             :config
+             (progn
+               (add-hook 'nix-mode-hook
+                         (lambda ()
+                           (setq-local evil-shift-width 2)
+                           (setq-local tab-width 2)
+                           (setq-local c-basic-offset 2)
+                           (setq-local indent-line-function 'insert-tab)
+                           (setq-local indent-line-function 'indent-relative)
+                           )
+                         )
+               )
              )
-
-(eval-after-load 'nix-mode
-  (add-hook 'nix-mode-hook
-            (lambda ()
-              (setq-local evil-shift-width 2)
-              (setq-local tab-width 2)
-              (setq-local c-basic-offset 2)
-              (setq-local indent-line-function 'insert-tab)
-              (setq-local indent-line-function 'indent-relative))))
 
 (eval-after-load 'haskell-mode
   (add-hook 'haskell-mode-hook
@@ -40,29 +43,6 @@
             )
   )
 
-(use-package scala-mode
-             :interpreter ("scala" . scala-mode)
-             )
-
-(use-package ensime
-             :config (setq ensime-startup-snapshot-notification nil)
-             )
-
-(defadvice ensime-config (around ensime-config-path-fixup activate)
-  (let* ((config ad-do-it)
-         (subprojects (plist-get config :subprojects))
-         (new-subprojects
-          (-map (lambda (subproject)
-                  (let* ((source-roots (plist-get subproject :source-roots))
-                         (new-source-roots
-                          (-map (lambda (source-root) (file-truename source-root))
-                                source-roots)))
-                    (plist-put subproject :source-roots new-source-roots)))
-                subprojects)))
-    (plist-put config :subprojects new-subprojects)))
-
-(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
-(add-hook 'scala-mode-hook 'cleanup-on-save)
 (defun scalafmt-scala-format ()
   (setq-local tab-width 2)
   (setq-local c-basic-offset 2)
@@ -70,7 +50,24 @@
   (setq-local scala-indent:align-parameters t)
   )
 
-(add-hook 'scala-mode-hook 'scalafmt-scala-format)
+(use-package scala-mode
+             :ensure t
+             :interpreter ("scala" . scala-mode)
+             :config
+             (progn
+               (add-hook 'scala-mode-hook 'cleanup-on-save)
+               (add-hook 'scala-mode-hook 'scalafmt-scala-format)
+               )
+             )
+
+(use-package lsp-mode
+  :after (:all scala-mode sbt-mode)
+  :config
+  (progn
+    (require 'lsp-scala)
+    (setq-default lsp-scala-server-command '("metals" "0.2.0-SNAPSHOT"))
+    )
+  )
 
 (eval-after-load 'js-mode
   (add-hook 'js-mode-hook

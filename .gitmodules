@@ -23,3 +23,6 @@
 #	path = emacs.d/local/ensime-emacs
 #	url = git@github.com:coreyoconnor/ensime-emacs.git
 #	branch = master
+[submodule "emacs.d/lsp-scala"]
+	path = emacs.d/lsp-scala
+	url = git@github.com:coreyoconnor/lsp-scala.git

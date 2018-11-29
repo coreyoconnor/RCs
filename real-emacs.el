@@ -20,6 +20,7 @@
 (defun configure-load-path ()
   (add-to-list 'load-path (expand-file-name "~/.emacs.d/local"))
   (add-to-list 'load-path (expand-file-name "~/.emacs.d/evil-numbers"))
+  (add-to-list 'load-path (expand-file-name "~/.emacs.d/lsp-scala"))
   )
 
 (defun enable-package-package ()
@@ -106,13 +107,6 @@
 
 ; keyboard interface options
 (evil-mode 1)
-;; (define-key evil-normal-state-map [escape] 'keyboard-quit)
-;; (define-key evil-visual-state-map [escape] 'keyboard-quit)
-;; (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
-;; (define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
-;; (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
-;; (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
-;; (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
 
 ; GUI options
 (add-to-list 'default-frame-alist  '(width . 80) )

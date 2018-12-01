@@ -51,20 +51,34 @@
   )
 
 (use-package scala-mode
-             :ensure t
-             :interpreter ("scala" . scala-mode)
-             :config
-             (progn
-               (add-hook 'scala-mode-hook 'cleanup-on-save)
-               (add-hook 'scala-mode-hook 'scalafmt-scala-format)
-               )
-             )
-
-(use-package lsp-mode
-  :after (:all scala-mode sbt-mode)
+  :ensure t
+  :after (:all flycheck-mode lsp-ui)
+  :interpreter ("scala" . scala-mode)
   :config
   (progn
     (require 'lsp-scala)
+    (add-hook 'scala-mode-hook 'cleanup-on-save)
+    (add-hook 'scala-mode-hook 'scalafmt-scala-format)
+    (add-hook 'scala-mode-hook 'flycheck-mode)
+    )
+  )
+
+(use-package sbt-mode
+  :ensure t
+  )
+
+(use-package flycheck
+  :ensure t
+  :config
+  (progn
+    (global-flycheck-mode)
+    )
+  )
+
+(use-package lsp-mode
+  :ensure t
+  :config
+  (progn
     (setq-default lsp-scala-server-command '("metals" "0.2.0-SNAPSHOT"))
     )
   )

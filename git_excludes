@@ -13,4 +13,5 @@ cabal.sandbox.config
 #*#
 target
 .projectile
-
+.metals
+.bloop

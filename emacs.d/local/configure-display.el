@@ -99,4 +99,12 @@
             )
   )
 
+(use-package lsp-ui :ensure t
+  :after (:all lsp-mode)
+  :config (progn
+            (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+            (add-hook 'lsp-after-open-hook (lambda () (lsp-ui-flycheck-enable 1)))
+            )
+  )
+
 (provide 'configure-display)

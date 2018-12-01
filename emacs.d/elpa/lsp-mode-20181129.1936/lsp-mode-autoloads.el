@@ -6,6 +6,30 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
+;;;### (autoloads nil "lsp" "lsp.el" (0 0 0 0))
+;;; Generated autoloads from lsp.el
+
+(autoload 'lsp "lsp" "\
+Entry point for the server startup.
+When IGNORE-MULTI-FOLDER is t the lsp mode will start new
+language server even if there is language server which can handle
+current language. When IGNORE-MULTI-FOLDER is nil current file
+will be openned in multi folder language server if there is
+such.
+
+\(fn &optional IGNORE-MULTI-FOLDER)" t nil)
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "lsp" '("lsp-" "make-lsp-client" "with-lsp-workspace" "when-lsp-workspace")))
+
+;;;***
+
+;;;### (autoloads nil "lsp-clients" "lsp-clients.el" (0 0 0 0))
+;;; Generated autoloads from lsp-clients.el
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "lsp-clients" '("lsp-")))
+
+;;;***
+
 ;;;### (autoloads nil "lsp-common" "lsp-common.el" (0 0 0 0))
 ;;; Generated autoloads from lsp-common.el
 

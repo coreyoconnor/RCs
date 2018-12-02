@@ -1,6 +1,10 @@
-;; coreyoconnor: I don't have a good understanding of Lisp or Emacs
+;;; RCs --- coreyoconnor emacs RC
+;;; Commentary:
+;; I don't have a good understanding of Lisp or Emacs
+;;; Code:
 (defun configure ()
   (configure-package-manager)
+  (configure-interface)
   (configure-data-handling)
   (configure-modes)
   (configure-formatting)
@@ -49,6 +53,10 @@
   (setq use-package-always-ensure t)
   )
 
+(defun configure-interface ()
+  (require 'configure-interface)
+  )
+
 (defun configure-data-handling ()
   (require 'configure-data-handling)
   )
@@ -75,38 +83,8 @@
     )
   )
 
-(configure)
-
-(autoload 'inf-ruby-minor-mode "inf-ruby" "Inferior ruby process" t)
-(require 'inf-ruby)
-(require 'web-mode)
-(setq-default web-mode-code-indent-offset 2)
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-
-(setq-default evil-want-integration t)
-(setq-default evil-want-keybinding nil)
-
-(use-package evil
-  :ensure t
-  :config
-  (progn
-    (require 'evil-collection)
-    (require 'evil-numbers)
-    (evil-collection-init)
-
-    (dolist (mode '(diff-mode))
-      (setq-default evil-collection-mode-list (delq mode evil-collection-mode-list)))
-
-    (define-key evil-normal-state-map (kbd "C-c +") 'evil-numbers/inc-at-pt)
-    (define-key evil-normal-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt)
-
-    )
-  )
 
 (add-hook 'c-mode-common-hook (lambda() (cleanup-on-save)))
-
-; keyboard interface options
-(evil-mode 1)
 
 ; GUI options
 (add-to-list 'default-frame-alist  '(width . 80) )
@@ -128,3 +106,5 @@
 (setq dabbrev-case-replace nil)
 
 (setq ac-ignore-case nil)
+
+(configure)

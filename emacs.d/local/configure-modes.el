@@ -110,7 +110,14 @@
     (add-hook 'ruby-mode-hook
       (lambda () (setq-local evil-shift-width ruby-indent-level)))
     (add-hook 'ruby-mode-hook
-      (lambda () (cleanup-on-save)))))
+              (lambda () (cleanup-on-save)))
+    (autoload 'inf-ruby-minor-mode "inf-ruby" "Inferior ruby process" t)
+    (require 'inf-ruby)
+    (require 'web-mode)
+    (setq-default web-mode-code-indent-offset 2)
+    (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+    )
+ )
 
 (setq auto-mode-alist (cons '("\\.rake\\'" . ruby-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("Rakefile" . ruby-mode) auto-mode-alist))

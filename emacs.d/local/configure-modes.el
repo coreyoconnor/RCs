@@ -64,6 +64,17 @@
     )
   )
 
+(setq is-lsp-enabled nil)
+
+(defun enable-for-session ()
+  (if (not is-lsp-enabled)
+      (progn
+        (add-hook 'scala-mode-hook 'lsp)
+        (setq is-lsp-enabled t)
+        )
+    )
+  )
+
 (use-package lsp
   :load-path "lsp-mode"
   :demand t
@@ -71,6 +82,7 @@
             (add-to-list 'load-path (expand-file-name "~/.emacs.d/lsp-ui"))
             (require 'lsp-ui)
             (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+            (add-hook 'lsp-mode-hook 'enable-for-session)
             (add-hook 'lsp-after-open-hook (lambda () (lsp-ui-flycheck-enable 1)))
             )
   )

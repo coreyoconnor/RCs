@@ -3,6 +3,12 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
+(eval-when-compile
+  (add-to-list 'load-path (expand-file-name "~/.emacs.d/use-package"))
+  (require 'use-package)
+  (setq use-package-verbose t)
+  )
+
 (package-initialize)
 
 (defconst dot-emacs (concat (getenv "HOME") "/" "Development/" "RCs/" "real-emacs.el")

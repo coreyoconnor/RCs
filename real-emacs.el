@@ -2,6 +2,7 @@
 ;;; Commentary:
 ;; I don't have a good understanding of Lisp or Emacs
 ;;; Code:
+
 (defun configure ()
   (configure-package-manager)
   (configure-interface)
@@ -18,18 +19,18 @@
   (configure-load-path)
   (enable-package-package)
   (configure-package-repos)
-  (enable-use-package-package)
   )
 
 (defun configure-load-path ()
-  (add-to-list 'load-path (expand-file-name "~/.emacs.d/local"))
   (add-to-list 'load-path (expand-file-name "~/.emacs.d/evil-numbers"))
-  (add-to-list 'load-path (expand-file-name "~/.emacs.d/lsp-scala"))
+  (add-to-list 'load-path (expand-file-name "~/.emacs.d/local"))
   )
 
 (defun enable-package-package ()
   (require 'package)
   (setq package-enable-at-startup nil)
+  ;; (when (not package-archive-contents)
+  ;;   (package-refresh-contents))
   )
 
 (defun configure-package-repos ()
@@ -43,14 +44,6 @@
                '("melpa-stable" . "http://stable.melpa.org/packages/"))
 
   (package-initialize)
-  )
-
-(defun enable-use-package-package ()
-  (when (not package-archive-contents)
-    (package-refresh-contents)
-    (package-install 'use-package))
-  (require 'use-package)
-  (setq use-package-always-ensure t)
   )
 
 (defun configure-interface ()

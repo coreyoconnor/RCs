@@ -50,22 +50,11 @@
   (setq-local scala-indent:align-parameters t)
   )
 
-(use-package scala-mode
-  :ensure t
-  :after (:all flycheck-mode lsp-ui)
-  :interpreter ("scala" . scala-mode)
-  :config
-  (progn
-    (require 'lsp-scala)
-    (add-hook 'scala-mode-hook 'cleanup-on-save)
-    (add-hook 'scala-mode-hook 'scalafmt-scala-format)
-    (add-hook 'scala-mode-hook 'flycheck-mode)
-    )
-  )
+(use-package ht
+  :ensure t)
 
-(use-package sbt-mode
-  :ensure t
-  )
+(use-package spinner
+  :ensure t)
 
 (use-package flycheck
   :ensure t
@@ -75,12 +64,44 @@
     )
   )
 
+(use-package lsp
+  :load-path "lsp-mode"
+  :demand t
+  :config (progn
+            (add-to-list 'load-path (expand-file-name "~/.emacs.d/lsp-ui"))
+            (require 'lsp-ui)
+            (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+            (add-hook 'lsp-after-open-hook (lambda () (lsp-ui-flycheck-enable 1)))
+            )
+  )
+
 (use-package lsp-mode
-  :ensure t
+  :demand lsp
+  )
+
+(use-package lsp-scala
+  :load-path "lsp-scala"
+  :demand t
   :config
   (progn
     (setq-default lsp-scala-server-command '("metals" "0.2.0-SNAPSHOT"))
     )
+  )
+
+(use-package scala-mode
+  :ensure t
+  :after (:all flycheck-mode lsp-scala)
+  :interpreter ("scala" . scala-mode)
+  :config
+  (progn
+    (add-hook 'scala-mode-hook 'cleanup-on-save)
+    (add-hook 'scala-mode-hook 'scalafmt-scala-format)
+    (add-hook 'scala-mode-hook 'flycheck-mode)
+    )
+  )
+
+(use-package sbt-mode
+  :ensure t
   )
 
 (eval-after-load 'js-mode

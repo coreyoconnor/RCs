@@ -37,3 +37,4 @@ sbt/1.0/templates
 emacs.d/url/cache
 sbt/1.0/staging
 sbt/0.13/java9-rt-ext-eclipse_openj9_11/
+emacs.d/.lsp-session

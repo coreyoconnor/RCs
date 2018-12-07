@@ -38,4 +38,6 @@ by using nxml's indentation rules."
     )
   )
 
+(add-hook 'c-mode-common-hook (lambda() (cleanup-on-save)))
+
 (provide 'configure-formatting)

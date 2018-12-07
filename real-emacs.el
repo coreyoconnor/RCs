@@ -29,8 +29,6 @@
 (defun enable-package-package ()
   (require 'package)
   (setq package-enable-at-startup nil)
-  ;; (when (not package-archive-contents)
-  ;;   (package-refresh-contents))
   )
 
 (defun configure-package-repos ()
@@ -76,14 +74,10 @@
     )
   )
 
-
-(add-hook 'c-mode-common-hook (lambda() (cleanup-on-save)))
+;; unsorted
 
 ; GUI options
 (add-to-list 'default-frame-alist  '(width . 80) )
-
-(setq auto-mode-alist (cons '("\\.v$" . coq-mode) auto-mode-alist))
-(autoload 'coq-mode "coq" "Major mode for editing Coq vernacular." t)
 
 (setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
                                   global-semanticdb-minor-mode

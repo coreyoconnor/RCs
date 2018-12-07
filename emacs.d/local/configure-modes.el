@@ -139,8 +139,14 @@
   )
 
 ;; ruby
-(eval-after-load 'ruby-mode
- '(progn
+(use-package ruby-mode
+  :ensure t
+  :mode (("\\.rake\\'" . ruby-mode)
+         ("Rakefile" . ruby-mode)
+         ("Gemfile" . ruby-mode)
+         )
+  :config
+  (progn
     (setq-default ruby-indent-level 2)
     (add-hook 'ruby-mode-hook
       (lambda () (setq-local evil-shift-width ruby-indent-level)))
@@ -154,8 +160,21 @@
     )
  )
 
-(setq auto-mode-alist (cons '("\\.rake\\'" . ruby-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("Rakefile" . ruby-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("Gemfile" . ruby-mode) auto-mode-alist))
+;(use-package proof-general
+;  :ensure t
+;  )
+;
+;(use-package coq-mode
+;  :demand proof-general
+;  :mode "\\.v\\'"
+;  )
+
+(use-package pdf-tools
+  :magic ("%PDF" . pdf-view-mode)
+  :config
+  (pdf-tools-install)
+  )
+
+(setq auto-mode-alist (cons '("\\.pl\\'" . prolog-mode) auto-mode-alist))
 
 (provide 'configure-modes)

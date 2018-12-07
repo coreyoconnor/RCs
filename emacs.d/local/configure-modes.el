@@ -91,19 +91,10 @@
   :demand lsp
   )
 
-(use-package lsp-scala
-  :load-path "lsp-scala"
-  :demand t
-  :config
-  (progn
-    (setq-default lsp-scala-server-command '("metals" "0.2.0-SNAPSHOT"))
-    )
-  )
-
 (use-package scala-mode
   :ensure t
-  :after (:all flycheck-mode lsp-scala)
-  :interpreter ("scala" . scala-mode)
+  :interpreter "scala"
+  :mode "\\.scala\\'"
   :config
   (progn
     (add-hook 'scala-mode-hook 'cleanup-on-save)
@@ -114,6 +105,17 @@
 
 (use-package sbt-mode
   :ensure t
+  :after scala-mode
+  )
+
+(use-package lsp-scala
+  :load-path "lsp-scala"
+  :demand t
+  :after (:all scala-mode sbt-mode lsp)
+  :config
+  (progn
+    (setq-default lsp-scala-server-command '("metals" "0.2.0-SNAPSHOT"))
+    )
   )
 
 (eval-after-load 'js-mode

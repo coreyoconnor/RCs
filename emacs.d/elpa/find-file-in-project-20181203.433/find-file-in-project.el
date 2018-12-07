@@ -3,8 +3,8 @@
 ;; Copyright (C) 2006-2009, 2011-2012, 2015-2018
 ;;   Phil Hagelberg, Doug Alcorn, Will Farrington, Chen Bin
 ;;
-;; Version: 5.7.0
-;; Package-Version: 20181128.1428
+;; Version: 5.7.1
+;; Package-Version: 20181203.433
 ;; Author: Phil Hagelberg, Doug Alcorn, and Will Farrington
 ;; Maintainer: Chen Bin <chenbin.sh@gmail.com>
 ;; URL: https://github.com/technomancy/find-file-in-project
@@ -274,8 +274,6 @@ May be set using .dir-locals.el.  Checks each entry if set to a list.")
 
 (defvar ffip-ignore-filenames
   '(;; VCS
-    ;; simple text file
-    "*.json"
     ;; project misc
     "*.log"
     ;; Ctags

@@ -114,7 +114,7 @@
   :after (:all scala-mode sbt-mode lsp)
   :config
   (progn
-    (setq-default lsp-scala-server-command '("metals" "0.2.0-SNAPSHOT"))
+    (setq-default lsp-scala-server-command '("metals" "0.4.0-SNAPSHOT"))
     )
   )
 

@@ -83,7 +83,7 @@
             (require 'lsp-ui)
             (add-hook 'lsp-mode-hook 'lsp-ui-mode)
             (add-hook 'lsp-mode-hook 'enable-for-session)
-            (add-hook 'lsp-after-open-hook (lambda () (lsp-ui-flycheck-enable 1)))
+            ; (add-hook 'lsp-after-open-hook (lambda () (lsp-ui-flycheck-enable 1)))
             )
   )
 

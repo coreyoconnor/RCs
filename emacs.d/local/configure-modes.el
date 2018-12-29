@@ -118,6 +118,12 @@
     )
   )
 
+(use-package llvm-mode
+  :load-path "llvm-mode"
+  :demand t
+  :mode "\\.ll\\'"
+  )
+
 (eval-after-load 'js-mode
   (add-hook 'js-mode-hook
             (lambda ()

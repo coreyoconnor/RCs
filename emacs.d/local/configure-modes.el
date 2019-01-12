@@ -181,6 +181,14 @@
   (pdf-tools-install)
   )
 
-(setq auto-mode-alist (cons '("\\.pl\\'" . prolog-mode) auto-mode-alist))
+(use-package prolog-mode
+  :ensure t
+  :mode "pl"
+  )
+
+(use-package markdown-mode
+  :ensure t
+  :mode "md"
+  )
 
 (provide 'configure-modes)

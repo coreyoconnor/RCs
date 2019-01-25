@@ -81,9 +81,11 @@
   :config (progn
             (add-to-list 'load-path (expand-file-name "~/.emacs.d/lsp-ui"))
             (require 'lsp-ui)
+            (require 'lsp-ui-flycheck)
             (add-hook 'lsp-mode-hook 'lsp-ui-mode)
             (add-hook 'lsp-mode-hook 'enable-for-session)
-            ; (add-hook 'lsp-after-open-hook (lambda () (lsp-ui-flycheck-enable 1)))
+            (setq lsp-ui-sideline-show-diagnostics t)
+            (setq lsp-ui-sideline-enable t)
             )
   )
 
@@ -112,10 +114,6 @@
   :load-path "lsp-scala"
   :demand t
   :after (:all scala-mode sbt-mode lsp)
-  :config
-  (progn
-    (setq-default lsp-scala-server-command '("metals" "0.4.0-SNAPSHOT"))
-    )
   )
 
 (use-package llvm-mode

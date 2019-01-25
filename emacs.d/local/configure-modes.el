@@ -82,10 +82,18 @@
             (add-to-list 'load-path (expand-file-name "~/.emacs.d/lsp-ui"))
             (require 'lsp-ui)
             (require 'lsp-ui-flycheck)
-            (add-hook 'lsp-mode-hook 'lsp-ui-mode)
-            (add-hook 'lsp-mode-hook 'enable-for-session)
-            (setq lsp-ui-sideline-show-diagnostics t)
-            (setq lsp-ui-sideline-enable t)
+            (add-hook 'lsp-mode-hook (lambda ()
+                                       (enable-for-session)
+                                       (lsp-ui-mode)
+                                       )
+                      )
+            (add-hook 'lsp-after-open-hook (lambda ()
+                                             (lsp-ui-flycheck-enable t)
+                                             )
+                      )
+            ;; (setq-default lsp-ui-sideline-show-diagnostics t)
+            ;; (setq-default lsp-ui-sideline-enable t)
+            ;; (setq-default lsp-ui-flycheck-live-reporting t)
             )
   )
 
@@ -99,9 +107,11 @@
   :mode "\\.scala\\'"
   :config
   (progn
-    (add-hook 'scala-mode-hook 'cleanup-on-save)
-    (add-hook 'scala-mode-hook 'scalafmt-scala-format)
-    (add-hook 'scala-mode-hook 'flycheck-mode)
+    (add-hook 'scala-mode-hook (progn
+                                 (cleanup-on-save)
+                                 (flycheck-mode)
+                                 ;; (scalafmt-scala-format)
+                                 ))
     )
   )
 

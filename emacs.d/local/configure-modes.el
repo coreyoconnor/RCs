@@ -43,12 +43,6 @@
             )
   )
 
-(defun scalafmt-scala-format ()
-  (setq-local tab-width 2)
-  (setq-local c-basic-offset 2)
-  (setq-local evil-shift-width 2)
-  (setq-local scala-indent:align-parameters t)
-  )
 
 (use-package ht
   :ensure t)
@@ -101,16 +95,23 @@
   :demand lsp
   )
 
+(defun setup-scala-format ()
+  (setq-local tab-width 2)
+  (setq-local c-basic-offset 2)
+  (setq-local evil-shift-width 2)
+  (setq-local scala-indent:align-parameters t)
+  )
+
 (use-package scala-mode
   :ensure t
   :interpreter "scala"
   :mode "\\.scala\\'"
   :config
   (progn
-    (add-hook 'scala-mode-hook (progn
+    (add-hook 'scala-mode-hook (lambda ()
                                  (cleanup-on-save)
                                  (flycheck-mode)
-                                 ;; (scalafmt-scala-format)
+                                 (setup-scala-format)
                                  ))
     )
   )

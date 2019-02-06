@@ -9,7 +9,7 @@
 (electric-indent-mode 1)
 
 (use-package nix-mode
-             :mode ("nix" . nix-mode)
+             :mode ("\\.nix\\'" . nix-mode)
              :config
              (progn
                (add-hook 'nix-mode-hook
@@ -192,12 +192,12 @@
 
 (use-package prolog-mode
   :ensure t
-  :mode "pl"
+  :mode "\\.pl\\'"
   )
 
 (use-package markdown-mode
   :ensure t
-  :mode "md"
+  :mode "\\.md\\'"
   )
 
 (provide 'configure-modes)

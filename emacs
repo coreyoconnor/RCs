@@ -36,6 +36,7 @@
  '(background-color nil)
  '(background-mode dark)
  '(company-idle-delay nil)
+ '(compile-command "cd build && make -j10 -k ")
  '(coq-prog-args
    (quote
     ("-I" "/home/corey/Development/cpdt_coconnor/cpdt/src")))

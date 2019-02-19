@@ -85,6 +85,9 @@
                                              (lsp-ui-flycheck-enable t)
                                              )
                       )
+
+            (setq-default lsp-ui-sideline-diagnostic-max-lines 50)
+
             ;; (setq-default lsp-ui-sideline-show-diagnostics t)
             ;; (setq-default lsp-ui-sideline-enable t)
             ;; (setq-default lsp-ui-flycheck-live-reporting t)
@@ -190,10 +193,10 @@
   (pdf-tools-install)
   )
 
-(use-package prolog-mode
-  :ensure t
-  :mode "\\.pl\\'"
-  )
+;(use-package prolog-mode
+;  :ensure t
+;  :mode "\\.pl\\'"
+;  )
 
 (use-package markdown-mode
   :ensure t

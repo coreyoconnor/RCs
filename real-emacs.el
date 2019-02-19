@@ -28,7 +28,6 @@
 
 (defun enable-package-package ()
   (require 'package)
-  (setq package-enable-at-startup nil)
   )
 
 (defun configure-package-repos ()
@@ -42,6 +41,7 @@
                '("melpa-stable" . "http://stable.melpa.org/packages/"))
 
   (package-initialize)
+  (setq package-enable-at-startup nil)
   )
 
 (defun configure-interface ()

@@ -86,8 +86,9 @@
                                              )
                       )
 
-            (setq-default lsp-ui-sideline-diagnostic-max-lines 50)
+            (setq-default lsp-ui-sideline-diagnostic-max-lines 30)
 
+            ;; (setq-default lsp-eldoc-enable-signature-help nil)
             ;; (setq-default lsp-ui-sideline-show-diagnostics t)
             ;; (setq-default lsp-ui-sideline-enable t)
             ;; (setq-default lsp-ui-flycheck-live-reporting t)
@@ -110,11 +111,13 @@
   :interpreter "scala"
   :mode "\\.scala\\'"
   :config
+  :after lsp-mode
   (progn
     (add-hook 'scala-mode-hook (lambda ()
                                  (cleanup-on-save)
                                  (flycheck-mode)
                                  (setup-scala-format)
+                                 (auto-fill-mode)
                                  ))
     )
   )

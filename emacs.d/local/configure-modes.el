@@ -69,6 +69,9 @@
     )
   )
 
+(use-package dash-functional
+  :ensure t)
+
 (use-package lsp
   :load-path "lsp-mode"
   :demand t
@@ -111,7 +114,6 @@
   :interpreter "scala"
   :mode "\\.scala\\'"
   :config
-  :after lsp-mode
   (progn
     (add-hook 'scala-mode-hook (lambda ()
                                  (cleanup-on-save)

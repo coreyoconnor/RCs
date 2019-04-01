@@ -71,6 +71,10 @@
  '(ensime-typecheck-interval 4)
  '(foreground-color nil)
  '(inhibit-startup-screen t)
+ '(lsp-eldoc-enable-hover nil)
+ '(lsp-ui-doc-enable nil)
+ '(lsp-ui-flycheck-enable t)
+ '(lsp-ui-sideline-show-diagnostics t)
  '(nav-width 40)
  '(nxml-slash-auto-complete-flag t)
  '(package-selected-packages

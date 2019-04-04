@@ -4,7 +4,7 @@
 
 ;; Author: Oleh Krehel <ohwoeowho@gmail.com>
 ;; URL: https://github.com/abo-abo/swiper
-;; Package-Version: 20190328.1433
+;; Package-Version: 20190403.2148
 ;; Version: 0.11.0
 ;; Package-Requires: ((emacs "24.1") (ivy "0.11.0"))
 ;; Keywords: matching
@@ -94,28 +94,52 @@
     map)
   "Keymap for swiper.")
 
+(defvar swiper--query-replace-overlays nil)
+
+(defun swiper--query-replace-updatefn ()
+  (dolist (ov swiper--query-replace-overlays)
+    (overlay-put ov 'after-string (propertize ivy-text 'face 'error))))
+
+(defun swiper--query-replace-cleanup ()
+  (while swiper--query-replace-overlays
+    (delete-overlay (pop swiper--query-replace-overlays))))
+
+(defun swiper--query-replace-setup ()
+  (with-ivy-window
+    (let ((end (window-end (selected-window) t)))
+      (save-excursion
+        (goto-char (window-start))
+        (while (re-search-forward ivy--old-re end t)
+          (push (make-overlay (1- (match-end 0)) (match-end 0))
+                swiper--query-replace-overlays))))))
+
 (defun swiper-query-replace ()
   "Start `query-replace' with string to replace from last search string."
   (interactive)
   (if (null (window-minibuffer-p))
       (user-error "Should only be called in the minibuffer through `swiper-map'")
-    (let* ((enable-recursive-minibuffers t)
-           (from (ivy--regex ivy-text))
-           (to (minibuffer-with-setup-hook
-                   (lambda ()
-                     (setq minibuffer-default
-                           (if (string-match "\\`\\\\_<\\(.*\\)\\\\_>\\'" ivy-text)
-                               (match-string 1 ivy-text)
-                             ivy-text)))
-                 (read-from-minibuffer (format "Query replace %s with: " from)))))
-      (swiper--cleanup)
-      (ivy-exit-with-action
-       (lambda (_)
-         (with-ivy-window
-           (move-beginning-of-line 1)
-           (let ((inhibit-read-only t))
-             (perform-replace from to
-                              t t nil))))))))
+    (swiper--query-replace-setup)
+    (unwind-protect
+         (let* ((enable-recursive-minibuffers t)
+                (from (ivy--regex ivy-text))
+                (to (minibuffer-with-setup-hook
+                        (lambda ()
+                          (setq minibuffer-default
+                                (if (string-match "\\`\\\\_<\\(.*\\)\\\\_>\\'" ivy-text)
+                                    (match-string 1 ivy-text)
+                                  ivy-text)))
+                      (ivy-read
+                       (format "Query replace %s with: " from) nil
+                       :update-fn #'swiper--query-replace-updatefn))))
+           (swiper--cleanup)
+           (ivy-exit-with-action
+            (lambda (_)
+              (with-ivy-window
+                (move-beginning-of-line 1)
+                (let ((inhibit-read-only t))
+                  (perform-replace from to
+                                   t t nil))))))
+      (swiper--query-replace-cleanup))))
 
 (defvar inhibit-message)
 
@@ -1047,8 +1071,7 @@ See `ivy-format-function' for further information."
     (ivy-read "swiper-all: " 'swiper-all-function
               :action #'swiper-all-action
               :unwind #'swiper--cleanup
-              :update-fn (lambda ()
-                           (swiper-all-action (ivy-state-current ivy-last)))
+              :update-fn 'auto
               :dynamic-collection t
               :keymap swiper-all-map
               :initial-input initial-input
@@ -1101,6 +1124,84 @@ See `ivy-format-function' for further information."
                res))
         nil))
     res))
+
+;;* `swiper-isearch'
+(defvar swiper--isearch-last-point nil)
+
+(defun swiper-isearch-function (str)
+  "Collect STR matches in the current buffer for `swiper-isearch'."
+  (unless (string= str "")
+    (let ((re-full (funcall ivy--regex-function str))
+          re
+          cands
+          idx-found
+          (idx 0))
+      (setq re (ivy-re-to-str re-full))
+      (with-ivy-window
+        (save-excursion
+          (goto-char (point-min))
+          (while (re-search-forward re nil t)
+            (unless idx-found
+              (when (>= (match-beginning 0) swiper--isearch-last-point)
+                (setq swiper--isearch-last-point (match-beginning 0))
+                (setq idx-found idx)))
+            (cl-incf idx)
+            (let ((line (buffer-substring-no-properties
+                         (line-beginning-position)
+                         (line-end-position))))
+              (put-text-property 0 1 'point (point) line)
+              (push line cands)))))
+      (setq ivy--old-re re)
+      (when idx-found
+        (ivy-set-index idx-found))
+      (setq ivy--old-cands (nreverse cands)))))
+
+(defun swiper-isearch-action (x)
+  "Move to X for `swiper-isearch'."
+  (if (> (length x) 0)
+      (with-ivy-window
+        (goto-char (get-text-property 0 'point x))
+        (isearch-range-invisible (line-beginning-position)
+                                 (line-end-position))
+        (unless (eq ivy-exit 'done)
+          (swiper--cleanup)
+          (swiper--add-overlays (ivy--regex ivy-text))
+          (let ((ov (make-overlay (point) (if (eolp) (point) (1+ (point))))))
+            (if (eolp)
+                (overlay-put ov 'after-string (propertize " " 'face 'ivy-cursor))
+              (overlay-put ov 'face 'ivy-cursor))
+            (push ov swiper--overlays))))
+    (swiper--cleanup)))
+
+(defun swiper-isearch (&optional initial-input)
+  "A `swiper' that's not line-based."
+  (interactive)
+  (swiper--init)
+  (setq swiper--isearch-last-point (line-beginning-position))
+  (let ((ivy-fixed-height-minibuffer t)
+        (cursor-in-non-selected-windows nil)
+        (swiper-min-highlight 1)
+        res)
+    (unwind-protect
+         (and
+          (setq res
+                (ivy-read
+                 "Swiper: "
+                 #'swiper-isearch-function
+                 :initial-input initial-input
+                 :keymap swiper-map
+                 :dynamic-collection t
+                 :require-match t
+                 :action #'swiper-isearch-action
+                 :update-fn 'auto
+                 :unwind #'swiper--cleanup
+                 :history 'swiper-history
+                 :caller 'swiper-isearch))
+          (point))
+      (unless (or res swiper-stay-on-quit)
+        (goto-char swiper--opoint))
+      (unless (or res (string= ivy-text ""))
+        (cl-pushnew ivy-text swiper-history)))))
 
 (provide 'swiper)
 

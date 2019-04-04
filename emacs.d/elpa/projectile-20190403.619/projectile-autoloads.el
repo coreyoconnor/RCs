@@ -246,6 +246,21 @@ With a prefix arg INVALIDATE-CACHE invalidates the cache first.
 
 \(fn &optional INVALIDATE-CACHE)" t nil)
 
+(autoload 'projectile-find-related-file-other-window "projectile" "\
+Open related file in other window.
+
+\(fn)" t nil)
+
+(autoload 'projectile-find-related-file-other-frame "projectile" "\
+Open related file in other frame.
+
+\(fn)" t nil)
+
+(autoload 'projectile-find-related-file "projectile" "\
+Open related file.
+
+\(fn)" t nil)
+
 (autoload 'projectile-project-info "projectile" "\
 Display info for current project.
 

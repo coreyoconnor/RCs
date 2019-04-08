@@ -26,36 +26,6 @@
 (setq frame-title-format
       (concat  "%b - emacs@" (system-name)))
 
-(use-package origami :ensure t
-  :after (:all evil)
-  :config (progn
-            (global-origami-mode 1)
-            (add-hook 'prog-mode-hook
-                      (lambda ()
-                        (origami-mode)
-                        ;; I'd like this hook added
-                        ;; (origami-close-all-nodes (current-buffer))
-                        ;; but that exacerbates issues using find/replace with mark based folds.
-                        ))
-
-            (evil-define-key 'normal prog-mode-map (kbd "TAB") 'origami-forward-toggle-node)
-
-            (define-key evil-normal-state-map "za" 'origami-forward-toggle-node)
-            (define-key evil-normal-state-map "zR" 'origami-open-all-nodes)
-            (define-key evil-normal-state-map "zM" 'origami-close-all-nodes)
-            (define-key evil-normal-state-map "zr" 'origami-close-node-recursively)
-            (define-key evil-normal-state-map "zm" 'origami-open-node-recursively)
-            (define-key evil-normal-state-map "zo" 'origami-show-node)
-            (define-key evil-normal-state-map "zc" 'origami-close-node)
-            (define-key evil-normal-state-map "zj" 'origami-forward-fold)
-            (define-key evil-normal-state-map "zk" 'origami-previous-fold)
-
-            (setq origami-parser-alist (cons '(scala-mode . origami-c-style-parser) origami-parser-alist))
-            (setq origami-parser-alist (cons '(glsl-mode . origami-c-style-parser) origami-parser-alist))
-            )
-  )
-
-
 (use-package evil-tabs :ensure t
   :after (:all evil)
   :config (progn

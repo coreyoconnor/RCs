@@ -75,27 +75,31 @@
 (use-package lsp
   :load-path "lsp-mode"
   :demand t
-  :config (progn
-            (add-to-list 'load-path (expand-file-name "~/.emacs.d/lsp-ui"))
-            (require 'lsp-ui)
-            (require 'lsp-ui-flycheck)
-            (add-hook 'lsp-mode-hook (lambda ()
-                                       (enable-for-session)
-                                       (lsp-ui-mode)
-                                       )
-                      )
-            (add-hook 'lsp-after-open-hook (lambda ()
-                                             (lsp-ui-flycheck-enable t)
-                                             )
-                      )
+  :config
+  (progn
+    (add-to-list 'load-path (expand-file-name "~/.emacs.d/lsp-ui"))
+    (require 'lsp-ui)
+    (require 'lsp-ui-flycheck)
+    (add-hook 'lsp-mode-hook (lambda ()
+                                (enable-for-session)
+                                (lsp-ui-mode)
+                                )
+                )
+    (add-hook 'lsp-after-open-hook (lambda ()
+                                        (lsp-ui-flycheck-enable t)
+                                        )
+                )
 
-            (setq-default lsp-ui-sideline-diagnostic-max-lines 30)
+    (setq-default lsp-ui-sideline-diagnostic-max-lines 30)
 
-            ;; (setq-default lsp-eldoc-enable-signature-help nil)
-            (setq-default lsp-ui-sideline-show-diagnostics t)
-            (setq-default lsp-ui-sideline-enable t)
-            ;; (setq-default lsp-ui-flycheck-live-reporting t)
-            )
+    ;; (setq-default lsp-eldoc-enable-signature-help nil)
+    (setq-default lsp-ui-sideline-show-diagnostics t)
+    (setq-default lsp-ui-sideline-enable t)
+    (setq-default lsp-file-watch-ignored (cons "nixpkgs" (lsp-file-watch-ignored)))
+
+    ;; (setq-default lsp-ui-flycheck-live-reporting t)
+    (define-key evil-normal-state-map (kbd "td" 'xref-find-definitions-other-frame))
+    )
   )
 
 (use-package lsp-mode

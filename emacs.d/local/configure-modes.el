@@ -72,9 +72,22 @@
 (use-package dash-functional
   :ensure t)
 
+(use-package helm
+  :ensure t
+  :config
+  (progn
+    (require 'helm-config)))
+
+(use-package helm-projectile
+  :after (:all projectile helm)
+  :ensure t)
+
+(require 'radian-autocomplete)
+
 (use-package lsp
   :load-path "lsp-mode"
   :demand t
+  :after (:all evil company)
   :config
   (progn
     (add-to-list 'load-path (expand-file-name "~/.emacs.d/lsp-ui"))
@@ -83,6 +96,7 @@
     (add-hook 'lsp-mode-hook (lambda ()
                                 (enable-for-session)
                                 (lsp-ui-mode)
+                                (helm-mode 1)
                                 )
                 )
     (add-hook 'lsp-after-open-hook (lambda ()
@@ -95,16 +109,25 @@
     ;; (setq-default lsp-eldoc-enable-signature-help nil)
     (setq-default lsp-ui-sideline-show-diagnostics t)
     (setq-default lsp-ui-sideline-enable t)
-    (setq-default lsp-file-watch-ignored (cons "nixpkgs" (lsp-file-watch-ignored)))
+    (push "nixpkgs" lsp-file-watch-ignored)
 
     ;; (setq-default lsp-ui-flycheck-live-reporting t)
-    (define-key evil-normal-state-map (kbd "td" 'xref-find-definitions-other-frame))
+    (define-key evil-normal-state-map (kbd "t t") 'helm-imenu)
+    (define-key evil-insert-state-map "\C-n" 'company-complete)
     )
   )
 
 (use-package lsp-mode
   :demand lsp
   )
+
+(use-package company-lsp
+  :ensure t
+  :after (:all lsp company)
+  :config
+  (progn
+    (push 'company-lsp company-backends)
+    ))
 
 (defun setup-scala-format ()
   (setq-local tab-width 2)

@@ -129,6 +129,19 @@
     (push 'company-lsp company-backends)
     ))
 
+(use-package origami
+  :load-path "origami"
+  :demand t)
+
+(use-package lsp-origami
+  :load-path "lsp-origami"
+  :demand t
+  :after (:all origami lsp)
+  :config
+  (progn
+    (add-hook 'origami-mode-hook #'lsp-origami-mode)
+    ))
+
 (defun setup-scala-format ()
   (setq-local tab-width 2)
   (setq-local c-basic-offset 2)
@@ -147,6 +160,7 @@
                                  (flycheck-mode)
                                  (setup-scala-format)
                                  (auto-fill-mode)
+                                 (origami-mode)
                                  ))
     )
   )

@@ -38,3 +38,9 @@
 	path = emacs.d/lsp-ui
 	url = git@github.com:coreyoconnor/lsp-ui.git
 	branch = master
+[submodule "emacs.d/origami"]
+	path = emacs.d/origami
+	url = git@github.com:coreyoconnor/origami.el.git
+[submodule "emacs.d/lsp-origami"]
+	path = emacs.d/lsp-origami
+	url = git@github.com:coreyoconnor/lsp-origami.git

@@ -19,3 +19,13 @@ if [[ -z $SCREENRC_HACK && -n $STY ]] ; then
    export SCREENRC_HACK=HACK
    source ${HOME}/.bash_profile
 fi
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[ -f /home/coconnor/Development/glngn/placeholder/node_modules/tabtab/.completions/serverless.bash ] && . /home/coconnor/Development/glngn/placeholder/node_modules/tabtab/.completions/serverless.bash
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[ -f /home/coconnor/Development/glngn/placeholder/node_modules/tabtab/.completions/sls.bash ] && . /home/coconnor/Development/glngn/placeholder/node_modules/tabtab/.completions/sls.bash
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[ -f /home/coconnor/Development/glngn/placeholder/node_modules/tabtab/.completions/slss.bash ] && . /home/coconnor/Development/glngn/placeholder/node_modules/tabtab/.completions/slss.bash

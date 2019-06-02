@@ -2,20 +2,13 @@
 // By default, this file does not do anything.
 // If the environment variable METALS_ENABLED has the value 'true',
 // then this file enables sbt-metals and sbt-bloop.
-resolvers ++= {
-  if (System.getenv("METALS_ENABLED") == "true") {
-    List(Resolver.sonatypeRepo("snapshots"))
-  } else {
-    List()
-  }
-}
 
 libraryDependencies := {
   import Defaults.sbtPluginExtra
   val oldDependencies = libraryDependencies.value
   if (System.getenv("METALS_ENABLED") == "true") {
     val bloopModule = "ch.epfl.scala" % "sbt-bloop" % "1.2.5"
-    val metalsModule = "org.scalameta" % "sbt-metals" % "0.6.0-SNAPSHOT"
+    val metalsModule = "org.scalameta" % "sbt-metals" % "0.5.2"
     val sbtVersion = Keys.sbtBinaryVersion.in(TaskKey[Unit]("pluginCrossBuild")).value
     val scalaVersion = Keys.scalaBinaryVersion.in(update).value
     val bloopPlugin = sbtPluginExtra(bloopModule, sbtVersion, scalaVersion)

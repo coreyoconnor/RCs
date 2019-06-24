@@ -170,12 +170,6 @@
   :after scala-mode
   )
 
-(use-package lsp-scala
-  :load-path "lsp-scala"
-  :demand t
-  :after (:all scala-mode sbt-mode lsp)
-  )
-
 (use-package llvm-mode
   :load-path "llvm-mode"
   :demand t

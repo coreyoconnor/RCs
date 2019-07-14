@@ -12,7 +12,7 @@ export GHC_HEAD=/home/coconnor/Development/ghc/inplace/bin/ghc-stage2
 export EDITOR=vim
 
 export P4CONFIG=${HOME}/.p4settings
-export SBT_OPTS="-Xmx10g"
+export SBT_OPTS="-Xmx6g"
 export PS1='\n\[\033[1;32m\][\w]\$\[\033[0m\] '
 
 if [[ -z $SCREENRC_HACK && -n $STY ]] ; then

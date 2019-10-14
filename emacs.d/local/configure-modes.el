@@ -93,6 +93,7 @@
     (add-to-list 'load-path (expand-file-name "~/.emacs.d/lsp-ui"))
     (require 'lsp-ui)
     (require 'lsp-ui-flycheck)
+    (require 'yasnippet)
     (add-hook 'lsp-mode-hook (lambda ()
                                 (enable-for-session)
                                 (lsp-ui-mode)
@@ -109,7 +110,7 @@
     ;; (setq-default lsp-eldoc-enable-signature-help nil)
     (setq-default lsp-ui-sideline-show-diagnostics t)
     (setq-default lsp-ui-sideline-enable t)
-    (push "nixpkgs" lsp-file-watch-ignored)
+    (push "[/\\\\]\\nixpkgs$" lsp-file-watch-ignored)
 
     ;; (setq-default lsp-ui-flycheck-live-reporting t)
     (define-key evil-normal-state-map (kbd "t t") 'helm-imenu)

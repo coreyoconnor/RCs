@@ -4,8 +4,7 @@
 (setq-default buffer-file-coding-system 'utf-8-unix)
 
 (setq create-lockfiles nil)
-
-
+(global-auto-revert-mode t)
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 

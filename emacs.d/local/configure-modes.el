@@ -114,6 +114,7 @@
 
     ;; (setq-default lsp-ui-flycheck-live-reporting t)
     (define-key evil-normal-state-map (kbd "t t") 'helm-imenu)
+    (define-key evil-normal-state-map (kbd "g d") 'xref-find-definitions)
     (define-key evil-insert-state-map "\C-n" 'company-complete)
     )
   )

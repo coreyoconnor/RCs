@@ -246,4 +246,8 @@
   :mode "\\.md\\'"
   )
 
+(use-package ccls
+  :ensure t
+  )
+
 (provide 'configure-modes)

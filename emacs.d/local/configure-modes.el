@@ -155,7 +155,8 @@
 (use-package scala-mode
   :ensure t
   :interpreter "scala"
-  :mode "\\.scala\\'"
+  :mode ("\\.scala\\'" "\\.sc\\'")
+  :magic-fallback ("/usr/bin/env amm" "/usr/bin/env -S amm")
   :config
   (progn
     (add-hook 'scala-mode-hook (lambda ()

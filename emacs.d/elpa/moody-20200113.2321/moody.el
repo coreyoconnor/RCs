@@ -6,7 +6,7 @@
 ;; Homepage: https://github.com/tarsius/moody
 
 ;; Package-Requires: ((emacs "25.3"))
-;; Package-Version: 20200103.1238
+;; Package-Version: 20200113.2321
 
 ;; This file is not part of GNU Emacs.
 
@@ -323,13 +323,14 @@ is to make it easier to do so.
 
 This function is like `redisplay' with non-nil FORCE argument.
 It accepts an arbitrary number of arguments making it suitable
-as a `:before' advice for any function."
-  (unless moody--size-hacked-p
+as a `:before' advice for any function.  If the current buffer
+has no mode-line or this function has already been calle in it,
+then this function does nothing."
+  (when (and mode-line-format (not moody--size-hacked-p))
     (setq moody--size-hacked-p t)
     (redisplay t)))
 
 (advice-add 'fit-window-to-buffer :before #'moody-redisplay)
-(advice-add 'resize-temp-buffer-window :before #'moody-redisplay)
 
 (declare-function color-srgb-to-xyz "color" (red green blue))
 (declare-function color-rgb-to-hex "color" (red green blue &optional

@@ -1,4 +1,4 @@
-(define-package "evil-collection" "20200113.1043" "A set of keybindings for Evil mode"
+(define-package "evil-collection" "20200114.341" "A set of keybindings for Evil mode"
   '((emacs "25.1")
     (cl-lib "0.5")
     (evil "1.2.13")

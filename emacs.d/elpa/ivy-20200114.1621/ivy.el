@@ -563,6 +563,17 @@ of `history-length'.")
 (defvar ivy-text ""
   "Store the user's string as it is typed in.")
 
+(defvar ivy-regex ""
+  "Store the regex value that corresponds to `ivy-text'.")
+
+(defvar ivy--regex-function 'ivy--regex
+  "Current function for building a regex.")
+
+(defun ivy-set-text (str)
+  "Set `ivy-text' to STR."
+  (setq ivy-text str)
+  (setq ivy-regex (funcall ivy--regex-function ivy-text)))
+
 (defvar ivy--index 0
   "Store the index of the current candidate.")
 
@@ -618,9 +629,6 @@ Either a string or a list for `ivy-re-match'.")
 
 (defvar ivy--old-cands nil
   "Store the candidates matched by `ivy--old-re'.")
-
-(defvar ivy--regex-function 'ivy--regex
-  "Current function for building a regex.")
 
 (defvar ivy--highlight-function 'ivy--highlight-default
   "Current function for formatting the candidates.")
@@ -1070,11 +1078,11 @@ contains a single candidate.")
            (cond ((string-match
                    "\\`\\([^/]+?\\):\\(?:\\(.*\\)@\\)?\\(.*\\)\\'"
                    ivy-text)
-                  (setq ivy-text (ivy-state-current ivy-last)))
+                  (ivy-set-text (ivy-state-current ivy-last)))
                  ((string-match
                    "\\`\\([^/]+?\\):\\(?:\\(.*\\)@\\)?\\(.*\\)\\'"
                    (ivy-state-current ivy-last))
-                  (setq ivy-text (ivy-state-current ivy-last)))))
+                  (ivy-set-text (ivy-state-current ivy-last)))))
       (string-match
        "\\`/\\([^/]+?\\):\\(?:\\(.*\\)@\\)?\\(.*\\)\\'"
        ivy-text)))
@@ -1111,7 +1119,7 @@ If the text hasn't changed as a result, forward to `ivy-alt-done'."
      (let ((default-directory ivy--directory)
            dir)
        (minibuffer-complete)
-       (setq ivy-text (ivy--input))
+       (ivy-set-text (ivy--input))
        (when (setq dir (ivy-expand-file-if-directory ivy-text))
          (ivy--cd dir))))
     (t
@@ -1130,8 +1138,7 @@ If the text hasn't changed as a result, forward to `ivy-alt-done'."
   (when (and
          (eq (ivy-state-collection ivy-last) #'read-file-name-internal)
          (= 1 (length
-               (ivy--re-filter
-                (funcall ivy--regex-function ivy-text) ivy--all-candidates)))
+               (ivy--re-filter ivy-regex ivy--all-candidates)))
          (let ((default-directory ivy--directory))
            (file-directory-p (ivy-state-current ivy-last))))
     (ivy--directory-done)))
@@ -1161,10 +1168,10 @@ If the text hasn't changed as a result, forward to `ivy-alt-done'."
                        (concat "^" new)
                      new))
            (insert
-            (setq ivy-text
-                  (concat
-                   (mapconcat #'identity parts " ")
-                   (and ivy-tab-space (not (= (length ivy--old-cands) 1)) " "))))
+            (ivy-set-text
+             (concat
+              (mapconcat #'identity parts " ")
+              (and ivy-tab-space (not (= (length ivy--old-cands) 1)) " "))))
            (ivy--partial-cd-for-single-directory)
            t))))
 
@@ -1603,7 +1610,7 @@ If so, move to that directory, while keeping only the file name."
                (lambda (s) (substring s 1))
                (tramp-get-completion-methods ""))
               #'string<))))
-    (setq ivy-text "")
+    (ivy-set-text "")
     (setf (ivy-state-directory ivy-last) dir)
     (delete-minibuffer-contents)))
 
@@ -1677,7 +1684,8 @@ minibuffer."
   "Toggle the regexp quoting."
   (interactive)
   (setq ivy--old-re nil)
-  (cl-rotatef ivy--regex-function ivy--regexp-quote))
+  (cl-rotatef ivy--regex-function ivy--regexp-quote)
+  (setq ivy-regex (funcall ivy--regex-function ivy-text)))
 
 (defvar avy-all-windows)
 (defvar avy-action)
@@ -2225,17 +2233,18 @@ This is useful for recursive `ivy-read'."
     (setq ivy--extra-candidates (ivy--compute-extra-candidates caller))
     (setq ivy--directory nil)
     (setq ivy-case-fold-search ivy-case-fold-search-default)
-    (setq ivy--regex-function
-          (or re-builder
-              (and (functionp collection)
-                   (cdr (assq collection ivy-re-builders-alist)))
-              (ivy-alist-setting ivy-re-builders-alist)
-              #'ivy--regex))
+    (setf (ivy-state-re-builder ivy-last)
+          (setq ivy--regex-function
+                (or re-builder
+                    (and (functionp collection)
+                         (cdr (assq collection ivy-re-builders-alist)))
+                    (ivy-alist-setting ivy-re-builders-alist)
+                    #'ivy--regex)))
     (setq ivy--subexps 0)
     (setq ivy--regexp-quote #'regexp-quote)
     (setq ivy--old-text "")
     (setq ivy--full-length nil)
-    (setq ivy-text "")
+    (ivy-set-text (or initial-input ""))
     (setq ivy--index 0)
     (setq ivy-calling nil)
     (setq ivy-use-ignore ivy-use-ignore-default)
@@ -3257,7 +3266,7 @@ Should be run via minibuffer `post-command-hook'."
   (when (memq 'ivy--queue-exhibit post-command-hook)
     (let ((inhibit-field-text-motion nil))
       (constrain-to-field nil (point-max)))
-    (setq ivy-text (ivy--input))
+    (ivy-set-text (ivy--input))
     (if (ivy-state-dynamic-collection ivy-last)
         ;; while-no-input would cause annoying
         ;; "Waiting for process to die...done" message interruptions
@@ -3466,10 +3475,10 @@ CANDIDATES are assumed to be static."
                     ivy-recompute-index-swiper-async-backward
                     ivy-recompute-index-swiper-backward))
             (progn
-              (ivy--recompute-index name re-str cands)
+              (ivy--recompute-index re-str cands)
               (setq ivy--old-cands (ivy--sort name cands)))
           (setq ivy--old-cands (ivy--sort name cands))
-          (ivy--recompute-index name re-str ivy--old-cands))
+          (ivy--recompute-index re-str ivy--old-cands))
         (setq ivy--old-re re)
         ivy--old-cands))))
 
@@ -3611,24 +3620,24 @@ no sorting is done.")
 (defvar ivy--recompute-index-inhibit nil
   "When non-nil, `ivy--recompute-index' is a no-op.")
 
-(defun ivy--recompute-index (name re-str cands)
-  "Recompute index of selected candidate matching NAME.
-RE-STR is the regexp, CANDS are the current candidates."
+(defun ivy--recompute-index (re-str cands)
+  "Recompute index of selected candidate matching RE-STR.
+CANDS are the current candidates."
   (let ((caller (ivy-state-caller ivy-last))
         (func (or (ivy-alist-setting ivy-index-functions-alist)
                   #'ivy-recompute-index-zero))
-        (case-fold-search (ivy--case-fold-p name))
+        (case-fold-search (ivy--case-fold-p re-str))
         (preselect (ivy-state-preselect ivy-last))
         (current (ivy-state-current ivy-last))
-        (empty (string= name "")))
+        (empty (string= re-str "")))
     (unless (or (memq this-command '(ivy-resume ivy-partial-or-done))
                 ivy--recompute-index-inhibit)
       (ivy-set-index
-       (if (or (string= name "")
+       (if (or (string= re-str "")
                (and (> (length cands) 10000) (eq func #'ivy-recompute-index-zero)))
            0
          (or
-          (cl-position (ivy--remove-prefix "^" name)
+          (cl-position (ivy--remove-prefix "^" re-str)
                        cands
                        :test #'ivy--case-fold-string=)
           (and ivy--directory
@@ -3658,7 +3667,7 @@ RE-STR is the regexp, CANDS are the current candidates."
                ivy--old-cands
                (cl-position current cands :test #'equal))
           (funcall func re-str cands)))))
-    (when (or empty (string= name "^"))
+    (when (or empty (string= re-str "^"))
       (ivy-set-index
        (or (ivy--preselect-index preselect cands)
            ivy--index)))))
@@ -3920,7 +3929,7 @@ in this case."
 (defun ivy--highlight-default (str)
   "Highlight STR, using the default method."
   (unless ivy--old-re
-    (setq ivy--old-re (funcall ivy--regex-function ivy-text)))
+    (setq ivy--old-re ivy-regex))
   (let ((regexps
          (if (listp ivy--old-re)
              (mapcar #'car (cl-remove-if-not #'cdr ivy--old-re))

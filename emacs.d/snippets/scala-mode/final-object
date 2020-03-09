@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: final object
+# key: fo
+# --
+final object $1 {
+  $
+0
+}

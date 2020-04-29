@@ -53,7 +53,8 @@
                 "out"
                 "repl"
                 "target"
-                "venv")
+                "venv"
+                ".bloop")
               projectile-globally-ignored-directories
               )
       )

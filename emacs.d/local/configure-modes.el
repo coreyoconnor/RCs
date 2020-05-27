@@ -111,6 +111,7 @@
     (setq-default lsp-ui-sideline-show-diagnostics t)
     (setq-default lsp-ui-sideline-enable t)
     (setq-default lsp-file-watch-threshold 100000)
+    (setq-default lsp-prefer-flymake nil)
     (push "[/\\\\]\\nixpkgs$" lsp-file-watch-ignored)
 
     ;; (setq-default lsp-ui-flycheck-live-reporting t)
@@ -178,6 +179,25 @@
   :load-path "llvm-mode"
   :demand t
   :mode "\\.ll\\'"
+  )
+
+;; Use the Debug Adapter Protocol for running tests and debugging
+(use-package posframe
+  ;; Posframe is a pop-up tool that must be manually installed for dap-mode
+  )
+
+(use-package dap-mode
+  :ensure t
+  :hook
+  (lsp-mode . dap-mode)
+  (lsp-mode . dap-ui-mode)
+  )
+
+;; Use the Tree View Protocol for viewing the project structure and triggering compilation
+(use-package lsp-treemacs
+  :config
+  ;; (lsp-metals-treeview-enable t)
+  ;; (setq lsp-metals-treeview-show-when-views-received t)
   )
 
 (eval-after-load 'js-mode

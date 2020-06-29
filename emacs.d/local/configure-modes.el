@@ -183,6 +183,7 @@
 
 ;; Use the Debug Adapter Protocol for running tests and debugging
 (use-package posframe
+  :ensure t
   ;; Posframe is a pop-up tool that must be manually installed for dap-mode
   )
 

@@ -196,6 +196,7 @@
 
 ;; Use the Tree View Protocol for viewing the project structure and triggering compilation
 (use-package lsp-treemacs
+  :ensure t
   :config
   ;; (lsp-metals-treeview-enable t)
   ;; (setq lsp-metals-treeview-show-when-views-received t)

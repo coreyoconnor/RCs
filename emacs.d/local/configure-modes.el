@@ -84,7 +84,7 @@
 
 (require 'radian-autocomplete)
 
-(use-package lsp
+(use-package lsp-mode
   :load-path "lsp-mode"
   :demand t
   :after (:all evil company)
@@ -121,8 +121,8 @@
     )
   )
 
-(use-package lsp-mode
-  :demand lsp
+(use-package lsp-metals
+  :ensure t
   )
 
 (use-package company-lsp

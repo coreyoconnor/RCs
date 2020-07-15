@@ -17,3 +17,6 @@ if [[ -z $SCREENRC_HACK && -n $STY ]] ; then
    export SCREENRC_HACK=HACK
    source ${HOME}/.bash_profile
 fi
+
+export PATH="$PATH:$HOME/.local/share/coursier/bin"
+

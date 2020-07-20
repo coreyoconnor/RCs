@@ -53,9 +53,7 @@
 (use-package flycheck
   :ensure t
   :config
-  (progn
-    (global-flycheck-mode)
-    )
+  (global-flycheck-mode)
   )
 
 (setq is-lsp-enabled nil)
@@ -100,10 +98,10 @@
                                 (helm-mode 1)
                                 )
                 )
-    (add-hook 'lsp-after-open-hook (lambda ()
-                                        (lsp-ui-flycheck-enable t)
-                                        )
-                )
+    ;;(add-hook 'lsp-after-open-hook (lambda ()
+    ;;                                    (lsp-ui-flycheck-enable t)
+    ;;                                    )
+    ;;            )
 
     (setq-default lsp-ui-sideline-diagnostic-max-lines 30)
 
@@ -271,6 +269,18 @@
 
 (use-package ccls
   :ensure t
+  )
+
+(use-package mmm-mode
+  :ensure t
+  :config
+  (setq mmm-global-mode 'maybe)
+  (mmm-add-classes '((markdown-scala
+                      :submode scala-mode
+                      :face mmm-declaration-submode-face
+                      :front "^```scala.*$"
+                      :back "^```.*$")))
+  (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-scala)
   )
 
 (provide 'configure-modes)

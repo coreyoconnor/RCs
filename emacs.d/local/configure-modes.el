@@ -106,6 +106,7 @@
     (setq-default lsp-ui-sideline-diagnostic-max-lines 30)
 
     ;; (setq-default lsp-eldoc-enable-signature-help nil)
+    (setq-default lsp-eldoc-enable-hover t)
     (setq-default lsp-ui-sideline-show-diagnostics t)
     (setq-default lsp-ui-sideline-enable t)
     (setq-default lsp-file-watch-threshold 100000)

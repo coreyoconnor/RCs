@@ -17,3 +17,5 @@ target
 .bloop
 .ccls-cache
 .ammonite
+project/metals.sbt
+/alldocs

@@ -95,6 +95,7 @@
     (add-hook 'lsp-mode-hook (lambda ()
                                 (enable-for-session)
                                 (lsp-ui-mode)
+                                (lsp-lens-mode)
                                 (helm-mode 1)
                                 )
                 )

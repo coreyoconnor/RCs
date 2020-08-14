@@ -8,6 +8,9 @@
 
 (electric-indent-mode 1)
 
+(use-package json-mode
+  :ensure t)
+
 (use-package nix-mode
              :mode ("\\.nix\\'" . nix-mode)
              :config
@@ -82,44 +85,47 @@
 
 (require 'radian-autocomplete)
 
+(use-package evil-avy
+  :ensure t)
+
+(use-package avy-menu
+  :ensure t)
+
 (use-package lsp-mode
   :load-path "lsp-mode"
   :demand t
   :after (:all evil company)
+  :hook (lsp-mode . lsp-lens-mode)
   :config
-  (progn
-    (add-to-list 'load-path (expand-file-name "~/.emacs.d/lsp-ui"))
-    (require 'lsp-ui)
-    (require 'lsp-ui-flycheck)
-    (require 'yasnippet)
-    (add-hook 'lsp-mode-hook (lambda ()
-                                (enable-for-session)
-                                (lsp-ui-mode)
-                                (lsp-lens-mode)
-                                (helm-mode 1)
-                                )
-                )
-    ;;(add-hook 'lsp-after-open-hook (lambda ()
-    ;;                                    (lsp-ui-flycheck-enable t)
-    ;;                                    )
-    ;;            )
+  (add-to-list 'load-path (expand-file-name "~/.emacs.d/lsp-ui"))
+  (require 'lsp-ui)
+  (require 'lsp-ui-flycheck)
+  (require 'yasnippet)
+  (add-hook 'lsp-mode-hook (lambda ()
+                             (enable-for-session)
+                             (lsp-ui-mode)
+                             (helm-mode 1)
+                             )
+            )
+  ;;(add-hook 'lsp-after-open-hook (lambda ()
+  ;;                                    (lsp-ui-flycheck-enable t)
+  ;;                                    )
+  ;;            )
 
-    (setq-default lsp-ui-sideline-diagnostic-max-lines 30)
+  (setq-default lsp-ui-sideline-diagnostic-max-lines 30)
 
-    ;; (setq-default lsp-eldoc-enable-signature-help nil)
-    (setq-default lsp-eldoc-enable-hover t)
-    (setq-default lsp-ui-sideline-show-diagnostics t)
-    (setq-default lsp-ui-sideline-enable t)
-    (setq-default lsp-file-watch-threshold 100000)
-    (setq-default lsp-prefer-flymake nil)
-    (push "[/\\\\]\\nixpkgs$" lsp-file-watch-ignored)
+  ;; (setq-default lsp-eldoc-enable-signature-help nil)
+  (setq-default lsp-eldoc-enable-hover t)
+  (setq-default lsp-ui-sideline-show-diagnostics t)
+  (setq-default lsp-ui-sideline-enable t)
+  (setq-default lsp-file-watch-threshold 100000)
+  (setq-default lsp-prefer-flymake nil)
+  (push "[/\\\\]\\nixpkgs$" lsp-file-watch-ignored)
 
-    ;; (setq-default lsp-ui-flycheck-live-reporting t)
-    (define-key evil-normal-state-map (kbd "t t") 'helm-imenu)
-    (define-key evil-normal-state-map (kbd "g d") 'xref-find-definitions)
-    (define-key evil-insert-state-map "\C-n" 'company-complete)
-    )
-  )
+  ;; (setq-default lsp-ui-flycheck-live-reporting t)
+  (define-key evil-normal-state-map (kbd "t t") 'helm-imenu)
+  (define-key evil-normal-state-map (kbd "g d") 'xref-find-definitions)
+  (define-key evil-insert-state-map "\C-n" 'company-complete))
 
 (use-package lsp-metals
   :ensure t
@@ -192,6 +198,8 @@
   :hook
   (lsp-mode . dap-mode)
   (lsp-mode . dap-ui-mode)
+  (add-hook 'dap-mode-hook
+            (lambda () (dap-ui-controls-mode nil)))
   )
 
 ;; Use the Tree View Protocol for viewing the project structure and triggering compilation

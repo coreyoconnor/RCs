@@ -54,10 +54,7 @@
                 "repl"
                 "target"
                 "venv"
-                ".bloop"
-                ".metals"
-                ".ammonite"
-                "alldocs")
+                ".bloop")
               projectile-globally-ignored-directories
               )
       )

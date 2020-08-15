@@ -92,10 +92,8 @@
   :ensure t)
 
 (use-package lsp-mode
-  :load-path "lsp-mode"
-  :demand t
+  :ensure t
   :after (:all evil company)
-  :hook (lsp-mode . lsp-lens-mode)
   :config
   (add-to-list 'load-path (expand-file-name "~/.emacs.d/lsp-ui"))
   (require 'lsp-ui)
@@ -133,7 +131,7 @@
 
 (use-package company-lsp
   :ensure t
-  :after (:all lsp company)
+  :after (:all lsp-mode company)
   :config
   (progn
     (push 'company-lsp company-backends)
@@ -146,7 +144,7 @@
 (use-package lsp-origami
   :load-path "lsp-origami"
   :demand t
-  :after (:all origami lsp)
+  :after (:all origami lsp-mode)
   :config
   (progn
     (add-hook 'origami-mode-hook #'lsp-origami-mode)
@@ -195,11 +193,8 @@
 
 (use-package dap-mode
   :ensure t
-  :hook
-  (lsp-mode . dap-mode)
-  (lsp-mode . dap-ui-mode)
-  (add-hook 'dap-mode-hook
-            (lambda () (dap-ui-controls-mode nil)))
+  :hook ((lsp-mode . dap-mode) (lsp-mode . dap-ui-mode))
+  :config (setq dap-auto-configure-features (remove 'controls dap-auto-configure-features))
   )
 
 ;; Use the Tree View Protocol for viewing the project structure and triggering compilation

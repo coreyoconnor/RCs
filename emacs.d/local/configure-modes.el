@@ -91,6 +91,9 @@
 (use-package avy-menu
   :ensure t)
 
+(use-package company
+  :ensure t)
+
 (use-package lsp-mode
   :ensure t
   :after (:all evil company)
@@ -128,14 +131,6 @@
 (use-package lsp-metals
   :ensure t
   )
-
-(use-package company-lsp
-  :ensure t
-  :after (:all lsp-mode company)
-  :config
-  (progn
-    (push 'company-lsp company-backends)
-    ))
 
 (use-package origami
   :load-path "origami"

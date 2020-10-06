@@ -54,7 +54,8 @@
                 "repl"
                 "target"
                 "venv"
-                ".bloop")
+                ".bloop"
+                ".metals")
               projectile-globally-ignored-directories
               )
       )

@@ -196,9 +196,20 @@
 (use-package lsp-treemacs
   :ensure t
   :config
-  ;; (lsp-metals-treeview-enable t)
   ;; (setq lsp-metals-treeview-show-when-views-received t)
-  )
+  (setq treemacs-collapse-dirs 5)
+  (setq treemacs-width 60)
+  (when (string-equal system-type "darwin")
+    (when (member "Menlo" (font-family-list))
+      (setq treemacs-directory-face "Menlo-16"))))
+
+(use-package treemacs-projectile
+  :ensure t
+  :after treemacs projectile)
+
+(use-package treemacs-evil
+  :ensure t
+  :after treemacs)
 
 (eval-after-load 'js-mode
   (add-hook 'js-mode-hook

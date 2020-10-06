@@ -16,6 +16,11 @@
   (scroll-bar-mode -1)
   )
 
+(when (string-equal system-type "darwin")
+  (when (member "Menlo" (font-family-list))
+    (add-to-list 'initial-frame-alist '(font . "Menlo-18"))
+    (add-to-list 'default-frame-alist '(font . "Menlo-18"))))
+
 (setq scroll-conservatively 5)
 (setq scroll-margin 5)
 (setq blink-matching-paren nil)

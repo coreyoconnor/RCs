@@ -119,7 +119,7 @@
   (setq-default lsp-eldoc-enable-hover t)
   (setq-default lsp-ui-sideline-show-diagnostics t)
   (setq-default lsp-ui-sideline-enable t)
-  (setq-default lsp-file-watch-threshold 100000)
+  (setq-default lsp-file-watch-threshold 1000000)
   (setq-default lsp-prefer-flymake nil)
   (push "[/\\\\]\\nixpkgs$" lsp-file-watch-ignored)
 

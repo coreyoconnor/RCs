@@ -19,7 +19,8 @@
   (configure-load-path)
   (enable-package-package)
   (configure-package-repos)
-  )
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
 
 (defun configure-load-path ()
   (add-to-list 'load-path (expand-file-name "~/.emacs.d/evil-numbers"))

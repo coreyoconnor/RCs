@@ -1,0 +1,31 @@
+#!/bin/bash
+# Depending on the OS shell configuration and the shell this process is slightly
+# different.
+#
+# .barshrc sources ~/Development/bashrc at the top.
+
+function link_if_missing () {
+    rcBaseName="$1"
+    targetPath="$HOME/.$rcBaseName"
+
+    if [ -e "$targetPath" ] ; then
+       echo "Not linking $rcBaseName. Already present"
+       return
+    fi
+
+    if [ ! -e "$PWD/$rcBaseName" ] ; then
+        echo "Run from RCs directory."
+        exit 1
+    fi
+
+    ln -s "$PWD/$rcBaseName" "$targetPath"
+}
+
+set -ex
+
+link_if_missing 'emacs'
+link_if_missing 'emacs.d'
+link_if_missing 'sbt'
+link_if_missing 'screenrc'
+link_if_missing 'vim'
+link_if_missing 'vimrc'

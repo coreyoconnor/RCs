@@ -192,16 +192,24 @@
   :config (setq dap-auto-configure-features (remove 'controls dap-auto-configure-features))
   )
 
+(use-package treemacs
+  :ensure t
+  :config
+  (setq treemacs-collapse-dirs 5)
+  (setq treemacs-width 55)
+  (when (string-equal system-type "darwin")
+    (when (member "Menlo" (font-family-list))
+      (setq treemacs-directory-face "Menlo-16")
+      (setq treemacs-file-face "Menlo-16")
+      )
+    )
+  (define-key evil-normal-state-map (kbd "T") 'treemacs)
+  )
+
 ;; Use the Tree View Protocol for viewing the project structure and triggering compilation
 (use-package lsp-treemacs
   :ensure t
-  :config
-  ;; (setq lsp-metals-treeview-show-when-views-received t)
-  (setq treemacs-collapse-dirs 5)
-  (setq treemacs-width 60)
-  (when (string-equal system-type "darwin")
-    (when (member "Menlo" (font-family-list))
-      (setq treemacs-directory-face "Menlo-16"))))
+  :commands lsp-treemacs-errors-list)
 
 (use-package treemacs-projectile
   :ensure t

@@ -1,2 +1,2 @@
-addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.10.0-RC1")
+addSbtPlugin("glngn" % "sbt-alldocs" % "0.2.1")
 

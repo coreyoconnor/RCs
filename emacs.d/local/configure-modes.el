@@ -97,6 +97,7 @@
 (use-package lsp-mode
   :ensure t
   :after (:all evil company)
+  :hook (lsp-mode . lsp-lens-mode)
   :config
   (add-to-list 'load-path (expand-file-name "~/.emacs.d/lsp-ui"))
   (require 'lsp-ui)
@@ -119,7 +120,7 @@
   (setq-default lsp-eldoc-enable-hover t)
   (setq-default lsp-ui-sideline-show-diagnostics t)
   (setq-default lsp-ui-sideline-enable t)
-  (setq-default lsp-file-watch-threshold 1000000)
+  (setq-default lsp-file-watch-threshold 100000)
   (setq-default lsp-prefer-flymake nil)
   (push "[/\\\\]\\nixpkgs$" lsp-file-watch-ignored)
 
@@ -130,6 +131,9 @@
 
 (use-package lsp-metals
   :ensure t
+  :config
+  ;; corrupts treemacs view
+  (setq lsp-metals-treeview-show-when-views-received nil)
   )
 
 (use-package origami
@@ -172,6 +176,14 @@
 (use-package sbt-mode
   :ensure t
   :after scala-mode
+  :commands sbt-start sbt-command
+  :config
+  (substitute-key-definition
+   'minibuffer-complete-word
+   'self-insert-command
+   minibuffer-local-completion-map)
+  ;; sbt-supershell kills sbt-mode:  https://github.com/hvesalai/emacs-sbt-mode/issues/152
+  (setq sbt:program-options '("-Dsbt.supershell=false"))
   )
 
 (use-package llvm-mode

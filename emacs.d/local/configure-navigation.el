@@ -24,6 +24,35 @@
   (global-set-key "\M-f" cm-map)
   )
 
+(use-package projectile
+  :ensure t
+  :diminish
+  :config
+    (projectile-global-mode)
+    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
+    (setq projectile-enable-caching t)
+    ;; always index using native. otherwise .projectile is ignored?
+    (setq projectile-indexing-method 'native)
+    (when (string-equal system-type "windows-nt")
+    (setq projectile-indexing-method 'native)
+    (scroll-bar-mode -1)
+    )
+
+    (setq projectile-globally-ignored-directories
+        (append '(".git"
+                    ".svn"
+                    "out"
+                    "repl"
+                    "target"
+                    "venv"
+                    ".bloop"
+                    ".metals")
+                projectile-globally-ignored-directories
+                )
+        )
+  )
+
 (window-numbering-mode)
 
 (configure-nav-package)
@@ -36,28 +65,5 @@
 (defun string-trim (string)
   (string-trim-right string))
 
-(projectile-global-mode)
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-
-(setq projectile-enable-caching t)
-;; always index using native. otherwise .projectile is ignored?
-(setq projectile-indexing-method 'native)
-(when (string-equal system-type "windows-nt")
-  (setq projectile-indexing-method 'native)
-  (scroll-bar-mode -1)
-  )
-
-(setq projectile-globally-ignored-directories
-      (append '(".git"
-                ".svn"
-                "out"
-                "repl"
-                "target"
-                "venv"
-                ".bloop"
-                ".metals")
-              projectile-globally-ignored-directories
-              )
-      )
 
 (provide 'configure-navigation)

@@ -5,8 +5,8 @@
 
 (defun configure ()
   (configure-package-manager)
-  (configure-interface)
   (configure-data-handling)
+  (configure-interface)
   (configure-modes)
   (configure-formatting)
   (configure-display)
@@ -41,7 +41,6 @@
   (add-to-list 'package-archives
                '("melpa-stable" . "http://stable.melpa.org/packages/"))
 
-  (package-initialize)
   (setq package-enable-at-startup nil)
   )
 

@@ -11,7 +11,6 @@
       )
 
 (when (string-equal system-type "windows-nt")
-  (setq projectile-indexing-method 'native)
   (set-default-font "Consolas 14")
   (scroll-bar-mode -1)
   )
@@ -85,6 +84,24 @@
             (define-key evil-normal-state-map "gT" 'centaur-tabs-backward)
             (evil-ex-define-cmd "quit" 'kill-buffer)
             )
+  )
+
+(use-package diminish
+  :ensure t
+  :config
+    (diminish 'auto-fill-mode)
+  )
+
+(use-package eldoc
+  :ensure t
+  :diminish
+  )
+
+(use-package smart-mode-line
+  :ensure t
+  :config
+  (setq sml/no-confirm-load-theme t)
+  (sml/setup)
   )
 
 (provide 'configure-display)

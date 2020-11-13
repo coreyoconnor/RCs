@@ -75,12 +75,14 @@
 
 (use-package helm
   :ensure t
+  :diminish
   :config
   (progn
     (require 'helm-config)))
 
 (use-package helm-projectile
   :after (:all projectile helm)
+  :diminish
   :ensure t)
 
 (require 'radian-autocomplete)
@@ -161,6 +163,7 @@
   :interpreter "scala"
   :mode ("\\.scala\\'" "\\.sc\\'")
   :magic-fallback ("/usr/bin/env amm" "/usr/bin/env -S amm")
+  :diminish
   :config
   (progn
     (add-hook 'scala-mode-hook (lambda ()
@@ -177,6 +180,7 @@
   :ensure t
   :after scala-mode
   :commands sbt-start sbt-command
+  :diminish
   :config
   (substitute-key-definition
    'minibuffer-complete-word

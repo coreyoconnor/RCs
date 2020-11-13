@@ -49,3 +49,4 @@ sbt/ghpages/
 emacs.d/.cache
 sbt/0.13/java9-rt-ext-n_a_14_0_1/
 emacs.d/.dap-breakpoints
+sbt/0.13/java9-rt-ext-n_a_11_0_8_internal/

@@ -108,17 +108,24 @@
   (add-hook 'lsp-mode-hook (lambda ()
                              (enable-for-session)
                              (lsp-ui-mode)
-                             ;; (helm-mode 1)
+                             (helm-mode 1)
                              )
             )
 
   (add-hook 'lsp-ui-flycheck-list-mode-hook (lambda()
                                               (setq truncate-lines nil)
-                                              ))
+                                              )
+            )
 
-  ;;(defun fix-flycheck-list-size (window workspace)
-  ;; (fit-window-to-buffer window 10 10 nil nil t))
-  ;;(advice-add 'lsp-ui-flycheck-list--update :before #'fix-flycheck-list-size)
+  (defun fix-flycheck-list-size ()
+    (let ((window (get-buffer-window lsp-ui-flycheck-list--buffer t)))
+      (with-selected-window window (fit-window-to-buffer window 10 10 nil nil t))
+      )
+    )
+
+  (advice-add 'lsp-ui-flycheck-list :after #'fix-flycheck-list-size)
+  (evil-define-key 'normal 'lsp-ui-flycheck-list-mode (kbd "RET") 'lsp-ui-flycheck-list--visit)
+  (evil-define-key 'normal 'lsp-ui-flycheck-list-mode (kbd "q") 'lsp-ui-flycheck-list--quit)
 
   (setq-default lsp-ui-sideline-diagnostic-max-lines 30)
 
@@ -133,11 +140,8 @@
   ;; (setq-default lsp-ui-flycheck-live-reporting t)
   (define-key evil-normal-state-map (kbd "t t") 'helm-imenu)
   (define-key evil-normal-state-map (kbd "g d") 'xref-find-definitions)
+  (define-key evil-normal-state-map (kbd "g e") 'lsp-ui-flycheck-list)
   (define-key evil-insert-state-map "\C-n" 'company-complete)
-  (evil-make-overriding-map lsp-ui-flycheck-list-mode-map 'normal t)
-  (evil-define-key 'normal lsp-ui-flycheck-list-mode-map
-    "<return>" 'lsp-ui-flycheck-list--visit
-    "q" 'lsp-ui-flycheck-list--quit)
   )
 
 (use-package lsp-metals

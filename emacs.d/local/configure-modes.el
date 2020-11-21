@@ -124,8 +124,8 @@
     )
 
   (advice-add 'lsp-ui-flycheck-list :after #'fix-flycheck-list-size)
-  (evil-define-key 'normal 'lsp-ui-flycheck-list-mode (kbd "RET") 'lsp-ui-flycheck-list--visit)
-  (evil-define-key 'normal 'lsp-ui-flycheck-list-mode (kbd "q") 'lsp-ui-flycheck-list--quit)
+  (evil-define-key 'global 'lsp-ui-flycheck-list-mode (kbd "RET") 'lsp-ui-flycheck-list--visit)
+  (evil-define-key 'global 'lsp-ui-flycheck-list-mode (kbd "q") 'lsp-ui-flycheck-list--quit)
 
   (setq-default lsp-ui-sideline-diagnostic-max-lines 30)
 

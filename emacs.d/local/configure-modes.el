@@ -119,12 +119,11 @@
 
   (defun fix-flycheck-list-size ()
     (let ((window (get-buffer-window lsp-ui-flycheck-list--buffer t)))
-      (with-selected-window window (fit-window-to-buffer window 10 10 nil nil t))
-      (advice-remove 'lsp-ui-flycheck-list #'fix-flycheck-list-size)
+      (fit-window-to-buffer window 10 10 nil nil t)
       )
     )
-
-  (advice-add 'lsp-ui-flycheck-list :after #'fix-flycheck-list-size)
+  (setq-default lsp-ui-flycheck-list-position 'right)
+  ;;(advice-add 'lsp-ui-flycheck-list :after #'fix-flycheck-list-size)
   (define-key lsp-ui-flycheck-list-mode-map (kbd "RET") 'lsp-ui-flycheck-list--visit)
   (define-key lsp-ui-flycheck-list-mode-map (kbd "q") 'lsp-ui-flycheck-list--quit)
   (evil-make-overriding-map lsp-ui-flycheck-list-mode-map nil)
@@ -143,6 +142,7 @@
   (define-key evil-normal-state-map (kbd "t t") 'helm-imenu)
   (define-key evil-normal-state-map (kbd "g d") 'xref-find-definitions)
   (define-key evil-normal-state-map (kbd "g e") 'lsp-ui-flycheck-list)
+  (define-key evil-normal-state-map (kbd "d i") 'lsp-ui-sideline-code-action)
   (define-key evil-insert-state-map "\C-n" 'company-complete)
   )
 

@@ -142,7 +142,7 @@
   (define-key evil-normal-state-map (kbd "t t") 'helm-imenu)
   (define-key evil-normal-state-map (kbd "g d") 'xref-find-definitions)
   (define-key evil-normal-state-map (kbd "g e") 'lsp-ui-flycheck-list)
-  (define-key evil-normal-state-map (kbd "g a") 'lsp-ui-sideline-code-action)
+  (define-key evil-normal-state-map (kbd "g a") 'lsp-ui-sideline-apply-code-actions)
   (define-key evil-insert-state-map "\C-n" 'company-complete)
   )
 

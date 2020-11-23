@@ -22,7 +22,7 @@
   (define-key evil-normal-state-map (kbd "ti") 'imenu)
 
   (global-undo-tree-mode)
-  (seq evil-undo-system 'undo-tree)
+  (setq evil-undo-system 'undo-tree)
   )
 
 

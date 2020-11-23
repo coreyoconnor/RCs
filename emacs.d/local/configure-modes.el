@@ -120,12 +120,14 @@
   (defun fix-flycheck-list-size ()
     (let ((window (get-buffer-window lsp-ui-flycheck-list--buffer t)))
       (with-selected-window window (fit-window-to-buffer window 10 10 nil nil t))
+      (advice-remove 'lsp-ui-flycheck-list #'fix-flycheck-list-size)
       )
     )
 
   (advice-add 'lsp-ui-flycheck-list :after #'fix-flycheck-list-size)
-  (evil-define-key 'global 'lsp-ui-flycheck-list-mode (kbd "RET") 'lsp-ui-flycheck-list--visit)
-  (evil-define-key 'global 'lsp-ui-flycheck-list-mode (kbd "q") 'lsp-ui-flycheck-list--quit)
+  (define-key lsp-ui-flycheck-list-mode-map (kbd "RET") 'lsp-ui-flycheck-list--visit)
+  (define-key lsp-ui-flycheck-list-mode-map (kbd "q") 'lsp-ui-flycheck-list--quit)
+  (evil-make-overriding-map lsp-ui-flycheck-list-mode-map nil)
 
   (setq-default lsp-ui-sideline-diagnostic-max-lines 30)
 

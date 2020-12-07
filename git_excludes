@@ -22,3 +22,4 @@ project/project/metals.sbt
 project/project/project/metals.sbt
 /alldocs
 metals.sbt
+conf/it.conf

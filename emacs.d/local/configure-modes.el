@@ -136,6 +136,7 @@
   (setq-default lsp-ui-sideline-enable t)
   (setq-default lsp-file-watch-threshold 100000)
   (setq-default lsp-prefer-flymake nil)
+  (setq-default lsp-enable-on-type-formatting nil)
   (push "[/\\\\]\\nixpkgs$" lsp-file-watch-ignored)
 
   ;; (setq-default lsp-ui-flycheck-live-reporting t)

@@ -32,6 +32,7 @@
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
     (setq projectile-enable-caching t)
+    (setq projectile-completion-system 'ido)
     ;; always index using native. otherwise .projectile is ignored?
     (setq projectile-indexing-method 'native)
     (when (string-equal system-type "windows-nt")

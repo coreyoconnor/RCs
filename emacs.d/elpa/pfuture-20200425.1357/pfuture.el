@@ -6,6 +6,7 @@
 ;; Homepage: https://github.com/Alexander-Miller/pfuture
 ;; Package-Requires: ((emacs "25.2"))
 ;; Package-Version: 20200425.1357
+;; Package-Commit: d7926de3ba0105a36cfd00811fd6278aea903eef
 ;; Version: 1.9
 
 ;; This program is free software; you can redistribute it and/or modify

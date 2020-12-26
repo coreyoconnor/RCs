@@ -6,10 +6,18 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "treemacs-evil" "treemacs-evil.el" (0 0 0 0))
-;;; Generated autoloads from treemacs-evil.el
+;;;### (autoloads "actual autoloads are elsewhere" "treemacs-evil"
+;;;;;;  "../../../../../.emacs.d/elpa/treemacs-evil-20200716.2041/treemacs-evil.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/treemacs-evil-20200716.2041/treemacs-evil.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "treemacs-evil" '("treemacs-evil--")))
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/treemacs-evil-20200716.2041/treemacs-evil-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/treemacs-evil-20200716.2041/treemacs-evil.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

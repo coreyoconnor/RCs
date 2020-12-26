@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "ace-window" "ace-window.el" (0 0 0 0))
-;;; Generated autoloads from ace-window.el
+;;;### (autoloads nil "ace-window" "../../../../../.emacs.d/elpa/ace-window-20200606.1259/ace-window.el"
+;;;;;;  "457c95b73cfc0f7bc689e35880f322c0")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/ace-window-20200606.1259/ace-window.el
 
 (autoload 'ace-select-window "ace-window" "\
 Ace select window.
@@ -67,8 +68,20 @@ or call the function `ace-window-display-mode'.")
 Minor mode for showing the ace window key in the mode line.
 
 \(fn &optional ARG)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "ace-window" "../../../../../.emacs.d/elpa/ace-window-20200606.1259/ace-window.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/ace-window-20200606.1259/ace-window.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "ace-window" '("ace-window-mode" "aw-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/ace-window-20200606.1259/ace-window-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/ace-window-20200606.1259/ace-window.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

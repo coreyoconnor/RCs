@@ -6,9 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "treemacs-projectile" "treemacs-projectile.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from treemacs-projectile.el
+;;;### (autoloads nil "treemacs-projectile" "../../../../../.emacs.d/elpa/treemacs-projectile-20200530.2129/treemacs-projectile.el"
+;;;;;;  "7ac33018c800f2f15fd7a0f1ceb4bbc2")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/treemacs-projectile-20200530.2129/treemacs-projectile.el
 
 (autoload 'treemacs-projectile "treemacs-projectile" "\
 Add one of `projectile-known-projects' to the treemacs workspace.
@@ -16,8 +16,21 @@ With a prefix ARG was for the name of the project instead of using the name of
 the project's root directory.
 
 \(fn &optional ARG)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "treemacs-projectile"
+;;;;;;  "../../../../../.emacs.d/elpa/treemacs-projectile-20200530.2129/treemacs-projectile.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/treemacs-projectile-20200530.2129/treemacs-projectile.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "treemacs-projectile" '("treemacs-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/treemacs-projectile-20200530.2129/treemacs-projectile-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/treemacs-projectile-20200530.2129/treemacs-projectile.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

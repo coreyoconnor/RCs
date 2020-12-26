@@ -6,11 +6,14 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "rich-minority" "rich-minority.el" (0 0 0 0))
-;;; Generated autoloads from rich-minority.el
+;;;### (autoloads nil "rich-minority" "../../../../../.emacs.d/elpa/rich-minority-20190419.1136/rich-minority.el"
+;;;;;;  "0cefef6a4651080b74fdb374653051c9")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/rich-minority-20190419.1136/rich-minority.el
 
 (autoload 'rm--mode-list-as-string-list "rich-minority" "\
-Return `minor-mode-list' as a simple list of strings." nil nil)
+Return `minor-mode-list' as a simple list of strings.
+
+\(fn)" nil nil)
 
 (defvar rich-minority-mode nil "\
 Non-nil if Rich minority mode is enabled.
@@ -24,17 +27,27 @@ or call the function `rich-minority-mode'.")
 
 (autoload 'rich-minority-mode "rich-minority" "\
 Toggle Rich minority mode on or off.
-
-If called interactively, enable Rich minority mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
-
+With a prefix argument ARG, enable Rich minority mode if ARG is
+positive, and disable it otherwise.  If called from Lisp, enable
+the mode if ARG is omitted or nil, and toggle it if ARG is `toggle'.
 \\{rich-minority-mode-map}
 
 \(fn &optional ARG)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "rich-minority"
+;;;;;;  "../../../../../.emacs.d/elpa/rich-minority-20190419.1136/rich-minority.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/rich-minority-20190419.1136/rich-minority.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "rich-minority" '("rm-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/rich-minority-20190419.1136/rich-minority-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/rich-minority-20190419.1136/rich-minority.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

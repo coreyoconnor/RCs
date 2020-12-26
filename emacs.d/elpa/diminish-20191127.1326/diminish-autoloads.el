@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "diminish" "diminish.el" (0 0 0 0))
-;;; Generated autoloads from diminish.el
+;;;### (autoloads nil "diminish" "../../../../../.emacs.d/elpa/diminish-20191127.1326/diminish.el"
+;;;;;;  "f580d1d5b57fc7a35ab17c9f2738c657")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/diminish-20191127.1326/diminish.el
 
 (autoload 'diminish "diminish" "\
 Diminish mode-line display of minor mode MODE to TO-WHAT (default \"\").
@@ -45,9 +46,23 @@ Echo all active diminished or minor modes as if they were minor.
 The display goes in the echo area; if it's too long even for that,
 you can see the whole thing in the *Messages* buffer.
 This doesn't change the status of any modes; it just lets you see
-what diminished modes would be on the mode-line if they were still minor." t nil)
+what diminished modes would be on the mode-line if they were still minor.
+
+\(fn)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "diminish" "../../../../../.emacs.d/elpa/diminish-20191127.1326/diminish.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/diminish-20191127.1326/diminish.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "diminish" '("diminish")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/diminish-20191127.1326/diminish-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/diminish-20191127.1326/diminish.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

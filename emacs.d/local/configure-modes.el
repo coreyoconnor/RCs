@@ -12,7 +12,8 @@
   :ensure t)
 
 (use-package nix-mode
-             :mode ("\\.nix\\'" . nix-mode)
+             :ensure t
+             :mode "\\.nix\\'"
              :config
              (progn
                (add-hook 'nix-mode-hook

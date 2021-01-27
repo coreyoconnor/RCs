@@ -8,6 +8,16 @@
 
 (electric-indent-mode 1)
 
+(use-package groovy-mode
+  :ensure t
+  :config
+  (setq evil-shift-width 2)
+  (setq tab-width 2)
+  (setq c-basic-offset 2)
+  (setq c-indent-level 2)
+  (setq groovy-indent-offset 2)
+  )
+
 (use-package json-mode
   :ensure t)
 
@@ -18,11 +28,11 @@
              (progn
                (add-hook 'nix-mode-hook
                          (lambda ()
-                           (setq-local evil-shift-width 2)
-                           (setq-local tab-width 2)
-                           (setq-local c-basic-offset 2)
-                           (setq-local indent-line-function 'insert-tab)
-                           (setq-local indent-line-function 'indent-relative)
+                           (setq evil-shift-width 2)
+                           (setq tab-width 2)
+                           (setq c-basic-offset 2)
+                           (setq indent-line-function 'insert-tab)
+                           (setq indent-line-function 'indent-relative)
                            )
                          )
                )
@@ -38,11 +48,11 @@
 (eval-after-load 'gdscript-mode
   (add-hook 'gdscript-mode-hook
             (lambda ()
-              (setq-local evil-shift-width 4)
-              (setq-local tab-width 4)
-              (setq-local c-basic-offset 4)
-              (setq-local indent-line-function 'insert-tab)
-              (setq-local tabs-always-indent t)
+              (setq evil-shift-width 4)
+              (setq tab-width 4)
+              (setq c-basic-offset 4)
+              (setq indent-line-function 'insert-tab)
+              (setq tabs-always-indent t)
               )
             )
   )
@@ -169,10 +179,10 @@
     ))
 
 (defun setup-scala-format ()
-  (setq-local tab-width 2)
-  (setq-local c-basic-offset 2)
-  (setq-local evil-shift-width 2)
-  (setq-local scala-indent:align-parameters t)
+  (setq tab-width 2)
+  (setq c-basic-offset 2)
+  (setq evil-shift-width 2)
+  (setq scala-indent:align-parameters t)
   )
 
 (use-package scala-mode
@@ -255,10 +265,10 @@
 (eval-after-load 'js-mode
   (add-hook 'js-mode-hook
             (lambda ()
-              (setq-local js-indent-level 2)
-              (setq-local tab-width 2)
-              (setq-local c-basic-offset 2)
-              (setq-local evil-shift-width 2)
+              (setq js-indent-level 2)
+              (setq tab-width 2)
+              (setq c-basic-offset 2)
+              (setq evil-shift-width 2)
               (cleanup-on-save)
               )))
 
@@ -283,7 +293,7 @@
   (progn
     (setq-default ruby-indent-level 2)
     (add-hook 'ruby-mode-hook
-      (lambda () (setq-local evil-shift-width ruby-indent-level)))
+      (lambda () (setq evil-shift-width ruby-indent-level)))
     (add-hook 'ruby-mode-hook
               (lambda () (cleanup-on-save)))
     (autoload 'inf-ruby-minor-mode "inf-ruby" "Inferior ruby process" t)

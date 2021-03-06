@@ -3,13 +3,13 @@ hardstatus on
 hardstatus alwayslastline
 hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{=kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B}%Y-%m-%d%{g}]'
 vbell off
-attrcolor b ".I"
+#attrcolor b ".I"
 #termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm' 
-defbce on
+#defbce on
 obuflimit 10485760
 defscrollback 10000
 maptimeout 0
-term "screen-256color"
+#term "screen-256color"
 defutf8 on
 screen -t cmd 1 bash -l
 screen -t editor 2 emacs -nw

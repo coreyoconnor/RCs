@@ -54,3 +54,4 @@ emacs.d/.dap-breakpoints
 sbt/0.13/java9-rt-ext-n_a_15_0_1/
 sbt/0.13/java9-rt-ext-oracle_corporation_11_0_9/
 sbt/launchers/
+sbt/0.13/java9-rt-ext-adoptopenjdk_11_0_10/

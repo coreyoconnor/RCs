@@ -150,6 +150,8 @@
   (setq-default lsp-prefer-flymake nil)
   (setq-default lsp-enable-on-type-formatting nil)
   (push "[/\\\\]\\nixpkgs$" lsp-file-watch-ignored)
+  (push "[/\\\\]\\alldocs$" lsp-file-watch-ignored)
+  (push "[/\\\\]\\target$" lsp-file-watch-ignored)
 
   ;; (setq-default lsp-ui-flycheck-live-reporting t)
   (define-key evil-normal-state-map (kbd "t t") 'helm-imenu)

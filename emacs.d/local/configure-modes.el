@@ -108,24 +108,37 @@
 (use-package company
   :ensure t)
 
+(use-package yasnippet
+  :ensure t)
+
 (use-package lsp-mode
   :ensure t
   :after (:all evil company)
-  :hook (lsp-mode . lsp-lens-mode)
+  :hook lsp-lens-mode
+  :hook lsp-ui-mode
+  :hook helm-mode
   :config
-  (add-to-list 'load-path (expand-file-name "~/.emacs.d/lsp-ui"))
-  (require 'lsp-ui)
-  (require 'lsp-ui-flycheck)
-  (require 'yasnippet)
-  (add-hook 'lsp-mode-hook (lambda ()
-                             (enable-for-session)
-                             (lsp-ui-mode)
-                             (helm-mode 1)
-                             )
-            )
+
+  (add-hook 'lsp-mode-hook (lambda () (enable-for-session)))
+
+  (setq-default lsp-file-watch-threshold 200000)
+  (setq-default lsp-prefer-flymake nil)
+  (setq-default lsp-enable-on-type-formatting nil)
+  (push "[/\\\\]\\nixpkgs$" lsp-file-watch-ignored)
+  (push "[/\\\\]\\alldocs$" lsp-file-watch-ignored)
+  (push "[/\\\\]\\target$" lsp-file-watch-ignored)
+  (push "[/\\\\]\\.bloop$" lsp-file-watch-ignored)
+
+  )
+
+(use-package lsp-ui
+  :ensure t
+  :after (:all evil lsp-mode company)
+  :config
 
   (add-hook 'lsp-ui-flycheck-list-mode-hook (lambda()
                                               (setq truncate-lines nil)
+                                              (visual-line-mode)
                                               )
             )
 
@@ -146,13 +159,7 @@
   (setq-default lsp-eldoc-enable-hover t)
   (setq-default lsp-ui-sideline-show-diagnostics t)
   (setq-default lsp-ui-sideline-enable t)
-  (setq-default lsp-file-watch-threshold 100000)
-  (setq-default lsp-prefer-flymake nil)
-  (setq-default lsp-enable-on-type-formatting nil)
-  (push "[/\\\\]\\nixpkgs$" lsp-file-watch-ignored)
-  (push "[/\\\\]\\alldocs$" lsp-file-watch-ignored)
-  (push "[/\\\\]\\target$" lsp-file-watch-ignored)
-
+  ;;
   ;; (setq-default lsp-ui-flycheck-live-reporting t)
   (define-key evil-normal-state-map (kbd "t t") 'helm-imenu)
   (define-key evil-normal-state-map (kbd "g d") 'xref-find-definitions)
@@ -164,9 +171,10 @@
 
 (use-package lsp-metals
   :ensure t
+  :after (:all treemacs lsp-mode)
   :config
   ;; corrupts treemacs view
-  (setq lsp-metals-treeview-show-when-views-received nil)
+  (setq-default lsp-metals-treeview-show-when-views-received nil)
   )
 
 (use-package origami

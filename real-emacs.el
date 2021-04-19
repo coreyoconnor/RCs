@@ -84,6 +84,9 @@
                                   global-semantic-idle-summary-mode
                                   global-semantic-mru-bookmark-mode))
 
+(add-to-list 'term-file-aliases
+             '("screen.xterm-256color" . "xterm-256color"))
+
 ;; default to unified diffs
 (setq diff-switches "-u")
 

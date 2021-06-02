@@ -209,7 +209,6 @@
                                  (cleanup-on-save)
                                  (flycheck-mode)
                                  (setup-scala-format)
-                                 (auto-fill-mode)
                                  (origami-mode)
                                  ))
     )

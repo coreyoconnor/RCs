@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Executes the given function after the specified delay in ES7 syntax
+# key: sto
+# uuid: sto
+# --
+setTimeout(() => {
+ $0
+}, ${delayInMS})`(js-react-redux-yasnippets-semicolon)`

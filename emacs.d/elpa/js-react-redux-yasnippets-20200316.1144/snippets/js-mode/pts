@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: String prop type
+# key: pts
+# uuid: pts
+# --
+PropTypes.string,$0

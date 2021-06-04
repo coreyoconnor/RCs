@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: React element prop type required
+# key: ptelr
+# uuid: ptelr
+# --
+PropTypes.element.isRequired,$0

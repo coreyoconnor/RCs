@@ -1,0 +1,27 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: hocredux
+# key: hocredux
+# uuid: hocredux
+# --
+import React from 'react'`(js-react-redux-yasnippets-semicolon)`
+import PropTypes from 'prop-types'`(js-react-redux-yasnippets-semicolon)`
+import { connect } from 'react-redux'`(js-react-redux-yasnippets-semicolon)`
+
+export const mapStateToProps = state => ({
+
+})`(js-react-redux-yasnippets-semicolon)`
+
+export const mapDispatchToProps = {
+
+}`(js-react-redux-yasnippets-semicolon)`
+
+export const ${1:hocComponentName} = (WrappedComponent) => {
+ const hocComponent = ({ ...props }) => <WrappedComponent {...props} />`(js-react-redux-yasnippets-semicolon)`
+
+ hocComponent.propTypes = {
+ }`(js-react-redux-yasnippets-semicolon)`
+
+ return hocComponent`(js-react-redux-yasnippets-semicolon)`
+}
+
+export default WrapperComponent => connect(mapStateToProps, mapDispatchToProps)($1(WrapperComponent))`(js-react-redux-yasnippets-semicolon)`

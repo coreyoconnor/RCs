@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Array prop type required
+# key: ptar
+# uuid: ptar
+# --
+PropTypes.array.isRequired,$0

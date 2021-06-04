@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: An object that could be one of many types
+# key: ptet
+# uuid: ptet
+# --
+PropTypes.oneOfType([
+ $0
+]),

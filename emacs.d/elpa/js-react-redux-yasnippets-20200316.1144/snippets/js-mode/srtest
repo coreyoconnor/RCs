@@ -1,0 +1,24 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Create test component
+# key: srtest
+# uuid: srtest
+# --
+import React from 'react'`(js-react-redux-yasnippets-semicolon)`
+import renderer from 'react-test-renderer'`(js-react-redux-yasnippets-semicolon)`
+import { Provider } from 'react-redux'`(js-react-redux-yasnippets-semicolon)`
+
+import store from 'src/store'`(js-react-redux-yasnippets-semicolon)`
+import { ${1:`(js-react-redux-yasnippets-filename-base)`} } from '../$1'`(js-react-redux-yasnippets-semicolon)`
+
+describe('<$1 />', () => {
+ const defaultProps = {}`(js-react-redux-yasnippets-semicolon)`
+ const wrapper = renderer.create(
+  <Provider store={store}>
+   <$1 {...defaultProps} />
+  </Provider>,
+ )`(js-react-redux-yasnippets-semicolon)`
+
+ test('render', () => {
+  expect(wrapper).toMatchSnapshot()`(js-react-redux-yasnippets-semicolon)`
+ })`(js-react-redux-yasnippets-semicolon)`
+})`(js-react-redux-yasnippets-semicolon)`

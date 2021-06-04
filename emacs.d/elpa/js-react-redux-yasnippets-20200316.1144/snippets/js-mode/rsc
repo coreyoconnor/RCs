@@ -1,0 +1,16 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Creates a React pure component class with PropTypes and ES6 module system
+# key: rsc
+# uuid: rsc
+# --
+import React from 'react'`(js-react-redux-yasnippets-semicolon)`
+
+const ${1:`(js-react-redux-yasnippets-filename-base)`} = () => {
+ return (
+  <div>
+   $0
+  </div>
+ )`(js-react-redux-yasnippets-semicolon)`
+}`(js-react-redux-yasnippets-semicolon)`
+
+export default $1`(js-react-redux-yasnippets-semicolon)`

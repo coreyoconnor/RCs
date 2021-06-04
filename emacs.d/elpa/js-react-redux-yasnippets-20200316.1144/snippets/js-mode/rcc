@@ -1,0 +1,16 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Creates a React component class with ES7 module system
+# key: rcc
+# uuid: rcc
+# --
+import React, { Component } from 'react'`(js-react-redux-yasnippets-semicolon)`
+
+export default class ${`(js-react-redux-yasnippets-filename-base)`} extends Component {
+ render() {
+  return (
+   <div>
+    $0
+   </div>
+  )`(js-react-redux-yasnippets-semicolon)`
+ }
+}

@@ -1,0 +1,22 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Creates a stateless React component as a named function without PropTypes
+# key: rsf
+# uuid: rsf
+# --
+import React from 'react'`(js-react-redux-yasnippets-semicolon)`
+
+function ${1:`(js-react-redux-yasnippets-filename-base)`}(props) {
+ return (
+  <div>
+
+  </div>
+ )`(js-react-redux-yasnippets-semicolon)`
+
+
+export default $1(props) {
+ return (
+  <div>
+
+  </div>
+ )`(js-react-redux-yasnippets-semicolon)`
+`(js-react-redux-yasnippets-semicolon)`

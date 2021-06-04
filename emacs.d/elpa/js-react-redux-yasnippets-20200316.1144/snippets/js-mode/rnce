@@ -1,0 +1,19 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: rnce
+# key: rnce
+# uuid: rnce
+# --
+import React, { Component } from 'react'`(js-react-redux-yasnippets-semicolon)`
+import { Text, View } from 'react-native'`(js-react-redux-yasnippets-semicolon)`
+
+export class ${1:`(js-react-redux-yasnippets-filename-base)`} extends Component {
+ render() {
+  return (
+   <View>
+    <Text> ${0:textInComponent} </Text>
+   </View>
+  )`(js-react-redux-yasnippets-semicolon)`
+ }
+}
+
+export default $1`(js-react-redux-yasnippets-semicolon)`

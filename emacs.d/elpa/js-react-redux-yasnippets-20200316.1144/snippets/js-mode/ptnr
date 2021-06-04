@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Number prop type required
+# key: ptnr
+# uuid: ptnr
+# --
+PropTypes.number.isRequired,$0

@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: An object taking on a particular shape required
+# key: ptshr
+# uuid: ptshr
+# --
+PropTypes.shape({
+ $0
+}).isRequired,

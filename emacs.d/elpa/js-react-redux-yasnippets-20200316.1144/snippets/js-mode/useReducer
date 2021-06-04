@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: useReducer
+# key: useReducer
+# uuid: useReducer
+# --
+const [state, dispatch] = useReducer(${reducer}, ${initialState}, ${init})`(if (eolp) (js-react-redux-yasnippets-semicolon))`

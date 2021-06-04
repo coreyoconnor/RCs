@@ -1,0 +1,23 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Creates a React component class with ESNext class fields
+# key: prcep
+# uuid: prcep
+# --
+import React, { Component } from 'react'`(js-react-redux-yasnippets-semicolon)`
+import PropTypes from 'prop-types'`(js-react-redux-yasnippets-semicolon)`
+
+export class ${1:`(js-react-redux-yasnippets-filename-base)`} extends Component {
+ static propTypes = {
+
+ }`(js-react-redux-yasnippets-semicolon)`
+
+ render() {
+  return (
+   <div>
+    $0
+   </div>
+  )`(js-react-redux-yasnippets-semicolon)`
+ }
+}
+
+export default $1`(js-react-redux-yasnippets-semicolon)`

@@ -1,0 +1,12 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: useImperativeHandle
+# key: useImperativeHandle
+# uuid: useImperativeHandle
+# --
+useImperativeHandle(
+ ${ref},
+ () => {
+  ${handler}
+ },
+ [${input}],
+)`(js-react-redux-yasnippets-semicolon)`

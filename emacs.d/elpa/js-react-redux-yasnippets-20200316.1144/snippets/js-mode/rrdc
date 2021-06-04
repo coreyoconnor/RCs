@@ -1,0 +1,33 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Creates a React component class connected to redux with dispatch
+# key: rrdc
+# uuid: rrdc
+# --
+import React, { Component } from 'react'`(js-react-redux-yasnippets-semicolon)`
+import { connect } from 'react-redux'`(js-react-redux-yasnippets-semicolon)`
+
+function mapStateToProps(state) {
+ return {
+
+ }`(js-react-redux-yasnippets-semicolon)`
+}
+
+function mapDispatchToProps(dispatch) {
+ return {
+
+ }`(js-react-redux-yasnippets-semicolon)`
+}
+
+class ${1:`(js-react-redux-yasnippets-filename-base)`} extends Component {
+ render() {
+  return (
+   <div>
+    $0
+   </div>
+  )`(js-react-redux-yasnippets-semicolon)`
+ }
+}
+
+export default connect(
+ mapStateToProps,
+)($1)`(js-react-redux-yasnippets-semicolon)`

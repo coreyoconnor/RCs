@@ -1,0 +1,23 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Creates a React component class with PropTypes and ES6 module system
+# key: rccp
+# uuid: rccp
+# --
+import React, { Component } from 'react'`(js-react-redux-yasnippets-semicolon)`
+import PropTypes from 'prop-types'`(js-react-redux-yasnippets-semicolon)`
+
+class ${1:`(js-react-redux-yasnippets-filename-base)`} extends Component {
+ render() {
+  return (
+   <div>
+    $0
+   </div>
+  )`(js-react-redux-yasnippets-semicolon)`
+ }
+}
+
+$1.propTypes = {
+
+}`(js-react-redux-yasnippets-semicolon)`
+
+export default $1`(js-react-redux-yasnippets-semicolon)`

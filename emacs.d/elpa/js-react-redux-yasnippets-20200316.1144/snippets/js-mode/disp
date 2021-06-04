@@ -1,0 +1,10 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Adds the redux mapDispatchToProps function
+# key: disp
+# uuid: disp
+# --
+function mapDispatchToProps(dispatch) {
+ return {
+  $0
+ }`(js-react-redux-yasnippets-semicolon)`
+}

@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: ptypes
+# key: ptypes
+# uuid: ptypes
+# --
+static propTypes = {
+ $0
+}

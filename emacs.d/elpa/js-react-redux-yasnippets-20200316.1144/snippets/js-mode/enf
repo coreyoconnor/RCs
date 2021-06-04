@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Export named function in ES7 syntax
+# key: enf
+# uuid: enf
+# --
+export const ${functionName} = (${params}) => {
+ $0
+}`(js-react-redux-yasnippets-semicolon)`

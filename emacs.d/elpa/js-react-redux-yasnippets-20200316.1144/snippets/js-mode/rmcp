@@ -1,0 +1,21 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Creates a React Memo Function Component with ES7 module system with PropTypes
+# key: rmcp
+# uuid: rmcp
+# --
+import React, { memo } from 'react'`(js-react-redux-yasnippets-semicolon)`
+import PropTypes from 'prop-types'`(js-react-redux-yasnippets-semicolon)`
+
+const ${1:`(js-react-redux-yasnippets-filename-base)`} = memo(function $1(props) {
+ return (
+  <div>
+   $0
+  </div>
+ )`(js-react-redux-yasnippets-semicolon)`
+})`(js-react-redux-yasnippets-semicolon)`
+
+$1.propTypes = {
+
+}`(js-react-redux-yasnippets-semicolon)`
+
+export default $1`(js-react-redux-yasnippets-semicolon)`

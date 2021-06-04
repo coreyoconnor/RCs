@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Binds this to a method
+# key: bnd
+# uuid: bnd
+# --
+this.${1:methodName} = this.$1.bind(this)`(if (eolp) (js-react-redux-yasnippets-semicolon))`

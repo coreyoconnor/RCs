@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Bool prop type
+# key: ptb
+# uuid: ptb
+# --
+PropTypes.bool,$0

@@ -1,0 +1,27 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Creates a React component class with constructor, empty state, proptypes and export in ES6 module system without imports
+# key: rwwd
+# uuid: rwwd
+# --
+class ${1:`(js-react-redux-yasnippets-filename-base)`} extends React.Component {
+ constructor(props) {
+  super(props)`(js-react-redux-yasnippets-semicolon)`
+
+  this.state = {}`(js-react-redux-yasnippets-semicolon)`
+
+ }
+
+ render() {
+  return (
+   <div>
+    $0
+   </div>
+  )`(js-react-redux-yasnippets-semicolon)`
+ }
+}
+
+$1.propTypes = {
+
+}`(js-react-redux-yasnippets-semicolon)`
+
+export default $1`(js-react-redux-yasnippets-semicolon)`

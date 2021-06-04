@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Export default function in ES7 syntax
+# key: edf
+# uuid: edf
+# --
+export default (${params}) => {
+ $0
+}`(js-react-redux-yasnippets-semicolon)`

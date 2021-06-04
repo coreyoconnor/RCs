@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Creates empty state object. To be used in a constructor
+# key: est
+# uuid: est
+# --
+state = {
+ $0
+}`(js-react-redux-yasnippets-semicolon)`

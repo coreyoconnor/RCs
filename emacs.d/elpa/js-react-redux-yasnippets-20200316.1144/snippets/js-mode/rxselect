@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: rxselect
+# key: rxselect
+# uuid: rxselect
+# --
+import { createSelector } from 'reselect'`(js-react-redux-yasnippets-semicolon)`
+
+export const ${selectorName} = state => state.${selector}`(js-react-redux-yasnippets-semicolon)`

@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Any prop type
+# key: ptany
+# uuid: ptany
+# --
+PropTypes.any,$0

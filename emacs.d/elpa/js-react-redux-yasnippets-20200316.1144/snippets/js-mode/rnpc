@@ -1,0 +1,17 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: rnpc
+# key: rnpc
+# uuid: rnpc
+# --
+import React, { PureComponent } from 'react'`(js-react-redux-yasnippets-semicolon)`
+import { Text, View } from 'react-native'`(js-react-redux-yasnippets-semicolon)`
+
+export default class ${`(js-react-redux-yasnippets-filename-base)`} extends PureComponent {
+ render() {
+  return (
+   <View>
+    <Text> ${0:textInComponent} </Text>
+   </View>
+  )`(js-react-redux-yasnippets-semicolon)`
+ }
+}

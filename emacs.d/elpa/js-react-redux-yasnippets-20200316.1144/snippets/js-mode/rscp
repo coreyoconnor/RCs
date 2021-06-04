@@ -1,0 +1,21 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Creates a stateless React component with PropTypes and ES6 module system
+# key: rscp
+# uuid: rscp
+# --
+import React from 'react'`(js-react-redux-yasnippets-semicolon)`
+import PropTypes from 'prop-types'`(js-react-redux-yasnippets-semicolon)`
+
+const ${1:`(js-react-redux-yasnippets-filename-base)`} = props => {
+ return (
+  <div>
+
+  </div>
+ )`(js-react-redux-yasnippets-semicolon)`
+}`(js-react-redux-yasnippets-semicolon)`
+
+$1.propTypes = {
+ $0
+}`(js-react-redux-yasnippets-semicolon)`
+
+export default $1`(js-react-redux-yasnippets-semicolon)`

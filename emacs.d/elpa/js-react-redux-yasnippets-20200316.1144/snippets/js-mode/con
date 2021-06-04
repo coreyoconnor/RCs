@@ -1,0 +1,9 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Adds a default constructor for the class that contains props as arguments
+# key: con
+# uuid: con
+# --
+constructor(props) {
+ super(props)`(js-react-redux-yasnippets-semicolon)`
+ $0
+}

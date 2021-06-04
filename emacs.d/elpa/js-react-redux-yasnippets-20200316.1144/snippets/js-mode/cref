@@ -1,0 +1,6 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Create ref statement used inside constructor
+# key: cref
+# uuid: cref
+# --
+this.${refName}Ref = React.createRef()`(if (eolp) (js-react-redux-yasnippets-semicolon))`

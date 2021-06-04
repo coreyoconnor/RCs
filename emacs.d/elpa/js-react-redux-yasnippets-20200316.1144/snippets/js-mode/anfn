@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Creates an anonymous function in ES7 syntax
+# key: anfn
+# uuid: anfn
+# --
+(${params}) => {
+ $0
+}`(if (eolp) (js-react-redux-yasnippets-semicolon))`

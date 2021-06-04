@@ -1,0 +1,19 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: rncs
+# key: rncs
+# uuid: rncs
+# --
+import React, { Component } from 'react'`(js-react-redux-yasnippets-semicolon)`
+import { Text, StyleSheet, View } from 'react-native'`(js-react-redux-yasnippets-semicolon)`
+
+export default class ${`(js-react-redux-yasnippets-filename-base)`} extends Component {
+ render() {
+  return (
+   <View>
+    <Text> ${0:textInComponent} </Text>
+   </View>
+  )`(js-react-redux-yasnippets-semicolon)`
+ }
+}
+
+const styles = StyleSheet.create({})`(js-react-redux-yasnippets-semicolon)`

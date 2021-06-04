@@ -31,8 +31,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   (vector "#1d1f21" "#cc6666" "#b5bd68" "#f0c674" "#81a2be" "#b294bb" "#8abeb7" "#c5c8c6"))
  '(background-color nil)
  '(background-mode dark)
  '(column-number-mode t)
@@ -71,7 +69,7 @@
  '(nav-width 40)
  '(nxml-slash-auto-complete-flag t)
  '(package-selected-packages
-   '(exec-path-from-shell jinja2-mode php-mode scad-mode yatemplate yasnippet-snippets fold-this seq glsl-mode moody nerdtab go-mode evil-collection gdscript-mode js2-highlight-vars string-inflection yasnippet yard-mode yaml-mode window-numbering web-mode swiper smex rubocop robe projectile-rails paredit omniref nav mediawiki markdown-mode ido-ubiquitous idle-highlight-mode hydra hindent haml-mode groovy-mode gradle-mode fringe-helper flymake-ruby evil enh-ruby-mode ecb dirtree company color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized auto-complete))
+   '(rjsx-mode js-format js-import js-react-redux-yasnippets exec-path-from-shell jinja2-mode php-mode scad-mode yatemplate yasnippet-snippets fold-this seq glsl-mode moody nerdtab go-mode evil-collection gdscript-mode js2-highlight-vars string-inflection yasnippet yard-mode yaml-mode window-numbering web-mode swiper smex rubocop robe projectile-rails paredit omniref nav mediawiki markdown-mode ido-ubiquitous idle-highlight-mode hydra hindent haml-mode groovy-mode gradle-mode fringe-helper flymake-ruby evil enh-ruby-mode ecb dirtree company color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized auto-complete))
  '(safe-local-variable-values
    '((haskell-indentation-where-post-offset . 4)
      (haskell-indentation-where-pre-offset . 4)

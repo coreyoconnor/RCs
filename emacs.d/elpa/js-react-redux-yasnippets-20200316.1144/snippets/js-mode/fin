@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Iterating over property values of iterable objects
+# key: fin
+# uuid: fin
+# --
+for(let ${item} in ${object}) {
+ $0
+}

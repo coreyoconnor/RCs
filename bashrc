@@ -5,7 +5,8 @@ if [[ -f ${HOME}/Development/RCs_private/rc_private ]] ; then
   source ${RCS_PRIVATE_DIR}/rc_private
 fi
 
-export PATH=${HOME}/bin:${HOME}/.cabal/bin:$RCS_DIR/bin:$PATH
+export PATH="${HOME}/bin:${HOME}/.cabal/bin:$RCS_DIR/bin:$PATH"
+export PATH="${HOME}/.local/share/coursier/bin:$PATH"
 
 export EDITOR=vim
 
@@ -18,5 +19,4 @@ if [[ -z $SCREENRC_HACK && -n $STY ]] ; then
    source ${HOME}/.bash_profile
 fi
 
-export PATH="$PATH:$HOME/.local/share/coursier/bin"
 

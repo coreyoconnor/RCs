@@ -57,3 +57,5 @@ sbt/launchers/
 sbt/0.13/java9-rt-ext-adoptopenjdk_11_0_10/
 sbt/0.13
 sbt/1.0/java9-rt-ext-oracle_corporation_11_0_10/
+emacs.d/transient
+./emacs.d/url

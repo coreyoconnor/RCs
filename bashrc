@@ -7,6 +7,7 @@ fi
 
 export PATH="${HOME}/bin:${HOME}/.cabal/bin:$RCS_DIR/bin:$PATH"
 export PATH="${HOME}/.local/share/coursier/bin:$PATH"
+export PATH="${HOME}/.local/bin:$PATH"
 
 export EDITOR=vim
 

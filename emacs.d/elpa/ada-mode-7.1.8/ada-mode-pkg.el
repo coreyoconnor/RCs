@@ -1,0 +1,2 @@
+;; Generated package description from ada-mode.el  -*- no-byte-compile: t -*-
+(define-package "ada-mode" "7.1.8" "major-mode for editing Ada sources" '((uniquify-files "1.0.1") (wisi "3.1.5") (emacs "25.3")) :keywords '("languages" "ada") :authors '(("Stephen Leake" . "stephen_leake@stephe-leake.org")) :maintainer '("Stephen Leake" . "stephen_leake@stephe-leake.org") :url "http://www.nongnu.org/ada-mode/")

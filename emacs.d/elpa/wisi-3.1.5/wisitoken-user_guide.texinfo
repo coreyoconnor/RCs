@@ -1,0 +1,616 @@
+\input texinfo
+@c Author : Stephen Leake stephen_leake@stephe-leake.org
+@c Web    : http://stephe-leake.org/ada/opentoken.html
+@setfilename wisitoken-user_guide.info
+@settitle WisiToken User Guide
+
+@copying
+Copyright @copyright{} 2014-2015, 2017, 2018, 2020, 2021 Stephen Leake.
+
+@quotation
+Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.3 or any later version published by the Free Software
+Foundation; with no Invariant Sections, no Front-Cover Texts and
+no Back-Cover Texts.  A copy of the license is included in the
+section entitled "GNU Free Documentation License".
+@end quotation
+@end copying
+
+@dircategory Parser generators
+@direntry
+* wisitoken-bnf-generate: (wisitoken-bnf-generate).         Ada parser generator
+@end direntry
+
+@titlepage
+@sp 10
+@title WisiToken User Guide
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+@end titlepage
+
+@contents
+
+@node Top
+@top WisiToken User Guide
+
+@ifnottex
+@insertcopying
+@end ifnottex
+
+@menu
+* Overview::
+* Common grammar problems::
+* Grammar File Syntax::
+@end menu
+
+@node Overview
+@chapter Overview
+
+WisiToken is a parser and parser generator toolkit, supporting
+generalized LR (both LALR and LR1) and packrat parsers; the LR parser
+provides robust error recovery. The grammar can be expressed as either
+Ada source code statements, or in an EBNF file. The parser generator
+generates Ada, either plain or assuming the Emacs wisi package.
+
+At one point, ``wisi'' was short for ``Wisent Indentation engine'';
+the Emacs 'wisi' package implements an indentation engine that used to
+be based on the Emacs wisent parser. However, that parser has now been
+replaced by the WisiToken parser, so ``wisi'' is just a name.
+
+@menu
+* Install::
+@end menu
+
+@node Install
+@section Install
+WisiToken is available as source code only, although a subset is
+available in the GNU ELPA package @code{wisi}.
+
+You will also need to install a lexer generator. WisiToken supports
+re2c, and other lexers can be added.
+
+re2c is available from @url{http://re2c.org/}; it is also packaged in
+Mingw64 and Debian. WisiToken requires at least version 1.3.
+WisiToken assumes the executable @code{re2c} is in
+@code{$PATH}.
+
+@node Common grammar problems
+@chapter Common grammar problems
+
+LALR grammars are tricky. Here we describe some common problems people
+run into.
+
+@menu
+* Empty choice in list::
+@end menu
+
+@node Empty choice in list
+@section Empty choice in list
+
+Many programming languages have lists in the grammar. For example, Ada
+has lists of declarations:
+
+@example
+package_body
+  : PACKAGE name IS declaration_list BEGIN statement_list END SEMICOLON
+  ;
+
+declaration_list
+  : declaration
+  | declaration_list declaration
+  ;
+
+declaration
+  : object_declaration
+  | subprogram_declaration
+  ;; ...
+  ;
+@end example
+
+Note that the above grammar fragment does not allow an empty
+declaration_list. But Ada does, so the question is how can we add that
+to the grammar.
+
+There are four choices:
+
+@enumerate
+@item
+Add an empty declaration choice to declaration_list:
+
+@example
+declaration_list
+  : ;; empty list
+  | declaration
+  | declaration_list declaration
+  ;
+@end example
+This is now redundant; since declaration_list can be empty, the second
+choice is not needed:
+@example
+declaration_list
+  : ;; empty list
+  | declaration_list declaration
+  ;
+@end example
+
+
+@item
+Add an empty declaration choice to declaration:
+
+@example
+declaration
+  : ;; empty declaration
+  | object_declaration
+  | subprogram_declaration
+  ;; ...
+  ;
+@end example
+
+@item
+Add another rule with the empty production:
+
+@example
+package_body
+  : PACKAGE name IS declarative_part BEGIN statement_list END SEMICOLON
+  ;
+
+declarative_part
+  : ;; empty
+  | declaration_list
+  ;
+
+declaration_list
+  : declaration
+  | declaration_list declaration
+  ;
+
+declaration
+  : object_declaration
+  | subprogram_declaration
+  ;; ...
+  ;
+@end example
+
+@item
+Add another choice in package_body that leaves out declaration_list:
+@example
+package_body
+  : PACKAGE name IS declaration_list BEGIN statement_list END SEMICOLON
+  | PACKAGE name IS BEGIN statement_list END SEMICOLON
+  ;
+@end example
+@end enumerate
+
+Choice 1 is redundant, giving parse errors at parse time.
+Consider the following statements, where "<empty>" is used to indicate
+an empty declaration:
+
+1) package One is <empty> begin end ;
+2) package One is package One is <empty> begin end ; begin end ;
+3) package One is <empty> package One is <empty declaration> begin end ; begin end ;
+
+In parsing 3), the second 'package' causes a shift/reduce conflict;
+shift to start the nested declaration (as in 2), reduce to the empty
+declaration. Both are correct according to the grammar.
+
+Choice 2 leads to a shift/reduce conflict in the production for
+package_body; implementing the wisi parser as a generalized LALR parser
+allows it to handle this option.
+
+Choice 2 is the preferred choice for Ada, since it involves the least
+modifications to the original Ada grammar in the Ada reference manual.
+
+@node Grammar File Syntax
+@chapter Grammar File Syntax
+
+The grammar file syntax is based on Gnu bison syntax
+with some additions and deletions (@pxref{Top,Bison,Overview,bison}).
+
+(The grammar is specified in the WisiToken grammar file
+@file{wisitoken_grammar.wy}).
+
+The top level file structure is a list of declarations and
+nonterminals.
+
+Comments are started by @code{;;} and terminated by end of line.
+
+@menu
+* Declarations::
+* Nonterminals::
+* Conditional code::
+@end menu
+
+@node Declarations
+@section Declarations
+
+Declarations declare terminal tokens, conflicts, and other parser
+parameters.
+
+@menu
+* Raw Code::
+* Keywords::
+* Tokens::
+* Error recovery::
+* Other declarations::
+@end menu
+
+@node Raw Code
+@subsection Raw code
+@verbatim
+%code { actions | copyright_license } [spec | body | context | pre | post]... %{ <output language code> }%
+@end verbatim
+
+Raw code declarations contain arbitrary code, copied verbatim into the
+output. The keywords following @code{%code} determine where
+the section is output.
+
+@node Keywords
+@subsection Keywords
+@verbatim
+%keyword <name> <string>
+@end verbatim
+
+example:
+@verbatim
+%keyword SEMICOLON ";"
+@end verbatim
+
+``Keywords'' are reserved words or symbols in the target language; the
+lexers recognize them by the given string.
+
+@node Tokens
+@subsection Tokens
+@verbatim
+%token < kind > name regexp
+@end verbatim
+
+example:
+@verbatim
+%token <symbol> IDENTIFIER %[ ... ]%
+%token <punctuation> TICK "'"
+@end verbatim
+
+The syntax of the regular expression is determined by the lexer
+generator. The meaning of @code{kind} is determined by the lexer
+(@code{re2c} ignores this), with the following defined by the
+WisiToken generator. Other token kinds have no effect; they may be
+used for documentation.
+
+@table @code
+@item <string-double>
+@verbatim
+%token <string-double> STRING_LITERAL %[ ... ]%
+@end verbatim
+A string of characters that have string syntax, with double quote delimiters.
+
+@item <string-single>
+@verbatim
+%token <string-single> CHARACTER_LITERAL %[ ... ]%
+@end verbatim
+A string of characters that have string syntax, with single quote delimiters.
+
+@item <new-line>
+@verbatim
+%token <new-line> [\n] %[ ... ]%
+@end verbatim
+Not used by the wisi lexer; required by the Ada lexer. The third
+argument is the regular expression to recognize the entire comment.
+
+@item <non-reporting>
+@verbatim
+%token <non-reporting> WHITESPACE %[ [ \t] ]%
+@end verbatim
+A token that is recognized by the lexer, but not returned to the
+parser.
+
+@item <delimited-text>
+@verbatim
+%token <delimited-text> RAW_CODE "%{" "}%"
+@end verbatim
+A token that contains arbitrary text, delimited by the two strings.
+
+@end table
+
+@node Error recovery
+@subsection Error recovery
+The parser uses an error recovery algorithm when it encounters a
+syntax error; if a solution is found, the parse continues.
+
+Error recovery uses multiple tasks to take advantage of multiple CPU
+cores.  Unfortunately, this means there is a race condition; the
+solutions found can be delivered in different orders on different
+runs. This matters because each solution results in a successful
+parse, possibly with different actions (different indentation
+computed, for example).  Which solution finally succeeds depends on
+which are terminated due to identical parser stacks, which in turn
+depends on the order they were delivered.
+
+Once the syntax errors are fixed, only ambiguities in the grammar
+itself can cause a similar problem.
+
+Several grammar file declarations set parameters for the error
+recovery. If none of these parameters are present in the grammar file,
+the generated parser does not do error recovery.
+
+The error recovery algorithm generates possible solutions based on the
+parse state preceding the error point, by inserting, deleting, or pushing
+back tokens. Each possible solution is given a cost, and enqueued to
+be checked later. Solutions are checked in cost order (lowest first).
+
+@table @code
+@item %mckenzie_check_limit <limit>
+The number of tokens past the error point that must be parsed
+successfully for a solution to be deemed successful. Smaller values
+give faster recovery; larger values give better solutions. Too large a
+value risks encountering another user error, making a solution
+impossible. 3 or 4 works well in practice.
+
+@item mckenzie_check_delta_limit <limit>
+When error recovery is entered with multiple parsers active, once a
+solution has been found for one parser, the other parsers are allowed
+to check only @code{mckenzie_check_delta_limit} possible solutions
+before they fail. This prevents long recovery times.
+
+@item %mckenzie_cost_default <insert> <delete> <push back> <ignore check fail>
+McKenzie error recovery default costs for insert, delete, push back
+single tokens, and for ignoring a semantic check failure; four
+floating point numbers.
+
+``Push back'' means undo parsing; remove tokens from the parse stack
+and put them back into the input stream. This moves the insert/delete
+point, allowing better solutions. The push back default cost is also
+the undo reduce default cost.
+
+If not specified, costs are zero. Costs can be negative; they
+all add linearly.
+
+@item %mckenzie_cost_delete <token> <cost>
+McKenzie error recovery delete cost for a specific token.
+
+@item %mckenzie_cost_fast_forward <cost>
+McKenzie error recovery cost for parsing ahead after fixing one error,
+moving to the next error location.
+
+@item %mckenzie_cost_insert <token> <cost>
+McKenzie error recovery insert cost for a specific token.
+
+@item %mckenzie_cost_fast_forward <cost>
+McKenzie error recovery cost for using the @code{matching_begin}
+strategy.
+
+@item %mckenzie_cost_push_back <token> <cost>
+McKenzie error recovery push back cost for a specific token.
+
+@item %mckenzie_cost_undo_reduce <token> <cost>
+McKenzie error recovery undo reduce cost for a specific token.
+
+@item %mckenzie_enqueue_limit <integer>
+McKenzie error recovery limit on possible solutions enqueued (to be
+checked); default max integer.
+
+@item %mckenzie_minimal_complete_cost_delta <cost>
+McKenzie error recovery cost added to the cost of an inserted token
+when the insert is done by the minimal complete strategy; this cost is
+normally negative.
+
+@end table
+
+@node Other declarations
+@subsection Other declarations
+@table @code
+@item %case_insensitive
+If present, keywords are case insensitive in the lexer.
+
+@item %conflict <conflict description>
+Declare a known conflict.
+
+Example conflict declaration:
+@verbatim
+%conflict REDUCE/REDUCE in state abstract_limited_opt, abstract_limited_synchronized_opt on token NEW
+@end verbatim
+
+The conflict description is output by @code{wisitoken-bnf-generate}
+when an undeclared conflict is detected. If the user decides to not
+fix the conflict, the description can be copied into the grammar
+source file, so it will be ignored next time around.
+
+Resolving conflicts in the grammar can be difficult, but leaving them
+in can increase parse time and cause ambiguous parses.
+
+@item %elisp_face <name>
+Declare a name for an elisp face constant.
+
+When generating Ada code for Emacs, the elisp faces applied by
+@code{wisi-face-apply} actions must be declared, so the elisp and Ada
+code aggree on what they mean.
+
+@item %elisp_indent <elisp name> <Ada name>
+Declare elisp and Ada names for an indent variable.
+
+When generating Ada code for Emacs, the elisp indent variables used in
+@code{wisi-indent} actions must be declared, so the elisp and Ada code
+aggree on what they mean.
+
+@item %elisp_action <elisp name> <Ada name>
+Declare elisp and Ada names for a custom action subprogram written in
+Ada.
+
+The term ``elisp'' here is historical; the name is not actually used
+by elisp in the current implementation.
+
+@item end_names_optional_option <name>
+When generating Ada code for Emacs, the name of the Ada variable
+determining whether end block names are optional.
+
+In the Ada language, block names can be repeated at the end; for
+example:
+
+@verbatim
+Get_Inputs :
+loop
+...
+end loop Get_Inputs;
+@end verbatim
+
+These names are optional in the Ada standard. Making them required
+improves error recovery; the recovery algorithm can use matching names
+to isolate the error.
+
+@item generate <generate_algorithm> <output_language> [text_rep]
+
+@code{<generate_algorithm>} is one of @code{LALR | LR1 | Packrat_Gen | Packrat_Proc | External}
+
+@code{<output_language>} is one of @code{Ada | Ada_Emacs}
+
+The algorithm/output_language pair declares one output source
+set. Multiple sets can be declared; they are all generated together.
+
+@code{text_rep} determines how the parse table is represented; if
+present, it is in a text file that is loaded at parser run time. If
+absent, it is in the code. For very large parse tables, such as for an
+LR1 parser for a large language like Ada, the text representation may
+be needed, because the Ada compiler can't handle the very large number
+of statements that represent the parser table in the code. The text
+file can take a long time to read at parser startup (a few seconds for
+the Ada language).
+
+@item %language_runtime
+Specify an alternate name for the language runtime package; the
+default is @code{Wisi.<language_name>}.
+
+@item %meta_syntax [BNF | EBNF]
+Declares the syntax used by the grammar file. BNF is a minor extension
+of standard Backus Naur Form; EBNF is a large extension. The default
+is BNF.
+
+@item %no_enum
+By default, the generated Ada code includes an enumeration type
+declaring each token. This makes the language-specific runtime easier
+to write (without this type, tokens are identified by integers).
+
+@code{%no_enum} causes the generated code to not include the token
+enumeration type.
+
+@item %no_language_runtime
+When generating Ada code for Emacs, @code{%no_language_runtime} causes
+the generated code to not include the runtime. Some grammars may need
+no runtime, particularly if they are small grammars intendend to test
+some generator feature.
+
+@item %partial_recursion
+The error recovery algorithm requires computing the recursion present
+in the language grammar. For some grammars (such as Java), this is too
+hard; @code{%partial_recursion} tells WisiToken to use a simpler
+approximate calculation. This will affect the quality of the error
+recovery, but it will still be robust.
+
+@item %start
+The start token for the grammar.
+
+@item re2c_regexp <name> <value>
+Declare a named regular expression with re2c name and syntax. The name
+may then occur in another re2c regular expression.
+@end table
+
+@node Nonterminals
+@section Nonterminals
+
+A nonterminal statement declares a nonterminal token, and the
+associated production rules and actions.
+
+The syntax of a nonterminal statement is:
+
+@verbatim
+nonterminal : rhs {| rhs} ;
+@end verbatim
+A nonterminal is defined by a list of alternate right hand sides.
+
+@verbatim
+rhs : {rhs_item} [action [action]] ;
+@end verbatim
+Each right hand side is a list of items, followed by zero to two
+actions; the first is the post-parse action, the second the in-parse
+action.
+
+In-parse actions are exeuted during the parse, when the production is
+reduced; they can add semantic checks that help during error recovery.
+
+Post-parse actions are executed after the parse is complete, when a
+node produced by this production is visited during the tree traversal;
+they typically build an abstract syntax tree.
+
+The actions are written in output-language code; for @code{Ada_Emacs}
+output, this is elisp (a hold-over from when WisiToken only output
+elisp code).
+
+If using BNF:
+@verbatim
+rhs_item : token ;
+@end verbatim
+Where @code{token} is defined by a token declaration.
+
+if using EBNF:
+@verbatim
+rhs_item
+  : token
+  | < identifier = identifier >
+  | rhs_optional_item
+  | rhs_multiple_item
+  | '(' rhs {| rhs} ')'
+  ;
+@end verbatim
+Here @code{token} is either defined by a token
+declaration, or the token value contained in single quotes.
+
+The second option is an attribute, as defined by ANTLR; these are
+ignored in wisitoken.
+
+Parentheses are used to group items.
+
+@verbatim
+rhs_optional_item
+  : '[' rhs {| rhs} ']'
+  | '(' rhs {| rhs} ')' '?'
+  | token '?'
+  ;
+@end verbatim
+These options all mean the same thing; the content is present zero or
+one times.
+
+@verbatim
+rhs_multiple_item
+  : '{' rhs {| rhs} '}'
+  | '{' rhs {| rhs} '}-'
+  | '(' rhs {| rhs} ')+'
+  | '(' rhs {| rhs} ')*'
+  | token '+'
+  | token '*'
+  ;
+@end verbatim
+''@{@}'', ''()*'', and ''token*'' mean the content is present zero or more
+times. ''@{@}-'', ''()+'', and ''token+'' mean the content is present one or
+more times.
+
+@node Conditional code
+@section Conditional code
+
+It is sometimes necessary to include or exclude some declarations
+and portions of rules based on the choice of lexer or parser.
+
+Therefore WisiToken supports @code{%if ... %end if} in the grammar file:
+@verbatim
+%if {lexer | parser} = {<lexer> | <generate_algorithm>}
+...
+%end if
+@end verbatim
+
+The lines between @code{%if} and @code{%end if} are ignored if the
+current lexer or parser is not the one specified in the @code{%if}
+condition.
+
+@code{%if ... %end if} cannot be nested.
+
+@c FIXME: doc language_fixes etc.
+@bye

@@ -117,6 +117,7 @@
   :hook lsp-lens-mode
   :hook lsp-ui-mode
   :hook helm-mode
+  :hook yas-minor-mode
   :config
 
   (add-hook 'lsp-mode-hook (lambda () (enable-for-session)))

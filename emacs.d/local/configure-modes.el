@@ -105,11 +105,14 @@
 (use-package avy-menu
   :ensure t)
 
-(use-package company
-  :ensure t)
-
 (use-package yasnippet
-  :ensure t)
+  :ensure t
+  (yas-global-mode))
+
+(use-package company
+  :ensure t
+  :after (:all yasnippet)
+  (setq company-backends '(company-capf company-yasnippet)))
 
 (use-package lsp-mode
   :ensure t
@@ -117,7 +120,6 @@
   :hook lsp-lens-mode
   :hook lsp-ui-mode
   :hook helm-mode
-  :hook yas-minor-mode
   :config
 
   (add-hook 'lsp-mode-hook (lambda () (enable-for-session)))

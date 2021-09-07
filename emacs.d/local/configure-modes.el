@@ -360,4 +360,15 @@
   (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-scala)
   )
 
+(use-package yaml-mode
+  :ensure t
+  :mode "\\.yml.j2\\'"
+  )
+
+(use-package mmm-jinja2
+  :ensure t
+  :config
+  (mmm-add-mode-ext-class 'yaml-mode "\\.yml.j2\\'" 'jinja2)
+  )
+
 (provide 'configure-modes)

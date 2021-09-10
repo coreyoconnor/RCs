@@ -246,6 +246,7 @@
 
 (use-package dap-mode
   :ensure t
+  :after lsp-mode
   :hook ((lsp-mode . dap-mode) (lsp-mode . dap-ui-mode))
   :config (setq dap-auto-configure-features (remove 'controls dap-auto-configure-features))
   )
@@ -369,6 +370,12 @@
   :ensure t
   :config
   (mmm-add-mode-ext-class 'yaml-mode "\\.yml.j2\\'" 'jinja2)
+  )
+
+(use-package lsp-java 
+  :ensure t
+  :config 
+  (add-hook 'java-mode-hook 'lsp)
   )
 
 (provide 'configure-modes)

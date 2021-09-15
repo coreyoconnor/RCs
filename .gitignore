@@ -59,3 +59,5 @@ sbt/0.13
 sbt/1.0/java9-rt-ext-oracle_corporation_11_0_10/
 emacs.d/transient
 ./emacs.d/url
+emacs.d/workspace/.metadata
+emacs.d/workspace/jdt.ls-java-project/

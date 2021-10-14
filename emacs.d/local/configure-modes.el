@@ -262,7 +262,9 @@
       (setq treemacs-file-face "Menlo-16")
       )
     )
-  (define-key evil-normal-state-map (kbd "T") 'treemacs)
+  (treemacs-follow-mode t)
+  (treemacs-filewatch-mode t)
+  (treemacs-fringe-indicator-mode 'always)
   )
 
 ;; Use the Tree View Protocol for viewing the project structure and triggering compilation
@@ -276,7 +278,10 @@
 
 (use-package treemacs-evil
   :ensure t
-  :after treemacs)
+  :after treemacs
+  :config
+  (define-key evil-normal-state-map (kbd "T") 'treemacs)
+  )
 
 (eval-after-load 'js-mode
   (add-hook 'js-mode-hook

@@ -38,4 +38,10 @@
       (set-buffer-modified-p nil))
       (message "Renamed to %s." new-name)))
 
+(use-package magit
+  :ensure t
+  :after (:all evil)
+  :bind (("C-c g" . magit-file-dispatch))
+  )
+
 (provide 'configure-data-handling)

@@ -125,7 +125,7 @@
 
   (add-hook 'lsp-mode-hook (lambda () (enable-for-session)))
 
-  (setq-default lsp-file-watch-threshold 200000)
+  (setq-default lsp-file-watch-threshold 2000000)
   (setq-default lsp-prefer-flymake nil)
   (setq-default lsp-enable-on-type-formatting nil)
   (push "[/\\\\]\\nixpkgs$" lsp-file-watch-ignored)
@@ -176,9 +176,6 @@
 (use-package lsp-metals
   :ensure t
   :after (:all treemacs lsp-mode)
-  :config
-  ;; corrupts treemacs view
-  (setq-default lsp-metals-treeview-show-when-views-received nil)
   )
 
 (use-package origami

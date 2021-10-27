@@ -61,3 +61,4 @@ emacs.d/transient
 ./emacs.d/url
 emacs.d/workspace/.metadata
 emacs.d/workspace/jdt.ls-java-project/
+sbt/1.0/java9-rt-ext-adoptopenjdk_11_0_10/

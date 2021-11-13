@@ -26,17 +26,11 @@
              :ensure t
              :mode "\\.nix\\'"
              :config
-             (progn
-               (add-hook 'nix-mode-hook
-                         (lambda ()
-                           (setq evil-shift-width 2)
-                           (setq tab-width 2)
-                           (setq c-basic-offset 2)
-                           (setq indent-line-function 'insert-tab)
-                           (setq indent-line-function 'indent-relative)
-                           )
-                         )
-               )
+             (setq evil-shift-width 2)
+             (setq tab-width 2)
+             (setq c-basic-offset 2)
+             (setq indent-line-function 'insert-tab)
+             (setq indent-line-function 'indent-relative)
              )
 
 (eval-after-load 'haskell-mode
@@ -374,9 +368,9 @@
   (mmm-add-mode-ext-class 'yaml-mode "\\.yml.j2\\'" 'jinja2)
   )
 
-(use-package lsp-java 
+(use-package lsp-java
   :ensure t
-  :config 
+  :config
   (add-hook 'java-mode-hook 'lsp)
   )
 

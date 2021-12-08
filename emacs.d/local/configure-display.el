@@ -17,8 +17,8 @@
 
 (when (string-equal system-type "darwin")
   (when (member "Menlo" (font-family-list))
-    (add-to-list 'initial-frame-alist '(font . "Menlo-18"))
-    (add-to-list 'default-frame-alist '(font . "Menlo-18"))))
+    (add-to-list 'initial-frame-alist '(font . "Menlo-16"))
+    (add-to-list 'default-frame-alist '(font . "Menlo-16"))))
 
 (setq scroll-conservatively 5)
 (setq scroll-margin 5)
@@ -63,27 +63,31 @@
         nil)
        )))
 
-
-  (use-package elscreen :ensure t
-    :after (:all evil evil-tabs)
-    :config (progn
-              (elscreen-start)
-              (advice-add #'evil-tab-sensitive-quit' :around #'vimlike-quit)
-              (add-hook 'elscreen-goto-hook (lambda () (set-window-vscroll nil 0)))
-              )
-    )
   )
 
 (use-package centaur-tabs
   :ensure t
   :after (:all evil)
-  :config (progn
-            (setq centaur-tabs-cycle-scope 'tabs)
-            (centaur-tabs-mode t)
-            (define-key evil-normal-state-map "gt" 'centaur-tabs-forward)
-            (define-key evil-normal-state-map "gT" 'centaur-tabs-backward)
-            (evil-ex-define-cmd "quit" 'kill-buffer)
-            )
+  :config
+  (setq centaur-tabs-cycle-scope 'tabs)
+  (centaur-tabs-mode t)
+  (define-key evil-normal-state-map "gt" 'centaur-tabs-forward)
+  (define-key evil-normal-state-map "gT" 'centaur-tabs-backward)
+  (evil-ex-define-cmd "quit" 'kill-buffer)
+  )
+
+(use-package elscreen :ensure t
+  :after (:all evil centaur-tabs)
+  :config
+  (elscreen-start)
+
+  (evil-ex-define-cmd "tabnew" 'elscreen-create)
+  (evil-ex-define-cmd "tabn" 'elscreen-create)
+
+  (define-key evil-normal-state-map (kbd "C-c f") 'elscreen-next)
+  (define-key evil-normal-state-map (kbd "C-c C-f") 'elscreen-next)
+  (define-key evil-normal-state-map (kbd "C-c b") 'elscreen-previous)
+  (define-key evil-normal-state-map (kbd "C-c C-b") 'elscreen-previous)
   )
 
 (use-package diminish

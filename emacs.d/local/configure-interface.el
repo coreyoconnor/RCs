@@ -25,5 +25,11 @@
   (setq evil-undo-system 'undo-tree)
   )
 
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode)
+  (which-key-setup-minibuffer)
+  )
 
 (provide 'configure-interface)

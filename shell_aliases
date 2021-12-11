@@ -9,3 +9,6 @@ alias e='emacs -nw'
 
 alias project-screen='screen -dr $(basename $PWD) || screen -S $(basename $PWD)'
 alias cast-screen='screen -dr $(basename $PWD) || screen -c $RCS_DIR/cast-screenrc -S $(basename $PWD)'
+alias iso='date +"%Y-%m-%dT%H:%M:%S%z"'
+alias isoAlt='date +"%Y-%m-%dT%H-%M-%S%z"'
+

@@ -168,7 +168,8 @@
   )
 
 (use-package lsp-metals
-  :ensure t
+  :load-path "lsp-metals"
+  :demand t
   :after (:all treemacs lsp-mode)
   )
 
@@ -181,9 +182,8 @@
   :demand t
   :after (:all origami lsp-mode)
   :config
-  (progn
-    (add-hook 'origami-mode-hook #'lsp-origami-mode)
-    ))
+  (add-hook 'origami-mode-hook #'lsp-origami-mode)
+  )
 
 (defun setup-scala-format ()
   (setq tab-width 2)

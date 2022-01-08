@@ -23,15 +23,15 @@
   :ensure t)
 
 (use-package nix-mode
-             :ensure t
-             :mode "\\.nix\\'"
-             :config
-             (setq evil-shift-width 2)
-             (setq tab-width 2)
-             (setq c-basic-offset 2)
-             (setq indent-line-function 'insert-tab)
-             (setq indent-line-function 'indent-relative)
-             )
+  :ensure t
+  :mode "\\.nix\\'"
+  :config
+  (setq evil-shift-width 2)
+  (setq tab-width 2)
+  (setq c-basic-offset 2)
+  (setq indent-line-function 'insert-tab)
+  (setq indent-line-function 'indent-relative)
+  )
 
 (eval-after-load 'haskell-mode
   (add-hook 'haskell-mode-hook
@@ -161,7 +161,7 @@
   ;; (setq-default lsp-ui-flycheck-live-reporting t)
   (define-key evil-normal-state-map (kbd "t t") 'helm-imenu)
   (define-key evil-normal-state-map (kbd "g d") 'xref-find-definitions)
-  (define-key evil-normal-state-map (kbd "g e") 'lsp-ui-flycheck-list)
+  (define-key evil-normal-state-map (kbd "g e") 'lsp-treemacs-errors-list)
   (define-key evil-normal-state-map (kbd "g a") 'lsp-ui-sideline-apply-code-actions)
   (define-key evil-normal-state-map (kbd "g l") 'lsp-avy-lens)
   (define-key evil-normal-state-map (kbd "C-c h") 'lsp-ui-doc-glance)
@@ -200,14 +200,12 @@
   :magic-fallback ("/usr/bin/env amm" "/usr/bin/env -S amm")
   :diminish
   :config
-  (progn
-    (add-hook 'scala-mode-hook (lambda ()
-                                 (cleanup-on-save)
-                                 (flycheck-mode)
-                                 (setup-scala-format)
-                                 (origami-mode)
-                                 ))
-    )
+  (add-hook 'scala-mode-hook (lambda ()
+                               (cleanup-on-save)
+                               (flycheck-mode)
+                               (setup-scala-format)
+                               (origami-mode)
+                               ))
   )
 
 (use-package sbt-mode
@@ -257,12 +255,16 @@
   (treemacs-follow-mode t)
   (treemacs-filewatch-mode t)
   (treemacs-fringe-indicator-mode 'always)
+  (define-key evil-normal-state-map (kbd "TAB") 'treemacs-TAB-action)
+  (define-key evil-normal-state-map (kbd "RET") 'treemacs-RET-action)
   )
 
 ;; Use the Tree View Protocol for viewing the project structure and triggering compilation
 (use-package lsp-treemacs
   :ensure t
-  :commands lsp-treemacs-errors-list)
+  :commands lsp-treemacs-errors-list
+  :config
+  (lsp-treemacs-sync-mode t))
 
 (use-package treemacs-projectile
   :ensure t
@@ -271,23 +273,18 @@
 (use-package treemacs-evil
   :ensure t
   :after treemacs
+  :bind (:map evil-normal-state-map
+              ("T" . treemacs)))
+
+(use-package js2-mode
+  :ensure t
+  :mode "\\.js\\'"
   :config
-  (define-key evil-normal-state-map (kbd "T") 'treemacs)
-  )
-
-(eval-after-load 'js-mode
-  (add-hook 'js-mode-hook
-            (lambda ()
-              (setq js-indent-level 2)
-              (setq tab-width 2)
-              (setq c-basic-offset 2)
-              (setq evil-shift-width 2)
-              (cleanup-on-save)
-              )))
-
-(eval-after-load 'js-mode
-  (add-hook 'js-mode-hook
-            (lambda() (cleanup-on-save))))
+  (setq js-indent-level 2)
+  (setq tab-width 2)
+  (setq c-basic-offset 2)
+  (setq evil-shift-width 2)
+  (cleanup-on-save))
 
 (eval-after-load 'haml-mode
   (add-hook 'haml-mode-hook
@@ -303,7 +300,6 @@
          ("Gemfile" . ruby-mode)
          )
   :config
-  (progn
     (setq-default ruby-indent-level 2)
     (add-hook 'ruby-mode-hook
       (lambda () (setq evil-shift-width ruby-indent-level)))
@@ -314,7 +310,6 @@
     (require 'web-mode)
     (setq-default web-mode-code-indent-offset 2)
     (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-    )
  )
 
 ;(use-package proof-general

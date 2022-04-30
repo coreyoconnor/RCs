@@ -284,6 +284,7 @@
   (setq tab-width 2)
   (setq c-basic-offset 2)
   (setq evil-shift-width 2)
+  (setq js2-strict-missing-semi-warning nil)
   (cleanup-on-save))
 
 (eval-after-load 'haml-mode

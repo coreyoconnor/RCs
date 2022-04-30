@@ -20,6 +20,8 @@
     (add-to-list 'initial-frame-alist '(font . "Menlo-16"))
     (add-to-list 'default-frame-alist '(font . "Menlo-16"))))
 
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
 (setq scroll-conservatively 5)
 (setq scroll-margin 5)
 (setq blink-matching-paren nil)

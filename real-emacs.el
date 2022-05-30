@@ -2,8 +2,14 @@
 ;;; Commentary:
 ;; I don't have a good understanding of Lisp or Emacs
 ;;; Code:
-(setq-default max-lisp-eval-depth 10000)
-(setq-default max-specpdl-size 10000)
+(if (memq window-system '(mac ns))
+  (progn
+    (setq-default max-lisp-eval-depth 10000)
+    (setq-default max-specpdl-size 10000)
+  )
+  (setq-default max-lisp-eval-depth 100000)
+  (setq-default max-specpdl-size 100000)
+)
 
 (defun configure ()
   (configure-package-manager)

@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "powerline" "powerline.el" (0 0 0 0))
-;;; Generated autoloads from powerline.el
+;;;### (autoloads nil "powerline" "../../../../../.emacs.d/elpa/powerline-20220122.1904/powerline.el"
+;;;;;;  "4e17b19febf196748a8b46df50922709")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/powerline-20220122.1904/powerline.el
 
 (autoload 'powerline-hud "powerline" "\
 Return XPM of relative buffer location using FACE1 and FACE2 of optional WIDTH.
@@ -48,22 +49,29 @@ Return empty space using FACE and leaving RESERVE space on the right.
  (autoload 'powerline-buffer-id "powerline")
  (autoload 'powerline-process "powerline")
  (autoload 'powerline-selected-window-active "powerline")
+
+;;;### (autoloads "actual autoloads are elsewhere" "powerline" "../../../../../.emacs.d/elpa/powerline-20220122.1904/powerline.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/powerline-20220122.1904/powerline.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "powerline" '("pl/" "powerline-")))
 
 ;;;***
+
+;;;***
 
-;;;### (autoloads nil "powerline-separators" "powerline-separators.el"
+;;;### (autoloads "actual autoloads are elsewhere" "powerline-separators"
+;;;;;;  "../../../../../.emacs.d/elpa/powerline-20220122.1904/powerline-separators.el"
 ;;;;;;  (0 0 0 0))
-;;; Generated autoloads from powerline-separators.el
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/powerline-20220122.1904/powerline-separators.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "powerline-separators" '("pl/" "powerline-image-apple-rgb")))
 
 ;;;***
 
-;;;### (autoloads nil "powerline-themes" "powerline-themes.el" (0
-;;;;;;  0 0 0))
-;;; Generated autoloads from powerline-themes.el
+;;;### (autoloads nil "powerline-themes" "../../../../../.emacs.d/elpa/powerline-20220122.1904/powerline-themes.el"
+;;;;;;  "81fa94bb242707ccc900931ca36984d1")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/powerline-20220122.1904/powerline-themes.el
 
 (autoload 'powerline-default-theme "powerline-themes" "\
 Setup the default mode-line." t nil)
@@ -76,12 +84,24 @@ Setup a Vim-like mode-line." t nil)
 
 (autoload 'powerline-nano-theme "powerline-themes" "\
 Setup a nano-like mode-line." t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "powerline-themes"
+;;;;;;  "../../../../../.emacs.d/elpa/powerline-20220122.1904/powerline-themes.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/powerline-20220122.1904/powerline-themes.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "powerline-themes" '("powerline-")))
 
 ;;;***
+
+;;;***
 
-;;;### (autoloads nil nil ("powerline-pkg.el") (0 0 0 0))
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/powerline-20220122.1904/powerline-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/powerline-20220122.1904/powerline-pkg.el"
+;;;;;;  "../../../../../.emacs.d/elpa/powerline-20220122.1904/powerline-separators.el"
+;;;;;;  "../../../../../.emacs.d/elpa/powerline-20220122.1904/powerline-themes.el"
+;;;;;;  "../../../../../.emacs.d/elpa/powerline-20220122.1904/powerline.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

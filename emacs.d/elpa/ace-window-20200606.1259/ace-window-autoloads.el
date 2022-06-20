@@ -7,28 +7,20 @@
 
 
 ;;;### (autoloads nil "ace-window" "../../../../../.emacs.d/elpa/ace-window-20200606.1259/ace-window.el"
-;;;;;;  "457c95b73cfc0f7bc689e35880f322c0")
+;;;;;;  "61b63ce89b569294e59694d9a3f722e1")
 ;;; Generated autoloads from ../../../../../.emacs.d/elpa/ace-window-20200606.1259/ace-window.el
 
 (autoload 'ace-select-window "ace-window" "\
-Ace select window.
-
-\(fn)" t nil)
+Ace select window." t nil)
 
 (autoload 'ace-delete-window "ace-window" "\
-Ace delete window.
-
-\(fn)" t nil)
+Ace delete window." t nil)
 
 (autoload 'ace-swap-window "ace-window" "\
-Ace swap window.
-
-\(fn)" t nil)
+Ace swap window." t nil)
 
 (autoload 'ace-delete-other-windows "ace-window" "\
-Ace delete other windows.
-
-\(fn)" t nil)
+Ace delete other windows." t nil)
 
 (autoload 'ace-display-buffer "ace-window" "\
 Make `display-buffer' and `pop-to-buffer' select using `ace-window'.
@@ -66,6 +58,11 @@ or call the function `ace-window-display-mode'.")
 
 (autoload 'ace-window-display-mode "ace-window" "\
 Minor mode for showing the ace window key in the mode line.
+
+If called interactively, enable Ace-Window-Display mode if ARG is
+positive, and disable it if ARG is zero or negative.  If called
+from Lisp, also enable the mode if ARG is omitted or nil, and
+toggle it if ARG is `toggle'; disable the mode otherwise.
 
 \(fn &optional ARG)" t nil)
 

@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "pfuture" "pfuture.el" (0 0 0 0))
-;;; Generated autoloads from pfuture.el
+;;;### (autoloads nil "pfuture" "../../../../../.emacs.d/elpa/pfuture-20220425.1242/pfuture.el"
+;;;;;;  "5313e7fae54619d5ca598077d79028be")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/pfuture-20220425.1242/pfuture.el
 
 (autoload 'pfuture-new "pfuture" "\
 Create a new future process for command CMD.
@@ -22,8 +23,20 @@ this is wrong: (pfuture-new \"git status\")
 this is right: (pfuture-new \"git\" \"status\")
 
 \(fn &rest CMD)" nil nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "pfuture" "../../../../../.emacs.d/elpa/pfuture-20220425.1242/pfuture.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/pfuture-20220425.1242/pfuture.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "pfuture" '("pfuture-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/pfuture-20220425.1242/pfuture-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/pfuture-20220425.1242/pfuture.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

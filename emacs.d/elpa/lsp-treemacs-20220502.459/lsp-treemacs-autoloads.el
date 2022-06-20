@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "lsp-treemacs" "lsp-treemacs.el" (0 0 0 0))
-;;; Generated autoloads from lsp-treemacs.el
+;;;### (autoloads nil "lsp-treemacs" "../../../../../.emacs.d/elpa/lsp-treemacs-20220502.459/lsp-treemacs.el"
+;;;;;;  "bcc5bbab4699f1ed65fcfd4706f544cd")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/lsp-treemacs-20220502.459/lsp-treemacs.el
 
 (autoload 'lsp-treemacs-symbols "lsp-treemacs" "\
 Show symbols view." t nil)
@@ -64,20 +65,32 @@ With prefix 2 show both.
 \(fn DIRECTION)" t nil)
 
 (autoload 'lsp-treemacs-errors-list "lsp-treemacs" nil t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "lsp-treemacs"
+;;;;;;  "../../../../../.emacs.d/elpa/lsp-treemacs-20220502.459/lsp-treemacs.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/lsp-treemacs-20220502.459/lsp-treemacs.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "lsp-treemacs" '("lsp-treemacs-")))
 
 ;;;***
+
+;;;***
 
-;;;### (autoloads nil "lsp-treemacs-themes" "lsp-treemacs-themes.el"
+;;;### (autoloads "actual autoloads are elsewhere" "lsp-treemacs-themes"
+;;;;;;  "../../../../../.emacs.d/elpa/lsp-treemacs-20220502.459/lsp-treemacs-themes.el"
 ;;;;;;  (0 0 0 0))
-;;; Generated autoloads from lsp-treemacs-themes.el
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/lsp-treemacs-20220502.459/lsp-treemacs-themes.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "lsp-treemacs-themes" '("lsp-treemacs-theme")))
 
 ;;;***
 
-;;;### (autoloads nil nil ("lsp-treemacs-pkg.el") (0 0 0 0))
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/lsp-treemacs-20220502.459/lsp-treemacs-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/lsp-treemacs-20220502.459/lsp-treemacs-pkg.el"
+;;;;;;  "../../../../../.emacs.d/elpa/lsp-treemacs-20220502.459/lsp-treemacs-themes.el"
+;;;;;;  "../../../../../.emacs.d/elpa/lsp-treemacs-20220502.459/lsp-treemacs.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

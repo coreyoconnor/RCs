@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "centaur-tabs" "centaur-tabs.el" (0 0 0 0))
-;;; Generated autoloads from centaur-tabs.el
+;;;### (autoloads nil "centaur-tabs" "../../../../../.emacs.d/elpa/centaur-tabs-20220224.808/centaur-tabs.el"
+;;;;;;  "c89a7ecb067952ad7657d615b5ce30c0")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/centaur-tabs-20220224.808/centaur-tabs.el
 
 (autoload 'centaur-tabs-local-mode "centaur-tabs" "\
 Toggle local display of the tab bar.
@@ -38,22 +39,30 @@ Returns non-nil if the new state is enabled.
 \\{centaur-tabs-mode-map}
 
 \(fn &optional ARG)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "centaur-tabs"
+;;;;;;  "../../../../../.emacs.d/elpa/centaur-tabs-20220224.808/centaur-tabs.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/centaur-tabs-20220224.808/centaur-tabs.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "centaur-tabs" '("centaur-tabs-")))
 
 ;;;***
+
+;;;***
 
-;;;### (autoloads nil "centaur-tabs-elements" "centaur-tabs-elements.el"
+;;;### (autoloads "actual autoloads are elsewhere" "centaur-tabs-elements"
+;;;;;;  "../../../../../.emacs.d/elpa/centaur-tabs-20220224.808/centaur-tabs-elements.el"
 ;;;;;;  (0 0 0 0))
-;;; Generated autoloads from centaur-tabs-elements.el
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/centaur-tabs-20220224.808/centaur-tabs-elements.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "centaur-tabs-elements" '("centaur-tabs-")))
 
 ;;;***
 
-;;;### (autoloads nil "centaur-tabs-functions" "centaur-tabs-functions.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from centaur-tabs-functions.el
+;;;### (autoloads nil "centaur-tabs-functions" "../../../../../.emacs.d/elpa/centaur-tabs-20220224.808/centaur-tabs-functions.el"
+;;;;;;  "de1d1342dfb40671f1dfc525a6d6e8fd")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/centaur-tabs-20220224.808/centaur-tabs-functions.el
 
 (autoload 'centaur-tabs-backward "centaur-tabs-functions" "\
 Select the previous available tab.
@@ -74,23 +83,43 @@ Select the previous visible tab." t nil)
 
 (autoload 'centaur-tabs-forward-tab "centaur-tabs-functions" "\
 Select the next visible tab." t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "centaur-tabs-functions"
+;;;;;;  "../../../../../.emacs.d/elpa/centaur-tabs-20220224.808/centaur-tabs-functions.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/centaur-tabs-20220224.808/centaur-tabs-functions.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "centaur-tabs-functions" '("centaur-tabs-")))
 
 ;;;***
+
+;;;***
 
-;;;### (autoloads nil "centaur-tabs-interactive" "centaur-tabs-interactive.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from centaur-tabs-interactive.el
+;;;### (autoloads nil "centaur-tabs-interactive" "../../../../../.emacs.d/elpa/centaur-tabs-20220224.808/centaur-tabs-interactive.el"
+;;;;;;  "6c045f0c5a936680cfeb9fb1ddf29d31")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/centaur-tabs-20220224.808/centaur-tabs-interactive.el
 
 (autoload 'centaur-tabs-counsel-switch-group "centaur-tabs-interactive" "\
 Display a list of current buffer groups using Counsel." t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "centaur-tabs-interactive"
+;;;;;;  "../../../../../.emacs.d/elpa/centaur-tabs-20220224.808/centaur-tabs-interactive.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/centaur-tabs-20220224.808/centaur-tabs-interactive.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "centaur-tabs-interactive" '("centaur-tabs-")))
 
 ;;;***
+
+;;;***
 
-;;;### (autoloads nil nil ("centaur-tabs-pkg.el") (0 0 0 0))
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/centaur-tabs-20220224.808/centaur-tabs-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/centaur-tabs-20220224.808/centaur-tabs-elements.el"
+;;;;;;  "../../../../../.emacs.d/elpa/centaur-tabs-20220224.808/centaur-tabs-functions.el"
+;;;;;;  "../../../../../.emacs.d/elpa/centaur-tabs-20220224.808/centaur-tabs-interactive.el"
+;;;;;;  "../../../../../.emacs.d/elpa/centaur-tabs-20220224.808/centaur-tabs-pkg.el"
+;;;;;;  "../../../../../.emacs.d/elpa/centaur-tabs-20220224.808/centaur-tabs.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

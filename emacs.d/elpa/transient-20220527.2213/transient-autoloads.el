@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "transient" "transient.el" (0 0 0 0))
-;;; Generated autoloads from transient.el
+;;;### (autoloads nil "transient" "../../../../../.emacs.d/elpa/transient-20220527.2213/transient.el"
+;;;;;;  "fd71805dedc7d4f95c4d377cb96827b0")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/transient-20220527.2213/transient.el
 
 (autoload 'transient-insert-suffix "transient" "\
 Insert a SUFFIX into PREFIX before LOC.
@@ -66,12 +67,21 @@ See info node `(transient)Modifying Existing Transients'.
 \(fn PREFIX LOC)" nil nil)
 
 (function-put 'transient-remove-suffix 'lisp-indent-function 'defun)
+
+;;;### (autoloads "actual autoloads are elsewhere" "transient" "../../../../../.emacs.d/elpa/transient-20220527.2213/transient.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/transient-20220527.2213/transient.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "transient" '("magit--fit-window-to-buffer" "transient")))
 
 ;;;***
+
+;;;***
 
-;;;### (autoloads nil nil ("transient-pkg.el") (0 0 0 0))
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/transient-20220527.2213/transient-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/transient-20220527.2213/transient-pkg.el"
+;;;;;;  "../../../../../.emacs.d/elpa/transient-20220527.2213/transient.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

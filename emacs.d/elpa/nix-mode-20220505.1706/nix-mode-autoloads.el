@@ -6,18 +6,26 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "nix" "nix.el" (0 0 0 0))
-;;; Generated autoloads from nix.el
+;;;### (autoloads nil "nix" "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix.el"
+;;;;;;  "5ad852de6bca1bee7eac4ed12673f6bf")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix.el
 
 (autoload 'pcomplete/nix "nix" "\
 Completion for the nix command." nil nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "nix" "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "nix" '("nix-")))
 
 ;;;***
+
+;;;***
 
-;;;### (autoloads nil "nix-build" "nix-build.el" (0 0 0 0))
-;;; Generated autoloads from nix-build.el
+;;;### (autoloads nil "nix-build" "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-build.el"
+;;;;;;  "6e33896953370021b60aa52fc14ff85d")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-build.el
 
 (autoload 'nix-build "nix-build" "\
 Run nix-build in a compilation buffer.
@@ -28,8 +36,9 @@ ATTR the attribute to build.
 
 ;;;***
 
-;;;### (autoloads nil "nix-drv-mode" "nix-drv-mode.el" (0 0 0 0))
-;;; Generated autoloads from nix-drv-mode.el
+;;;### (autoloads nil "nix-drv-mode" "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-drv-mode.el"
+;;;;;;  "e03c4cf4082526b39f431aee3d3c46db")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-drv-mode.el
 
 (autoload 'nix-drv-mode "nix-drv-mode" "\
 Pretty print Nix’s .drv files.
@@ -37,13 +46,21 @@ Pretty print Nix’s .drv files.
 \(fn)" t nil)
 
 (add-to-list 'auto-mode-alist '("\\`/nix/store/.+\\.drv\\'" . nix-drv-mode))
+
+;;;### (autoloads "actual autoloads are elsewhere" "nix-drv-mode"
+;;;;;;  "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-drv-mode.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-drv-mode.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "nix-drv-mode" '("nix-drv-mode-dejsonify-buffer")))
 
 ;;;***
+
+;;;***
 
-;;;### (autoloads nil "nix-edit" "nix-edit.el" (0 0 0 0))
-;;; Generated autoloads from nix-edit.el
+;;;### (autoloads nil "nix-edit" "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-edit.el"
+;;;;;;  "c177da27c1a2c9b0e8854cac4881821b")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-edit.el
 
 (autoload 'nix-edit "nix-edit" "\
 Open the nix log.
@@ -54,8 +71,9 @@ ATTR the attribute to find in nix expressions.
 
 ;;;***
 
-;;;### (autoloads nil "nix-flake" "nix-flake.el" (0 0 0 0))
-;;; Generated autoloads from nix-flake.el
+;;;### (autoloads nil "nix-flake" "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-flake.el"
+;;;;;;  "2bcdb1e5d1fba0fe9b80111f3124389c")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-flake.el
  (autoload 'nix-flake-dispatch "nix-flake" nil t)
 
 (autoload 'nix-flake "nix-flake" "\
@@ -72,31 +90,46 @@ whatever supported by Nix.
 
 (autoload 'nix-flake-init "nix-flake" "\
 Run \"nix flake init\" command via a transient interface." t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "nix-flake" "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-flake.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-flake.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "nix-flake" '("nix-flake-")))
 
 ;;;***
+
+;;;***
 
-;;;### (autoloads nil "nix-format" "nix-format.el" (0 0 0 0))
-;;; Generated autoloads from nix-format.el
+;;;### (autoloads nil "nix-format" "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-format.el"
+;;;;;;  "ff3aaf1c69f430237c79bad07479dbf8")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-format.el
 
 (autoload 'nix-format-before-save "nix-format" "\
 Add this to `before-save-hook' to run nixfmt when saving." nil nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "nix-format" "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-format.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-format.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "nix-format" '("nix-")))
 
 ;;;***
+
+;;;***
 
-;;;### (autoloads nil "nix-instantiate" "nix-instantiate.el" (0 0
-;;;;;;  0 0))
-;;; Generated autoloads from nix-instantiate.el
+;;;### (autoloads "actual autoloads are elsewhere" "nix-instantiate"
+;;;;;;  "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-instantiate.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-instantiate.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "nix-instantiate" '("nix-instantiate")))
 
 ;;;***
 
-;;;### (autoloads nil "nix-log" "nix-log.el" (0 0 0 0))
-;;; Generated autoloads from nix-log.el
+;;;### (autoloads nil "nix-log" "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-log.el"
+;;;;;;  "962b17f1b890c116d9587244c2bbc2a6")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-log.el
 
 (autoload 'nix-log "nix-log" "\
 Open the nix log.
@@ -107,8 +140,9 @@ ATTR attribute to load the log of.
 
 ;;;***
 
-;;;### (autoloads nil "nix-mode" "nix-mode.el" (0 0 0 0))
-;;; Generated autoloads from nix-mode.el
+;;;### (autoloads nil "nix-mode" "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-mode.el"
+;;;;;;  "80c86e5b9e47096ecc24e1665f7897e5")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-mode.el
 
 (autoload 'nix-mode-format "nix-mode" "\
 Format the entire `nix-mode' buffer." t nil)
@@ -155,14 +189,20 @@ The hook `nix-mode-hook' is run when Nix mode is started.
 \(fn)" t nil)
 
 (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
+
+;;;### (autoloads "actual autoloads are elsewhere" "nix-mode" "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-mode.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-mode.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "nix-mode" '("nix-")))
 
 ;;;***
+
+;;;***
 
-;;;### (autoloads nil "nix-prettify-mode" "nix-prettify-mode.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from nix-prettify-mode.el
+;;;### (autoloads nil "nix-prettify-mode" "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-prettify-mode.el"
+;;;;;;  "10540471245448c91e24a3e85c3404ed")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-prettify-mode.el
 
 (autoload 'nix-prettify-mode "nix-prettify-mode" "\
 Toggle Nix Prettify mode.
@@ -213,13 +253,21 @@ See `nix-prettify-mode' for more information on Nix-Prettify mode.
 \(fn &optional ARG)" t nil)
 
 (define-obsolete-function-alias 'global-nix-prettify-mode 'nix-prettify-global-mode "v1.2.2")
+
+;;;### (autoloads "actual autoloads are elsewhere" "nix-prettify-mode"
+;;;;;;  "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-prettify-mode.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-prettify-mode.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "nix-prettify-mode" '("nix-prettify-")))
 
 ;;;***
+
+;;;***
 
-;;;### (autoloads nil "nix-repl" "nix-repl.el" (0 0 0 0))
-;;; Generated autoloads from nix-repl.el
+;;;### (autoloads nil "nix-repl" "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-repl.el"
+;;;;;;  "590bc3730f65b7e161a33878e5b2bf36")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-repl.el
 
 (autoload 'nix-repl "nix-repl" "\
 Load the Nix-REPL." t nil)
@@ -227,13 +275,20 @@ Load the Nix-REPL." t nil)
 (autoload 'nix-repl-completion-at-point "nix-repl" "\
 Completion at point function for Nix using \"nix-repl\".
 See `completion-at-point-functions'." nil nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "nix-repl" "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-repl.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-repl.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "nix-repl" '("nix-")))
 
 ;;;***
+
+;;;***
 
-;;;### (autoloads nil "nix-search" "nix-search.el" (0 0 0 0))
-;;; Generated autoloads from nix-search.el
+;;;### (autoloads nil "nix-search" "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-search.el"
+;;;;;;  "c317c59366135528057f929d3da23051")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-search.el
 
 (autoload 'nix-search--search "nix-search" "\
 
@@ -251,20 +306,29 @@ SEARCH a search term to use.
 FILE a Nix expression to search in.
 
 \(fn SEARCH &optional FILE DISPLAY-BUFFER)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "nix-search" "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-search.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-search.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "nix-search" '("nix-search-")))
 
 ;;;***
+
+;;;***
 
-;;;### (autoloads nil "nix-shebang" "nix-shebang.el" (0 0 0 0))
-;;; Generated autoloads from nix-shebang.el
+;;;### (autoloads "actual autoloads are elsewhere" "nix-shebang"
+;;;;;;  "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-shebang.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-shebang.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "nix-shebang" '("nix-shebang-")))
 
 ;;;***
 
-;;;### (autoloads nil "nix-shell" "nix-shell.el" (0 0 0 0))
-;;; Generated autoloads from nix-shell.el
+;;;### (autoloads nil "nix-shell" "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-shell.el"
+;;;;;;  "dd65aee76ab7d2f86263a310a0cd8104")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-shell.el
 
 (autoload 'nix-shell-unpack "nix-shell" "\
 Run Nix’s unpackPhase.
@@ -313,19 +377,43 @@ FILE the file to instantiate.
 ATTR an attribute of the Nix file to use.
 
 \(fn FILE &optional ATTR)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "nix-shell" "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-shell.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-shell.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "nix-shell" '("nix-")))
 
 ;;;***
+
+;;;***
 
-;;;### (autoloads nil "nix-store" "nix-store.el" (0 0 0 0))
-;;; Generated autoloads from nix-store.el
+;;;### (autoloads "actual autoloads are elsewhere" "nix-store" "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-store.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-store.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "nix-store" '("nix-")))
 
 ;;;***
 
-;;;### (autoloads nil nil ("nix-mode-pkg.el") (0 0 0 0))
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-build.el"
+;;;;;;  "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-drv-mode.el"
+;;;;;;  "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-edit.el"
+;;;;;;  "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-flake.el"
+;;;;;;  "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-format.el"
+;;;;;;  "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-instantiate.el"
+;;;;;;  "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-log.el"
+;;;;;;  "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-mode-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-mode-pkg.el"
+;;;;;;  "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-mode.el"
+;;;;;;  "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-prettify-mode.el"
+;;;;;;  "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-repl.el"
+;;;;;;  "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-search.el"
+;;;;;;  "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-shebang.el"
+;;;;;;  "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-shell.el"
+;;;;;;  "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix-store.el"
+;;;;;;  "../../../../../.emacs.d/elpa/nix-mode-20220505.1706/nix.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

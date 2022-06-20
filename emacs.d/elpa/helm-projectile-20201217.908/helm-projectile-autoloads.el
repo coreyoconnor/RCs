@@ -6,9 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "helm-projectile" "helm-projectile.el" (0 0
-;;;;;;  0 0))
-;;; Generated autoloads from helm-projectile.el
+;;;### (autoloads nil "helm-projectile" "../../../../../.emacs.d/elpa/helm-projectile-20201217.908/helm-projectile.el"
+;;;;;;  "4f1841ae1b4026ac86ed5cd392197862")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/helm-projectile-20201217.908/helm-projectile.el
 
 (defvar helm-projectile-fuzzy-match t "\
 Enable fuzzy matching for Helm Projectile commands.
@@ -17,9 +17,7 @@ This needs to be set before loading helm-projectile.el.")
 (custom-autoload 'helm-projectile-fuzzy-match "helm-projectile" t)
 
 (autoload 'helm-projectile-find-file-dwim "helm-projectile" "\
-Find file at point based on context.
-
-\(fn)" t nil)
+Find file at point based on context." t nil)
 
 (autoload 'helm-projectile-find-other-file "helm-projectile" "\
 Switch between files with the same name but different extensions using Helm.
@@ -29,14 +27,10 @@ Other file extensions can be customized with the variable `projectile-other-file
 \(fn &optional FLEX-MATCHING)" t nil)
 
 (autoload 'helm-projectile-on "helm-projectile" "\
-Turn on `helm-projectile' key bindings.
-
-\(fn)" t nil)
+Turn on `helm-projectile' key bindings." t nil)
 
 (autoload 'helm-projectile-off "helm-projectile" "\
-Turn off `helm-projectile' key bindings.
-
-\(fn)" t nil)
+Turn off `helm-projectile' key bindings." t nil)
 
 (autoload 'helm-projectile-grep "helm-projectile" "\
 Helm version of `projectile-grep'.
@@ -55,9 +49,7 @@ Helm version of `projectile-ag'.
 \(fn &optional OPTIONS)" t nil)
 
 (autoload 'helm-projectile-rg "helm-projectile" "\
-Projectile version of `helm-rg'.
-
-\(fn)" t nil)
+Projectile version of `helm-rg'." t nil)
 
 (autoload 'helm-projectile-toggle "helm-projectile" "\
 Toggle Helm version of Projectile commands.
@@ -73,8 +65,21 @@ If invoked outside of a project, displays a list of known projects to jump.
 \(fn &optional ARG)" t nil)
 
 (eval-after-load 'projectile '(progn (define-key projectile-command-map (kbd "h") #'helm-projectile)))
+
+;;;### (autoloads "actual autoloads are elsewhere" "helm-projectile"
+;;;;;;  "../../../../../.emacs.d/elpa/helm-projectile-20201217.908/helm-projectile.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/helm-projectile-20201217.908/helm-projectile.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "helm-projectile" '("helm-")))
+
+;;;***
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/helm-projectile-20201217.908/helm-projectile-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/helm-projectile-20201217.908/helm-projectile.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

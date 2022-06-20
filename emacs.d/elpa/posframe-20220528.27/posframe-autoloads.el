@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "posframe" "posframe.el" (0 0 0 0))
-;;; Generated autoloads from posframe.el
+;;;### (autoloads nil "posframe" "../../../../../.emacs.d/elpa/posframe-20220528.27/posframe.el"
+;;;;;;  "a7db474654bb97d2d99d99265fef815a")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/posframe-20220528.27/posframe.el
 
 (autoload 'posframe-workable-p "posframe" "\
 Test posframe workable status." nil nil)
@@ -242,23 +243,40 @@ Hide all posframe frames." t nil)
 
 (autoload 'posframe-delete-all "posframe" "\
 Delete all posframe frames and buffers." t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "posframe" "../../../../../.emacs.d/elpa/posframe-20220528.27/posframe.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/posframe-20220528.27/posframe.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "posframe" '("posframe-")))
 
 ;;;***
+
+;;;***
 
-;;;### (autoloads nil "posframe-benchmark" "posframe-benchmark.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from posframe-benchmark.el
+;;;### (autoloads nil "posframe-benchmark" "../../../../../.emacs.d/elpa/posframe-20220528.27/posframe-benchmark.el"
+;;;;;;  "490cbb1097026e0ab41813b11e74ddbb")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/posframe-20220528.27/posframe-benchmark.el
 
 (autoload 'posframe-benchmark "posframe-benchmark" "\
 Benchmark tool for posframe." t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "posframe-benchmark"
+;;;;;;  "../../../../../.emacs.d/elpa/posframe-20220528.27/posframe-benchmark.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/posframe-20220528.27/posframe-benchmark.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "posframe-benchmark" '("posframe-benchmark-alist")))
 
 ;;;***
+
+;;;***
 
-;;;### (autoloads nil nil ("posframe-pkg.el") (0 0 0 0))
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/posframe-20220528.27/posframe-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/posframe-20220528.27/posframe-benchmark.el"
+;;;;;;  "../../../../../.emacs.d/elpa/posframe-20220528.27/posframe-pkg.el"
+;;;;;;  "../../../../../.emacs.d/elpa/posframe-20220528.27/posframe.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

@@ -24,6 +24,11 @@ positive prefix argument enables the mode, any other prefix
 argument disables it.  From Lisp, argument omitted or nil enables
 the mode,`toggle' toggles the state.
 
+If called interactively, enable Evil-Avy mode if ARG is positive,
+and disable it if ARG is zero or negative.  If called from Lisp,
+also enable the mode if ARG is omitted or nil, and toggle it if
+ARG is `toggle'; disable the mode otherwise.
+
 When evil-avy-mode is active, it replaces some the normal, visual, operator
 and motion state keybindings to invoke avy commands.
 

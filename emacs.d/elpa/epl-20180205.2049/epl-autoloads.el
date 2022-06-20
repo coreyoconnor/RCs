@@ -6,10 +6,17 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "epl" "epl.el" (0 0 0 0))
-;;; Generated autoloads from epl.el
+;;;### (autoloads "actual autoloads are elsewhere" "epl" "../../../../../.emacs.d/elpa/epl-20180205.2049/epl.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/epl-20180205.2049/epl.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "epl" '("epl-")))
+
+;;;***
+
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/epl-20180205.2049/epl-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/epl-20180205.2049/epl.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

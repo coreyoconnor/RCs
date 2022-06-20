@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "scala-compile" "scala-compile.el" (0 0 0 0))
-;;; Generated autoloads from scala-compile.el
+;;;### (autoloads nil "scala-compile" "../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-compile.el"
+;;;;;;  "95006397d223094139297d7cdaeedf12")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-compile.el
 
 (autoload 'scala-compile "scala-compile" "\
 `compile' specialised to Scala.
@@ -26,13 +27,21 @@ confirm the selection.
 A string argument will run the command (for scripting).
 
 \(fn &optional EDIT-COMMAND)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "scala-compile"
+;;;;;;  "../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-compile.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-compile.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "scala-compile" '("scala-")))
 
 ;;;***
+
+;;;***
 
-;;;### (autoloads nil "scala-mode" "scala-mode.el" (0 0 0 0))
-;;; Generated autoloads from scala-mode.el
+;;;### (autoloads nil "scala-mode" "../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode.el"
+;;;;;;  "32031f3bf456783cf72535961e57468b")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode.el
 
 (autoload 'scala-mode:set-scala-syntax-mode "scala-mode" "\
 Sets the syntax-table and other related variables for the current buffer to those of scala-mode. Can be used to make some other major mode (such as sbt-mode) use scala syntax-table." nil nil)
@@ -52,68 +61,92 @@ When started, runs `scala-mode-hook'.
 (add-to-list 'auto-mode-alist '("\\.\\(scala\\|sbt\\|worksheet\\.sc\\)\\'" . scala-mode))
 
 (modify-coding-system-alist 'file "\\.\\(scala\\|sbt\\|worksheet\\.sc\\)\\'" 'utf-8)
+
+;;;### (autoloads "actual autoloads are elsewhere" "scala-mode" "../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "scala-mode" '("scala-mode:")))
 
 ;;;***
+
+;;;***
 
-;;;### (autoloads nil "scala-mode-fontlock" "scala-mode-fontlock.el"
+;;;### (autoloads "actual autoloads are elsewhere" "scala-mode-fontlock"
+;;;;;;  "../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode-fontlock.el"
 ;;;;;;  (0 0 0 0))
-;;; Generated autoloads from scala-mode-fontlock.el
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode-fontlock.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "scala-mode-fontlock" '("scala-font-lock:")))
 
 ;;;***
 
-;;;### (autoloads nil "scala-mode-imenu" "scala-mode-imenu.el" (0
-;;;;;;  0 0 0))
-;;; Generated autoloads from scala-mode-imenu.el
+;;;### (autoloads "actual autoloads are elsewhere" "scala-mode-imenu"
+;;;;;;  "../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode-imenu.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode-imenu.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "scala-mode-imenu" '("scala-imenu:")))
 
 ;;;***
 
-;;;### (autoloads nil "scala-mode-indent" "scala-mode-indent.el"
+;;;### (autoloads "actual autoloads are elsewhere" "scala-mode-indent"
+;;;;;;  "../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode-indent.el"
 ;;;;;;  (0 0 0 0))
-;;; Generated autoloads from scala-mode-indent.el
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode-indent.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "scala-mode-indent" '("scala-")))
 
 ;;;***
 
-;;;### (autoloads nil "scala-mode-lib" "scala-mode-lib.el" (0 0 0
-;;;;;;  0))
-;;; Generated autoloads from scala-mode-lib.el
+;;;### (autoloads "actual autoloads are elsewhere" "scala-mode-lib"
+;;;;;;  "../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode-lib.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode-lib.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "scala-mode-lib" '("scala-")))
 
 ;;;***
 
-;;;### (autoloads nil "scala-mode-map" "scala-mode-map.el" (0 0 0
-;;;;;;  0))
-;;; Generated autoloads from scala-mode-map.el
+;;;### (autoloads "actual autoloads are elsewhere" "scala-mode-map"
+;;;;;;  "../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode-map.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode-map.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "scala-mode-map" '("scala-mode-map")))
 
 ;;;***
 
-;;;### (autoloads nil "scala-mode-paragraph" "scala-mode-paragraph.el"
+;;;### (autoloads "actual autoloads are elsewhere" "scala-mode-paragraph"
+;;;;;;  "../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode-paragraph.el"
 ;;;;;;  (0 0 0 0))
-;;; Generated autoloads from scala-mode-paragraph.el
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode-paragraph.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "scala-mode-paragraph" '("scala-paragraph:")))
 
 ;;;***
 
-;;;### (autoloads nil "scala-mode-syntax" "scala-mode-syntax.el"
+;;;### (autoloads "actual autoloads are elsewhere" "scala-mode-syntax"
+;;;;;;  "../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode-syntax.el"
 ;;;;;;  (0 0 0 0))
-;;; Generated autoloads from scala-mode-syntax.el
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode-syntax.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "scala-mode-syntax" '("scala-syntax:")))
 
 ;;;***
 
-;;;### (autoloads nil nil ("scala-mode-pkg.el" "scala-mode-prettify-symbols.el")
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-compile.el"
+;;;;;;  "../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode-fontlock.el"
+;;;;;;  "../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode-imenu.el"
+;;;;;;  "../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode-indent.el"
+;;;;;;  "../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode-lib.el"
+;;;;;;  "../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode-map.el"
+;;;;;;  "../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode-paragraph.el"
+;;;;;;  "../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode-pkg.el"
+;;;;;;  "../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode-prettify-symbols.el"
+;;;;;;  "../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode-syntax.el"
+;;;;;;  "../../../../../.emacs.d/elpa/scala-mode-20210414.1126/scala-mode.el")
 ;;;;;;  (0 0 0 0))
 
 ;;;***

@@ -6,63 +6,82 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "bui" "bui.el" (0 0 0 0))
-;;; Generated autoloads from bui.el
+;;;### (autoloads "actual autoloads are elsewhere" "bui" "../../../../../.emacs.d/elpa/bui-20210108.1141/bui.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/bui-20210108.1141/bui.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "bui" '("bui-define-")))
 
 ;;;***
 
-;;;### (autoloads nil "bui-button" "bui-button.el" (0 0 0 0))
-;;; Generated autoloads from bui-button.el
+;;;### (autoloads "actual autoloads are elsewhere" "bui-button" "../../../../../.emacs.d/elpa/bui-20210108.1141/bui-button.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/bui-20210108.1141/bui-button.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "bui-button" '("bui")))
 
 ;;;***
 
-;;;### (autoloads nil "bui-core" "bui-core.el" (0 0 0 0))
-;;; Generated autoloads from bui-core.el
+;;;### (autoloads "actual autoloads are elsewhere" "bui-core" "../../../../../.emacs.d/elpa/bui-20210108.1141/bui-core.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/bui-20210108.1141/bui-core.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "bui-core" '("bui-")))
 
 ;;;***
 
-;;;### (autoloads nil "bui-entry" "bui-entry.el" (0 0 0 0))
-;;; Generated autoloads from bui-entry.el
+;;;### (autoloads "actual autoloads are elsewhere" "bui-entry" "../../../../../.emacs.d/elpa/bui-20210108.1141/bui-entry.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/bui-20210108.1141/bui-entry.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "bui-entry" '("bui-")))
 
 ;;;***
 
-;;;### (autoloads nil "bui-history" "bui-history.el" (0 0 0 0))
-;;; Generated autoloads from bui-history.el
+;;;### (autoloads "actual autoloads are elsewhere" "bui-history"
+;;;;;;  "../../../../../.emacs.d/elpa/bui-20210108.1141/bui-history.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/bui-20210108.1141/bui-history.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "bui-history" '("bui-history")))
 
 ;;;***
 
-;;;### (autoloads nil "bui-info" "bui-info.el" (0 0 0 0))
-;;; Generated autoloads from bui-info.el
+;;;### (autoloads "actual autoloads are elsewhere" "bui-info" "../../../../../.emacs.d/elpa/bui-20210108.1141/bui-info.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/bui-20210108.1141/bui-info.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "bui-info" '("bui-info-")))
 
 ;;;***
 
-;;;### (autoloads nil "bui-list" "bui-list.el" (0 0 0 0))
-;;; Generated autoloads from bui-list.el
+;;;### (autoloads "actual autoloads are elsewhere" "bui-list" "../../../../../.emacs.d/elpa/bui-20210108.1141/bui-list.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/bui-20210108.1141/bui-list.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "bui-list" '("bui-list-")))
 
 ;;;***
 
-;;;### (autoloads nil "bui-utils" "bui-utils.el" (0 0 0 0))
-;;; Generated autoloads from bui-utils.el
+;;;### (autoloads "actual autoloads are elsewhere" "bui-utils" "../../../../../.emacs.d/elpa/bui-20210108.1141/bui-utils.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/bui-20210108.1141/bui-utils.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "bui-utils" '("bui-")))
 
 ;;;***
 
-;;;### (autoloads nil nil ("bui-pkg.el") (0 0 0 0))
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/bui-20210108.1141/bui-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/bui-20210108.1141/bui-button.el"
+;;;;;;  "../../../../../.emacs.d/elpa/bui-20210108.1141/bui-core.el"
+;;;;;;  "../../../../../.emacs.d/elpa/bui-20210108.1141/bui-entry.el"
+;;;;;;  "../../../../../.emacs.d/elpa/bui-20210108.1141/bui-history.el"
+;;;;;;  "../../../../../.emacs.d/elpa/bui-20210108.1141/bui-info.el"
+;;;;;;  "../../../../../.emacs.d/elpa/bui-20210108.1141/bui-list.el"
+;;;;;;  "../../../../../.emacs.d/elpa/bui-20210108.1141/bui-pkg.el"
+;;;;;;  "../../../../../.emacs.d/elpa/bui-20210108.1141/bui-utils.el"
+;;;;;;  "../../../../../.emacs.d/elpa/bui-20210108.1141/bui.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

@@ -6,8 +6,9 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "with-editor" "with-editor.el" (0 0 0 0))
-;;; Generated autoloads from with-editor.el
+;;;### (autoloads nil "with-editor" "../../../../../.emacs.d/elpa/with-editor-20220608.1017/with-editor.el"
+;;;;;;  "a9a0bfff3563a14c13e3c2a530f65ca6")
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/with-editor-20220608.1017/with-editor.el
 
 (autoload 'with-editor-export-editor "with-editor" "\
 Teach subsequent commands to use current Emacs instance as editor.
@@ -83,12 +84,22 @@ If COMMAND ends with \"&\" behave like the latter,
 else like the former.
 
 \(fn COMMAND &optional OUTPUT-BUFFER ERROR-BUFFER ENVVAR)" t nil)
+
+;;;### (autoloads "actual autoloads are elsewhere" "with-editor"
+;;;;;;  "../../../../../.emacs.d/elpa/with-editor-20220608.1017/with-editor.el"
+;;;;;;  (0 0 0 0))
+;;; Generated autoloads from ../../../../../.emacs.d/elpa/with-editor-20220608.1017/with-editor.el
 
 (if (fboundp 'register-definition-prefixes) (register-definition-prefixes "with-editor" '("server-" "shell-command--shell-command-with-editor-mode" "start-file-process--with-editor-process-filter" "with-editor")))
 
 ;;;***
+
+;;;***
 
-;;;### (autoloads nil nil ("with-editor-pkg.el") (0 0 0 0))
+;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/with-editor-20220608.1017/with-editor-autoloads.el"
+;;;;;;  "../../../../../.emacs.d/elpa/with-editor-20220608.1017/with-editor-pkg.el"
+;;;;;;  "../../../../../.emacs.d/elpa/with-editor-20220608.1017/with-editor.el")
+;;;;;;  (0 0 0 0))
 
 ;;;***
 

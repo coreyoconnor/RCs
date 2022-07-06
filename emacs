@@ -40,7 +40,7 @@
  '(cursor-color nil)
  '(custom-enabled-themes '(sanityinc-tomorrow-night))
  '(custom-safe-themes
-   '("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default))
+   '("ec815e06ead0ec81514ec142bc3dbf89f822d7389bfe0ddc3b474c78b5eb0426" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default))
  '(ecb-auto-activate t)
  '(ecb-display-default-dir-after-start t)
  '(ecb-fix-window-size 'width)
@@ -69,7 +69,7 @@
  '(nav-width 40)
  '(nxml-slash-auto-complete-flag t)
  '(package-selected-packages
-   '(javap-mode elscreen elscreen-buffer-group elscreen-fr mmm-jinja2 poly-ansible ac-php composer php-scratch ada-mode rjsx-mode js-format js-import js-react-redux-yasnippets exec-path-from-shell jinja2-mode php-mode scad-mode yatemplate yasnippet-snippets fold-this seq glsl-mode moody nerdtab go-mode evil-collection gdscript-mode js2-highlight-vars string-inflection yasnippet yard-mode yaml-mode window-numbering web-mode swiper smex rubocop robe projectile-rails paredit omniref nav mediawiki markdown-mode ido-ubiquitous idle-highlight-mode hydra hindent haml-mode groovy-mode gradle-mode fringe-helper flymake-ruby evil enh-ruby-mode ecb dirtree company color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized auto-complete))
+   '(jetbrains-darcula-theme javap-mode elscreen elscreen-buffer-group elscreen-fr mmm-jinja2 poly-ansible ac-php composer php-scratch ada-mode rjsx-mode js-format js-import js-react-redux-yasnippets exec-path-from-shell jinja2-mode php-mode scad-mode yatemplate yasnippet-snippets fold-this seq glsl-mode moody nerdtab go-mode evil-collection gdscript-mode js2-highlight-vars string-inflection yasnippet yard-mode yaml-mode window-numbering web-mode swiper smex rubocop robe projectile-rails paredit omniref nav mediawiki markdown-mode ido-ubiquitous idle-highlight-mode hydra hindent haml-mode groovy-mode gradle-mode fringe-helper flymake-ruby evil enh-ruby-mode ecb dirtree company color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized auto-complete))
  '(safe-local-variable-values
    '((haskell-indentation-where-post-offset . 4)
      (haskell-indentation-where-pre-offset . 4)

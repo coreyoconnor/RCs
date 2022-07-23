@@ -11,6 +11,7 @@
 
 (use-package groovy-mode
   :ensure t
+  :mode (("\\.groovy\\'" . groovy-mode) ("Jenkinsfile" . groovy-mode))
   :config
   (setq evil-shift-width 2)
   (setq tab-width 2)
@@ -20,7 +21,9 @@
   )
 
 (use-package json-mode
-  :ensure t)
+  :ensure t
+  :mode "\\.json\\'"
+  )
 
 (use-package nix-mode
   :ensure t
@@ -51,7 +54,6 @@
               )
             )
   )
-
 
 (use-package ht
   :ensure t)
@@ -211,6 +213,7 @@
 
 (use-package sbt-mode
   :ensure t
+  :mode ("\\.sbt\\'" . sbt-mode)
   :after scala-mode
   :commands sbt-start sbt-command
   :diminish
@@ -247,14 +250,8 @@
   :config
   (setq treemacs-collapse-dirs 5)
   (setq treemacs-width 55)
-  (when (string-equal system-type "darwin")
-    (when (member "Menlo" (font-family-list))
-      (setq treemacs-directory-face "Menlo-16")
-      (setq treemacs-file-face "Menlo-16")
-      )
-    )
   (treemacs-follow-mode t)
-  (treemacs-filewatch-mode t)
+  (treemacs-filewatch-mode nil)
   (treemacs-fringe-indicator-mode 'always)
   (define-key evil-normal-state-map (kbd "TAB") 'treemacs-TAB-action)
   (define-key evil-normal-state-map (kbd "RET") 'treemacs-RET-action)

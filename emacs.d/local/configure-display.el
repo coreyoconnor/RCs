@@ -10,10 +10,10 @@
           )
       )
 
-(when (string-equal system-type "windows-nt")
-  (set-default-font "Consolas 14")
-  (scroll-bar-mode -1)
-  )
+(when (member "Source Code Pro" (font-family-list))
+  (add-to-list 'initial-frame-alist '(font . "Source Code Pro-18"))
+  (add-to-list 'default-frame-alist '(font . "Source Code Pro-18"))
+  (set-frame-font "Source Code Pro-18" nil t))
 
 (when (string-equal system-type "darwin")
   (when (member "Menlo" (font-family-list))

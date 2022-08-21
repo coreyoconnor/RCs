@@ -7,8 +7,8 @@
     (setq-default max-lisp-eval-depth 10000)
     (setq-default max-specpdl-size 10000)
   )
-  (setq-default max-lisp-eval-depth 100000)
-  (setq-default max-specpdl-size 100000)
+  (setq-default max-lisp-eval-depth 200000)
+  (setq-default max-specpdl-size 200000)
 )
 
 (defun configure ()

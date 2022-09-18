@@ -213,7 +213,6 @@
 
 (use-package sbt-mode
   :ensure t
-  :mode ("\\.sbt\\'" . sbt-mode)
   :after scala-mode
   :commands sbt-start sbt-command
   :diminish

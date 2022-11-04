@@ -35,8 +35,6 @@
  '(background-mode dark)
  '(column-number-mode t)
  '(company-idle-delay nil)
- '(compile-command "cd build && make -j10 -k ")
- '(coq-prog-args '("-I" "/home/corey/Development/cpdt_coconnor/cpdt/src"))
  '(cursor-color nil)
  '(custom-enabled-themes '(sanityinc-tomorrow-night))
  '(custom-safe-themes

@@ -1,0 +1,2 @@
+;;; Generated package description from php-runtime.el  -*- no-byte-compile: t -*-
+(define-package "php-runtime" "20221009.1955" "Language binding bridge to PHP" '((emacs "25.1") (s "1.7")) :commit "36e6ae862cb02104b5782a563f0a5846c00e0082" :authors '(("USAMI Kenta" . "tadsan@zonu.me")) :maintainer '("USAMI Kenta" . "tadsan@zonu.me") :keywords '("processes" "php") :url "https://github.com/emacs-php/php-runtime.el")

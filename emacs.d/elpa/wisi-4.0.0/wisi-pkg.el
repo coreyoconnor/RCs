@@ -1,0 +1,2 @@
+;; Generated package description from wisi.el  -*- no-byte-compile: t -*-
+(define-package "wisi" "4.0.0" "Utilities for implementing an indentation/navigation engine using a generalized LR parser" '((emacs "25.3") (seq "2.20")) :commit "dd717efa4b86c5c20d09a64f5a110f6f844b4c5e" :authors '(("Stephen Leake" . "stephen_leake@stephe-leake.org")) :maintainer '("Stephen Leake" . "stephen_leake@stephe-leake.org") :keywords '("parser" "indentation" "navigation") :url "http://stephe-leake.org/ada/wisitoken.html")

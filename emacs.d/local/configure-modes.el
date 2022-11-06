@@ -172,9 +172,10 @@
   )
 
 (use-package lsp-metals
-  :load-path "lsp-metals"
-  :demand t
-  :after (:all treemacs lsp-mode)
+  :ensure t
+  :after (:all treemacs lsp-mode scala-mode)
+  :custom
+  (lsp-metals-server-args '("-J-Dmetals.allow-multiline-string-formatting=off"))
   )
 
 (use-package origami

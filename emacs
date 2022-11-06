@@ -24,8 +24,8 @@
   (load compiled-dot-emacs))
 
 (add-hook 'kill-emacs-hook
-          '(lambda () (and (file-newer-than-file-p dot-emacs compiled-dot-emacs)
-                           (byte-compile-file dot-emacs))))
+          '(lambda () (byte-compile-file dot-emacs)))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

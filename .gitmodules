@@ -28,7 +28,3 @@
 [submodule "emacs.d/lsp-origami"]
 	path = emacs.d/lsp-origami
 	url = git@github.com:coreyoconnor/lsp-origami.git
-[submodule "emacs.d/lsp-metals"]
-	path = emacs.d/lsp-metals
-	url = https://github.com/coreyoconnor/lsp-metals.git
-	branch = master

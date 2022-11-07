@@ -311,15 +311,6 @@
     (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
  )
 
-;(use-package proof-general
-;  :ensure t
-;  )
-;
-;(use-package coq-mode
-;  :demand proof-general
-;  :mode "\\.v\\'"
-;  )
-
 (use-package pdf-tools
   :magic ("%PDF" . pdf-view-mode)
   :config

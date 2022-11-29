@@ -2,7 +2,7 @@
   '((emacs "25.1")
     (lsp-mode "6.3.1")
     (dash "2.14.1"))
-  :commit "ae74a39303457a5e6976dd1c6816cde97d357a0d" :authors
+  :commit "675a5704c14a27931e835a431beea3631d92e8e6" :authors
   '(("Tobias Pisani, Fangrui Song"))
   :maintainer
   '("Tobias Pisani, Fangrui Song")

@@ -78,7 +78,7 @@
     )
   )
 
-(use-package dash-functional
+(use-package dash
   :ensure t)
 
 (use-package helm

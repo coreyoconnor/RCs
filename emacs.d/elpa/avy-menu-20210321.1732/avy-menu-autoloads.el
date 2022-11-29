@@ -1,4 +1,4 @@
-;;; avy-menu-autoloads.el --- automatically extracted autoloads
+;;; avy-menu-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,9 +6,8 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "avy-menu" "../../../../../.emacs.d/elpa/avy-menu-20210321.1732/avy-menu.el"
-;;;;;;  "24937323b26b18aca3c497bdb60bbf27")
-;;; Generated autoloads from ../../../../../.emacs.d/elpa/avy-menu-20210321.1732/avy-menu.el
+;;;### (autoloads nil "avy-menu" "avy-menu.el" (0 0 0 0))
+;;; Generated autoloads from avy-menu.el
 
 (autoload 'avy-menu "avy-menu" "\
 Show a popup menu in a temporary window and return user's selection.
@@ -29,20 +28,8 @@ NIL if they have cancelled the menu or pressed a key that does
 not correspond to an option in the menu.
 
 \(fn BUFFER-OR-NAME MENU &optional SHOW-PANE-HEADER)" nil nil)
-
-;;;### (autoloads "actual autoloads are elsewhere" "avy-menu" "../../../../../.emacs.d/elpa/avy-menu-20210321.1732/avy-menu.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../../.emacs.d/elpa/avy-menu-20210321.1732/avy-menu.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "avy-menu" '("avy-menu--insert-strings")))
-
-;;;***
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/avy-menu-20210321.1732/avy-menu-autoloads.el"
-;;;;;;  "../../../../../.emacs.d/elpa/avy-menu-20210321.1732/avy-menu.el")
-;;;;;;  (0 0 0 0))
+(register-definition-prefixes "avy-menu" '("avy-menu--insert-strings"))
 
 ;;;***
 

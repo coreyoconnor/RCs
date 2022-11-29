@@ -1,4 +1,4 @@
-;;; undo-tree-autoloads.el --- automatically extracted autoloads
+;;; undo-tree-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,9 +6,8 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "undo-tree" "../../../../../.emacs.d/elpa/undo-tree-0.8.2/undo-tree.el"
-;;;;;;  "0261a5c838bb684b75449463883e9127")
-;;; Generated autoloads from ../../../../../.emacs.d/elpa/undo-tree-0.8.2/undo-tree.el
+;;;### (autoloads nil "undo-tree" "undo-tree.el" (0 0 0 0))
+;;; Generated autoloads from undo-tree.el
 
 (autoload 'undo-tree-mode "undo-tree" "\
 Toggle undo-tree mode.
@@ -16,10 +15,19 @@ With no argument, this command toggles the mode.
 A positive prefix argument turns the mode on.
 A negative prefix argument turns it off.
 
-If called interactively, enable Undo-Tree mode if ARG is
-positive, and disable it if ARG is zero or negative.  If called
-from Lisp, also enable the mode if ARG is omitted or nil, and
-toggle it if ARG is `toggle'; disable the mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Undo-Tree mode' mode.  If the prefix argument is positive,
+enable the mode, and if it is zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `undo-tree-mode'.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 Undo-tree-mode replaces Emacs' standard undo feature with a more
 powerful yet easier to use version, that treats the undo history
@@ -50,29 +58,24 @@ or call the function `global-undo-tree-mode'.")
 (autoload 'global-undo-tree-mode "undo-tree" "\
 Toggle Undo-Tree mode in all buffers.
 With prefix ARG, enable Global Undo-Tree mode if ARG is positive;
-otherwise, disable it.  If called from Lisp, enable the mode if
-ARG is omitted or nil.
+otherwise, disable it.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.
+Enable the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
 
 Undo-Tree mode is enabled in all buffers where
 `turn-on-undo-tree-mode' would do it.
+
 See `undo-tree-mode' for more information on Undo-Tree mode.
 
 \(fn &optional ARG)" t nil)
-
-;;;### (autoloads "actual autoloads are elsewhere" "undo-tree" "../../../../../.emacs.d/elpa/undo-tree-0.8.2/undo-tree.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../../.emacs.d/elpa/undo-tree-0.8.2/undo-tree.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "undo-tree" '("*undo-tree-id-counter*" "buffer-undo-tree" "turn-on-undo-tree-mode" "undo-")))
-
-;;;***
+(register-definition-prefixes "undo-tree" '("*undo-tree-id-counter*" "buffer-undo-tree" "turn-on-undo-tree-mode" "undo-"))
 
 ;;;***
 
-;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/undo-tree-0.8.2/undo-tree-autoloads.el"
-;;;;;;  "../../../../../.emacs.d/elpa/undo-tree-0.8.2/undo-tree-pkg.el"
-;;;;;;  "../../../../../.emacs.d/elpa/undo-tree-0.8.2/undo-tree.el")
-;;;;;;  (0 0 0 0))
+;;;### (autoloads nil nil ("undo-tree-pkg.el") (0 0 0 0))
 
 ;;;***
 

@@ -1,4 +1,4 @@
-;;; evil-avy-autoloads.el --- automatically extracted autoloads
+;;; evil-avy-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,9 +6,8 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "evil-avy" "../../../../../.emacs.d/elpa/evil-avy-20150908.748/evil-avy.el"
-;;;;;;  "15a24f034863b51140ffaea57eaa4f7d")
-;;; Generated autoloads from ../../../../../.emacs.d/elpa/evil-avy-20150908.748/evil-avy.el
+;;;### (autoloads nil "evil-avy" "evil-avy.el" (0 0 0 0))
+;;; Generated autoloads from evil-avy.el
 
 (defvar evil-avy-mode nil "\
 Non-nil if Evil-Avy mode is enabled.
@@ -24,29 +23,26 @@ positive prefix argument enables the mode, any other prefix
 argument disables it.  From Lisp, argument omitted or nil enables
 the mode,`toggle' toggles the state.
 
-If called interactively, enable Evil-Avy mode if ARG is positive,
-and disable it if ARG is zero or negative.  If called from Lisp,
-also enable the mode if ARG is omitted or nil, and toggle it if
-ARG is `toggle'; disable the mode otherwise.
+This is a minor mode.  If called interactively, toggle the
+`Evil-Avy mode' mode.  If the prefix argument is positive, enable
+the mode, and if it is zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `(default-value \\='evil-avy-mode)'.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
 
 When evil-avy-mode is active, it replaces some the normal, visual, operator
 and motion state keybindings to invoke avy commands.
 
 \(fn &optional ARG)" t nil)
-
-;;;### (autoloads "actual autoloads are elsewhere" "evil-avy" "../../../../../.emacs.d/elpa/evil-avy-20150908.748/evil-avy.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../../.emacs.d/elpa/evil-avy-20150908.748/evil-avy.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "evil-avy" '("avy-forward-char-in-line")))
-
-;;;***
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/evil-avy-20150908.748/evil-avy-autoloads.el"
-;;;;;;  "../../../../../.emacs.d/elpa/evil-avy-20150908.748/evil-avy.el")
-;;;;;;  (0 0 0 0))
+(register-definition-prefixes "evil-avy" '("avy-forward-char-in-line"))
 
 ;;;***
 

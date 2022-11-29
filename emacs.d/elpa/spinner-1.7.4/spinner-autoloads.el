@@ -1,4 +1,4 @@
-;;; spinner-autoloads.el --- automatically extracted autoloads
+;;; spinner-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,9 +6,8 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads nil "spinner" "../../../../../.emacs.d/elpa/spinner-1.7.4/spinner.el"
-;;;;;;  "3cef7b7841239962ba6fdcc7b7abed1d")
-;;; Generated autoloads from ../../../../../.emacs.d/elpa/spinner-1.7.4/spinner.el
+;;;### (autoloads nil "spinner" "spinner.el" (0 0 0 0))
+;;; Generated autoloads from spinner.el
 
 (autoload 'spinner-create "spinner" "\
 Create a spinner of the given TYPE.
@@ -60,21 +59,12 @@ displaying the spinner. It is safe to cancel the spinner before
 this time, in which case it won't display at all.
 
 \(fn &optional TYPE-OR-OBJECT FPS DELAY)" nil nil)
-
-;;;### (autoloads "actual autoloads are elsewhere" "spinner" "../../../../../.emacs.d/elpa/spinner-1.7.4/spinner.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../../.emacs.d/elpa/spinner-1.7.4/spinner.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "spinner" '("spinner-")))
-
-;;;***
+(register-definition-prefixes "spinner" '("spinner-"))
 
 ;;;***
 
-;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/spinner-1.7.4/spinner-autoloads.el"
-;;;;;;  "../../../../../.emacs.d/elpa/spinner-1.7.4/spinner-pkg.el"
-;;;;;;  "../../../../../.emacs.d/elpa/spinner-1.7.4/spinner.el")
-;;;;;;  (0 0 0 0))
+;;;### (autoloads nil nil ("spinner-pkg.el") (0 0 0 0))
 
 ;;;***
 

@@ -1,4 +1,4 @@
-;;; epl-autoloads.el --- automatically extracted autoloads
+;;; epl-autoloads.el --- automatically extracted autoloads  -*- lexical-binding: t -*-
 ;;
 ;;; Code:
 
@@ -6,17 +6,10 @@
                          (or (file-name-directory #$) (car load-path))))
 
 
-;;;### (autoloads "actual autoloads are elsewhere" "epl" "../../../../../.emacs.d/elpa/epl-20180205.2049/epl.el"
-;;;;;;  (0 0 0 0))
-;;; Generated autoloads from ../../../../../.emacs.d/elpa/epl-20180205.2049/epl.el
+;;;### (autoloads nil "epl" "epl.el" (0 0 0 0))
+;;; Generated autoloads from epl.el
 
-(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "epl" '("epl-")))
-
-;;;***
-
-;;;### (autoloads nil nil ("../../../../../.emacs.d/elpa/epl-20180205.2049/epl-autoloads.el"
-;;;;;;  "../../../../../.emacs.d/elpa/epl-20180205.2049/epl.el")
-;;;;;;  (0 0 0 0))
+(register-definition-prefixes "epl" '("epl-"))
 
 ;;;***
 

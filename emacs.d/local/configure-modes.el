@@ -129,6 +129,11 @@
   (push "[/\\\\]\\target$" lsp-file-watch-ignored)
   (push "[/\\\\]\\.bloop$" lsp-file-watch-ignored)
 
+  (setq gc-cons-threshold 100000000) ;; 100mb
+  (setq read-process-output-max (* 1024 1024)) ;; 1mb
+  ;; (setq lsp-log-io nil)
+  (setq lsp-completion-provider :capf)
+
   )
 
 (use-package lsp-ui

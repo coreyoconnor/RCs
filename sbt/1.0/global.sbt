@@ -1,4 +1,4 @@
-Global / semanticdbEnabled := true
+// Global / semanticdbEnabled := true
 
 //ThisBuild / semanticdbVersion := scalafixSemanticdb.revision
 //addCompilerPlugin("org.scalameta" % "semanticdb-scalac" % "4.4.31" cross CrossVersion.full)

@@ -83,10 +83,7 @@
 
 (use-package helm
   :ensure t
-  :diminish
-  :config
-  (progn
-    (require 'helm-config)))
+  :diminish)
 
 (use-package helm-projectile
   :after (:all projectile helm)

@@ -1,0 +1,1133 @@
+\input texinfo  @c -*-texinfo-*-
+@settitle Wisi
+
+@copying
+Copyright @copyright{} 1999 - 2023  Free Software Foundation, Inc.
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with the Front-Cover texts being ``A GNU Manual'',
+and with the Back-Cover Texts as in (a) below.  A copy of the license
+is included in the section entitled ``GNU Free Documentation License''.
+
+(a) The FSF's Back-Cover Text is: ``You have the freedom to copy and
+modify this GNU manual.  Buying copies from the FSF supports it in
+developing GNU and promoting software freedom.''
+@end quotation
+@end copying
+
+@dircategory Emacs
+@direntry
+* Wisi: (wisi).         Error-correcting LR parsers and project integration.
+@end direntry
+
+@titlepage
+@sp 10
+@title Wisi Version 4.2.0
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+@end titlepage
+
+@contents
+
+@ifnottex
+@node Top
+@top Top
+
+Wisi Version 4.2.0
+@end ifnottex
+
+@menu
+* Overview::
+* Grammar actions::
+* Project extension::
+* GNU Free Documentation License::
+* Index::
+@end menu
+
+@node Overview
+@chapter Overview
+``wisi'' used to be an acronym, but now it's just a name.
+
+The wisi package provides an elisp interface to an external parser. It
+assumes the parser generator package WisiToken
+(@url{https://stephe-leake.org/ada/wisitoken.html}, implemented in
+Ada), but can use any parser that meets the same API. wisi provides
+several grammar actions, to implement indentation, navigating, and
+syntax highlighting (fontification).
+
+wisi also provides an extension to Emacs @file{project.el}, providing
+operations useful for compilation and cross-reference.
+
+@node Grammar actions
+@chapter Grammar Actions
+
+Grammar actions are specified in the grammar file, in a nonterminal
+declaration. We assume the user is familiar with parser grammars and
+grammar actions. For example, an ``if'' statement can be
+declared as:
+
+@example
+if_statement
+  : 'if' expression 'then' statements elsif_list 'else' statements 'end' 'if' ';'
+    %((wisi-statement-action [1 statement-start 3 motion 6 motion 10 statement-end])
+      (wisi-motion-action [1 3 5 6 10])
+      (wisi-indent-action [nil
+                           ada-indent-broken
+                           nil
+                           [(wisi-block ada-indent) ada-indent] nil nil
+                           [(wisi-block ada-indent) ada-indent] nil nil nil]))%
+@end example
+
+The item before @code{:} is the ``left hand side'', or
+``nonterminal''. The list of tokens after @code{:} is the ``right hand
+side''; in general there can be more than one right hand side for each
+nonterminal (separated by @code{|}).
+
+The items enclosed in ``%()%'' are the grammar actions. They are
+specified as list of elisp forms; an earlier version of the wisi
+package generated a parser in elisp, now it only generates Ada. We
+keep the elisp form for grammar actions because it is compact, and
+easier to read and write than the equivalent Ada code. The WisiToken
+tool @code{wisi-bnf-generate} converts the elisp into the required Ada
+statements.
+
+There are two classes of actions; in-parse and post-parse. WisiToken
+calls these ``semantic checks'' and ``semantic actions''. The in-parse
+actions are done as parsing procedes; they provide extra checks that
+can cause the parse to fail. Currently the only one provided is
+@code{match-names}; it is used to check that the declaration and end
+names in named Ada blocks are the same (which can aid significantly in
+error correction). In the grammar file, in-parse actions are specified
+in a second @code{%()%} block, which can be omitted if empty. In this
+document, the term ``action'' generally means ``post-parse action'',
+we use ``in-parse action'' unless the meaning is clear from context.
+
+Executing the wisi grammar actions creates text properties in the
+source file; those text properties are then used by elisp code for
+various purposes. The text properties created are:
+
+@table @code
+@item wisi-cache
+This should be named @code{wisi-navigate}, but isn't for historical
+reasons (there used to be only one kind of text property).
+
+The property contains a @code{wisi-cache} object, containing:
+
+@table @code
+@item nonterm
+The nonterminal in the grammar production that specified the action
+that produced this text property.
+
+@item token
+A token identifier naming a token in the production right hand side
+containing the text this text property is applied to.
+
+@item last
+The position of the last character in the token, relative to the first
+character (0 indexed). The text property is only applied to the first
+character in the token (mostly for historical reasons).
+
+@item class
+A token class; see the list of possible values in
+@code{wisi-statement-action} below.
+
+@item containing
+A marker pointing to the start of the containing token for this token;
+only @code{nil} for the outermost containing token in a file.
+
+@item prev
+A marker pointing to the previous ``motion token'' in the statement or
+declaration. These are normally language keywords, but can be other
+things.
+
+@item next
+A marker pointing to the next ``motion token'' in the statement or
+declaration.
+
+@item end
+A marker pointing to the end of the statement or declaration.
+
+@end table
+
+wisi provides motion commands for going to the various markers.
+
+@item wisi-name
+Contains no data, applied to a ``name'' of some sort. wisi provides
+commands for finding the next/previous name, and returning the
+text. Useful for the names of subprograms, which can then be used to
+build a completion table; see @code{wisi-xref-identifier-completion-table}.
+
+@item font-lock-face
+The standard font-lock property, specifying the face for the
+text.
+
+Some major modes do not use this for simple keywords; they use
+font-lock regular expressions instead. One reason for this
+is so keywords are still highlighted when the parser fails, which
+can happen if there are severe syntax errors.
+
+Other items, like function, package, and type names, are typically
+marked with @code{font-lock-face} by the parser.
+
+@item fontified
+Another standard font-lock text property; applied whenever
+@code{font-lock-face} is.
+
+@item wisi-indent
+Contains the indent (in characters) for the next line; applied to the
+newline character at the end of the preceding line. The first line in
+a buffer is assumed to have indent 0.
+
+@end table
+
+Each action is classified as one of @code{navigate, face, indent,
+in-parse}; when actions are executed, only one of the first three classes
+is executed (in-parse is always executed). This reflects the reasons
+the parser is run; to figure out how to go somehere (end of current
+statement, start of current procedure, etc), to apply faces for syntax
+highlighting, or to indent the code.
+
+@menu
+* Navigate actions::
+* Face actions::
+* Indent actions::
+* In-parse actions::
+@end menu
+
+@node Navigate actions
+@section Navigate actions
+@table @code
+@item wisi-statement-action [TOKEN CLASS ...]
+The argument is a vector; alternating items are a token index (an
+integer or label indicating a token in the right hand side) and a
+``token class''; one of:
+
+@table @code
+@item motion
+Create a @code{wisi-cache} text property on the token, for use in a
+subsequent @code{wisi-motion-action}.
+
+@item statement-end
+Create a @code{wisi-cache} text property on the token, enter a pointer
+to it in the other @code{wisi-cache} objects in the statement or
+declaration.
+
+@item statement-start
+Create a @code{wisi-cache} text property on the token, enter a pointer
+to it in the other @code{wisi-cache} objects (in the @code{containing}
+slot) in the statement or declaration.
+
+@item statement-override
+Same as @code{statement-start}; marks the token to be used as the
+statement start if the first token is optional.
+
+@item misc
+Create a @code{wisi-cache} text property on the token, to be used for
+some other purpose. It is good style to indicate the purpose in a
+comment.
+
+For example, ada-mode uses a 'misc' property on left parentheses that
+start a subprogram parameter list; this distinquishes them from other
+left parentheses, and makes it possible to automatically call
+@code{ada-format-paramlist} to format the
+parameter list, instead of using the standard Emacs @code{align}.
+
+@end table
+
+@item wisi-motion-action [TOKEN ...]
+The argument is a vector, where each element is either a token index
+or a vector [INDEX ID].
+
+Each terminal token must already have a @code{wisi-cache} created by a
+@code{wisi-statement-action} (this is checked at action execution, not
+during grammar generation). This action sets the @code{prev, next}
+slots for the chain of tokens, creating a chain of motion tokens.
+
+If TOKEN is a nonterminal without an ID specified, the @code{wisi-cache}
+must be on the first token in the nonterminal, and it is assumed to
+have a valid pointer in the @code{next} slot, indicating a chain of
+motion tokens. That chain is linked into the chain for the current
+right hand side.
+
+If TOKEN is a nonterminal with an ID, the region contained by the
+nonterminal is searched for all @code{wisi-cache} with that token ID,
+and for each one where prev/next is not already set, it is linked into
+the motion chain.
+
+Note that the ``search'' described here is done in the parser process, on
+a tree data structure containing the data that will eventually be
+stored in Emacs text properties.
+
+@item wisi-name-action TOKEN
+TOKEN is a token index. Create a @code{wisi-name} text property on the
+the @code{char_region} of the token.
+
+@end table
+
+@node Face actions
+@section Face actions
+@table @code
+@item wisi-face-mark-action [INDEX CLASS ...]
+The argument is a vector; alternating elements form pairs of INDEX
+CLASS, where class is one of @code{prefix, suffix}.
+
+Mark the tokens as part of a compound name, for use by later face
+actions.
+
+@item wisi-face-apply-action [TOKEN PREFIX-FACE SUFFIX-FACE ...]
+The argument is a vector; triples of items specify TOKEN,
+PREFIX-FACE, SUFFIX-FACE. The faces are the elisp names of face
+objects (which must declared by an @code{%elisp_face} declaration).
+
+If the token is a nonterminal, and it has been marked by a previous
+@code{wisi-face-mark-action}, the specified faces are applied to the
+prefix and suffix in the token as @code{font-lock-face} text
+properties.
+
+If the token is a terminal, or a non-terminal with no face mark, the
+suffix face is applied to the entire text contained by the token.
+
+@item wisi-face-apply-list-action [TOKEN PREFIX-FACE SUFFIX-FACE ...]
+Similar to ’wisi-face-apply-action’, but applies faces to all tokens
+marked by @code{wisi-face-mark-action} in each indicated production
+token, and does not apply a face if there are no such marks.
+
+@end table
+
+@node Indent actions
+@section Indent actions
+
+Indents are computed for each line in a cumulative way as the grammar
+actions are executed. Initially, the indent for all lines are set to
+@code{nil}, which means ``not computed''; this is not the same as the
+value @code{0}. The grammar actions are executed in a bottom-up
+fashion; low level productions are executed before higher level
+ones. In general, the indent action for a production specifies a
+``delta indent''; the indent for a line is incremented by that
+amount. When all productions in a parse tree have been processed, the
+indent has been computed for all lines.
+
+Indent actions specify a delta indent for each token in a
+production. If the token is a nonterminal, it can contain multiple
+lines of text; the delta indent applies to the lines where the first
+token on the line is contained by the nonterminal.
+
+When a delta indent is applied to the indent for a line, it is either
+added or ignored. We call the token whose delta indent is being
+applied the ``controlling'' token. The indent for each line has a
+field storing the line number of the last controlling token that added
+to the indent. If the line number of the controlling token for the
+delta indent begin applied is the same as the stored controlling token
+line number, the indent is ignored. @ref{Indent example} for
+explanations of why this rule is needed. On the other hand, it may be
+necessary to use @code{wisi-block} or @code{wisi-anchored} to override
+this rule.
+
+Indents are often given as a function call; the arguments to the
+function can be other function calls, or integer
+expressions. @code{wisitoken-bnf-generate} supports only simple
+integer expressions; those using integers, integer-valued variables, +
+(plus), - (minus), and * (multiply). All expressions are lisp forms;
+``ada-indent plus 1'' is written as @code{(+ ada-indent 1)}.
+
+Indent for comments are computed in the same way, except that the
+delta that applies to a comment that follows a token is given by the
+indent action entry for the next token. If a token is the last in a
+production, the comment indent is @code{nil}. These rules often give
+the wrong indent for a comment, so they can be overridden by specifing
+a comment indent for a token using @code{[CODE-INDENT
+COMMENT-INDENT]}; see below. Indent functions can also modify how
+comments are indented.
+
+@table @code
+@item wisi-indent-action [DELTA ...]
+The argument is a vector, giving a delta indent for each token in the
+production right-hand side.
+
+For terminals, the indents only have meaning, and are only computed,
+if the token is the first on a line. For nonterminals, the indent is
+applied to all lines where the first token on the line is contained in
+the nonterminal.
+
+An indent can have several forms.  In the descriptions below, the
+``current token'' is the token in the production right hand side at
+the same position as the indent expression in the
+@code{wisi-indent-action} argument list.
+
+@table @asis
+@item An integer
+The simplest delta indent.
+
+@item A variable name
+An integer delta indent; the value can be changed at runtime.
+
+The variable is an elisp variable; the name is translated to an Ada
+identifier by replacing ``-'' with ``_'', and applying
+@code{Camel_Case}. The translated name must identify a directly
+visible run-time Ada integer variable; this is checked at Ada compile
+time (variables declared in a separate package can be made visible by
+placing a with clause in a @code{%code} declaration in the grammar
+file). The elisp variable value is copied to the Ada variable value at
+the start of each indent compute session.
+
+For example, in ada-mode two indent variable names are @code{ada-indent}
+and @code{ada-indent-broken}, giving the basic ident, and the
+continuation line indent. They are runtime variables so different
+projects can specify them as part of a coding standard.
+
+@item A function call
+A function that computes a delta indent. See @ref{Indent functions}.
+
+@item [CODE-INDENT COMMENT-INDENT]
+A vector giving separate indents for code and comments.
+
+Normally, the indent for trailing comments (on lines with no code,
+after all code in the token) is given by the indent of the first line
+of code in the following token in the production; this overrides that
+and the comment indent is given by COMMENT-INDENT applied to the
+current token.
+
+When the current token is the last, and a separate comment indent is
+not specified, the comment indent is nil.
+
+Comment lines that are not trailing (that is, they are between tokens
+in the nonterminal being indented) are indented by CODE-INDENT.
+
+@item (label . INDENT)
+Specifies that the indent applies to the token with the same label. If
+any argument in an indent action is labeled, all must be labeled, and
+thus all tokens in the production must be labeled. This
+can improve readability in a long production.
+
+When the grammar file uses EBNF meta-syntax, implicit labels are
+automatically generated for all tokens, unless they are explicitly
+labeled; this allows keeping track of which optional tokens are left
+out when the production is converted to BNF internally.
+
+@end table
+
+@end table
+
+@menu
+* Indent functions::
+* Indent example::
+@end menu
+
+@node Indent functions
+@subsection Indent functions
+@table @code
+@item wisi-block DELTA
+Sets the delta indent for the current token to be DELTA, and ignores
+the controlling token line when adding delta indents. This is usually
+needed in block statements; @ref{Indent example} @code{if_statement}.
+
+DELTA can be any indent expression, except a variant of
+@code{wisi-hanging}.
+
+@item wisi-anchored ANCHOR OFFSET
+Sets the delta indent for the current token to be OFFSET (an integer
+expression) from the start of ANCHOR (a token index). Subsequent
+higher level delta indents are ignored; the current token is
+``anchored to'' ANCHOR.
+
+A trailing comment following the current token is indented the same as
+the code in the token.
+
+@item wisi-anchored% ANCHOR OFFSET
+Sets the delta indent for the current token to be OFFSET (an integer
+expression) from a containing left parenthesis in the line containing
+ANCHOR (a token index), or the start of the line containing ANCHOR if
+there is no such paren; the current token is ``anchored to'' the paren
+or the start of the line. Subsequent higher level delta indents are
+ignored.
+
+@item wisi-hanging DELTA-1 DELTA-2
+Use DELTA-1 for the first line in the current token, DELTA-2 for the
+rest. Trailing comments use DELTA-1 if there is only one code line,
+DELTA-2 if there is more than one.
+
+DELTA-1 and DELTA-2 can be any ident expression, except a variant of
+@code{wisi-hanging}.
+
+@code{wisi-hanging} is useful when the lower level productions for the
+current token do not have indent actions.
+
+@item wisi-hanging% DELTA-1 DELTA-2
+If the first token in the nonterminal is first on its line, use
+DELTA-1 for the first line, DELTA-2 for the rest. Otherwise, use
+DELTA-1 for all lines.
+
+@item wisi-hanging* DELTA-1 DELTA-2
+If the first token in the nonterminal is first on its line, use
+DELTA-1 for the first line, DELTA-1 + DELTA-2 for the rest. Otherwise,
+use DELTA-2 for all lines.
+
+@item Language-specific function
+Language-specific indent functions are specified by an
+@code{%elisp_indent} declaration in the grammar file. Each function
+declaration specifies how many arguments it accepts; this is checked
+at grammar generation time. Each argument is a delta indent expression
+as described above, a token index, or a token ID prefixed by @code{'}
+(to allow distinguishing token IDs from variable names).
+@end table
+
+@node Indent example
+@subsection Indent example
+To illustrate how indents are computed, we walk thru the computation
+for some example code.
+
+The simple grammar used for this example is:
+
+@example
+if_statement
+  : 'if' expression 'then' statements 'end' 'if' ';'
+    %((wisi-indent-action [nil
+                           ada-indent-broken
+                           nil
+                           [(wisi-block ada-indent) ada-indent]
+                           nil nil nil]))%
+
+expression
+  : term
+    %((wisi-indent-action [(wisi-hanging nil ada-indent-broken)]))%
+
+term
+  : primary
+  | primary '+' primary
+  | primary '<' primary
+  | term 'and' term
+
+primary : integer | identifier | function_call
+
+function_call
+  : identifier formal_part
+    %((wisi-indent-action [nil ada-indent-broken]))%
+
+formal_part
+  : '(' expression_list ')'
+    %((wisi-indent-action [nil
+                           (wisi-anchored 1 1)
+                           (wisi-anchored 1 0)]))%
+
+expression_list : expression | expression_list ',' expression
+
+statements : statement | statements statement
+
+statement : function_call ';' | assigment | if_statment
+
+assign_value : ':=' expression
+
+assignment
+  : identifier assign_value ';'
+    %((wisi-indent-action [nil (wisi-hanging ada-indent-broken (* 2 ada-indent-broken)) nil]))%
+@end example
+
+Note that we have split out @code{assign_value} from
+@code{assignment}, so we can apply the @code{wisi-hanging} indent
+function to it; see the first example below for an explanation of why
+this is needed.
+
+The indent variables have the values:
+@example
+ada-indent 3
+ada-indent-broken 2
+@end example
+
+First we consider a simple example (the line numbers and indents are
+on the left):
+@example
+ 1: nil : G
+ 2: nil :   :=
+ 3: nil :     F +
+ 4: nil :       Compute_Something
+ 5: nil :         (Arg_1,
+ 6: nil :          H +
+ 7: nil :            I);
+@end example
+The assignment statement is fully spread out on different lines, as
+might be required if the names or subexpressions are long. In this
+case, none of the delta indents are ignored when applied to a line
+(except anchored lines), which is why they all need to be present in
+the indent actions. Thus we can leave out the stored controlling token
+in the line indents for this example.
+
+Indents are computed in bottom up order; the first indent action
+computed in this code is for @code{expression} @code{H + I} lines 6
+and 7; the delta indent expression is:
+@example
+   [(wisi-hanging nil ada-indent-broken) ada-indent-broken]
+@end example
+This gives separate indents for the code and a trailing comment; there
+is no trailing comment in this example (there is one in the next
+example). This gives a delta indent of nil for line 6, and 2 for line 7.
+
+The next indent action is for @code{formal_part} @code{(Arg_1, H + I)}
+lines 5, 6. The indent action is:
+@example
+%((wisi-indent-action [nil (wisi-anchored 1 1) (wisi-anchored 1 0)]))%
+@end example
+
+For each token, the delta indent computed by this is:
+@table @code
+@item ( : nil
+Leaves line 5 at nil.
+
+@item expression_list : (wisi-anchored 1 1)
+The first @code{1} is token indenx of the anchor token; the left
+parenthesis on line 5. The second @code{1} is the offset from the
+anchor; thus the delta indent is @code{Anchored, 5, 1}; anchored to
+line 5 with an offset of 1. This delta indent is applied to the lines
+whose first tokens are contained by the @code{expression_list}; that
+is lines 6 and 7. Line 6 indent is currently nil, so the indent is set
+to @code{Anchored, 5, 1}. Line 7 indent is currently 2, so that is
+added to 1, setting the indent to @code{Anchored, 5, 3}.
+
+@item ) : (wisi-anchored 1 1)
+')' is not first on a line, so this leaves line 6 indent unchanged.
+@end table
+
+Next indent action is @code{function_call} @code{Compute_Something
+(Arg_1, H + I)} on lines 4 .. 7. The indent action is
+@code{%((wisi-indent-action [nil ada-indent-broken]))%}; this applies
+a delta indent of 2 to the @code{formal_part} on lines 5 .. 7,
+leaving line 5 at 4, and 6 and 7 unchanged.
+
+Next is @code{expression} @code{F + Compute_Something (Arg_1, H + I)}
+on lines 3 .. 7.  This computes a delta indent of nil for line 3, and
+2 for lines 4 .. 7, leaving 3 at nil, 4 at 2, 5 at 6, and 6 and 7
+unchanged.
+
+Last indent action is node 16 @code{assignment} on lines 1 .. 6; the
+indent is @code{(wisi-hanging ada-indent-broken (* 2
+ada-indent-broken))}, applied to all the lines contained by
+@code{assign_value}, which is lines 2 thru 7. This gives a delta
+indent of 2 for line 2, and 4 for lines 3 .. 7. This gives the
+indents:
+@example
+                   : 12345678901
+ 1: nil            : G
+ 2: 2              :   :=
+ 3: 4              :     F +
+ 4: 6              :       Compute_Something
+ 5: 8              :         (Arg_1,
+ 6: Anchored, 5, 1 :          H +
+ 7: Anchored, 5, 3 :            I);
+@end example
+The final step is compute all the anchored lines; for line 6, we add 1
+to the indent for line 5, leaving 9; for line 7, add 3, leaving 11.
+
+Now consider a more extensive example:
+
+@example
+ 1: if A < B and
+ 2:   C < D
+ 3:   --  comment on expression
+ 4: then
+ 5:    G := F + Compute_Something
+ 6:      (Arg_1,
+ 7:       Arg_2);
+ 8:    -- comment on statement
+ 9:
+10:    Do_E;
+11:
+12:    -- comment before 'end if'
+13: end if;
+@end example
+Here the assignment is on fewer lines, illustrating why we need the
+rule about ignoring some delta indents, and @code{wisi-block} to
+override that rule.
+
+To understand the order in which indents are computed, we need the
+syntax tree produced by parsing this code; that is shown here, with
+node numbers on the left for reference. Note that comments are stored
+in the node containing the terminal token node preceding the
+comment. Node 20 'formal_part' is empty; ``Do_E'' has no arguments.
+@example
+ 1  if_statement
+ 2    'if'
+ 3    expression
+ 4      term
+ 5        primary
+ 6          identifier "A"
+ 7        '<'
+ 8        primary
+ 9          identifier "B"
+10      'and'
+11      term
+12        primary
+13          identifier "C"
+14        '<'
+15        primary
+16          identifier "D", "--  comment on expression"
+17    'then'
+18    statements
+19      statements
+20        statement
+21          assignment
+22            identifier "G"
+23            assign_value
+24              ':='
+25              expression
+26                term
+27                  primary
+28                    identifier "F"
+29                  '+'
+30                  primary
+31                    function_call
+32                      identifier "Compute_Something"
+33                      formal_part
+34                        '('
+35                        expression_list
+36                          expression_list
+37                            expression
+38                              term
+39                                primary
+40                                  identifier "Arg_1"
+41                          ','
+42                          expression
+43                            term
+44                              primary
+45                                identifier "Arg_2"
+46                        ')'
+47            ';' "-- comment on statement", blank line
+48      statement
+49        function_call
+50          identifier "Do_E"
+51        formal_part
+52        ';', blank line, "-- comment before 'end if'"
+53    'end'
+54    'if'
+55    ';'
+@end example
+
+Actions are computed by traversing the tree depth first. Thus the
+first node considered is node 6; it is an @code{identifier}, which is
+a terminal token and has no indent action. The next nodes considered
+are 5, 7, 9, 8, 4, 10, 13, 12, 14, 16, 15; all have no action. Next is
+node 3 @code{expression} on lines 1 and 2, which has the indent
+action:
+@example
+   [(wisi-hanging nil ada-indent-broken) ada-indent-broken]
+@end example
+This gives separate indents for the code and the trailing comment.
+The code is @code{A < B and C < D} on lines 1 and 2, with
+a trailing comment of @code{--  comment on expression} on line 3. Since the
+first token in the expression follows @code{if} on line 1, it is not first on
+the line; thus @code{wisi-hanging} gives a delta indent of 2 for line
+2, leaving line 1 at nil.
+
+The comment on line 3 is given an indent of 2. Note that if the
+comment indent had not been given separately in this indent action, it
+would have been given the indent of the next token, which is nil.
+
+The stored controlling token line for lines 2 and 3 is 1.
+
+Next is node 37 @code{expression} @code{Arg_1} line 9; it is all on one line
+and not the first token, so the indent is left at nil. Similarly for
+node 45 @code{expression} @code{Arg_2} line 10.
+
+At this point, the indents for all the lines are (the stored
+controlling token line and indent is given after the line number):
+@example
+ 1: nil nil : if A < B and
+ 2: 1   2   :   C < D
+ 3: 1   2   :   --  comment on expression
+ 4: nil nil : then
+ 5: nil nil :    G := A + Compute_Something
+ 6: nil nil :      (Arg_1,
+ 7: nil nil :       Arg_2);
+ 8: nil nil :    -- comment on statement
+ 9: nil nil :
+10: nil nil :    Do_E;
+11: nil nil :
+12: nil nil :    -- comment before 'end if'
+13: nil nil : end if;
+@end example
+
+Next indent action is node 33 @code{formal_part} @code{(Arg_1, Arg_2)}
+lines 6 and 7. The indent action is
+@example
+%((wisi-indent-action [nil
+                       (wisi-anchored 1 1)
+                       (wisi-anchored 1 0)]))%
+@end example
+This computes a delta indent for the @code{expression_list} of
+@code{Anchored, 5, 1)}; anchored to the left parenthesis on line 5
+with an offset of 1. This delta indent is applied to the lines whose
+first tokens are contained by the @code{expression_list}; that is just
+line 7. Since the indent for line 7 is currently nil, it is set to
+@code{Anchored, 5, 1)}, controlling token line 5.
+
+Next is node 31 @code{function_call} @code{Compute_Something (Arg_1,
+Arg_2)} on lines 5 .. 7. The indent action is @code{[nil
+ada-indent-broken]}, which gives a delta indent of 2 for the
+@code{formal_part}. This is applied to lines 6 and 7, leaving line 6
+at 2, stored controlling token line 5; and 7 unchanged.
+
+Next is node 25 @code{expression} @code{F + Compute_Something (Arg_1,
+Arg_2)} on lines 5 .. 7; this computes a delta indent of 2 for lines
+6 and 7. The controlling token line is 5, and the stored controlling
+token for line 6 is also 5, so this delta indent is ignored for line
+6. Line 7 is anchored, so the delta indent is also ignored. Thus the
+indent for lines 6 and 7 are unchanged.
+
+Next is node 16 @code{assignment} on lines 5 .. 7. The indent for
+@code{assign_value} is @code{(wisi-hanging ada-indent-broken (* 2
+ada-indent-broken))}; this computes a delta indent of 2 for lines 6
+and 7; it is ignored as the delta indent from node 25 was.
+
+The comment and blank line on lines 8 and 9 are stored in node 47, and
+there is no following token in the production, so the delta indent for
+line 8 is nil.
+
+The next action computed is node 21 @code{function_call} @code{Do_E;}
+on line 10. The indent action is @code{%((wisi-indent-action [nil
+ada-indent-broken]))%}; since the code is all on one line this leaves
+the indent for line 10 at nil. The indent for the trailing comment and
+blank line on lines 11 and 12 are also left at nil.
+
+At this point, the indents are:
+@example
+ 1: nil nil          : if A < B and
+ 2: 1   2            :   C < D
+ 3: 1   2            :   --  comment on expression
+ 4: nil nil          : then
+ 5: nil nil          :    G := F + Compute_Something
+ 6: 5   2            :      (Arg_1,
+ 7: 6   Anchored 5 1 :       Arg_2);
+ 8: nil nil          :    -- comment on statement
+ 9: nil nil          :
+10: nil nil          :    Do_E;
+11: nil nil          :
+12: nil nil          :    -- comment before 'end if'
+13: nil nil          : end if;
+@end example
+
+The final indent action is for node 1 @code{if_statement} on lines 1
+thru 13. The indent for each token in the production is:
+
+@table @code
+@item if: nil
+Leaves line 1 at nil.
+
+@item expression: ada-indent-broken
+The expression is @code{A < B and C < D} on lines 1 and 2, with a
+comment on line 3; the controlling token line is 1, the same as the
+stored controlling token line for lines 2 and 3, so this is ignored.
+
+@item then: nil
+Applies delta of nil to line 4.
+
+Note that specifying the indent for the comment following an
+expression in the @code{expression} indent action enforces a style of
+indenting the comment with the last line of the expression.
+
+@item statements: [(wisi-block ada-indent) ada-indent]
+Applies a delta indent of 3 to the code and comment on lines 5 thru
+10, and 3 to the trailing comment on lines 11 and 12. The controlling
+token line is 5, so this delta would be ignored for line 6; this is
+why we need @code{wisi-block}, which sets controlling token line to
+invalid. The delta is ignored for the Anchored line 7.
+
+Note that the indent for comments after statements is given here, not
+at a lower level; it would be tedious to add it to each statement.
+
+@item end if; : nil
+Leaves line 13 at nil.
+@end table
+
+The indents so far:
+@example
+ 1: nil nil          : if A < B and
+ 2: 1   2            :   C < D
+ 3: 1   2            :   --  comment on expression
+ 4: nil nil          : then
+ 5: 5   3            :    G := F + Compute_Something
+ 6: 5   5            :      (Arg_1,
+ 7: 5   Anchored 5 1 :       Arg_2);
+ 8: 5   3            :    -- comment on statement
+ 9: 5   3            :
+10: 5   3            :    Do_E;
+11: 5   3            :
+12: 5   3            :    -- comment before 'end if'
+13: nil nil          : end if;
+@end example
+
+The final step is compute the anchored lines; that sets the indent
+for line 7 to 6.
+
+In a full grammar, the top production should specify an indent of 0,
+not nil, for tokens that are not indented; then every line will have a
+non-nil indent.
+
+However, in normal operation a nil indent is treated as 0; the
+@code{wisi-indent} text property is not set for lines that have nil
+indent, and @code{wisi-indent-region} detects that and uses 0 for the
+indent. You can set the variable @code{wisi-debug} to a value > 0 to
+signal an error for nil indents; this is useful to catch indent errors
+during grammar development.
+
+@node In-parse actions
+@section In-parse actions
+@table @code
+
+@item wisi-propagate-name TOKEN
+The argument is a token index. Set the @code{name} component of the
+left-hand-side parse-time token object to the @code{name} component of
+the identified token, if it is not empty. Otherwise use the
+@code{byte_region} component.
+
+@item wisi-merge-name FIRST-TOKEN, LAST-TOKEN
+The arguments are token indices, giving a range of
+tokens. LAST-TOKEN may be omitted if it is the same as FIRST-TOKEN.
+
+Set the @code{name} component of the left-hand-side to the merger of
+the @code{name} or @code{byte_region} components of the identified tokens.
+
+@item wisi-match-name START-TOKEN END-TOKEN
+The arguments are token indices. Compare the text contained by the
+@code{name} (or @code{byte_region} if @code{name} is empty) token
+components for START-TOKEN and END-TOKEN; signal a parse error if they
+are different.
+
+The behavior when a name is missing is determined by the runtime
+language variable given in the @code{%end_names_optional_option}
+declaration; if True, a missing name that is supposed to match a
+present name is an error. Both names missing is not an error (assuming
+that is allowed by the grammar).
+
+@end table
+
+@node Project extension
+@chapter Project extension
+wisi defines the @code{cl-defstuct} @code{wisi-prj}, with operations
+suitable for compilation and cross-reference.
+
+In order to use wisi projects, the user must write project files and
+customize @code{project-find-functions} and
+@code{xref-backend-functions}.
+
+@menu
+* Project files::
+* Selecting projects::
+* Casing exception files::
+* Other project functions::
+@end menu
+
+@node Project files
+@section Project files
+
+Project file names must have an extension given by
+@code{wisi-prj-file-extensions} (default @file{.adp, .prj}).
+
+Project files have a simple syntax; they may be edited directly. Each
+line specifies a project variable name and its value, separated by
+``='':
+
+@example
+src_dir=/Projects/my_project/src_1
+src_dir=/Projects/my_project/src_2
+@end example
+
+There must be no space between the variable name and ``='', and no
+trailing spaces after the value.
+
+Any line that does not have an ``='' is a comment.
+
+Some variables (like @code{src_dir}) are lists; each line in the
+project file specifies one element of the list. The value on the last
+line is the last element in the list.
+
+A variable name that starts with @code{$} is set as a process
+environment variable, for processes launched from Emacs for the
+project.
+
+In values, process environment variables can be referenced
+using the normal @code{$var} syntax.
+
+In values, relative file names are expanded relative to the
+directory containing the project file.
+
+Here is the list of project variables defined by wisi; major modes may
+add more.
+
+@table @asis
+@item @code{casing}         [slot: @code{case-exception-files}]
+List of files containing casing exceptions, either absolute, relative
+to the project file directory, or found on the project file
+path. @xref{Casing exception files}.
+
+@item @code{import_env_var} [slot: @code{file-env}]
+Copies an environment variable from @code{process-environment}.
+
+@item @code{src_dir}        [slot: @code{source-path}]
+A list of directories to search for source files.
+
+@item @code{$<name>}        [slot: @code{file-env}]
+Set an environment variable @code{name} in the local @code{file-env};
+it may be referenced in subsequent project file statements, and in
+processes spawned by the project.
+
+@end table
+
+@node Selecting projects
+@section Selecting projects
+The current project can either be indicated by a global variable
+(called a ``selected project''), or depend on the current buffer.
+
+In addition, the project file can be parsed each time it is needed, or
+the result cached to improve response time,
+
+One reason to use a selected project is to handle a hierarchy of
+projects; if projects B and C both depend on library project A, then
+when in a file of project A, there is no way to determine which of the
+three projects to return. So the user must indicate which is active,
+by using one of @code{wisi-prj-select-file} or
+@code{wisi-prj-select-cache}.
+
+In addition, if changing from one project to another requires setting
+global resources that must also be unset (such as a syntax propertize
+hook or compilation filter hook), then the project should define
+@code{wisi-prj-deselect} in addition to @code{wisi-prj-select}. Such
+projects require having a selected current project, so it can be
+deselected before a new one is selected. One example of such projects
+is ada-mode.
+
+One way to declare each project is to add a Local Variables section
+in the main Makefile for the project; when the Makefile is first
+visited, the project is declared. In the examples here, we assume
+that approach is used; each gives an :eval line.
+
+Note that @code{wisi-prj-current-parse} and
+@code{wisi-prj-current-cached} always succeed after some project is
+selected; no functions after them on @code{project-find-functions} will
+be called. That's why the depth is 90 for those in the examples.
+
+@table @asis
+@item No caching, current project depends on current buffer
+
+@example
+(add-hook 'project-find-functions #'wisi-prj-find-dominating-parse 0)
+
+:eval (wisi-prj-set-dominating "foo.prj" (foo-prj-default "prj-name"))
+@end example
+
+@code{wisi-prj-set-dominating} declares the name of a project file with a
+default project object, and ensures that the current buffer file name
+is in @code{wisi-prj--dominating}.
+
+@code{wisi-prj-find-dominating-parse} looks for the filenames in
+@code{wisi-prj--dominiating} in the parent directories of the current
+buffer. When one is found, the associated project file is parsed,
+using the default project object to dispatch to the appropriate
+parsers. Then the final project object is returned.
+
+@item Caching, current project depends on current buffer
+
+@example
+(add-hook 'project-find-functions #'wisi-prj-find-dominating-cached 0)
+
+:eval (wisi-prj-cache-dominating "foo.prj" (foo-prj-default "prj-name"))
+@end example
+
+@code{wisi-prj-cache-dominating} declares the project file, parses it,
+and saves the project object in a cache indexed by the absolute
+project file name.
+
+@code{wisi-prj-find-dominating-cached} finds the dominating
+project file, and retrieves the object from the cache.
+
+@item No caching, last selected project is current
+
+@example
+(add-hook 'project-find-functions #'wisi-prj-current-parse 90)
+
+:eval: (wisi-prj-select-file <prj-file> (foo-prj-default "prj-name"))
+@end example
+
+@code{wisi-prj-select-file} sets the project file as the current
+project, and saves the default project object.
+
+@code{wisi-prj-current-parse} parses the current project file, using
+the saved default project object, and returns the project object.
+
+@item Caching, last selected project is current
+
+@example
+(add-hook 'project-find-functions #'wisi-prj-current-cached 90)
+
+:eval: (wisi-prj-select-cache <prj-file> (foo-prj-default "prj-name"))
+@end example
+
+@code{wisi-prj-select-cache} parses the project file, caches the
+project object.
+
+@code{wisi-prj-current-cached} returns the cached current project
+object.
+
+@end table
+
+In addition, the user should set @code{xref-backend-functions}. Currently,
+there is only one choice for wisi projects:
+
+@example
+(add-to-list 'xref-backend-functions #'wisi-prj-xref-backend 90)
+@end example
+
+@code{wisi-prj-xref-backend} returns the current wisi project object.
+
+@node Casing exception files
+@section Casing exception files
+Each line in a case exception
+file specifies the casing of one word or word fragment. If an
+exception is defined in multiple files, the first occurrence is used.
+
+If the word starts with an asterisk (@code{*}), it defines the casing
+of a word fragment (or ``substring''); part of a word between two
+underscores or word boundary.
+
+For example:
+
+@example
+DOD
+*IO
+GNAT
+@end example
+
+The word fragment @code{*IO} applies to any word containing ``_io'';
+@code{Text_IO}, @code{Hardware_IO}, etc.
+
+@node Other project functions
+@section Other project functions
+
+@table @code
+@item wisi-refresh-prj-cache (not-full)
+Refreshes all cached data in the project, and re-selects the
+project. If NOT-FULL is non-nil, slow refresh operations are skipped.
+
+This reparses the project file, and any cross reference information.
+
+@item wisi-prj-select-dominating (dominating-file)
+  Find a wisi-prj matching DOMINATING-FILE (defaults to the current
+buffer file). If the associated project is current, do nothing. If it
+is not current, select it.
+
+This is useful before running `compilation-start', to ensure the correct
+project is current.
+
+@end table
+
+@node GNU Free Documentation License
+@appendix GNU Free Documentation License
+@include doclicense.texi
+
+@node Index,  , GNU Free Documentation License, Top
+@unnumbered Index
+
+@printindex fn
+
+@bye

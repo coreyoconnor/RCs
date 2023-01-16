@@ -1,0 +1,19 @@
+ release process
+tested by ada-mode
+
+(ediff-directories "/Projects/elpa_release/gnat-compiler" "/Projects/elpa/packages/gnat-compiler" nil)
+    NEWS
+        copyright date
+        add release date
+        add new features
+        list fixed bugs
+
+bump versions
+    gnat-compiler.el
+        Version:
+        package-requires
+
+    NEWS
+        if not done above
+
+# end of file

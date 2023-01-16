@@ -1,0 +1,17 @@
+GNU Emacs gnat compiler NEWS -- history of user-visible changes.
+
+Copyright (C) 2022 Free Software Foundation, Inc.
+
+Please send gnat-compiler bug reports to bug-gnu-emacs@gnu.org, with
+'gnat-compiler' in the subject. If possible, use M-x report-emacs-bug.
+
+
+* gnat compiler 1.0.1
+
+** Rename create-alire-project to create-alire-prj.
+
+** Fix bugs.
+
+* gnat compiler 1.0.0
+
+** Split out from ada-mode.

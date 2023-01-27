@@ -105,8 +105,11 @@
 
 (use-package company
   :ensure t
+  :hook (scala-mode . company-mode)
   :after (:all yasnippet)
-  (setq company-backends '(company-capf company-yasnippet)))
+  :config
+  (setq company-backends '(company-capf company-yasnippet))
+  (setq lsp-completion-provider :capf))
 
 (use-package lsp-mode
   :ensure t
@@ -129,7 +132,6 @@
   (setq gc-cons-threshold 100000000) ;; 100mb
   (setq read-process-output-max (* 1024 1024)) ;; 1mb
   ;; (setq lsp-log-io nil)
-  (setq lsp-completion-provider :capf)
 
   )
 

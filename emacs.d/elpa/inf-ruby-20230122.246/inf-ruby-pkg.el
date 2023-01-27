@@ -1,0 +1,2 @@
+;;; Generated package description from inf-ruby.el  -*- no-byte-compile: t -*-
+(define-package "inf-ruby" "20230122.246" "Run a Ruby process in a buffer" '((emacs "24.3")) :commit "0ce7f4049edcae188b4643b3163e5301f9ef09cc" :authors '(("Yukihiro Matsumoto") ("Nobuyoshi Nakada") ("Cornelius Mika" . "cornelius.mika@gmail.com") ("Dmitry Gutov" . "dgutov@yandex.ru") ("Kyle Hargraves" . "pd@krh.me")) :maintainer '("Dmitry Gutov" . "dgutov@yandex.ru") :keywords '("languages" "ruby") :url "http://github.com/nonsequitur/inf-ruby")

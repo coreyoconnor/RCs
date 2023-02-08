@@ -119,18 +119,18 @@
   :hook helm-mode
   :config
 
-  (add-hook 'lsp-mode-hook (lambda () (enable-for-session)))
+  ;; (add-hook 'lsp-mode-hook (lambda () (enable-for-session)))
 
-  (setq-default lsp-file-watch-threshold 2000000)
+  (setq-default lsp-file-watch-threshold nil)
   (setq-default lsp-prefer-flymake nil)
   (setq-default lsp-enable-on-type-formatting nil)
-  (push "[/\\\\]\\nixpkgs$" lsp-file-watch-ignored)
-  (push "[/\\\\]\\alldocs$" lsp-file-watch-ignored)
-  (push "[/\\\\]\\target$" lsp-file-watch-ignored)
-  (push "[/\\\\]\\.bloop$" lsp-file-watch-ignored)
+  (setq-default lsp-debounce-full-sync-notifications-interval 2.0)
+  (setq-default lsp-idle-delay 1.5)
+  (setq-default lsp-response-timeout 120)
+  (push "[/\\\\]\\alldocs\\\\" lsp-file-watch-ignored-directories)
 
   (setq gc-cons-threshold 100000000) ;; 100mb
-  (setq read-process-output-max (* 1024 1024)) ;; 1mb
+  (setq read-process-output-max (* 4096 1024)) ;; 4mb
   ;; (setq lsp-log-io nil)
 
   )
@@ -148,7 +148,7 @@
 
   (defun fix-flycheck-list-size ()
     (let ((window (get-buffer-window lsp-ui-flycheck-list--buffer t)))
-      (fit-window-to-buffer window 10 10 nil nil t)
+      (fit-window-to-buffer window 9 10 nil nil t)
       )
     )
   (setq-default lsp-ui-flycheck-list-position 'right)
@@ -207,6 +207,7 @@
   :mode ("\\.scala\\'" "\\.sc\\'")
   :magic-fallback ("/usr/bin/env amm" "/usr/bin/env -S amm")
   :diminish
+  :hook  (scala-mode . lsp)
   :config
   (add-hook 'scala-mode-hook (lambda ()
                                (cleanup-on-save)

@@ -1,2 +1,0 @@
-;;; Generated package description from moody-20220620.844/moody.el  -*- no-byte-compile: t -*-
-(define-package "moody" "20220620.844" "Tabs and ribbons for the mode line" '((emacs "25.3") (compat "28.1.1.0")) :commit "a798096ee4ccf66ef2aa7016c00c8531bd63d27a" :authors '(("Jonas Bernoulli" . "jonas@bernoul.li")) :maintainer '("Jonas Bernoulli" . "jonas@bernoul.li") :keywords '("faces") :url "https://github.com/tarsius/moody")

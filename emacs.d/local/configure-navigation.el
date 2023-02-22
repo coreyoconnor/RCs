@@ -48,6 +48,8 @@
                     "target"
                     "venv"
                     ".bloop"
+                    ".gradle"
+                    ".idea"
                     ".metals")
                 projectile-globally-ignored-directories
                 )

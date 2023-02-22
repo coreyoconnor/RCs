@@ -94,7 +94,7 @@
 
 (add-to-list 'term-file-aliases
              '("screen.xterm-256color" . "xterm-256color")
-             '("foot" . "xterm"))
+             '("foot" . "foot-direct"))
 
 ;; default to unified diffs
 (setq diff-switches "-u")

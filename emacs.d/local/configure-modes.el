@@ -67,17 +67,6 @@
   (global-flycheck-mode)
   )
 
-(setq is-lsp-enabled nil)
-
-(defun enable-for-session ()
-  (if (not is-lsp-enabled)
-      (progn
-        (add-hook 'scala-mode-hook 'lsp)
-        (setq is-lsp-enabled t)
-        )
-    )
-  )
-
 (use-package dash
   :ensure t)
 
@@ -118,8 +107,6 @@
   :hook lsp-ui-mode
   :hook helm-mode
   :config
-
-  ;; (add-hook 'lsp-mode-hook (lambda () (enable-for-session)))
 
   (setq-default lsp-file-watch-threshold nil)
   (setq-default lsp-prefer-flymake nil)
@@ -194,27 +181,20 @@
   (add-hook 'origami-mode-hook #'lsp-origami-mode)
   )
 
-(defun setup-scala-format ()
-  (setq tab-width 2)
-  (setq c-basic-offset 2)
-  (setq evil-shift-width 2)
-  (setq scala-indent:align-parameters t)
-  )
-
 (use-package scala-mode
   :ensure t
   :interpreter "scala"
   :mode ("\\.scala\\'" "\\.sc\\'")
   :magic-fallback ("/usr/bin/env amm" "/usr/bin/env -S amm")
   :diminish
-  :hook  (scala-mode . lsp)
+  :hook  ((scala-mode . lsp) (scala-mode . origami-mode))
   :config
-  (add-hook 'scala-mode-hook (lambda ()
-                               (cleanup-on-save)
-                               (flycheck-mode)
-                               (setup-scala-format)
-                               (origami-mode)
-                               ))
+
+  (setq-default tab-width 2)
+  (setq-default c-basic-offset 2)
+  (setq-default evil-shift-width 2)
+  (setq-default scala-indent:align-parameters t)
+  (cleanup-on-save)
   )
 
 (use-package sbt-mode
@@ -265,6 +245,7 @@
 ;; Use the Tree View Protocol for viewing the project structure and triggering compilation
 (use-package lsp-treemacs
   :ensure t
+  :after (:all lsp-mode treemacs)
   :commands lsp-treemacs-errors-list
   :config
   (lsp-treemacs-sync-mode t))
@@ -361,6 +342,7 @@
 
 (use-package lsp-java
   :ensure t
+  :after (:all treemacs lsp-mode)
   :config
   (add-hook 'java-mode-hook 'lsp)
   )

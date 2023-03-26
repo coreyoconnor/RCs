@@ -170,12 +170,11 @@
   )
 
 (use-package origami
-  :load-path "origami"
-  :demand t)
+  :ensure t
+  )
 
 (use-package lsp-origami
-  :load-path "lsp-origami"
-  :demand t
+  :ensure t
   :after (:all origami lsp-mode)
   :config
   (add-hook 'origami-mode-hook #'lsp-origami-mode)

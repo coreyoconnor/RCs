@@ -57,3 +57,4 @@ emacs.d/eln-cache/
 sbt/1.0/*-rt-*
 emacs.d/elpa
 emacs.d/elpa/archives
+emacs.d/request

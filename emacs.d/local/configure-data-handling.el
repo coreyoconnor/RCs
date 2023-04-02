@@ -47,7 +47,7 @@
 (use-package codegpt
   :ensure t
   :config
-  (setq-default codegpt-model "gpt-3.5-turbo")
+  (setq-default codegpt-model "text-davinci-003")
   )
 
 (provide 'configure-data-handling)

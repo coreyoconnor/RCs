@@ -80,15 +80,14 @@
   )
 
 (defun configure-local-overrides ()
-  (when (file-readable-p (expand-file-name "~/.emacs-local.el"))
-    (load-file (expand-file-name "~/.emacs-local.el"))
+  (when (file-readable-p (expand-file-name "~/.config/emacs-local.el"))
+    (load-file (expand-file-name "~/.config/emacs-local.el"))
     )
   )
 
 ;; unsorted
 
 ; GUI options
-(add-to-list 'default-frame-alist  '(width . 80) )
 
 (setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
                                   global-semanticdb-minor-mode

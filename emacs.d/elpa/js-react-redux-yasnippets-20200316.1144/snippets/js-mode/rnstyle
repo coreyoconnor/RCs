@@ -1,8 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: rnstyle
-# key: rnstyle
-# uuid: rnstyle
-# --
-const styles = StyleSheet.create({
- $0
-})`(js-react-redux-yasnippets-semicolon)`

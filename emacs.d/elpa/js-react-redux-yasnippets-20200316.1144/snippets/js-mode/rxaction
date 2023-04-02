@@ -1,9 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: rxaction
-# key: rxaction
-# uuid: rxaction
-# --
-export const ${actionName} = (payload) => ({
- type: ${type},
- payload
-})`(js-react-redux-yasnippets-semicolon)`

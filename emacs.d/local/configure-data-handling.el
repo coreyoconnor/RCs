@@ -44,4 +44,10 @@
   :bind (("C-c g" . magit-file-dispatch))
   )
 
+(use-package codegpt
+  :ensure t
+  :config
+  (setq-default codegpt-model "gpt-3.5-turbo")
+  )
+
 (provide 'configure-data-handling)

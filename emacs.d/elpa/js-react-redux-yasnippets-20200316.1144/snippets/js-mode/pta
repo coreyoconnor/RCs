@@ -1,6 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: Array prop type
-# key: pta
-# uuid: pta
-# --
-PropTypes.array,$0

@@ -1,6 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: Object prop type
-# key: pto
-# uuid: pto
-# --
-PropTypes.object,$0

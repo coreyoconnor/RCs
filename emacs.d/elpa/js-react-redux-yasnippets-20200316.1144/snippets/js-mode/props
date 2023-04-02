@@ -1,6 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: Access component's props
-# key: props
-# uuid: props
-# --
-this.props.$0

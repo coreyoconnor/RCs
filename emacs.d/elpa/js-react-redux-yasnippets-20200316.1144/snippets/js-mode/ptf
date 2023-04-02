@@ -1,6 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: Func prop type
-# key: ptf
-# uuid: ptf
-# --
-PropTypes.func,$0

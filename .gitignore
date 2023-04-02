@@ -55,3 +55,5 @@ emacs.d/url
 emacs.d/elpa/archives/nongnu/archive-contents
 emacs.d/eln-cache/
 sbt/1.0/*-rt-*
+emacs.d/elpa
+emacs.d/elpa/archives

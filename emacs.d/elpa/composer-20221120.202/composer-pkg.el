@@ -1,2 +1,0 @@
-;;; Generated package description from composer.el  -*- no-byte-compile: t -*-
-(define-package "composer" "20221120.202" "Interface to PHP Composer" '((emacs "25.1") (seq "1.9") (php-runtime "0.1.0")) :commit "2299cd731205906350d615021f99a66d7a8905c2" :authors '(("USAMI Kenta" . "tadsan@zonu.me")) :maintainer '("USAMI Kenta" . "tadsan@zonu.me") :keywords '("tools" "php" "dependency" "manager") :url "https://github.com/zonuexe/composer.el")

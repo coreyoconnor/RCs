@@ -24,6 +24,9 @@
 
 (defun configure-package-manager ()
   (setq inhibit-default-init t)
+  (add-to-list 'package-archives '( "jcs-elpa" . "https://jcs-emacs.github.io/jcs-elpa/packages/") t)
+  (setq package-archive-priorities '(("melpa"    . 5)
+                                    ("jcs-elpa" . 0)))
   (configure-load-path)
   (enable-package-package)
   (configure-package-repos)

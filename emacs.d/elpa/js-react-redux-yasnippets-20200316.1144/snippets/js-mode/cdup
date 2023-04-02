@@ -1,8 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: Invoked immediately after the component's updates are flushed to the DOM
-# key: cdup
-# uuid: cdup
-# --
-componentDidUpdate(prevProps, prevState) {
- $0
-}

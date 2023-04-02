@@ -1,8 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: Creates a forEach statement in ES7 syntax
-# key: fre
-# uuid: fre
-# --
-${array}.forEach(${currentItem} => {
- $0
-})`(js-react-redux-yasnippets-semicolon)`

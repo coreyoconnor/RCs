@@ -1,4 +1,6 @@
-;; configuration of data handling
+;; configuration of data handling -*- lexical-binding: t; -*-
+(require 'cl)
+
 (setq browse-url-browser-function 'eww-browse-url)
 
 (setq-default buffer-file-coding-system 'utf-8-unix)
@@ -36,7 +38,7 @@
         (save-buffer)
       ;; Clear buffer-modified flag caused by set-visited-file-name
       (set-buffer-modified-p nil))
-      (message "Renamed to %s." new-name)))
+    (message "Renamed to %s." new-name)))
 
 (use-package magit
   :ensure t
@@ -48,6 +50,38 @@
   :ensure t
   :config
   (setq-default codegpt-model "text-davinci-003")
+
+  (setq-default scala-complete-prompt "
+The following is incomplete Scala 2.13 code. The code contains a single ???. Respond with a
+replacement for that ??? which completes the code. Respond only with the single replacement for the
+???. No text before or after the replacement for ??? is useful.
+
+")
+
+  (defun codegpt-scala-complete (start end)
+    ""
+    (interactive "r")
+    (let ((code (concat scala-complete-prompt (string-trim (buffer-substring-no-properties start end)))))
+      (openai-completion code
+                         (lambda (data)
+                           (let* ((choices (openai--data-choices data))
+                                  (result (string-trim (openai--get-choice choices)))
+                                  )
+                             (when (string-empty-p result)
+                               (user-error "No completion found"))
+                             (save-excursion
+                               (goto-char start)
+                               (while (search-forward "???" end t)
+                                 (replace-match (replace-regexp-in-string "^\n+" "" result) t t)
+                                 )
+                               )
+                             )
+                           )
+                         )
+      )
+    )
   )
 
 (provide 'configure-data-handling)
+
+;;; configure-data-handling.el ends here

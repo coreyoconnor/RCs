@@ -346,4 +346,8 @@
   (add-hook 'java-mode-hook 'lsp)
   )
 
+(use-package chatgpt
+  :ensure t
+  )
+
 (provide 'configure-modes)

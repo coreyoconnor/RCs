@@ -49,19 +49,20 @@
 (use-package codegpt
   :ensure t
   :config
-  (setq-default codegpt-model "text-davinci-003")
+  (setq-default openai-scala-mode "text-davinci-003")
 
-  (setq-default scala-complete-prompt "
-The following is incomplete Scala 2.13 code. The code contains a single ???. Respond with a
-replacement for that ??? which completes the code. Respond only with the single replacement for the
-???. No text before or after the replacement for ??? is useful.
+  (setq-default openai-scala-complete-prompt "
+The following is incomplete Scala 2.13 code.
+The code contains a single ???.
+Respond with all the text that should replace the ??? to complete the code.
+Only the exact text replacement for ??? is useful. No text before or after the replacement for ??? is useful.
 
 ")
 
-  (defun codegpt-scala-complete (start end)
+  (defun openai-scala-complete (start end)
     ""
     (interactive "r")
-    (let ((code (concat scala-complete-prompt (string-trim (buffer-substring-no-properties start end)))))
+    (let ((code (concat openai-scala-complete-prompt (string-trim (buffer-substring-no-properties start end)))))
       (openai-completion code
                          (lambda (data)
                            (let* ((choices (openai--data-choices data))

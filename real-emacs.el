@@ -13,6 +13,14 @@
 
 (defun configure ()
   (configure-package-manager)
+
+(when (memq window-system '(mac ns x))
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (exec-path-from-shell-initialize))
+)
+
   (configure-data-handling)
   (configure-interface)
   (configure-modes)
@@ -30,8 +38,7 @@
   (configure-load-path)
   (enable-package-package)
   (configure-package-repos)
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize)))
+  )
 
 (defun configure-load-path ()
   (add-to-list 'load-path (expand-file-name "~/.emacs.d/evil-numbers"))

@@ -36,7 +36,6 @@
  '(column-number-mode t)
  '(company-idle-delay nil)
  '(cursor-color nil)
- '(custom-enabled-themes '(sanityinc-tomorrow-night))
  '(custom-safe-themes
    '("ec815e06ead0ec81514ec142bc3dbf89f822d7389bfe0ddc3b474c78b5eb0426" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default))
  '(ecb-auto-activate t)

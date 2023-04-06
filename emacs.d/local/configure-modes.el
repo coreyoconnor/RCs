@@ -158,6 +158,7 @@
   (define-key evil-normal-state-map (kbd "g a") 'lsp-ui-sideline-apply-code-actions)
   (define-key evil-normal-state-map (kbd "g l") 'lsp-avy-lens)
   (define-key evil-normal-state-map (kbd "g s") 'lsp-ui-imenu)
+  (define-key evil-normal-state-map (kbd "g ?") 'openai-scala-auto-region-fill-in)
   (define-key evil-normal-state-map (kbd "C-c h") 'lsp-ui-doc-glance)
   (define-key evil-insert-state-map "\C-n" 'company-complete)
   )

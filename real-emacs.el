@@ -3,23 +3,23 @@
 ;; I don't have a good understanding of Lisp or Emacs
 ;;; Code:
 (if (memq window-system '(mac ns))
-  (progn
-    (setq-default max-lisp-eval-depth 10000)
-    (setq-default max-specpdl-size 10000)
-  )
+    (progn
+      (setq-default max-lisp-eval-depth 10000)
+      (setq-default max-specpdl-size 10000)
+      )
   (setq-default max-lisp-eval-depth 200000)
   (setq-default max-specpdl-size 200000)
-)
+  )
 
 (defun configure ()
   (configure-package-manager)
 
-(when (memq window-system '(mac ns x))
-(use-package exec-path-from-shell
-  :ensure t
-  :config
-  (exec-path-from-shell-initialize))
-)
+  (when (memq window-system '(mac ns x))
+    (use-package exec-path-from-shell
+      :ensure t
+      :config
+      (exec-path-from-shell-initialize))
+    )
 
   (configure-data-handling)
   (configure-interface)
@@ -32,9 +32,6 @@
 
 (defun configure-package-manager ()
   (setq inhibit-default-init t)
-  (add-to-list 'package-archives '( "jcs-elpa" . "https://jcs-emacs.github.io/jcs-elpa/packages/") t)
-  (setq package-archive-priorities '(("melpa"    . 5)
-                                    ("jcs-elpa" . 0)))
   (configure-load-path)
   (enable-package-package)
   (configure-package-repos)
@@ -58,6 +55,11 @@
                '("melpa" . "https://melpa.org/packages/"))
   (add-to-list 'package-archives
                '("melpa-stable" . "https://stable.melpa.org/packages/"))
+  (add-to-list 'package-archives
+               '( "jcs-elpa" . "https://jcs-emacs.github.io/jcs-elpa/packages/") t)
+
+  (setq package-archive-priorities '(("melpa"    . 5)
+                                     ("jcs-elpa" . 0)))
 
   (setq package-enable-at-startup nil)
   )
@@ -94,7 +96,7 @@
 
 ;; unsorted
 
-; GUI options
+                                        ; GUI options
 
 (setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
                                   global-semanticdb-minor-mode

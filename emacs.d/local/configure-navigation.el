@@ -56,7 +56,10 @@
         )
   )
 
-(window-numbering-mode)
+;;(use-package window-numbering
+;;  :config
+;;  (window-numbering-mode)
+;;  )
 
 (configure-nav-package)
 (configure-outline-minor-mode)

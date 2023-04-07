@@ -50,6 +50,7 @@
   :ensure t
   :config
   (require 'openai-scala-complete)
+  (require 'openai-php-complete)
   )
 
 (provide 'configure-data-handling)

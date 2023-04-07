@@ -161,6 +161,7 @@
   (define-key evil-normal-state-map (kbd "g ?") 'openai-scala-auto-region-fill-in)
   (define-key evil-normal-state-map (kbd "C-c h") 'lsp-ui-doc-glance)
   (define-key evil-insert-state-map "\C-n" 'company-complete)
+  (evil-define-key 'insert global-map (kbd "C-c c") 'openai-php-continue)
   )
 
 (use-package lsp-metals

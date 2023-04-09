@@ -79,6 +79,12 @@
   :diminish
   :ensure t)
 
+(use-package helm-ag
+  :after (:all helm)
+  :ensure t)
+
+(require 'radian-autocomplete)
+
 (require 'radian-autocomplete)
 
 (use-package evil-avy
@@ -255,6 +261,10 @@
   :ensure t
   :after treemacs projectile)
 
+(use-package treemacs-magit
+  :after (treemacs magit)
+  :ensure t)
+
 (use-package treemacs-evil
   :ensure t
   :after treemacs
@@ -330,6 +340,10 @@
   (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-scala)
   )
 
+(use-package vue-mode
+  :ensure t
+  )
+
 (use-package yaml-mode
   :ensure t
   :mode "\\.yml.j2\\'"
@@ -350,6 +364,20 @@
 
 (use-package chatgpt
   :ensure t
+  )
+
+;; (use-package phps-mode
+;;   :after flycheck
+;;   :ensure t
+;;   :mode ("\\.php\\'" "\\.phtml\\'")
+;;   :config
+;;   (phps-mode-flycheck-setup)
+;;   (setq phps-mode-async-process t)
+;;   (setq phps-mode-async-process-using-async-el t))
+
+(use-package company-php
+  :ensure t
+  :after company
   )
 
 (provide 'configure-modes)

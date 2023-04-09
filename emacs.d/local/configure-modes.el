@@ -164,10 +164,8 @@
   (define-key evil-normal-state-map (kbd "g a") 'lsp-ui-sideline-apply-code-actions)
   (define-key evil-normal-state-map (kbd "g l") 'lsp-avy-lens)
   (define-key evil-normal-state-map (kbd "g s") 'lsp-ui-imenu)
-  (define-key evil-normal-state-map (kbd "g ?") 'openai-scala-auto-region-fill-in)
   (define-key evil-normal-state-map (kbd "C-c h") 'lsp-ui-doc-glance)
   (define-key evil-insert-state-map "\C-n" 'company-complete)
-  (evil-define-key 'insert global-map (kbd "C-c c") 'openai-php-continue)
   )
 
 (use-package lsp-metals
@@ -375,9 +373,14 @@
 ;;   (setq phps-mode-async-process t)
 ;;   (setq phps-mode-async-process-using-async-el t))
 
+(use-package php-mode
+  :ensure t
+  :config
+  )
+
 (use-package company-php
   :ensure t
-  :after company
+  :after (:all company php-mode)
   )
 
 (provide 'configure-modes)

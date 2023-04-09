@@ -48,9 +48,21 @@
 
 (use-package codegpt
   :ensure t
-  :config
-  (require 'openai-scala-complete)
-  (require 'openai-php-complete)
+  :after (:all scala-mode php-mode lsp-mode lsp-treemacs)
+  :init
+  (require 'openai-complete)
+
+  (add-hook 'php-mode-hook
+            (lambda ()
+              (evil-define-key 'insert php-mode-map (kbd "C-c c") 'openai-complete-php-continue)
+              )
+            )
+  (add-hook 'scala-mode-hook
+            (lambda ()
+              (evil-define-key 'insert scala-mode-map (kbd "C-c c") 'openai-complete-scala-continue)
+              (evil-define-key 'normal scala-mode-map (kbd "g ?") 'openai-complete-scala-auto-region-fill-in)
+              )
+            )
   )
 
 (provide 'configure-data-handling)

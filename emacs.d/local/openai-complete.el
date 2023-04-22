@@ -253,8 +253,8 @@ Only the exact substitution for ??? is useful. No text before or after the repla
       (insert "???"))))
 
 (defun openai-complete-scala-continue ()
-  (openai-complete-ensure-placeholder)
   (interactive)
+  (call-interactively 'openai-complete-ensure-placeholder)
   (let* ((line (line-number-at-pos))
          (params (lsp--text-document-position-params))
          (response (lsp-request "textDocument/documentSymbol" params))

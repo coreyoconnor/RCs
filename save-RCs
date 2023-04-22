@@ -2,7 +2,6 @@
 set -ex
 
 cd $RCS_DIR
-git add emacs.d/elpa
 git add emacs.d/local
 git commit -m '~'
 update-RCs

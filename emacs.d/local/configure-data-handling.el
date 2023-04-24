@@ -52,17 +52,10 @@
   :init
   (require 'openai-complete)
 
-  (add-hook 'php-mode-hook
-            (lambda ()
-              (evil-define-key 'insert php-mode-map (kbd "C-c c") 'openai-complete-php-continue)
-              )
-            )
-  (add-hook 'scala-mode-hook
-            (lambda ()
-              (evil-define-key 'insert scala-mode-map (kbd "C-c c") 'openai-complete-scala-continue)
-              (evil-define-key 'normal scala-mode-map (kbd "g ?") 'openai-complete-scala-auto-region-fill-in)
-              )
-            )
+  (evil-define-key 'insert emacs-lisp-mode-map (kbd "C-c c") 'openai-complete-elisp-continue)
+  (evil-define-key 'insert php-mode-map (kbd "C-c c") 'openai-complete-php-continue)
+  (evil-define-key 'insert scala-mode-map (kbd "C-c c") 'openai-complete-scala-continue)
+  (evil-define-key 'normal scala-mode-map (kbd "g ?") 'openai-complete-scala-auto-region-fill-in)
   )
 
 (provide 'configure-data-handling)

@@ -50,6 +50,7 @@
                     ".bloop"
                     ".gradle"
                     ".idea"
+                    "alldocs"
                     ".metals")
                 projectile-globally-ignored-directories
                 )

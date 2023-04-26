@@ -9,52 +9,14 @@
 (defvar openai-complete-model nil "")
 (setq openai-complete-model "gpt-3.5-turbo")
 
-(defvar openai-complete-context-lines nil "")
-(setq openai-complete-context-lines 64)
+(defvar openai-complete-context-size nil "")
+(setq openai-complete-context-size 64)
 
 (defvar openai-complete-max-tokens nil "")
 (setq openai-complete-max-tokens 256)
 
-(defvar openai-complete-scala-complete-max-context nil "")
-(setq openai-complete-scala-complete-max-context 256)
-
-(defvar openai-complete-context-context-size nil "")
-(setq openai-complete-context-context-size 16)
-
-(defvar openai-complete-php-subst-prompt nil "")
-(setq openai-complete-php-subst-prompt "
-The following is incomplete PHP 8 code.
-The code contains a single ???.
-You are a helpful AI that provides the best substitution for the ???.
-Respond with only the exact text that should replace the ??? to complete the code.
-Only the exact substitution for ??? is useful.
-No text before or after the replacement for ??? is useful.
-
-")
-
-(defvar openai-complete-php-continue-prompt nil "")
-(setq openai-complete-php-continue-prompt "
-The following is incomplete PHP 8 code.
-You are a helpful coding AI that provides the best completion with the objective: %s.
-
-")
-
-(defvar openai-complete-scala-model nil "")
-(setq openai-complete-scala-model "text-davinci-003")
-
-(defvar openai-complete-scala-complete-prompt nil "")
-(setq openai-complete-scala-complete-prompt "
-The following is incomplete Scala 2.13 code.
-The code contains a single ???.
-You are a helpful AI that provides the best substitution for the ???.
-Respond with only the exact text that should replace the ??? to complete the code.
-Only the exact substitution for ??? is useful.
-No text before or after the replacement for ??? is useful.
-
-")
-
-(defvar openai-complete-elisp-system-prompt nil "")
-(setq openai-complete-elisp-system-prompt "
+(defvar openai-complete-system-prompt nil "")
+(setq openai-complete-system-prompt "
 You are a helpful coding AI.
 The user will provide three sections of content: 'GLOBAL', 'CONTEXT', 'LOCAL'.
 'GLOBAL' describes the general structure.
@@ -63,13 +25,13 @@ The user will provide three sections of content: 'GLOBAL', 'CONTEXT', 'LOCAL'.
 You will provide the best substitution for the '???' in the 'LOCAL' section code.
 The 'LOCAL' section code contains a single '???'.
 Respond with only the exact text that should replace the '???' to complete the code.
-Only the exact substitution for '???' is useful.
+Only the exact substitution for '???' is useful: No instructions or backticks or ``` code blocks.
 Any response that is not code must be in comments.
 ")
 
-(defvar openai-complete-elisp-user-prompt nil "")
-(setq openai-complete-elisp-user-prompt "
-Provide only the code substitution for the '???'; no backticks.
+(defvar openai-complete-user-prompt nil "")
+(setq openai-complete-user-prompt "
+Provide only the code substitution for the '???': No instructions or backticks or ``` code blocks.
 GLOBAL
 %s
 
@@ -97,73 +59,91 @@ LOCAL
   (cl-some (lambda (f) (funcall f arg)) funcs)
   )
 
-(defun elisp-local-context-0 (point)
+(defun make-regex-local-context  (up-to-regex goal-comment-leader-regex)
   ""
-  (pcase (local-context-0 openai-complete-context-lines)
-    (`( ,prior ,next )
-     (let* ((trimmed-prior (seq-drop-while
-                            (lambda (s) (not (string-match-p "(defun" s)))
-                            prior))
-            (clean-prior (if (null trimmed-prior) prior trimmed-prior))
-            (last-line (car (last clean-prior)))
-            )
-       (if (null (string-match "^\s*;;+\s*\\(.*\\)$" last-line))
-           (list (append clean-prior (list "???") next) nil)
-         (list (append (butlast clean-prior) (list "???") next) (match-string 1 last-line))
+  (lambda (point)
+    (pcase (local-context-0 openai-complete-context-size)
+      (`( ,prior ,next )
+       (let* ((trimmed-prior (seq-drop-while
+                              (lambda (s) (not (string-match-p up-to-regex s)))
+                              prior))
+              (clean-prior (if (null trimmed-prior) prior trimmed-prior))
+              (last-line (car (last clean-prior)))
+              )
+         (if (null (string-match (concat "^\s*" goal-comment-leader-regex "+\s*\\(.*\\)$") last-line))
+             (list (append clean-prior (list "???") next) nil)
+           (list (append (butlast clean-prior) (list "???") next) (match-string 1 last-line))
+           )
          )
        )
       )
-     )
-    )
-
-(defun elisp-context-context-0 (local-metadata)
-  ""
-  (let ((regex "(defun \\(\\(?:\\w\\|-\\)+\s*(.*)$\\)")
-        (result (list)))
-    (save-excursion
-      (goto-char (point-min))
-      (while (re-search-forward regex nil t)
-        (push (match-string 1) result)))
-    (if (seq-empty-p result)
-        (list (list "Emacs packages are available.") local-metadata)
-      (list (append (list "Emacs packages are available. Local functions include:") (seq-take result openai-complete-context-context-size)) local-metadata)
     )
   )
+
+(defun make-regex-context-context (regex)
+  ""
+  (lambda (local-metadata)
+    (let (
+          (result (list))
+          (context-size (/ openai-complete-context-size 2))
+          )
+      (save-excursion
+        (goto-char (point-min))
+        (while (re-search-forward regex nil t)
+          (push (match-string 1) result)))
+      (if (seq-empty-p result)
+          (list (list "Emacs packages are available.") local-metadata)
+        (list (append (list "Emacs packages are available. Local functions include:") (seq-take result context-size)) local-metadata)
+        )
+      )
+    )
   )
 
-(defun elisp-global-context-0 (context-metadata)
+(defun make-file-based-global-context (name)
   ""
-  (let* ((project-context
-          (if (null (buffer-file-name))
-              '()
-            (let ((other-files (seq-take (remove "." (remove ".." (remove (buffer-name)
-                                                 (directory-files (file-name-directory (buffer-file-name)))
+  (lambda (context-metadata)
+    (let* ((context-size (/ openai-complete-context-size 4))
+           (project-context
+            (if (null (buffer-file-name))
+                '()
+              (let ((other-files (seq-take (remove "." (remove ".." (remove (buffer-name)
+                                                                            (directory-files (file-name-directory (buffer-file-name)))
 
-                                              )
-                                         ))
-                               openai-complete-context-context-size
-                               )
-                               )
-                  )
-              (append (list (concat "This file is " (string-trim (buffer-name))) ". With other files in the project:") other-files)
+                                                                            )
+                                                               ))
+                                           context-size
+                                           )
+                                 )
+                    )
+                (append (list (concat "The code is " name " in a file named " (string-trim (buffer-name))) ". With other files in the project:") other-files)
+                )
               )
             )
-          )
-         (goal-statement (if context-metadata
-                             (list "The goal is to " context-metadata ". ")
-                           '()
+           (goal-statement (if context-metadata
+                               (list "The goal is to " context-metadata ". ")
+                             '()
+                             )
                            )
-                         )
-         )
-    (list (append goal-statement project-context) context-metadata)
+           )
+      (list (append goal-statement project-context) context-metadata)
+      )
     )
   )
 
 (defun openai-complete-elisp-context (point)
   "provide context for elisp"
-  (pcase-let* ((`( ,local ,local-metadata) (mopt-first-non-nil point '(elisp-local-context-0)))
-               (`( ,context ,context-metadata) (mopt-first-non-nil local-metadata '(elisp-context-context-0)))
-               (`( ,global ,global-metadata) (mopt-first-non-nil context-metadata '(elisp-global-context-0)))
+  (pcase-let* ((`( ,local ,local-metadata) (mopt-first-non-nil point
+                                                               (list
+                                                                 (make-regex-local-context "(defun" ";;")
+                                                                 )))
+               (`( ,context ,context-metadata) (mopt-first-non-nil local-metadata
+                                                                   (list
+                                                                     (make-regex-context-context "(defun \\(\\(?:\\w\\|-\\)+\s*(.*)$\\)")
+                                                                     )))
+               (`( ,global ,global-metadata) (mopt-first-non-nil context-metadata
+                                                                 (list
+                                                                   (make-file-based-global-context "Emacs Lisp")
+                                                                   )))
                )
     ;; (message "local-metadata %s" local-metadata)
     ;; (message "context-metadata %s" context-metadata)
@@ -175,20 +155,98 @@ LOCAL
 (defun openai-complete-elisp-prompts ()
   ""
   (make-openai-complete-prompts
-   :system openai-complete-elisp-system-prompt
-   :user openai-complete-elisp-user-prompt
+   :system openai-complete-system-prompt
+   :user openai-complete-user-prompt
    )
   )
 
-(defun openai-complete-scala-context ()
-  "provide three levels of context (local mid far) for scala"
-  '()
+(defun openai-complete-elisp-continue ()
+  ""
+  (interactive)
+  (make-openai-complete-generic-continue
+   'openai-complete-elisp-context
+   (openai-complete-elisp-prompts)
+   )
   )
 
-(defun openai-complete-php-context ()
-  "provide three levels of context (local mid far) for php"
-  '()
+(defun openai-complete-scala-context (point)
+  "provide context for scala"
+  (pcase-let* ((`( ,local ,local-metadata) (mopt-first-non-nil point
+                                                               (list
+                                                                 (make-regex-local-context "\sdef" "//")
+                                                                 )))
+               (`( ,context ,context-metadata) (mopt-first-non-nil local-metadata
+                                                                   (list
+                                                                     (make-regex-context-context "\s\\(?:def\\|val\\)\s+\\(\\w+.*\\)=.*$")
+                                                                     )))
+               (`( ,global ,global-metadata) (mopt-first-non-nil context-metadata
+                                                                 (list
+                                                                   (make-file-based-global-context "Scala")
+                                                                   )))
+               )
+    ;; (message "local-metadata %s" local-metadata)
+    ;; (message "context-metadata %s" context-metadata)
+    ;; (message "global-metadata %s" global-metadata)
+    (make-openai-complete-context :local local :context context :global global :meta global-metadata)
+    )
   )
+
+(defun openai-complete-scala-prompts ()
+  ""
+  (make-openai-complete-prompts
+   :system openai-complete-system-prompt
+   :user openai-complete-user-prompt
+   )
+  )
+
+(defun openai-complete-scala-continue ()
+  ""
+  (interactive)
+  (make-openai-complete-generic-continue
+   'openai-complete-scala-context
+   (openai-complete-scala-prompts)
+   )
+  )
+
+(defun openai-complete-php-context (point)
+  "provide three levels of context (local mid far) for php"
+  (pcase-let* ((`( ,local ,local-metadata) (mopt-first-non-nil point
+                                                               (list
+                                                                 (make-regex-local-context "\sfunction" "\\(?://\\|#\\)")
+                                                                 )))
+               (`( ,context ,context-metadata) (mopt-first-non-nil local-metadata
+                                                                   (list
+                                                                     (make-regex-context-context "\sfunction\s+\\(\\w+.*\\)\\(?:$\\|{\\)")
+                                                                     )))
+               (`( ,global ,global-metadata) (mopt-first-non-nil context-metadata
+                                                                 (list
+                                                                   (make-file-based-global-context "PHP 8")
+                                                                   )))
+               )
+    ;; (message "local-metadata %s" local-metadata)
+    ;; (message "context-metadata %s" context-metadata)
+    ;; (message "global-metadata %s" global-metadata)
+    (make-openai-complete-context :local local :context context :global global :meta global-metadata)
+    )
+  )
+
+(defun openai-complete-php-prompts ()
+  ""
+  (make-openai-complete-prompts
+   :system openai-complete-system-prompt
+   :user openai-complete-user-prompt
+   )
+  )
+
+(defun openai-complete-php-continue ()
+  ""
+  (interactive)
+  (make-openai-complete-generic-continue
+   'openai-complete-php-context
+   (openai-complete-php-prompts)
+   )
+  )
+
 
 ;; TODO: annotate
 (defun buffer-text-lines (start end)
@@ -239,14 +297,6 @@ LOCAL
         (next (local-context-0-next (/ n 2))))
     (list prior next)))
 
-(defun openai-complete-elisp-continue ()
-  ""
-  (interactive)
-  (openai-complete-generic-continue
-   'openai-complete-elisp-context
-   (openai-complete-elisp-prompts)
-   )
-  )
 
 (defun openai-complete-response-substitution (content meta)
   ""
@@ -262,10 +312,10 @@ LOCAL
           (progn
             (newline-and-indent)
             (insert content))
-      (insert content))))
-)
+        (insert content))))
+  )
 
-(defun openai-complete-generic-continue (context-f prompts)
+(defun make-openai-complete-generic-continue (context-f prompts)
   ""
   (let* ((context (funcall context-f (point)))
          (local-text (mapconcat 'identity (openai-complete-context-local context) "\n"))
@@ -285,58 +335,34 @@ LOCAL
     ;; (message "USER START\n%s\nUSER END" user-text)
     ;;(message "request %s" request)
     (openai-chat request
-                         (lambda (data)
-                           ;; (message "response %s" data)
-                           (let* ((choices (let-alist data .choices))
-                                  )
-                             (when (seq-empty-p choices)
-                               (user-error "No completion found"))
-                             (let* ((choice (seq-first choices))
-                                    (result (let-alist choice (let-alist .message (string-trim .content))))
-                                    )
-                               ;; (message "result %s" result)
-                               (openai-complete-response-substitution result (openai-complete-context-meta context))
-                               )
-                             )
-                           )
-                         :max-tokens openai-complete-max-tokens
-                         :model openai-complete-model
-                         )
-      )
-    )
-
-(defun openai-complete-php-region-fill-in (start end)
-  ""
-  (interactive "r")
-  (let ((code (concat openai-complete-php-subst-prompt (string-trim (buffer-substring-no-properties start end)))))
-    (openai-completion code
-                       (lambda (data)
-                         (let* ((choices (openai--data-choices data))
-                                (result (string-trim (openai--get-choice choices)))
-                                )
-                           (when (string-empty-p result)
-                             (user-error "No completion found"))
-                           (save-excursion
-                             (goto-char start)
-                             (search-forward "???" end t)
-                             (replace-match (replace-regexp-in-string "^\n+" "" result) t t)
-                             )
-                           )
-                         )
-                       :max-tokens 256
-                       :model openai-complete-php-subst-model
+                 (lambda (data)
+                   ;; (message "response %s" data)
+                   (let* ((choices (let-alist data .choices))
+                          )
+                     (when (seq-empty-p choices)
+                       (user-error "No completion found"))
+                     (let* ((choice (seq-first choices))
+                            (result (let-alist choice (let-alist .message (string-trim .content))))
+                            )
+                       ;; (message "result %s" result)
+                       (openai-complete-response-substitution result (openai-complete-context-meta context))
                        )
+                     )
+                   )
+                 :max-tokens openai-complete-max-tokens
+                 :model openai-complete-model
+                 )
     )
   )
 
-(defun openai-complete-php-continue ()
+(defun openai-complete-php-continue-alt ()
   ""
   (interactive)
   (let* ((previous-lines (local-context-0-prior 128))
          (probable-pre-context (seq-drop-while
-                                 (lambda (s) (not (string-match-p "\\(class\\|function\\)" s)))
-                                 previous-lines)
-                                )
+                                (lambda (s) (not (string-match-p "\\(class\\|function\\)" s)))
+                                previous-lines)
+                               )
          (last-line (car (last probable-pre-context)))
          (context-lines (butlast probable-pre-context))
          )
@@ -422,31 +448,6 @@ LOCAL
               result)
         (setq result (append result (openai-complete-flatten-document-symbols children)))))))
 
-(defun openai-complete-scala-region-fill-in (start end)
-  ""
-  (interactive "r")
-  (let ((code (concat openai-complete-scala-complete-prompt (string-trim (buffer-substring-no-properties start end)))))
-    (openai-completion code
-                       (lambda (data)
-                         (let* ((choices (openai--data-choices data))
-                                (result (string-trim (openai--get-choice choices)))
-                                )
-                           (when (string-empty-p result)
-                             (user-error "No completion found"))
-                           (save-excursion
-                             (goto-char start)
-                             (while (search-forward "???" end t)
-                               (replace-match (replace-regexp-in-string "^\n+" "" result) t t)
-                               )
-                             )
-                           )
-                         )
-                       :max-tokens 256
-                       :model openai-complete-scala-model
-                       )
-    )
-  )
-
 (defun openai-complete-scala-auto-region-fill-in ()
   (interactive)
   (let* ((line (line-number-at-pos))
@@ -499,7 +500,7 @@ LOCAL
     (unless (string= previous-text "???")
       (insert "???"))))
 
-(defun openai-complete-scala-continue ()
+(defun openai-complete-scala-continue-alt ()
   (interactive)
   (call-interactively 'openai-complete-ensure-placeholder)
   (let* ((line (line-number-at-pos))

@@ -58,6 +58,13 @@
   (evil-define-key 'normal scala-mode-map (kbd "g ?") 'openai-complete-scala-auto-region-fill-in)
   )
 
+(use-package chatgpt-shell
+  :ensure t
+  :config
+
+  (setq chatgpt-shell-openai-key openai-key)
+  )
+
 (provide 'configure-data-handling)
 
 ;;; configure-data-handling.el ends here

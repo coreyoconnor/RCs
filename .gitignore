@@ -60,3 +60,4 @@ emacs.d/elpa/archives
 emacs.d/request
 emacs.d/eclipse.jdt.ls/test-runner/junit-platform-console-standalone.jar
 ecb-user-layouts.el
+emacs.d/chatgpt/history

@@ -237,6 +237,8 @@
 
 (use-package treemacs
   :ensure t
+  :init
+  (customize-set-variable 'treemacs-no-png-images t)
   :config
   (setq treemacs-collapse-dirs 5)
   (setq treemacs-width 55)

@@ -9,6 +9,17 @@
   (setq use-package-verbose t)
   )
 
+(when (memq window-system '(mac ns x))
+;; overriding image.el function image-type-available-p
+
+(defun image-type-available-p (type)
+    "Return t if image type TYPE is available. Image types are symbols like `xbm' or `jpeg'."
+    (if (eq 'svg type)
+        nil
+    (and (fboundp 'init-image-library)
+            (init-image-library type))))
+)
+
 (package-initialize)
 
 (defconst dot-emacs (concat (getenv "HOME") "/" "Development/" "RCs/" "real-emacs.el")
@@ -66,7 +77,7 @@
  '(nav-width 40)
  '(nxml-slash-auto-complete-flag t)
  '(package-selected-packages
-   '(vue-mode helm-ag treemacs-magit company-php phps-mode chatgpt jetbrains-darcula-theme javap-mode elscreen elscreen-buffer-group elscreen-fr mmm-jinja2 poly-ansible ac-php composer php-scratch ada-mode rjsx-mode js-format js-import js-react-redux-yasnippets exec-path-from-shell jinja2-mode yatemplate yasnippet-snippets fold-this seq glsl-mode nerdtab go-mode evil-collection gdscript-mode js2-highlight-vars string-inflection yasnippet yard-mode yaml-mode window-numbering web-mode swiper smex rubocop robe projectile-rails paredit omniref nav mediawiki ido-ubiquitous idle-highlight-mode hydra hindent haml-mode groovy-mode gradle-mode fringe-helper flymake-ruby evil enh-ruby-mode ecb dirtree company color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized auto-complete))
+   '(vue-mode helm-ag company-php phps-mode jetbrains-darcula-theme javap-mode elscreen elscreen-buffer-group elscreen-fr mmm-jinja2 poly-ansible ac-php composer php-scratch ada-mode rjsx-mode js-format js-import js-react-redux-yasnippets exec-path-from-shell jinja2-mode yatemplate yasnippet-snippets fold-this seq glsl-mode nerdtab go-mode evil-collection gdscript-mode js2-highlight-vars string-inflection yasnippet yard-mode yaml-mode window-numbering web-mode swiper smex rubocop robe projectile-rails paredit omniref nav mediawiki ido-ubiquitous idle-highlight-mode hydra hindent haml-mode groovy-mode gradle-mode fringe-helper flymake-ruby evil enh-ruby-mode ecb dirtree company color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized auto-complete))
  '(safe-local-variable-values
    '((haskell-indentation-where-post-offset . 4)
      (haskell-indentation-where-pre-offset . 4)
@@ -75,7 +86,8 @@
      (haskell-indentation-starter-offset . 4)
      (haskell-indentation-layout-offset . 4)))
  '(warning-suppress-log-types '((comp) (comp) (comp)))
- '(warning-suppress-types '((comp) (comp))))
+ '(warning-suppress-types '((comp) (comp)))
+ '(treemacs-no-png-images t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

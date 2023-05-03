@@ -25,6 +25,7 @@
 (setq scroll-conservatively 5)
 (setq scroll-margin 5)
 (setq blink-matching-paren nil)
+;; (set-face-attribute 'show-paren-match nil :underline t)
 
 (setq column-number-mode t)
 

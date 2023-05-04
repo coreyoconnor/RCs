@@ -22,10 +22,9 @@ The user will provide three sections of content: 'GLOBAL', 'CONTEXT', 'LOCAL'.
 'GLOBAL' describes the general structure.
 'CONTEXT' describes the context of the 'LOCAL' code.
 'LOCAL' is the incomplete code.
-You will provide the best substitution for the '???' in the 'LOCAL' section code.
+Respond with exactly the substitution for '???' in the 'LOCAL' section code.
 The 'LOCAL' section code contains a single '???'.
-Respond with only the exact text that should replace the '???' to complete the code.
-Only the exact substitution for '???' is useful: No instructions or backticks or ``` code blocks.
+Respond with only the exact code that should replace the '???'.
 Any response that is not code must be in comments.
 ")
 
@@ -60,7 +59,8 @@ LOCAL
   )
 
 (defun make-regex-local-context  (up-to-regex goal-comment-leader-regex)
-  ""
+"Grabs no more than openai-complete-context-size lines, up to UP-TO-REGEX.
+With GOAL-COMMENT-LEADER-REGEX used to match the goal from the current/previous line."
   (lambda (point)
     (pcase (local-context-0 openai-complete-context-size)
       (`( ,prior ,next )
@@ -92,8 +92,8 @@ LOCAL
         (while (re-search-forward regex nil t)
           (push (match-string 1) result)))
       (if (seq-empty-p result)
-          (list (list "Emacs packages are available.") local-metadata)
-        (list (append (list "Emacs packages are available. Local functions include:") (seq-take result context-size)) local-metadata)
+          (list (list "") local-metadata)
+        (list (append (list "Local namespace includes:") (seq-take result context-size)) local-metadata)
         )
       )
     )
@@ -212,20 +212,20 @@ LOCAL
   "provide three levels of context (local mid far) for php"
   (pcase-let* ((`( ,local ,local-metadata) (mopt-first-non-nil point
                                                                (list
-                                                                 (make-regex-local-context "\sfunction" "\\(?://\\|#\\)")
+                                                                 (make-regex-local-context "^\s*class\\|^\s*function" "\\(?://\\|#\\)")
                                                                  )))
                (`( ,context ,context-metadata) (mopt-first-non-nil local-metadata
                                                                    (list
-                                                                     (make-regex-context-context "\sfunction\s+\\(\\w+.*\\)\\(?:$\\|{\\)")
+                                                                     (make-regex-context-context "^\s*\\(function\s+\\w+.*\\|class\s+\\w+.*\\)\\(?:$\\|{\\)")
                                                                      )))
                (`( ,global ,global-metadata) (mopt-first-non-nil context-metadata
                                                                  (list
                                                                    (make-file-based-global-context "PHP 8")
                                                                    )))
                )
-    ;; (message "local-metadata %s" local-metadata)
-    ;; (message "context-metadata %s" context-metadata)
-    ;; (message "global-metadata %s" global-metadata)
+    (message "local-metadata %s" local-metadata)
+    (message "context-metadata %s" context-metadata)
+    (message "global-metadata %s" global-metadata)
     (make-openai-complete-context :local local :context context :global global :meta global-metadata)
     )
   )
@@ -246,7 +246,6 @@ LOCAL
    (openai-complete-php-prompts)
    )
   )
-
 
 ;; TODO: annotate
 (defun buffer-text-lines (start end)
@@ -343,50 +342,16 @@ LOCAL
                        (user-error "No completion found"))
                      (let* ((choice (seq-first choices))
                             (result (let-alist choice (let-alist .message (string-trim .content))))
+                            (cleaned (replace-regexp-in-string "^```\\|```$" "" result))
                             )
                        ;; (message "result %s" result)
-                       (openai-complete-response-substitution result (openai-complete-context-meta context))
+                       (openai-complete-response-substitution cleaned (openai-complete-context-meta context))
                        )
                      )
                    )
                  :max-tokens openai-complete-max-tokens
                  :model openai-complete-model
                  )
-    )
-  )
-
-(defun openai-complete-php-continue-alt ()
-  ""
-  (interactive)
-  (let* ((previous-lines (local-context-0-prior 128))
-         (probable-pre-context (seq-drop-while
-                                (lambda (s) (not (string-match-p "\\(class\\|function\\)" s)))
-                                previous-lines)
-                               )
-         (last-line (car (last probable-pre-context)))
-         (context-lines (butlast probable-pre-context))
-         )
-    (let* ((code-context (mapconcat 'identity context-lines "\n"))
-           (prompt (concat
-                    (format openai-complete-php-continue-prompt last-line)
-                    code-context))
-           )
-      (openai-completion prompt
-                         (lambda (data)
-                           (let* ((choices (openai--data-choices data))
-                                  (result (string-trim (openai--get-choice choices)))
-                                  )
-                             (when (string-empty-p result)
-                               (user-error "No completion found"))
-                             (delete-region (line-beginning-position) (line-end-position))
-                             (insert result)
-                             (indent-according-to-mode)
-                             )
-                           )
-                         :max-tokens 256
-                         :model openai-complete-php-subst-model
-                         )
-      )
     )
   )
 

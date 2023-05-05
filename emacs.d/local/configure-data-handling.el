@@ -53,16 +53,15 @@
   (require 'openai-complete)
 
   (evil-define-key 'insert emacs-lisp-mode-map (kbd "C-c c") 'openai-complete-elisp-continue)
-  (evil-define-key 'insert php-mode-map (kbd "C-c c") 'openai-complete-php-continue)
-  (evil-define-key 'insert scala-mode-map (kbd "C-c c") 'openai-complete-scala-continue)
-  (evil-define-key 'normal scala-mode-map (kbd "g ?") 'openai-complete-scala-auto-region-fill-in)
   )
 
 (use-package chatgpt-shell
   :ensure t
   :config
 
+  (setq chatgpt-shell-model-version "gpt-4")
   (setq chatgpt-shell-openai-key openai-key)
+  (setq chatgpt-shell-request-timeout 120)
   )
 
 (provide 'configure-data-handling)

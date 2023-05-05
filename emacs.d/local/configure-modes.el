@@ -199,6 +199,8 @@
   (setq-default c-basic-offset 2)
   (setq-default evil-shift-width 2)
   (setq-default scala-indent:align-parameters t)
+  (evil-define-key 'insert scala-mode-map (kbd "C-c c") 'openai-complete-scala-continue)
+  (evil-define-key 'normal scala-mode-map (kbd "g ?") 'openai-complete-scala-auto-region-fill-in)
   (cleanup-on-save)
   )
 
@@ -376,6 +378,7 @@
 (use-package php-mode
   :ensure t
   :config
+  (evil-define-key 'insert php-mode-map (kbd "C-c c") 'openai-complete-php-continue)
   )
 
 (use-package company-php

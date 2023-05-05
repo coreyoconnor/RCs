@@ -7,7 +7,7 @@
 (require 'seq)
 
 (defvar openai-complete-model nil "")
-(setq openai-complete-model "gpt-3.5-turbo")
+(setq openai-complete-model "gpt-4")
 
 (defvar openai-complete-context-size nil "")
 (setq openai-complete-context-size 64)
@@ -30,7 +30,7 @@ Any response that is not code must be in comments.
 
 (defvar openai-complete-user-prompt nil "")
 (setq openai-complete-user-prompt "
-Provide only the code substitution for the '???': No instructions or backticks or ``` code blocks.
+Provide only the code substitution for the '???'.
 GLOBAL
 %s
 
@@ -223,9 +223,9 @@ With GOAL-COMMENT-LEADER-REGEX used to match the goal from the current/previous 
                                                                    (make-file-based-global-context "PHP 8")
                                                                    )))
                )
-    (message "local-metadata %s" local-metadata)
-    (message "context-metadata %s" context-metadata)
-    (message "global-metadata %s" global-metadata)
+    ;; (message "local-metadata %s" local-metadata)
+    ;; (message "context-metadata %s" context-metadata)
+    ;; (message "global-metadata %s" global-metadata)
     (make-openai-complete-context :local local :context context :global global :meta global-metadata)
     )
   )
@@ -314,6 +314,25 @@ With GOAL-COMMENT-LEADER-REGEX used to match the goal from the current/previous 
         (insert content))))
   )
 
+(defun openai-complete--select-text-result (data)
+  ""
+  (let* ((choices (let-alist data .choices)))
+    (when (seq-empty-p choices)
+      (user-error "No completion found"))
+    (let* ((choice (seq-first choices)))
+      (let-alist choice (let-alist .message (string-trim .content)))
+      )
+    )
+  )
+
+(defun openai-complete--select-code-block (text)
+  ""
+  (if (null (string-match "^.*```\\(.*?\\)```.*$" text))
+      text
+    (match-string 1 text)
+    )
+  )
+
 (defun make-openai-complete-generic-continue (context-f prompts)
   ""
   (let* ((context (funcall context-f (point)))
@@ -336,19 +355,14 @@ With GOAL-COMMENT-LEADER-REGEX used to match the goal from the current/previous 
     (openai-chat request
                  (lambda (data)
                    ;; (message "response %s" data)
-                   (let* ((choices (let-alist data .choices))
+                   (let* ((result (openai-complete--select-text-result data))
+                          (code (openai-complete--select-code-block result))
                           )
-                     (when (seq-empty-p choices)
-                       (user-error "No completion found"))
-                     (let* ((choice (seq-first choices))
-                            (result (let-alist choice (let-alist .message (string-trim .content))))
-                            (cleaned (replace-regexp-in-string "^```\\|```$" "" result))
-                            )
-                       ;; (message "result %s" result)
-                       (openai-complete-response-substitution cleaned (openai-complete-context-meta context))
+                       (message "result %s" result)
+                       (message "code %s" code)
+                       (openai-complete-response-substitution code (openai-complete-context-meta context))
                        )
                      )
-                   )
                  :max-tokens openai-complete-max-tokens
                  :model openai-complete-model
                  )

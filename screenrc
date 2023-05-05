@@ -9,7 +9,7 @@ defscrollback 100000
 maptimeout 0
 defutf8 on
 screen -t cmd 1 $SHELL
-screen -t editor 2 emacs -nw
+screen -t editor 2 $EDITOR
 select 1
 bind c screen 1
 bind 0 select 10

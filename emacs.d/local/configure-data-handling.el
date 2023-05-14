@@ -57,11 +57,10 @@
 
 (use-package chatgpt-shell
   :ensure t
-  :config
-
+  :init
   (setq chatgpt-shell-model-version "gpt-4")
   (setq chatgpt-shell-openai-key openai-key)
-  (setq chatgpt-shell-request-timeout 120)
+  (setq chatgpt-shell-request-timeout 180)
   )
 
 (provide 'configure-data-handling)

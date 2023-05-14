@@ -22,15 +22,14 @@ The user will provide three sections of content: 'GLOBAL', 'CONTEXT', 'LOCAL'.
 'GLOBAL' describes the general structure.
 'CONTEXT' describes the context of the 'LOCAL' code.
 'LOCAL' is the incomplete code.
-Respond with exactly the substitution for '???' in the 'LOCAL' section code.
-The 'LOCAL' section code contains a single '???'.
-Respond with only the exact code that should replace the '???'.
-Any response that is not code must be in comments.
+Respond with exactly the substitution for 'XXX' in the 'LOCAL' section code.
+The 'LOCAL' section code contains a single 'XXX'.
+Respond with only the exact code that should replace the 'XXX'.
 ")
 
 (defvar openai-complete-user-prompt nil "")
 (setq openai-complete-user-prompt "
-Provide only the code substitution for the '???'.
+Provide only the code substitution for the 'XXX'.
 GLOBAL
 %s
 
@@ -53,14 +52,21 @@ LOCAL
   user ;; format with GLOBAL, CONTEXT, LOCAL strings
   )
 
+(cl-defstruct openai-complete-lsp-symbol
+  kind ;; lsp symbol kind
+  name ;; string
+  decl ;; string
+  range-start ;; int
+  range-end
+  )
+
 (defun mopt-first-non-nil (arg funcs)
   ""
   (cl-some (lambda (f) (funcall f arg)) funcs)
   )
 
-(defun make-regex-local-context  (up-to-regex goal-comment-leader-regex)
-"Grabs no more than openai-complete-context-size lines, up to UP-TO-REGEX.
-With GOAL-COMMENT-LEADER-REGEX used to match the goal from the current/previous line."
+(defun make-regex-local-context  (up-to-regex)
+  "Grabs no more than openai-complete-context-size lines, up to UP-TO-REGEX."
   (lambda (point)
     (pcase (local-context-0 openai-complete-context-size)
       (`( ,prior ,next )
@@ -68,12 +74,8 @@ With GOAL-COMMENT-LEADER-REGEX used to match the goal from the current/previous 
                               (lambda (s) (not (string-match-p up-to-regex s)))
                               prior))
               (clean-prior (if (null trimmed-prior) prior trimmed-prior))
-              (last-line (car (last clean-prior)))
               )
-         (if (null (string-match (concat "^\s*" goal-comment-leader-regex "+\s*\\(.*\\)$") last-line))
-             (list (append clean-prior (list "???") next) nil)
-           (list (append (butlast clean-prior) (list "???") next) (match-string 1 last-line))
-           )
+         (list clean-prior nil)
          )
        )
       )
@@ -106,26 +108,26 @@ With GOAL-COMMENT-LEADER-REGEX used to match the goal from the current/previous 
            (project-context
             (if (null (buffer-file-name))
                 '()
-              (let ((other-files (seq-take (remove "." (remove ".." (remove (buffer-name)
-                                                                            (directory-files (file-name-directory (buffer-file-name)))
-
-                                                                            )
-                                                               ))
-                                           context-size
-                                           )
-                                 )
-                    )
-                (append (list (concat "The code is " name " in a file named " (string-trim (buffer-name))) ". With other files in the project:") other-files)
+              (let* ((other-files
+                      (remove "."
+                              (remove ".."
+                                      (remove (buffer-name)
+                                              (directory-files (file-name-directory (buffer-file-name)))
+                                              )
+                                      )
+                              )
+                      )
+                     (files-sample (seq-take other-files context-size))
+                     (this-file-intro (concat "The code is " name " in a file named " (string-trim (buffer-name))))
+                     )
+                (if (null files-sample) (list this-file-intro)
+                  (append (list this-file-intro ". With other files in the project:") files-sample)
+                  )
                 )
               )
             )
-           (goal-statement (if context-metadata
-                               (list "The goal is to " context-metadata ". ")
-                             '()
-                             )
-                           )
            )
-      (list (append goal-statement project-context) context-metadata)
+      (list project-context context-metadata)
       )
     )
   )
@@ -134,16 +136,16 @@ With GOAL-COMMENT-LEADER-REGEX used to match the goal from the current/previous 
   "provide context for elisp"
   (pcase-let* ((`( ,local ,local-metadata) (mopt-first-non-nil point
                                                                (list
-                                                                 (make-regex-local-context "(defun" ";;")
-                                                                 )))
+                                                                (make-regex-local-context "(defun")
+                                                                )))
                (`( ,context ,context-metadata) (mopt-first-non-nil local-metadata
                                                                    (list
-                                                                     (make-regex-context-context "(defun \\(\\(?:\\w\\|-\\)+\s*(.*)$\\)")
-                                                                     )))
+                                                                    (make-regex-context-context "(defun \\(\\(?:\\w\\|-\\)+\s*(.*)$\\)")
+                                                                    )))
                (`( ,global ,global-metadata) (mopt-first-non-nil context-metadata
                                                                  (list
-                                                                   (make-file-based-global-context "Emacs Lisp")
-                                                                   )))
+                                                                  (make-file-based-global-context "Emacs Lisp")
+                                                                  )))
                )
     ;; (message "local-metadata %s" local-metadata)
     ;; (message "context-metadata %s" context-metadata)
@@ -173,20 +175,25 @@ With GOAL-COMMENT-LEADER-REGEX used to match the goal from the current/previous 
   "provide context for scala"
   (pcase-let* ((`( ,local ,local-metadata) (mopt-first-non-nil point
                                                                (list
-                                                                 (make-regex-local-context "\sdef" "//")
-                                                                 )))
+                                                                'local-context-from-lsp
+                                                                (make-regex-local-context "\sdef")
+                                                                )))
                (`( ,context ,context-metadata) (mopt-first-non-nil local-metadata
                                                                    (list
-                                                                     (make-regex-context-context "\s\\(?:def\\|val\\)\s+\\(\\w+.*\\)=.*$")
-                                                                     )))
+                                                                    'context-context-from-lsp
+                                                                    (make-regex-context-context "\s\\(?:def\\|val\\)\s+\\(\\w+.*\\)=.*$")
+                                                                    )))
                (`( ,global ,global-metadata) (mopt-first-non-nil context-metadata
                                                                  (list
-                                                                   (make-file-based-global-context "Scala")
-                                                                   )))
+                                                                  (make-file-based-global-context "Scala")
+                                                                  )))
                )
     ;; (message "local-metadata %s" local-metadata)
     ;; (message "context-metadata %s" context-metadata)
     ;; (message "global-metadata %s" global-metadata)
+    ;; (message "local %s" local)
+    ;; (message "context %s" context)
+    ;; (message "global %s" global)
     (make-openai-complete-context :local local :context context :global global :meta global-metadata)
     )
   )
@@ -212,16 +219,16 @@ With GOAL-COMMENT-LEADER-REGEX used to match the goal from the current/previous 
   "provide three levels of context (local mid far) for php"
   (pcase-let* ((`( ,local ,local-metadata) (mopt-first-non-nil point
                                                                (list
-                                                                 (make-regex-local-context "^\s*class\\|^\s*function" "\\(?://\\|#\\)")
-                                                                 )))
+                                                                (make-regex-local-context "^\s*class\\|^\s*function")
+                                                                )))
                (`( ,context ,context-metadata) (mopt-first-non-nil local-metadata
                                                                    (list
-                                                                     (make-regex-context-context "^\s*\\(function\s+\\w+.*\\|class\s+\\w+.*\\)\\(?:$\\|{\\)")
-                                                                     )))
+                                                                    (make-regex-context-context "^\s*\\(function\s+\\w+.*\\|class\s+\\w+.*\\)\\(?:$\\|{\\)")
+                                                                    )))
                (`( ,global ,global-metadata) (mopt-first-non-nil context-metadata
                                                                  (list
-                                                                   (make-file-based-global-context "PHP 8")
-                                                                   )))
+                                                                  (make-file-based-global-context "PHP 8")
+                                                                  )))
                )
     ;; (message "local-metadata %s" local-metadata)
     ;; (message "context-metadata %s" context-metadata)
@@ -297,21 +304,19 @@ With GOAL-COMMENT-LEADER-REGEX used to match the goal from the current/previous 
     (list prior next)))
 
 
-(defun openai-complete-response-substitution (content meta)
+(defun openai-complete--response-substitution (content meta)
   ""
   (let* ((close-start (save-excursion (forward-line -2) (point)))
          (close-end (save-excursion (forward-line 2) (point))))
-    (if (and (not meta)
-             (save-excursion
-               (goto-char close-start)
-               (search-forward "???" close-end t)))
+    (save-excursion
+      (goto-char close-start)
+      (search-forward "XXX" close-end t)
+      (let ((match-start (match-beginning 0)))
         (replace-match content t t)
-      (if (and (eolp)
-               (not (looking-back "^[[:space:]]*" 1)))
-          (progn
-            (newline-and-indent)
-            (insert content))
-        (insert content))))
+        (indent-region match-start (point))
+        )
+      )
+    )
   )
 
 (defun openai-complete--select-text-result (data)
@@ -335,6 +340,7 @@ With GOAL-COMMENT-LEADER-REGEX used to match the goal from the current/previous 
 
 (defun make-openai-complete-generic-continue (context-f prompts)
   ""
+  (call-interactively 'openai-complete-ensure-placeholder)
   (let* ((context (funcall context-f (point)))
          (local-text (mapconcat 'identity (openai-complete-context-local context) "\n"))
          (context-text (mapconcat 'identity (openai-complete-context-context context) "\n"))
@@ -349,8 +355,8 @@ With GOAL-COMMENT-LEADER-REGEX used to match the goal from the current/previous 
                    )
            )
          )
-    ;; (message "SYSTEM START\n%s\nSYSTEM END" system-text)
-    ;; (message "USER START\n%s\nUSER END" user-text)
+    (message "SYSTEM START\n%s\nSYSTEM END" system-text)
+    (message "USER START\n%s\nUSER END" user-text)
     ;;(message "request %s" request)
     (openai-chat request
                  (lambda (data)
@@ -358,170 +364,151 @@ With GOAL-COMMENT-LEADER-REGEX used to match the goal from the current/previous 
                    (let* ((result (openai-complete--select-text-result data))
                           (code (openai-complete--select-code-block result))
                           )
-                       (message "result %s" result)
-                       (message "code %s" code)
-                       (openai-complete-response-substitution code (openai-complete-context-meta context))
-                       )
+                     ;;(message "result %s" result)
+                     ;;(message "code %s" code)
+                     (openai-complete--response-substitution code (openai-complete-context-meta context))
                      )
+                   )
                  :max-tokens openai-complete-max-tokens
                  :model openai-complete-model
                  )
     )
   )
 
-(defun openai-complete-symbol-size-comparator (a b)
+(defun openai-complete--symbol-size-comparator (a b)
   ""
-  (> (- (nth 3 a) (nth 2 a))
-     (- (nth 3 b) (nth 2 b))))
+  (> (- (openai-complete-lsp-symbol-range-end a) (openai-complete-lsp-symbol-range-start a))
+     (- (openai-complete-lsp-symbol-range-end b) (openai-complete-lsp-symbol-range-start b))))
 
-(defun openai-complete-sort-symbols-by-size-desc (symbols)
+(defun openai-complete--sort-symbols-by-size-desc (symbols)
   ""
-  (sort symbols 'openai-complete-symbol-size-comparator))
+  (sort symbols 'openai-complete--symbol-size-comparator))
 
-(defun openai-complete-to-line-char (hash-table)
+(defun openai-complete--lsp-range-to-pos (range)
   ""
-  (let ((line (gethash "line" hash-table))
-        (character (gethash "character" hash-table)))
-    (vector line character)))
+  (let ((line (gethash "line" range))
+        (character (gethash "character" range)))
+    (save-excursion
+      (goto-char (point-min))
+      (forward-line line)
+      (move-to-column character)
+      (point)
+      )
+    )
+  )
 
-(defun openai-complete-get-line (hash-table)
-  ""
-  (gethash "line" hash-table))
-
-(defun openai-complete-get-text-from-lines (start end)
+(defun openai-complete--buffer-text-for-lsp-lines (start end)
   ""
   (save-excursion
     (goto-char (point-min))
-    (forward-line (1- start))
+    (forward-line start)
     (let ((start-pos (point)))
-      (forward-line (1+ (- end start)))
-      (buffer-substring-no-properties start-pos (point)))))
+      (forward-line (+ 1 (- end start)))
+      (let* ((lines (split-string (buffer-substring-no-properties start-pos (point)) "\n"))
+             (no-trailing-empties (nreverse
+                                   (seq-drop-while
+                                    (lambda (s) (string-match-p "^\\s*$" s))
+                                    (nreverse lines))
+                                   )
+                                  )
+             )
+        no-trailing-empties
+        )
+      )
+    )
+  )
 
-(defun openai-complete-symbols-with-line-in-range (symbols line max)
+(defun openai-complete--symbols-with-line-in-range (symbols line max)
   ""
   (let ((result '()))
     (dolist (symbol symbols)
-      (let ((start (nth 2 symbol))
-            (end (nth 3 symbol)))
+      (let ((start (openai-complete-lsp-symbol-range-start symbol))
+            (end (openai-complete-lsp-symbol-range-end symbol))
+            )
+        ;; (message "symbol %s" symbol)
         (when (and (<= start line) (<= line end) (<= (- end start) max))
           (push symbol result))))
     (nreverse result)))
 
-(defun openai-complete-flatten-document-symbols (symbols)
+(defun openai-complete--symbols-from-response (response)
   ""
   (let (result)
-    (dolist (symbol (append symbols nil) result)
-      (let ((kind (gethash "kind" symbol))
-            (name (gethash "name" symbol))
-            (selection-range (gethash "selectionRange" symbol))
-            (range (gethash "range" symbol))
-            (children (gethash "children" symbol)))
-        (push (list kind
-                    name
-                    (+ 1 (min
-                          (openai-complete-get-line (gethash "start" selection-range))
-                          (openai-complete-get-line (gethash "start" range))))
-                    (+ 1 (max
-                          (openai-complete-get-line (gethash "end" selection-range))
-                          (openai-complete-get-line (gethash "end" range)))))
+    (dolist (symbol (append response nil) result)
+      (let* ((kind (gethash "kind" symbol))
+             (name (gethash "name" symbol))
+             (selection-range (gethash "selectionRange" symbol))
+             (range (gethash "range" symbol))
+             (decl (nth 0 (openai-complete--buffer-text-for-lsp-lines
+                           (gethash "line" (gethash "start" range)) ;; yes range
+                           (gethash "line" (gethash "end" selection-range))
+                           )
+                        )
+                   )
+             (children (gethash "children" symbol))
+             )
+        (push (make-openai-complete-lsp-symbol :kind kind
+                                               :name name
+                                               :decl (string-trim decl)
+                                               :range-start (+ 1 (gethash "line" (gethash "start" range)))
+                                               :range-end (+ 1 (gethash "line" (gethash "end" range)))
+                                               )
               result)
-        (setq result (append result (openai-complete-flatten-document-symbols children)))))))
-
-(defun openai-complete-scala-auto-region-fill-in ()
-  (interactive)
-  (let* ((line (line-number-at-pos))
-         (params (lsp--text-document-position-params))
-         (response (lsp-request "textDocument/documentSymbol" params))
-         (all-symbols (openai-complete-flatten-document-symbols response))
-         (in-range-symbols (openai-complete-symbols-with-line-in-range
-                            all-symbols
-                            line
-                            openai-complete-scala-complete-max-context))
-         (relevant-symbols (openai-complete-sort-symbols-by-size-desc in-range-symbols))
-         (best-symbol (car relevant-symbols))
-         )
-    (when (not best-symbol)
-      (user-error "No context is available that is less than %d lines" openai-complete-scala-complete-max-context))
-    (let* ((start (nth 2 best-symbol))
-           (end (nth 3 best-symbol))
-           (context-text (openai-complete-get-text-from-lines start end))
-           (code (concat openai-complete-scala-complete-prompt context-text))
-           (handle-response (lambda (data)
-                              (let* ((choices (openai--data-choices data))
-                                     (result (string-trim (openai--get-choice choices)))
-                                     )
-                                (when (string-empty-p result)
-                                  (user-error "No completion found"))
-                                (save-excursion
-                                  (goto-char (point-min))
-                                  (forward-line (1- start))
-                                  (let ((start-pos (point)))
-                                    (forward-line (1+ (- end start)))
-                                    (let ((end-pos (point)))
-                                      (goto-char start-pos)
-                                      (search-forward "???" end-pos t)
-                                      (replace-match (replace-regexp-in-string "^\n+" "" result) t t)
-                                      )
-                                    )
-                                  )
-                                )
-                              )
-                            )
-           )
-      (openai-completion code handle-response :max-tokens 256 :model openai-complete-scala-model)
+        (setq result (append result (openai-complete--symbols-from-response children)))
+        )
       )
+    result
     )
   )
 
 (defun openai-complete-ensure-placeholder ()
   (interactive)
   (let ((previous-text (buffer-substring-no-properties (max (point-min) (- (point) 3)) (point))))
-    (unless (string= previous-text "???")
-      (insert "???"))))
+    (unless (string= previous-text "XXX")
+      (insert "XXX"))))
 
-(defun openai-complete-scala-continue-alt ()
-  (interactive)
-  (call-interactively 'openai-complete-ensure-placeholder)
-  (let* ((line (line-number-at-pos))
-         (params (lsp--text-document-position-params))
-         (response (lsp-request "textDocument/documentSymbol" params))
-         (all-symbols (openai-complete-flatten-document-symbols response))
-         (in-range-symbols (openai-complete-symbols-with-line-in-range
-                            all-symbols
-                            line
-                            openai-complete-scala-complete-max-context))
-         (relevant-symbols (openai-complete-sort-symbols-by-size-desc in-range-symbols))
-         (best-symbol (car relevant-symbols))
-         )
-    (when (not best-symbol)
-      (user-error "No context is available that is less than %d lines" openai-complete-scala-complete-max-context))
-    (let* ((start (nth 2 best-symbol))
-           (end (nth 3 best-symbol))
-           (context-text (openai-complete-get-text-from-lines start end))
-           (code (concat openai-complete-scala-complete-prompt context-text))
-           (handle-response (lambda (data)
-                              (let* ((choices (openai--data-choices data))
-                                     (result (string-trim (openai--get-choice choices)))
-                                     )
-                                (when (string-empty-p result)
-                                  (user-error "No completion found"))
-                                (save-excursion
-                                  (goto-char (point-min))
-                                  (forward-line (1- start))
-                                  (let ((start-pos (point)))
-                                    (forward-line (1+ (- end start)))
-                                    (let ((end-pos (point)))
-                                      (goto-char start-pos)
-                                      (search-forward "???" end-pos t)
-                                      (replace-match (replace-regexp-in-string "^\n+" "" result) t t)
-                                      )
-                                    )
-                                  )
-                                )
-                              )
-                            )
+(defun openai-complete--lsp-buffer-symbols (point)
+  ""
+  (let*
+      ((params (lsp--text-document-position-params))
+       (response (lsp-request "textDocument/documentSymbol" params))
+       (all-symbols (openai-complete--symbols-from-response response))
+       )
+    ;; (message "%s" all-symbols)
+    all-symbols
+    )
+  )
+
+(defun local-context-from-lsp (point)
+  ""
+  (let*
+      ((all-symbols (openai-complete--lsp-buffer-symbols point))
+       (in-range-symbols (openai-complete--symbols-with-line-in-range
+                          all-symbols
+                          (line-number-at-pos point)
+                          openai-complete-context-size))
+       (relevant-symbols (openai-complete--sort-symbols-by-size-desc in-range-symbols))
+       (best-symbol (car relevant-symbols))
+       )
+    ;; (message "best %s" in-range-symbols)
+    (when (not (null best-symbol))
+      (let* ((text-lines (openai-complete--buffer-text-for-lsp-lines
+                          (openai-complete-lsp-symbol-range-start best-symbol)
+                          (openai-complete-lsp-symbol-range-end best-symbol))
+                         )
+             )
+        (list text-lines all-symbols)
+        )
+      )
+    )
+  )
+
+(defun context-context-from-lsp (all-symbols)
+  ""
+  (when (not (null all-symbols))
+    (let* ((context-size (/ openai-complete-context-size 2))
+           (symbol-decls (mapcar (lambda (symbol) (concat " - `" (openai-complete-lsp-symbol-decl symbol) "`")) all-symbols))
            )
-      (openai-completion code handle-response :max-tokens 256 :model openai-complete-scala-model)
+      (list (append (list "Local symbols include:") (seq-take symbol-decls context-size)) all-symbols)
       )
     )
   )

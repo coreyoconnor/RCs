@@ -24,6 +24,8 @@
       )
     )
 
+  (add-to-list 'exec-path (expand-file-name "~/.local/share/coursier/bin"))
+
   (configure-data-handling)
   (configure-interface)
   (configure-modes)

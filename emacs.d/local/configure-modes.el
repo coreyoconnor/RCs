@@ -170,7 +170,7 @@
 
 (use-package lsp-metals
   :ensure t
-  :after (:all treemacs lsp-mode scala-mode)
+  :hook (scala-mode . lsp)
   :custom
   (lsp-metals-server-args '("-J-Dmetals.allow-multiline-string-formatting=off"))
   )
@@ -192,7 +192,7 @@
   :mode ("\\.scala\\'" "\\.sc\\'")
   :magic-fallback ("/usr/bin/env amm" "/usr/bin/env -S amm")
   :diminish
-  :hook  ((scala-mode . lsp) (scala-mode . origami-mode))
+  :hook  ((scala-mode . origami-mode))
   :config
 
   (setq-default tab-width 2)

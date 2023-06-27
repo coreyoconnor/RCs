@@ -26,13 +26,13 @@
 
   (add-to-list 'exec-path (expand-file-name "~/.local/share/coursier/bin"))
 
+  (configure-local-overrides)
   (configure-data-handling)
   (configure-interface)
   (configure-modes)
   (configure-formatting)
   (configure-display)
   (configure-navigation)
-  (configure-local-overrides)
   )
 
 (defun configure-package-manager ()

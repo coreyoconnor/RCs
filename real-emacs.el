@@ -21,6 +21,8 @@
       (exec-path-from-shell-initialize))
     )
 
+  (configure-local-overrides)
+
   (add-to-list 'exec-path (expand-file-name "~/.local/share/coursier/bin"))
 
   (configure-data-handling)
@@ -29,7 +31,6 @@
   (configure-formatting)
   (configure-display)
   (configure-navigation)
-  (configure-local-overrides)
   )
 
 (defun configure-package-manager ()

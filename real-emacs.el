@@ -24,6 +24,8 @@
       )
     )
 
+  (configure-local-overrides)
+
   (add-to-list 'exec-path (expand-file-name "~/.local/share/coursier/bin"))
 
   (configure-local-overrides)

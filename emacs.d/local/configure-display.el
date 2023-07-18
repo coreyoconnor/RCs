@@ -10,6 +10,11 @@
           )
       )
 
+(when (member "Anonymous Pro" (font-family-list))
+  (add-to-list 'initial-frame-alist '(font . "Anonymous Pro-18"))
+  (add-to-list 'default-frame-alist '(font . "Anonymous Pro-18"))
+  (set-frame-font "Anonymous Pro-18" nil t))
+
 (when (member "Source Code Pro" (font-family-list))
   (add-to-list 'initial-frame-alist '(font . "Source Code Pro-18"))
   (add-to-list 'default-frame-alist '(font . "Source Code Pro-18"))

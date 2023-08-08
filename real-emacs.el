@@ -11,6 +11,7 @@
   (setq-default max-specpdl-size 200000)
   )
 
+
 (defun configure ()
   (configure-package-manager)
 
@@ -18,13 +19,17 @@
     (use-package exec-path-from-shell
       :ensure t
       :config
-      (exec-path-from-shell-initialize))
+      (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "NIX_SSL_CERT_FILE" "NIX_PATH" "JAVA_HOME"))
+        (add-to-list 'exec-path-from-shell-variables var))
+      (exec-path-from-shell-initialize)
+      )
     )
 
   (configure-local-overrides)
 
   (add-to-list 'exec-path (expand-file-name "~/.local/share/coursier/bin"))
 
+  (configure-local-overrides)
   (configure-data-handling)
   (configure-interface)
   (configure-modes)
@@ -64,7 +69,12 @@
   (setq package-archive-priorities '(("melpa"    . 5)
                                      ("jcs-elpa" . 0)))
 
-  (setq package-enable-at-startup nil)
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+
+  (require 'use-package)
+  (setq use-package-always-ensure 't)
   )
 
 (defun configure-interface ()

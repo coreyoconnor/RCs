@@ -15,6 +15,7 @@
 
 (use-package evil
   :ensure t
+  :after (:all company)
   :config
   (evil-mode 1)
 

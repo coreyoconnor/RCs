@@ -77,8 +77,13 @@
 (use-package helm-core
   :ensure t)
 
+(use-package wfnames
+  :ensure t
+  )
+
 (use-package helm
   :ensure t
+  :after (:all wfnames)
   :diminish)
 
 (use-package helm-projectile

@@ -14,10 +14,6 @@
 	path = emacs.d/lsp-mode
 	url = git@github.com:coreyoconnor/lsp-mode.git
 	branch = master
-[submodule "emacs.d/use-package"]
-	path = emacs.d/use-package
-	url = https://github.com/jwiegley/use-package.git
-	branch = master
 [submodule "emacs.d/lsp-ui"]
 	path = emacs.d/lsp-ui
 	url = git@github.com:coreyoconnor/lsp-ui.git

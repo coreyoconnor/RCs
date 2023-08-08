@@ -40,10 +40,19 @@
       (set-buffer-modified-p nil))
     (message "Renamed to %s." new-name)))
 
+(use-package magit-section
+  :ensure t
+  )
+
 (use-package magit
   :ensure t
-  :after (:all evil)
+  :after (:all evil magit-section)
   :bind (("C-c g" . magit-file-dispatch))
+  )
+
+(use-package magit-popup
+  :ensure t
+  :after (:all magit)
   )
 
 (use-package codegpt

@@ -9,6 +9,10 @@
 
 (electric-indent-mode 1)
 
+(use-package lsp-metals
+  :ensure t
+  )
+
 (use-package groovy-mode
   :ensure t
   :mode (("\\.groovy\\'" . groovy-mode) ("Jenkinsfile" . groovy-mode))
@@ -70,6 +74,9 @@
 (use-package dash
   :ensure t)
 
+(use-package helm-core
+  :ensure t)
+
 (use-package helm
   :ensure t
   :diminish)
@@ -83,12 +90,9 @@
   :after (:all helm)
   :ensure t)
 
-(require 'radian-autocomplete)
-
-(require 'radian-autocomplete)
-
 (use-package evil-avy
-  :ensure t)
+  :ensure t
+  :after (:all evil avy-menu))
 
 (use-package avy-menu
   :ensure t)
@@ -100,9 +104,9 @@
 
 (use-package company
   :ensure t
-  :hook (scala-mode . company-mode)
   :after (:all yasnippet)
   :config
+  (global-company-mode 't)
   (setq company-backends '(company-capf company-yasnippet))
   (setq lsp-completion-provider :capf))
 
@@ -192,7 +196,7 @@
   :mode ("\\.scala\\'" "\\.sc\\'")
   :magic-fallback ("/usr/bin/env amm" "/usr/bin/env -S amm")
   :diminish
-  :hook  ((scala-mode . origami-mode))
+  :hook  ((scala-mode . origami-mode) (scala-mode . flyspell-prog-mode))
   :config
 
   (setq-default tab-width 2)
@@ -230,9 +234,13 @@
   ;; Posframe is a pop-up tool that must be manually installed for dap-mode
   )
 
+(use-package lsp-docker
+  :ensure t
+  )
+
 (use-package dap-mode
   :ensure t
-  :after lsp-mode
+  :after (:all lsp-mode lsp-docker)
   :hook ((lsp-mode . dap-mode) (lsp-mode . dap-ui-mode))
   :config (setq dap-auto-configure-features (remove 'controls dap-auto-configure-features))
   )
@@ -359,13 +367,18 @@
 
 (use-package lsp-java
   :ensure t
-  :after (:all treemacs lsp-mode)
+  :after (:all treemacs lsp-mode dap-mode)
   :config
   (add-hook 'java-mode-hook 'lsp)
   )
 
+(use-package shell-maker
+  :ensure t
+  )
+
 (use-package chatgpt
   :ensure t
+  :after (:all shell-maker)
   )
 
 ;; (use-package phps-mode

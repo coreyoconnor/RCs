@@ -11,6 +11,7 @@
   (setq-default max-specpdl-size 200000)
   )
 
+
 (defun configure ()
   (configure-package-manager)
 
@@ -68,7 +69,12 @@
   (setq package-archive-priorities '(("melpa"    . 5)
                                      ("jcs-elpa" . 0)))
 
-  (setq package-enable-at-startup nil)
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+
+  (require 'use-package)
+  (setq use-package-always-ensure 't)
   )
 
 (defun configure-interface ()

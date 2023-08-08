@@ -9,7 +9,6 @@ export PATH="${HOME}/bin:${HOME}/.cabal/bin:$RCS_DIR/bin:$PATH"
 export PATH="${HOME}/.local/share/coursier/bin:$PATH"
 export PATH="${HOME}/.local/bin:$PATH"
 
-export SBT_OPTS="-Xmx2g"
 export PS1='\n\[\033[1;32m\][\w]\$\[\033[0m\] '
 
 if [[ -z $SCREENRC_HACK && -n $STY ]] ; then

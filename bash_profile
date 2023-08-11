@@ -10,4 +10,6 @@ fi
 
 source $RCS_DIR/shell_aliases
 
-source '/home/coconnor/.kube/completion.bash.inc'
+if [[ -f $HOME/.kube/completion.bash.inc ]] ; then
+  source $HOME/.kube/completion.bash.inc
+fi

@@ -9,3 +9,5 @@ if [[ -f ${RCS_PRIVATE_DIR}/profile_private ]] ; then
 fi
 
 source $RCS_DIR/shell_aliases
+
+source '/home/coconnor/.kube/completion.bash.inc'

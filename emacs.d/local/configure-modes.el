@@ -117,7 +117,7 @@
 
 (use-package lsp-mode
   :ensure t
-  :after (:all evil company)
+  :after (:all evil company selectrum)
   :hook lsp-lens-mode
   :hook lsp-ui-mode
   :hook helm-mode
@@ -139,7 +139,7 @@
 
 (use-package lsp-ui
   :ensure t
-  :after (:all evil lsp-mode company)
+  :after (:all evil lsp-mode company selectrum)
   :config
 
   (add-hook 'lsp-ui-flycheck-list-mode-hook (lambda()

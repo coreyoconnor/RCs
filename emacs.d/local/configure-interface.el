@@ -15,7 +15,7 @@
 
 (use-package evil
   :ensure t
-  :after (:all company)
+  :after (:all company selectrum)
   :config
   (evil-mode 1)
 

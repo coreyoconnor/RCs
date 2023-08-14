@@ -24,15 +24,27 @@
   (global-set-key "\M-f" cm-map)
   )
 
+(use-package selectrum
+  :ensure t
+  :config
+  (selectrum-mode +1))
+
+(use-package selectrum-prescient
+  :ensure t
+  :config
+  (selectrum-prescient-mode +1)
+  (prescient-persist-mode +1))
+
 (use-package projectile
   :ensure t
+  :after (:all company selectrum)
   :diminish
   :config
     (projectile-global-mode)
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
     (setq projectile-enable-caching t)
-    (setq projectile-completion-system 'ido)
+    ;; (setq projectile-completion-system 'selectrum)
     ;; always index using native. otherwise .projectile is ignored?
     (setq projectile-indexing-method 'native)
     (when (string-equal system-type "windows-nt")

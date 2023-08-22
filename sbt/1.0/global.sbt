@@ -7,7 +7,7 @@ Global / onChangedBuildSource := ReloadOnSourceChanges
 
 ThisBuild  / watchBeforeCommand := Watch.clearScreen
 
-Global / allDocsSections := Seq(
+Global / allDocsSections ++= Seq(
     "akka-.*" -> (20, "Akka"),
     "cats-.*" -> (20, "Cats"),
     "spark-.*" -> (20, "Spark"),

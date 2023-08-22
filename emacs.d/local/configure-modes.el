@@ -79,7 +79,9 @@
 
 (use-package helm
   :ensure t
-  :diminish)
+  :diminish
+  :config
+  (helm-mode t))
 
 (use-package helm-projectile
   :after (:all projectile helm)
@@ -97,18 +99,20 @@
 (use-package avy-menu
   :ensure t)
 
-(use-package yasnippet
-  :ensure t
-  :config
-  (yas-global-mode))
-
 (use-package company
   :ensure t
-  :after (:all yasnippet)
   :config
   (global-company-mode 't)
-  (setq company-backends '(company-capf company-yasnippet))
-  (setq lsp-completion-provider :capf))
+  (setq company-backends '(company-capf company-files))
+  )
+
+(use-package yasnippet
+  :ensure t
+  :after (:all company)
+  :config
+  (yas-global-mode)
+  (push 'company-yasnippet company-backends)
+  )
 
 (use-package lsp-mode
   :ensure t
@@ -124,6 +128,7 @@
   (setq-default lsp-debounce-full-sync-notifications-interval 2.0)
   (setq-default lsp-idle-delay 1.5)
   (setq-default lsp-response-timeout 120)
+  (setq-default lsp-completion-provider :capf)
   (push "[/\\\\]\\alldocs\\\\" lsp-file-watch-ignored-directories)
 
   (setq gc-cons-threshold 100000000) ;; 100mb

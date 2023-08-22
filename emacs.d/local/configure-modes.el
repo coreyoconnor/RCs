@@ -80,6 +80,7 @@
 (use-package helm
   :ensure t
   :diminish
+  :after (:all helm-core)
   :config
   (helm-mode t))
 
@@ -111,7 +112,7 @@
   :after (:all company)
   :config
   (yas-global-mode)
-  (push 'company-yasnippet company-backends)
+  (push 'company-yasnippet 'company-backends)
   )
 
 (use-package lsp-mode

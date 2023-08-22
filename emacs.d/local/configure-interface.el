@@ -1,6 +1,3 @@
-(setq-default evil-want-integration t)
-(setq-default evil-want-keybinding nil)
-
 (use-package color-theme-sanityinc-tomorrow
   :ensure t
   :config
@@ -16,6 +13,7 @@
 (use-package evil
   :ensure t
   :after (:all company selectrum)
+  :custom ((evil-want-integration t) (evil-want-keybinding nil))
   :config
   (evil-mode 1)
 

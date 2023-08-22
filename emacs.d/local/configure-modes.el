@@ -1,6 +1,8 @@
 ;; configuration of modes
 ;;; Code:
 
+(add-to-list 'completion-styles 'flex)
+
 (setq-default indent-tabs-mode nil
               tab-width 4
               c-basic-offset 4
@@ -9,12 +11,9 @@
 
 (electric-indent-mode 1)
 
-(use-package lsp-metals
-  :ensure t
-  )
-
 (use-package groovy-mode
   :ensure t
+  :after (:all evil)
   :mode (("\\.groovy\\'" . groovy-mode) ("Jenkinsfile" . groovy-mode))
   :config
   (setq evil-shift-width 2)
@@ -31,6 +30,7 @@
 
 (use-package nix-mode
   :ensure t
+  :after (:all evil)
   :mode "\\.nix\\'"
   :config
   (setq evil-shift-width 2)
@@ -79,10 +79,10 @@
 
 (use-package helm
   :ensure t
-  :diminish
   :after (:all helm-core)
   :config
-  (helm-mode t))
+  (helm-mode t)
+  )
 
 (use-package helm-projectile
   :after (:all projectile helm)
@@ -112,12 +112,12 @@
   :after (:all company)
   :config
   (yas-global-mode)
-  (push 'company-yasnippet 'company-backends)
+  (push 'company-yasnippet company-backends)
   )
 
 (use-package lsp-mode
   :ensure t
-  :after (:all evil company selectrum)
+  :after (:all evil company)
   :hook lsp-lens-mode
   :hook lsp-ui-mode
   :hook helm-mode
@@ -140,7 +140,7 @@
 
 (use-package lsp-ui
   :ensure t
-  :after (:all evil lsp-mode company selectrum)
+  :after (:all evil lsp-mode company helm)
   :config
 
   (add-hook 'lsp-ui-flycheck-list-mode-hook (lambda()
@@ -174,12 +174,14 @@
   (define-key evil-normal-state-map (kbd "g a") 'lsp-ui-sideline-apply-code-actions)
   (define-key evil-normal-state-map (kbd "g l") 'lsp-avy-lens)
   (define-key evil-normal-state-map (kbd "g s") 'lsp-ui-imenu)
-  (evil-define-key 'normal lsp-mode-map (kbd "C-c h") 'lsp-ui-doc-glance)
-  (define-key evil-insert-state-map "\C-n" 'company-complete)
+  (define-key evil-normal-state-map (kbd "C-c h") 'lsp-ui-doc-glance)
+  (define-key evil-insert-state-map (kbd "C-n") 'company-complete)
+  (define-key evil-normal-state-map [tab] 'helm-M-x)
   )
 
 (use-package lsp-metals
   :ensure t
+  :after (:all lsp scala-mode)
   :hook (scala-mode . lsp)
   :custom
   (lsp-metals-server-args '("-J-Dmetals.allow-multiline-string-formatting=off"))
@@ -253,6 +255,7 @@
 
 (use-package treemacs
   :ensure t
+  :after (:all evil)
   :init
   (customize-set-variable 'treemacs-no-png-images t)
   :config
@@ -398,6 +401,7 @@
 
 (use-package php-mode
   :ensure t
+  :after (:all evil)
   :config
   (evil-define-key 'insert php-mode-map (kbd "C-c c") 'openai-complete-php-continue)
   )

@@ -10,10 +10,12 @@
   (setq-default undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
   )
 
+(setq evil-want-integration t)
+
+(setq evil-want-keybinding nil)
+
 (use-package evil
   :ensure t
-  :after (:all company selectrum)
-  :custom ((evil-want-integration t) (evil-want-keybinding nil))
   :config
   (evil-mode 1)
 
@@ -36,6 +38,7 @@
 
 (use-package evil-collection
   :ensure t
+  :after (:all evil)
   :config
   (evil-collection-init)
 

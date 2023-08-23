@@ -35,7 +35,7 @@
      ((:application tramp)
       tramp-connection-local-default-system-profile tramp-connection-local-default-shell-profile)
      ((:application eshell)
-      eshell-connection-default-profile)) t)
+      eshell-connection-default-profile)))
  '(connection-local-profile-alist
    '((tramp-connection-local-darwin-ps-profile
       (tramp-process-attributes-ps-args "-acxww" "-o" "pid,uid,user,gid,comm=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" "-o" "state=abcde" "-o" "ppid,pgid,sess,tty,tpgid,minflt,majflt,time,pri,nice,vsz,rss,etime,pcpu,pmem,args")
@@ -110,7 +110,7 @@
       (path-separator . ":")
       (null-device . "/dev/null"))
      (eshell-connection-default-profile
-      (eshell-path-env-list))) t)
+      (eshell-path-env-list))))
  '(cursor-color nil)
  '(custom-safe-themes
    '("ec815e06ead0ec81514ec142bc3dbf89f822d7389bfe0ddc3b474c78b5eb0426" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" default))
@@ -142,7 +142,7 @@
  '(nav-width 40)
  '(nxml-slash-auto-complete-flag t)
  '(package-selected-packages
-   '(2bit markdown-mode treemacs shell-maker lv magit magit-popup mmm-mode nix-mode openai origami pfuture php-mode pkg-info popup posframe powerline projectile queue request rich-minority s sbt-mode scala-mode smart-mode-line spinner ssass-mode tablist tblui transient treemacs-evil treemacs-projectile undo-tree vue-html-mode which-key xcscope yaml ac-php-core ace-window annalist async avy avy-menu bui ccls centaur-tabs cfrs codegpt compat dash diminish edit-indirect epl evil-avy f flycheck git-commit goto-chg helm helm-core helm-projectile ht js1-mode json-mode json-snatcher lsp-origami lsp-treemacs lsp-ui dap-mode lsp-java lsp-metals lsp-docker chatgpt-shell vue-mode helm-ag treemacs-magit company-php phps-mode chatgpt jetbrains-darcula-theme javap-mode elscreen elscreen-buffer-group elscreen-fr mmm-jinja2 poly-ansible ac-php composer php-scratch ada-mode rjsx-mode js-format js-import js-react-redux-yasnippets exec-path-from-shell jinja2-mode yatemplate yasnippet-snippets fold-this seq glsl-mode nerdtab go-mode evil-collection gdscript-mode js2-highlight-vars string-inflection yasnippet yard-mode yaml-mode window-numbering web-mode swiper smex rubocop robe projectile-rails paredit omniref nav mediawiki ido-ubiquitous idle-highlight-mode hydra hindent haml-mode groovy-mode gradle-mode fringe-helper flymake-ruby evil enh-ruby-mode ecb dirtree company color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized auto-complete))
+   '(selectrum-prescient selectrum 2bit markdown-mode treemacs shell-maker lv magit magit-popup mmm-mode nix-mode openai origami pfuture php-mode pkg-info popup posframe powerline projectile queue request rich-minority s sbt-mode scala-mode smart-mode-line spinner ssass-mode tablist tblui transient treemacs-evil treemacs-projectile undo-tree vue-html-mode which-key xcscope yaml ac-php-core ace-window annalist async avy avy-menu bui ccls centaur-tabs cfrs codegpt compat dash diminish edit-indirect epl evil-avy f flycheck git-commit goto-chg helm helm-core helm-projectile ht js1-mode json-mode json-snatcher lsp-origami lsp-treemacs lsp-ui dap-mode lsp-java lsp-metals lsp-docker chatgpt-shell vue-mode helm-ag treemacs-magit company-php phps-mode chatgpt jetbrains-darcula-theme javap-mode elscreen elscreen-buffer-group elscreen-fr mmm-jinja2 poly-ansible ac-php composer php-scratch ada-mode rjsx-mode js-format js-import js-react-redux-yasnippets exec-path-from-shell jinja2-mode yatemplate yasnippet-snippets fold-this seq glsl-mode nerdtab go-mode evil-collection gdscript-mode js2-highlight-vars string-inflection yasnippet yard-mode yaml-mode window-numbering web-mode swiper smex rubocop robe projectile-rails paredit omniref nav mediawiki ido-ubiquitous idle-highlight-mode hydra hindent haml-mode groovy-mode gradle-mode fringe-helper flymake-ruby evil enh-ruby-mode ecb dirtree company color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized auto-complete))
  '(safe-local-variable-values
    '((haskell-indentation-where-post-offset . 4)
      (haskell-indentation-where-pre-offset . 4)

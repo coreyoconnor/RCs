@@ -83,7 +83,7 @@
 
 (use-package helm
   :ensure t
-  :after (:all wfnames)
+  :after (:all wfnames helm-core)
   :diminish)
 
 (use-package helm-projectile
@@ -179,6 +179,7 @@
 
 (use-package lsp-metals
   :ensure t
+  :after (:all lsp-mode)
   :hook (scala-mode . lsp)
   :custom
   (lsp-metals-server-args '("-J-Dmetals.allow-multiline-string-formatting=off"))
@@ -274,7 +275,8 @@
 
 (use-package treemacs-projectile
   :ensure t
-  :after treemacs projectile)
+  :after (:all treemacs projectile)
+  )
 
 (use-package treemacs-magit
   :after (treemacs magit)

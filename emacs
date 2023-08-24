@@ -1,14 +1,3 @@
-
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
-(eval-when-compile
-  (add-to-list 'load-path (expand-file-name "~/.emacs.d/use-package"))
-  (require 'use-package)
-  (setq use-package-verbose t)
-  )
-
 (when (memq window-system '(mac ns x))
 ;; overriding image.el function image-type-available-p
 
@@ -20,19 +9,11 @@
             (init-image-library type))))
 )
 
-(package-initialize)
-
 (defconst dot-emacs (concat (getenv "HOME") "/" "Development/" "RCs/" "real-emacs.el")
     "real dot emacs file")
 
 (require 'bytecomp)
 (setq compiled-dot-emacs (byte-compile-dest-file dot-emacs))
-
-(if (or (not (file-exists-p compiled-dot-emacs))
-	(file-newer-than-file-p dot-emacs compiled-dot-emacs)
-        (equal (nth 4 (file-attributes dot-emacs)) (list 0 0)))
-    (load dot-emacs)
-  (load compiled-dot-emacs))
 
 (add-hook 'kill-emacs-hook
           '(lambda () (byte-compile-file dot-emacs)))
@@ -161,7 +142,7 @@
  '(nav-width 40)
  '(nxml-slash-auto-complete-flag t)
  '(package-selected-packages
-   '(markdown-mode treemacs shell-maker lv magit magit-popup mmm-mode nix-mode openai origami pfuture php-mode pkg-info popup posframe powerline projectile queue request rich-minority s sbt-mode scala-mode smart-mode-line spinner ssass-mode tablist tblui transient treemacs-evil treemacs-projectile undo-tree vue-html-mode which-key xcscope yaml ac-php-core ace-window annalist async avy avy-menu bui ccls centaur-tabs cfrs codegpt compat dash diminish edit-indirect epl evil-avy f flycheck git-commit goto-chg helm helm-core helm-projectile ht js2-mode json-mode json-snatcher lsp-origami lsp-treemacs lsp-ui dap-mode lsp-java lsp-metals lsp-docker chatgpt-shell vue-mode helm-ag treemacs-magit company-php phps-mode chatgpt jetbrains-darcula-theme javap-mode elscreen elscreen-buffer-group elscreen-fr mmm-jinja2 poly-ansible ac-php composer php-scratch ada-mode rjsx-mode js-format js-import js-react-redux-yasnippets exec-path-from-shell jinja2-mode yatemplate yasnippet-snippets fold-this seq glsl-mode nerdtab go-mode evil-collection gdscript-mode js2-highlight-vars string-inflection yasnippet yard-mode yaml-mode window-numbering web-mode swiper smex rubocop robe projectile-rails paredit omniref nav mediawiki ido-ubiquitous idle-highlight-mode hydra hindent haml-mode groovy-mode gradle-mode fringe-helper flymake-ruby evil enh-ruby-mode ecb dirtree company color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized auto-complete))
+   '(selectrum-prescient selectrum 2bit markdown-mode treemacs shell-maker lv magit magit-popup mmm-mode nix-mode openai origami pfuture php-mode pkg-info popup posframe powerline projectile queue request rich-minority s sbt-mode scala-mode smart-mode-line spinner ssass-mode tablist tblui transient treemacs-evil treemacs-projectile undo-tree vue-html-mode which-key xcscope yaml ac-php-core ace-window annalist async avy avy-menu bui ccls centaur-tabs cfrs codegpt compat dash diminish edit-indirect epl evil-avy f flycheck git-commit goto-chg helm helm-core helm-projectile ht js1-mode json-mode json-snatcher lsp-origami lsp-treemacs lsp-ui dap-mode lsp-java lsp-metals lsp-docker chatgpt-shell vue-mode helm-ag treemacs-magit company-php phps-mode chatgpt jetbrains-darcula-theme javap-mode elscreen elscreen-buffer-group elscreen-fr mmm-jinja2 poly-ansible ac-php composer php-scratch ada-mode rjsx-mode js-format js-import js-react-redux-yasnippets exec-path-from-shell jinja2-mode yatemplate yasnippet-snippets fold-this seq glsl-mode nerdtab go-mode evil-collection gdscript-mode js2-highlight-vars string-inflection yasnippet yard-mode yaml-mode window-numbering web-mode swiper smex rubocop robe projectile-rails paredit omniref nav mediawiki ido-ubiquitous idle-highlight-mode hydra hindent haml-mode groovy-mode gradle-mode fringe-helper flymake-ruby evil enh-ruby-mode ecb dirtree company color-theme-solarized color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized auto-complete))
  '(safe-local-variable-values
    '((haskell-indentation-where-post-offset . 4)
      (haskell-indentation-where-pre-offset . 4)
@@ -179,3 +160,5 @@
  ;; If there is more than one, they won't work right.
  )
 (put 'upcase-region 'disabled nil)
+
+(load dot-emacs)

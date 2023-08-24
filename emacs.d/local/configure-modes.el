@@ -77,9 +77,14 @@
 (use-package helm-core
   :ensure t)
 
+(use-package wfnames
+  :ensure t
+  )
+
 (use-package helm
   :ensure t
-  :after (:all helm-core)
+  :after (:all wfnames helm-core)
+  :diminish
   :config
   (helm-mode t)
   )
@@ -277,7 +282,8 @@
 
 (use-package treemacs-projectile
   :ensure t
-  :after treemacs projectile)
+  :after (:all treemacs projectile)
+  )
 
 (use-package treemacs-magit
   :after (treemacs magit)

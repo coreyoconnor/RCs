@@ -107,9 +107,17 @@
 
 (use-package company
   :ensure t
+  :init
+  (setq company-backends
+      '((company-files          ; files & directory
+         company-keywords       ; keywords
+         company-capf
+         company-yasnippet
+         )
+        (company-abbrev company-dabbrev)
+        ))
   :config
   (global-company-mode 't)
-  (setq company-backends '(company-capf company-files))
   )
 
 (use-package yasnippet
@@ -117,7 +125,7 @@
   :after (:all company)
   :config
   (yas-global-mode)
-  (push 'company-yasnippet company-backends)
+  ;;(add-to-list 'company-yasnippet 'company-backends)
   )
 
 (use-package lsp-mode
@@ -126,6 +134,10 @@
   :hook lsp-lens-mode
   :hook lsp-ui-mode
   :hook helm-mode
+  :hook (
+         (scala-mode . lsp)
+         (lsp-mode . lsp-enable-which-key-integration)
+         )
   :config
 
   (setq-default lsp-file-watch-threshold nil)
@@ -146,6 +158,7 @@
 (use-package lsp-ui
   :ensure t
   :after (:all evil lsp-mode company helm)
+  :commands lsp-ui-mode
   :config
 
   (add-hook 'lsp-ui-flycheck-list-mode-hook (lambda()
@@ -159,7 +172,9 @@
       (fit-window-to-buffer window 9 10 nil nil t)
       )
     )
+
   (setq-default lsp-ui-flycheck-list-position 'right)
+
   ;;(advice-add 'lsp-ui-flycheck-list :after #'fix-flycheck-list-size)
   (define-key lsp-ui-flycheck-list-mode-map (kbd "RET") 'lsp-ui-flycheck-list--visit)
   (define-key lsp-ui-flycheck-list-mode-map (kbd "q") 'lsp-ui-flycheck-list--quit)
@@ -186,7 +201,6 @@
 (use-package lsp-metals
   :ensure t
   :after (:all lsp scala-mode)
-  :hook (scala-mode . lsp)
   :custom
   (lsp-metals-server-args '("-J-Dmetals.allow-multiline-string-formatting=off"))
   )
@@ -201,6 +215,8 @@
   :config
   (add-hook 'origami-mode-hook #'lsp-origami-mode)
   )
+
+(use-package helm-lsp :commands helm-lsp-workspace-symbol)
 
 (use-package scala-mode
   :ensure t

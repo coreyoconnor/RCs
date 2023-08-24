@@ -176,7 +176,6 @@
   (define-key evil-normal-state-map (kbd "g s") 'lsp-ui-imenu)
   (define-key evil-normal-state-map (kbd "C-c h") 'lsp-ui-doc-glance)
   (define-key evil-insert-state-map (kbd "C-n") 'company-complete)
-  (define-key evil-normal-state-map [tab] 'helm-M-x)
   )
 
 (use-package lsp-metals

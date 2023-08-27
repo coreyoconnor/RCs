@@ -24,3 +24,7 @@
 [submodule "emacs.d/lsp-origami"]
 	path = emacs.d/lsp-origami
 	url = git@github.com:coreyoconnor/lsp-origami.git
+[submodule "emacs.d/local/nir-mode"]
+	path = emacs.d/local/nir-mode
+	url = https://gitlab.com/coreyoconnor/nir-mode.git
+	branch = main

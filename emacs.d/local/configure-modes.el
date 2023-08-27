@@ -107,15 +107,15 @@
 
 (use-package company
   :ensure t
-  :init
-  (setq company-backends
-      '((company-files          ; files & directory
-         company-keywords       ; keywords
-         company-capf
-         company-yasnippet
-         )
-        (company-abbrev company-dabbrev)
-        ))
+  ;; :init
+  ;; (setq company-backends
+  ;;     '((company-files          ; files & directory
+  ;;        company-keywords       ; keywords
+  ;;        company-capf
+  ;;        company-yasnippet
+  ;;        )
+  ;;       (company-abbrev company-dabbrev)
+  ;;       ))
   :config
   (global-company-mode 't)
   )
@@ -125,12 +125,13 @@
   :after (:all company)
   :config
   (yas-global-mode)
-  ;;(add-to-list 'company-yasnippet 'company-backends)
+  ;; (add-to-list 'company-backends 'company-yasnippet)
   )
 
 (use-package lsp-mode
   :ensure t
   :after (:all evil company)
+  :commands (lsp lsp-deferred)
   :hook lsp-lens-mode
   :hook lsp-ui-mode
   :hook helm-mode
@@ -145,7 +146,7 @@
   (setq-default lsp-enable-on-type-formatting nil)
   (setq-default lsp-debounce-full-sync-notifications-interval 2.0)
   (setq-default lsp-idle-delay 1.5)
-  (setq-default lsp-response-timeout 120)
+  (setq-default lsp-response-timeout 220)
   (setq-default lsp-completion-provider :capf)
   (push "[/\\\\]\\alldocs\\\\" lsp-file-watch-ignored-directories)
 
@@ -202,6 +203,7 @@
   :ensure t
   :after (:all lsp scala-mode)
   :custom
+  (setq-default lsp-metals-server-command "/home/coconnor/bin/metals-dev")
   (lsp-metals-server-args '("-J-Dmetals.allow-multiline-string-formatting=off"))
   )
 
@@ -223,7 +225,6 @@
   :interpreter "scala"
   :mode ("\\.scala\\'" "\\.sc\\'")
   :magic-fallback ("/usr/bin/env amm" "/usr/bin/env -S amm")
-  :diminish
   :hook  ((scala-mode . origami-mode) (scala-mode . flyspell-prog-mode))
   :config
 
@@ -431,5 +432,8 @@
   :ensure t
   :after (:all company php-mode)
   )
+
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/local/nir-mode"))
+(require 'nir-mode)
 
 (provide 'configure-modes)

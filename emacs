@@ -1,3 +1,5 @@
+; -*-Lisp-*-
+
 (when (memq window-system '(mac ns x))
 ;; overriding image.el function image-type-available-p
 
@@ -8,15 +10,6 @@
     (and (fboundp 'init-image-library)
             (init-image-library type))))
 )
-
-(defconst dot-emacs (concat (getenv "HOME") "/" "Development/" "RCs/" "real-emacs.el")
-    "real dot emacs file")
-
-(require 'bytecomp)
-(setq compiled-dot-emacs (byte-compile-dest-file dot-emacs))
-
-(add-hook 'kill-emacs-hook
-          '(lambda () (byte-compile-file dot-emacs)))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -161,4 +154,136 @@
  )
 (put 'upcase-region 'disabled nil)
 
-(load dot-emacs)
+;;; RCs --- coreyoconnor emacs RC
+;;; Commentary:
+;; I don't have a good understanding of Lisp or Emacs
+;;; Code:
+(if (memq window-system '(mac ns))
+    (progn
+      (setq-default max-lisp-eval-depth 10000)
+      (setq-default max-specpdl-size 10000)
+      )
+  (setq-default max-lisp-eval-depth 200000)
+  (setq-default max-specpdl-size 200000)
+  )
+
+
+(defun configure ()
+  (configure-package-manager)
+
+  (when (memq window-system '(mac ns x))
+    (use-package exec-path-from-shell
+      :ensure t
+      :config
+      (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "NIX_SSL_CERT_FILE" "NIX_PATH" "JAVA_HOME"))
+        (add-to-list 'exec-path-from-shell-variables var))
+      (exec-path-from-shell-initialize)
+      )
+    )
+
+  (configure-local-overrides)
+
+  (add-to-list 'exec-path (expand-file-name "~/.local/share/coursier/bin"))
+
+  (configure-local-overrides)
+  (configure-data-handling)
+  (configure-interface)
+  (configure-modes)
+  (configure-formatting)
+  (configure-display)
+  (configure-navigation)
+  )
+
+(defun configure-package-manager ()
+  ;; (setq inhibit-default-init t)
+  (configure-load-path)
+  (enable-package-package)
+  (configure-package-repos)
+  )
+
+(defun configure-load-path ()
+  (add-to-list 'load-path (expand-file-name "~/.emacs.d/evil-numbers"))
+  (add-to-list 'load-path (expand-file-name "~/.emacs.d/local"))
+  )
+
+(defun enable-package-package ()
+  (require 'package)
+  )
+
+(defun configure-package-repos ()
+  (add-to-list 'package-archives
+               '("gnu" . "https://elpa.gnu.org/packages/"))
+  (add-to-list 'package-archives
+               '("org" . "https://orgmode.org/elpa/"))
+  (add-to-list 'package-archives
+               '("melpa" . "https://melpa.org/packages/"))
+  (add-to-list 'package-archives
+               '("melpa-stable" . "https://stable.melpa.org/packages/"))
+  (add-to-list 'package-archives
+               '( "jcs-elpa" . "https://jcs-emacs.github.io/jcs-elpa/packages/") t)
+
+  (setq package-archive-priorities '(("melpa"    . 5)
+                                     ("jcs-elpa" . 0)))
+
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+
+  (require 'use-package)
+  (setq use-package-always-ensure 't)
+  )
+
+(defun configure-interface ()
+  (require 'configure-interface)
+  )
+
+(defun configure-data-handling ()
+  (require 'configure-data-handling)
+  )
+
+(defun configure-modes ()
+  (require 'configure-modes)
+  )
+
+(defun configure-formatting ()
+  (require 'configure-formatting)
+  )
+
+(defun configure-display ()
+  (require 'configure-display)
+  )
+
+(defun configure-navigation ()
+  (require 'configure-navigation)
+  )
+
+(defun configure-local-overrides ()
+  (when (file-readable-p (expand-file-name "~/.config/emacs-local.el"))
+    (load-file (expand-file-name "~/.config/emacs-local.el"))
+    )
+  )
+
+;; unsorted
+
+                                        ; GUI options
+
+(setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
+                                  global-semanticdb-minor-mode
+                                  global-semantic-idle-summary-mode
+                                  global-semantic-mru-bookmark-mode))
+
+(add-to-list 'term-file-aliases
+             '("screen.xterm-256color" . "xterm-256color")
+             '("foot" . "foot-direct"))
+
+;; default to unified diffs
+(setq diff-switches "-u")
+
+(add-hook 'compilation-mode-hook (lambda () (visual-line-mode 1)))
+(add-hook 'compilation-minor-mode-hook (lambda () (visual-line-mode 1)))
+
+(setq dabbrev-case-replace nil)
+
+(setq ac-ignore-case nil)
+
+(configure)

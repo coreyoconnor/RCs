@@ -14,6 +14,10 @@
 
 (setq evil-want-keybinding nil)
 
+(use-package popup
+	     :ensure t
+	     )
+
 (use-package evil
   :ensure t
   :config

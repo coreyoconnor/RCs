@@ -128,9 +128,13 @@
   ;; (add-to-list 'company-backends 'company-yasnippet)
   )
 
+(use-package f
+  :ensure t
+  )
+
 (use-package lsp-mode
   :ensure t
-  :after (:all evil company)
+  :after (:all f evil company)
   :commands (lsp lsp-deferred)
   :hook lsp-lens-mode
   :hook lsp-ui-mode

@@ -57,7 +57,7 @@
 
 (use-package codegpt
   :ensure t
-  :after (:all evil scala-mode php-mode lsp-mode lsp-treemacs)
+  :after (:all evil scala-mode php-mode lsp-mode lsp-treemacs markdown-mode)
   :init
   (require 'openai-complete)
 

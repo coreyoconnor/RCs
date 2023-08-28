@@ -1,8 +1,6 @@
 ;; configuration of modes
 ;;; Code:
 
-(add-to-list 'completion-styles 'flex)
-
 (setq-default indent-tabs-mode nil
               tab-width 4
               c-basic-offset 4
@@ -117,6 +115,7 @@
   ;;       (company-abbrev company-dabbrev)
   ;;       ))
   :config
+  (add-to-list 'completion-styles 'flex)
   (global-company-mode 't)
   )
 

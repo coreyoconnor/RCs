@@ -44,9 +44,17 @@
   :ensure t
   )
 
+(use-package with-editor
+  :ensure t)
+
+(use-package git-commit
+  :ensure t
+  :after (:all with-editor)
+  )
+
 (use-package magit
   :ensure t
-  :after (:all evil magit-section)
+  :after (:all evil magit-section git-commit)
   :bind (("C-c g" . magit-file-dispatch))
   )
 

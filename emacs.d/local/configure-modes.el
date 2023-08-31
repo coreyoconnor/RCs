@@ -285,7 +285,7 @@
   :config
   (setq treemacs-collapse-dirs 5)
   (setq treemacs-width 55)
-  (treemacs-follow-mode t)
+  (treemacs-follow-mode nil)
   (treemacs-filewatch-mode nil)
   (treemacs-fringe-indicator-mode 'always)
   (define-key evil-normal-state-map (kbd "TAB") 'treemacs-TAB-action)

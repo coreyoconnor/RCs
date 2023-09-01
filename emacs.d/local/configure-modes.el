@@ -144,13 +144,14 @@
          )
   :config
 
-  (setq-default lsp-file-watch-threshold nil)
-  (setq-default lsp-prefer-flymake nil)
-  (setq-default lsp-enable-on-type-formatting nil)
-  (setq-default lsp-debounce-full-sync-notifications-interval 2.0)
-  (setq-default lsp-idle-delay 1.5)
-  (setq-default lsp-response-timeout 220)
-  (setq-default lsp-completion-provider :capf)
+  (setq lsp-file-watch-threshold nil)
+  (setq lsp-prefer-flymake nil)
+  (setq lsp-enable-on-type-formatting nil)
+  (setq lsp-debounce-full-sync-notifications-interval 2.0)
+  (setq lsp-idle-delay 1.5)
+  (setq lsp-response-timeout 220)
+  (setq lsp-completion-provider :capf)
+  (setq lsp-keep-workspace-alive nil)
   (push "[/\\\\]\\alldocs\\\\" lsp-file-watch-ignored-directories)
 
   (setq gc-cons-threshold 100000000) ;; 100mb
@@ -216,9 +217,9 @@
 
 (use-package lsp-origami
   :ensure t
-  :after (:all origami lsp-mode)
+  :after (:all evil origami lsp-mode)
   :config
-  (add-hook 'origami-mode-hook #'lsp-origami-mode)
+  (add-hook 'lsp-after-open-hook #'lsp-origami-try-enable)
   )
 
 (use-package helm-lsp :commands helm-lsp-workspace-symbol)
@@ -231,12 +232,13 @@
   :hook  ((scala-mode . origami-mode) (scala-mode . flyspell-prog-mode))
   :config
 
-  (setq-default tab-width 2)
-  (setq-default c-basic-offset 2)
-  (setq-default evil-shift-width 2)
-  (setq-default scala-indent:align-parameters t)
+  (setq tab-width 2)
+  (setq c-basic-offset 2)
+  (setq evil-shift-width 2)
+  (setq scala-indent:align-parameters t)
   (evil-define-key 'insert scala-mode-map (kbd "C-c c") 'openai-complete-scala-continue)
   (evil-define-key 'normal scala-mode-map (kbd "g ?") 'openai-complete-scala-auto-region-fill-in)
+  (evil-define-key 'normal scala-mode-map (kbd "TAB") 'origami-forward-toggle-node)
   (cleanup-on-save)
   )
 

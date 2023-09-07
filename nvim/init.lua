@@ -43,6 +43,30 @@ require("packer").startup(function(use)
     },
   })
 
+  use {
+    'neovim/nvim-lspconfig',
+    requires = {
+      'folke/neodev.nvim'
+    }
+  }
+
+  use({ 'monsonjeremy/onedark.nvim', branch = 'treesitter' })
+
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = function()
+      local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+      ts_update()
+    end,
+  }
+
+  use {
+    'nvim-tree/nvim-tree.lua',
+    requires = {
+      'nvim-tree/nvim-web-devicons',
+    },
+  }
+
   if packer_bootstrap then
     require('packer').sync()
   end
@@ -52,31 +76,55 @@ end)
 -- OPTIONS -----------------------
 ----------------------------------
 -- global
-local o = vim.o
+local options_settings = {
+  backspace      = { "indent", "eol", "start" },
+  clipboard      = "unnamed",
+  completeopt    = { "menuone", "noinsert", "noselect" },
+  cursorline     = true,
+  cursorlineopt  = "number",
+  expandtab      = true,
+  hlsearch       = true,
+  ignorecase     = true,
+  incsearch      = true,
+  laststatus     = 2,
+  linebreak      = true,
+  number         = true,
+  relativenumber = true,
+  scrolloff      = 5,
+  shiftwidth     = 2,
+  showmatch      = true,
+  smartcase      = true,
+  smartindent    = true,
+  smarttab       = true,
+  softtabstop    = 2,
+  tabstop        = 2,
+  textwidth      = 110,
+  timeoutlen     = 1000,
+  undofile       = true,
+  updatetime     = 750,
+  wrap           = false,
+}
+for name, setting in pairs(options_settings) do
+  vim.opt[name] = setting
+end
 
-o.expandtab = true
-o.smartindent = true
-o.tabstop = 2
-o.shiftwidth = 2
+vim.cmd([[ syntax on ]])
+vim.cmd([[ filetype on ]])
 
+-- define custom symbols for non-printing chars
+vim.cmd([[ set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣ ]])
+-- don't fold until the first request for a fold toggle
+vim.cmd([[ set nofoldenable ]])
+-- highlight column at max width
+vim.cmd([[ set colorcolumn=+1 ]])
+
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- set termguicolors to enable highlight groups
+vim.opt.termguicolors = true
 vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
-
--- LSP mappings
-map("n", "gD",  vim.lsp.buf.definition)
-map("n", "K",  vim.lsp.buf.hover)
-map("n", "gi", vim.lsp.buf.implementation)
-map("n", "gr", vim.lsp.buf.references)
-map("n", "gds", vim.lsp.buf.document_symbol)
-map("n", "gws", vim.lsp.buf.workspace_symbol)
-map("n", "<leader>cl", vim.lsp.codelens.run)
-map("n", "<leader>sh", vim.lsp.buf.signature_help)
-map("n", "<leader>rn", vim.lsp.buf.rename)
-map("n", "<leader>f", vim.lsp.buf.format)
-map("n", "<leader>ca", vim.lsp.buf.code_action)
-
-map("n", "<leader>ws", function()
-  require("metals").hover_worksheet()
-end)
 
 -- all workspace diagnostics
 map("n", "<leader>aa", vim.diagnostic.setqflist)
@@ -102,35 +150,45 @@ map("n", "]c", function()
   vim.diagnostic.goto_next({ wrap = false })
 end)
 
--- Example mappings for usage with nvim-dap. If you don't use that, you can
--- skip these
-map("n", "<leader>dc", function()
-  require("dap").continue()
-end)
 
-map("n", "<leader>dr", function()
-  require("dap").repl.toggle()
-end)
+require('onedark').setup()
+vim.cmd[[colorscheme onedark]]
 
-map("n", "<leader>dK", function()
-  require("dap.ui.widgets").hover()
-end)
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { "bash", "lua", "python", "scala", "hocon", "yaml", "sql", "dockerfile", "vim" },
+  auto_install = true,
+  highlight = {
+    enable = true
+  },
+  indent = {
+    enable = true
+  },
+}
 
-map("n", "<leader>dt", function()
-  require("dap").toggle_breakpoint()
-end)
+local function tree_on_attach(bufnr)
+  local api = require "nvim-tree.api"
 
-map("n", "<leader>dso", function()
-  require("dap").step_over()
-end)
+  local function opts(desc)
+    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
 
-map("n", "<leader>dsi", function()
-  require("dap").step_into()
-end)
+  -- default mappings
+  api.config.mappings.default_on_attach(bufnr)
+  vim.keymap.set("n", "T",  vim.tree.toggle, {})
+end
 
-map("n", "<leader>dl", function()
-  require("dap").run_last()
-end)
+require("nvim-tree").setup()
+
+local tree_api = require "nvim-tree.api"
+vim.keymap.set("n", "T",  tree_api.tree.toggle, {})
+
+vim.api.nvim_create_autocmd(
+  "FileType", {
+  pattern={"qf"},
+  command=[[nnoremap <buffer> <CR> <CR>:cclose<CR>]]}
+)
+
+require('local.lsp').setup()
 
 -- completion related settings
 -- This is similiar to what I use
@@ -170,70 +228,20 @@ cmp.setup({
   }),
 })
 
-----------------------------------
--- LSP Setup ---------------------
-----------------------------------
-local metals_config = require("metals").bare_config()
+local telescope_actions = require("telescope.actions")
+local telescope_builtin = require('telescope.builtin')
 
--- Example of settings
-metals_config.settings = {
-  showImplicitArguments = true,
-  excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
-}
-
--- *READ THIS*
--- I *highly* recommend setting statusBarProvider to true, however if you do,
--- you *have* to have a setting to display this in your statusline or else
--- you'll not see any messages from metals. There is more info in the help
--- docs about this
--- metals_config.init_options.statusBarProvider = "on"
-
--- Example if you are using cmp how to make sure the correct capabilities for snippets are set
-metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
-
--- Debug settings if you're using nvim-dap
-local dap = require("dap")
-
-dap.configurations.scala = {
-  {
-    type = "scala",
-    request = "launch",
-    name = "RunOrTest",
-    metals = {
-      runType = "runOrTestFile",
-      --args = { "firstArg", "secondArg", "thirdArg" }, -- here just as an example
-    },
-  },
-  {
-    type = "scala",
-    request = "launch",
-    name = "Test Target",
-    metals = {
-      runType = "testTarget",
-    },
-  },
-}
-
-metals_config.on_attach = function(client, bufnr)
-  require("metals").setup_dap()
-end
-
--- Autocmd that will actually be in charging of starting the whole thing
-local nvim_metals_group = api.nvim_create_augroup("nvim-metals", { clear = true })
-api.nvim_create_autocmd("FileType", {
-  -- NOTE: You may or may not want java included here. You will need it if you
-  -- want basic Java support but it may also conflict if you are using
-  -- something like nvim-jdtls which also works on a java filetype autocmd.
-  pattern = { "scala", "sbt", "java" },
-  callback = function()
-    require("metals").initialize_or_attach(metals_config)
-  end,
-  group = nvim_metals_group,
+require("telescope").setup({
+  defaults = {
+    mappings = {
+      i = {
+        ["<esc>"] = telescope_actions.close,
+      }
+    }
+  }
 })
 
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-
+vim.keymap.set('n', '<leader>ff', telescope_builtin.find_files, {})
+vim.keymap.set('n', '<leader>fg', telescope_builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fb', telescope_builtin.buffers, {})
+vim.keymap.set('n', '<leader>fh', telescope_builtin.help_tags, {})

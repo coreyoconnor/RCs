@@ -29,3 +29,6 @@ xnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>gv
 snoremap <silent><RightMouse> <C-G>:call GuiShowContextMenu()<CR>gv
 
 let $JAVA_HOME = '/Users/corey.oconnor/.sdkman/candidates/java/current'
+
+chdir $HOME
+

@@ -193,7 +193,7 @@ require('local.lsp').setup()
 -- completion related settings
 -- This is similiar to what I use
 local cmp = require("cmp")
-cmp.setup({
+cmp.setup {
   sources = {
     { name = "nvim_lsp" },
     { name = "vsnip" },
@@ -204,7 +204,7 @@ cmp.setup({
       vim.fn["vsnip#anonymous"](args.body)
     end,
   },
-  mapping = cmp.mapping.preset.insert({
+  mapping = cmp.mapping.preset.insert {
     -- None of this made sense to me when first looking into this since there
     -- is no vim docs, but you can't have select = true here _unless_ you are
     -- also using the snippet stuff. So keep in mind that if you remove
@@ -225,8 +225,8 @@ cmp.setup({
         fallback()
       end
     end,
-  }),
-})
+  }
+}
 
 local telescope_actions = require("telescope.actions")
 local telescope_builtin = require('telescope.builtin')
@@ -241,7 +241,25 @@ require("telescope").setup({
   }
 })
 
-vim.keymap.set('n', '<leader>ff', telescope_builtin.find_files, {})
+local find_project_files = function(opts)
+  local project_dir = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+
+  print(project_dir)
+
+  if vim.v.shell_error ~= 0 then
+    -- if not git then active lsp client root
+    -- will get the configured root directory of the first attached lsp. You will have problems if you are using multiple lsps 
+    -- opts.cwd = vim.lsp.get_active_clients()[1].config.root_dir
+    telescope_builtin.find_files(opts)
+  end
+
+  opts = opts or {}
+  opts.cwd = project_dir
+  telescope_builtin.find_files(opts)
+end 
+
+vim.keymap.set('n', '<leader>ff', find_project_files, {})
 vim.keymap.set('n', '<leader>fg', telescope_builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', telescope_builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', telescope_builtin.help_tags, {})
+

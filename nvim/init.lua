@@ -67,6 +67,15 @@ require("packer").startup(function(use)
     },
   }
 
+  use {
+    'NeogitOrg/neogit',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'sindrets/diffview.nvim'
+    }
+  }
+
   if packer_bootstrap then
     require('packer').sync()
   end
@@ -77,6 +86,7 @@ end)
 ----------------------------------
 -- global
 local options_settings = {
+  autoindent     = true,
   backspace      = { "indent", "eol", "start" },
   clipboard      = "unnamed",
   completeopt    = { "menuone", "noinsert", "noselect" },
@@ -110,6 +120,7 @@ end
 
 vim.cmd([[ syntax on ]])
 vim.cmd([[ filetype on ]])
+vim.cmd([[ filetype indent off ]])
 
 -- define custom symbols for non-printing chars
 vim.cmd([[ set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣ ]])
@@ -245,3 +256,9 @@ vim.keymap.set('n', '<leader>ff', telescope_builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', telescope_builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', telescope_builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', telescope_builtin.help_tags, {})
+
+local neogit = require('neogit')
+neogit.setup {}
+
+vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
+

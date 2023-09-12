@@ -279,3 +279,8 @@ neogit.setup {}
 
 vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 
+vim.keymap.set('n', ',e', ':e <C-R>=expand("%:p:h") . "/" <CR>', {})
+vim.keymap.set('n', ',t', ':tabe <C-R>=expand("%:p:h") . "/" <CR>', {})
+vim.keymap.set('n', ',s', ':split <C-R>=expand("%:p:h") . "/" <CR>', {})
+vim.keymap.set('n', ',v', ':vsplit <C-R>=expand("%:p:h") . "/" <CR>', {})
+

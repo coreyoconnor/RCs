@@ -21,7 +21,7 @@ local map = vim.keymap.set
 cmd([[packadd packer.nvim]])
 require("packer").startup(function(use)
   use 'wbthomason/packer.nvim'
-  
+
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.2',
      requires = { {'nvim-lua/plenary.nvim'} }
@@ -74,6 +74,9 @@ require("packer").startup(function(use)
       'nvim-telescope/telescope.nvim',
       'sindrets/diffview.nvim'
     }
+  }
+  use {
+    'ntpeters/vim-better-whitespace',
   }
 
   use {
@@ -264,7 +267,7 @@ local find_project_files = function(opts)
 
   if vim.v.shell_error ~= 0 then
     -- if not git then active lsp client root
-    -- will get the configured root directory of the first attached lsp. You will have problems if you are using multiple lsps 
+    -- will get the configured root directory of the first attached lsp. You will have problems if you are using multiple lsps
     -- opts.cwd = vim.lsp.get_active_clients()[1].config.root_dir
     telescope_builtin.find_files(opts)
   end
@@ -272,7 +275,7 @@ local find_project_files = function(opts)
   opts = opts or {}
   opts.cwd = project_dir
   telescope_builtin.find_files(opts)
-end 
+end
 
 vim.keymap.set('n', '<leader>ff', find_project_files, {})
 vim.keymap.set('n', '<leader>fg', telescope_builtin.live_grep, {})
@@ -312,3 +315,10 @@ vim.g.rainbow_delimiters = {
     },
 }
 
+-- strip whitespace on save
+vim.api.nvim_create_autocmd( "FileType", {
+  pattern = { 'text', 'markdown', 'html', 'xhtml', 'javascript', 'typescript', 'scala', 'c', 'java', 'go', 'rust', 'c++', 'lua' },
+  command = 'EnableStripWhitespaceOnSave'
+})
+
+vim.g.strip_whitespace_confirm = 0

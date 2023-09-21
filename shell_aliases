@@ -2,9 +2,12 @@ alias ll='ls -l'
 alias lla='ls -la'
 alias gcam='git commit -a -m'
 alias gp='git push'
+alias gpush=gp
+alias gpull='git pull -r && git submodule update --init'
 alias gs='git status'
+alias gfa='git fetch --all'
 alias t='foot'
-alias sync-all='git pull -r && git submodule update --init'
+alias gpull='git pull -r && git submodule update --init'
 
 alias e=$EDITOR
 

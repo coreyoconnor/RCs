@@ -1,2 +1,0 @@
-#!/bin/sh
-screen -d -R irssi -t irssi irssi

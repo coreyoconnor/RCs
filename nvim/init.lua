@@ -89,6 +89,28 @@ require("packer").startup(function(use)
     requires = {}
   }
 
+  if vim.fn.filereadable(vim.fn.expand("$HOME") .. "/.config/openai-key.txt") then
+    use {
+    "jackMort/ChatGPT.nvim",
+      config = function()
+        require("chatgpt").setup({
+          api_key_cmd = "cat " .. vim.fn.expand("$HOME") .. "/.config/openai-key.txt",
+          openai_params = {
+            model = "gpt-4"
+          },
+          openai_edit_params = {
+            model = "gpt-4"
+          }
+        })
+      end,
+      requires = {
+        "MunifTanjim/nui.nvim",
+        "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope.nvim"
+      }
+    }
+  end
+
   if packer_bootstrap then
     require('packer').sync()
   end

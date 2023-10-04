@@ -84,6 +84,11 @@ require("packer").startup(function(use)
     requires = {}
   }
 
+  use {
+    'HiPhish/jinja.vim',
+    requires = {}
+  }
+
   if packer_bootstrap then
     require('packer').sync()
   end

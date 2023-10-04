@@ -246,10 +246,10 @@ local setup = function()
   })
 
   -- yaml lsp
-  lsp_config.yamlls.setup({
-    on_attach = attach_func,
-    filetypes = { "yaml", "yaml.docker-compose", "yml" }
-  })
+  -- lsp_config.yamlls.setup({
+  --   on_attach = attach_func,
+  --   filetypes = { "yaml", "yaml.docker-compose", "yml" }
+  -- })
 
   -- sql lsp
   lsp_config.sqlls.setup({

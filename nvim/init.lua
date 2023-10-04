@@ -257,6 +257,7 @@ local telescope_builtin = require('telescope.builtin')
 
 require("telescope").setup({
   defaults = {
+    layout_strategy = 'center',
     mappings = {
       i = {
         ["<esc>"] = telescope_actions.close,

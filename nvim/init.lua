@@ -89,6 +89,15 @@ require("packer").startup(function(use)
     requires = {}
   }
 
+  use {
+    'ahmedkhalf/project.nvim',
+    config = function()
+      require('project_nvim').setup {
+        -- https://github.com/ahmedkhalf/project.nvim
+      }
+    end
+  }
+
   if vim.fn.filereadable(vim.fn.expand("$HOME") .. "/.config/openai-key.txt") then
     use {
     "jackMort/ChatGPT.nvim",
@@ -223,7 +232,14 @@ local function tree_on_attach(bufnr)
   vim.keymap.set("n", "T",  vim.tree.toggle, {})
 end
 
-require("nvim-tree").setup()
+require("nvim-tree").setup({
+  sync_root_with_cwd = true,
+  respect_buf_cwd = true,
+  update_focused_file = {
+    enable = true,
+    update_root = true
+  },
+})
 
 local tree_api = require "nvim-tree.api"
 vim.keymap.set("n", "T",  tree_api.tree.toggle, {})

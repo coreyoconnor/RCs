@@ -239,6 +239,9 @@ require("nvim-tree").setup({
     enable = true,
     update_root = true
   },
+  view = {
+    width = 50,
+  },
 })
 
 local tree_api = require "nvim-tree.api"
@@ -296,6 +299,9 @@ local telescope_builtin = require('telescope.builtin')
 require("telescope").setup({
   defaults = {
     layout_strategy = 'center',
+    layout_config = {
+      center = { width = 130 }
+    },
     mappings = {
       i = {
         ["<esc>"] = telescope_actions.close,

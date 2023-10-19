@@ -163,6 +163,8 @@ local setup = function()
 
     require("metals").setup_dap()
 
+    client.server_capabilities.semanticTokensProvider = nil
+
   end
 
   -- Autocmd that starts up Metals

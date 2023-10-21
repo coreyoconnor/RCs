@@ -110,7 +110,8 @@ require("packer").startup(function(use)
         require("chatgpt").setup({
           api_key_cmd = "cat " .. vim.fn.expand("$HOME") .. "/.config/openai-key.txt",
           openai_params = {
-            model = "gpt-4"
+            model = "gpt-4",
+            max_tokens = 1000
           },
           openai_edit_params = {
             model = "gpt-4"

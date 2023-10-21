@@ -98,6 +98,11 @@ require("packer").startup(function(use)
     end
   }
 
+  use {
+    'TamaMcGlinn/quickfixdd',
+    requires = {}
+  }
+
   if vim.fn.filereadable(vim.fn.expand("$HOME") .. "/.config/openai-key.txt") then
     use {
     "jackMort/ChatGPT.nvim",

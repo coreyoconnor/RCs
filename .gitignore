@@ -63,3 +63,4 @@ ecb-user-layouts.el
 emacs.d/chatgpt/history
 emacs.d/var/
 nvim/plugin
+nvim/spell

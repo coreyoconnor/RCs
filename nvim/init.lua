@@ -27,6 +27,13 @@ require("packer").startup(function(use)
      requires = { {'nvim-lua/plenary.nvim'} }
   }
 
+  use {
+    'hrsh7th/vim-vsnip',
+    requires = {
+      'hrsh7th/vim-vsnip-integ'
+    }
+  }
+
   use({
     "hrsh7th/nvim-cmp",
     requires = {
@@ -34,7 +41,45 @@ require("packer").startup(function(use)
       { "hrsh7th/cmp-vsnip" },
       { "hrsh7th/vim-vsnip" },
     },
+    config = function ()
+      local cmp = require('cmp')
+      cmp.setup {
+        sources = {
+          { name = "nvim_lsp" },
+          { name = "vsnip" },
+        },
+        snippet = {
+          expand = function(args)
+            -- Comes from vsnip
+            vim.fn["vsnip#anonymous"](args.body)
+          end,
+        },
+        mapping = cmp.mapping.preset.insert {
+          -- None of this made sense to me when first looking into this since there
+          -- is no vim docs, but you can't have select = true here _unless_ you are
+          -- also using the snippet stuff. So keep in mind that if you remove
+          -- snippets you need to remove this select
+          ["<CR>"] = cmp.mapping.confirm({ select = true }),
+          -- I use tabs... some say you should stick to ins-completion but this is just here as an example
+          ["<Tab>"] = function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item()
+            else
+              fallback()
+            end
+          end,
+          ["<S-Tab>"] = function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            else
+              fallback()
+            end
+          end,
+        }
+      }
+    end
   })
+
   use({
     "scalameta/nvim-metals",
     requires = {
@@ -58,6 +103,13 @@ require("packer").startup(function(use)
       local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
       ts_update()
     end,
+  }
+
+  use {
+    'nvim-treesitter/nvim-treesitter-context',
+    requires = {
+      'nvim-treesitter/nvim-treesitter'
+    }
   }
 
   use {
@@ -101,6 +153,11 @@ require("packer").startup(function(use)
   use {
     'TamaMcGlinn/quickfixdd',
     requires = {}
+  }
+
+  use {
+    'rose-pine/neovim',
+    as = 'rose-pine'
   }
 
   if vim.fn.filereadable(vim.fn.expand("$HOME") .. "/.config/openai-key.txt") then
@@ -164,6 +221,7 @@ local options_settings = {
   updatetime     = 750,
   wrap           = false,
 }
+
 for name, setting in pairs(options_settings) do
   vim.opt[name] = setting
 end
@@ -178,6 +236,7 @@ vim.cmd([[ set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣ ]
 vim.cmd([[ set nofoldenable ]])
 -- highlight column at max width
 vim.cmd([[ set colorcolumn=+1 ]])
+vim.cmd([[ set spell ]])
 
 -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrw = 1
@@ -212,8 +271,8 @@ map("n", "]c", function()
 end)
 
 
-require('onedark').setup()
-vim.cmd[[colorscheme onedark]]
+-- require('onedark').setup()
+vim.cmd[[colorscheme rose-pine]]
 
 require'nvim-treesitter.configs'.setup {
   ensure_installed = { "bash", "lua", "python", "scala", "hocon", "yaml", "sql", "dockerfile", "vim" },
@@ -260,44 +319,6 @@ vim.api.nvim_create_autocmd(
 )
 
 require('local.lsp').setup()
-
--- completion related settings
--- This is similiar to what I use
-local cmp = require("cmp")
-cmp.setup {
-  sources = {
-    { name = "nvim_lsp" },
-    { name = "vsnip" },
-  },
-  snippet = {
-    expand = function(args)
-      -- Comes from vsnip
-      vim.fn["vsnip#anonymous"](args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert {
-    -- None of this made sense to me when first looking into this since there
-    -- is no vim docs, but you can't have select = true here _unless_ you are
-    -- also using the snippet stuff. So keep in mind that if you remove
-    -- snippets you need to remove this select
-    ["<CR>"] = cmp.mapping.confirm({ select = true }),
-    -- I use tabs... some say you should stick to ins-completion but this is just here as an example
-    ["<Tab>"] = function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      else
-        fallback()
-      end
-    end,
-    ["<S-Tab>"] = function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      else
-        fallback()
-      end
-    end,
-  }
-}
 
 local telescope_actions = require("telescope.actions")
 local telescope_builtin = require('telescope.builtin')

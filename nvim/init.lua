@@ -109,7 +109,7 @@ require("packer").startup(function(use)
     'nvim-treesitter/nvim-treesitter-context',
     requires = {
       'nvim-treesitter/nvim-treesitter'
-    }
+    },
   }
 
   use {
@@ -160,28 +160,26 @@ require("packer").startup(function(use)
     as = 'rose-pine'
   }
 
-  if vim.fn.filereadable(vim.fn.expand("$HOME") .. "/.config/openai-key.txt") then
-    use {
+  use {
     "jackMort/ChatGPT.nvim",
-      config = function()
-        require("chatgpt").setup({
-          api_key_cmd = "cat " .. vim.fn.expand("$HOME") .. "/.config/openai-key.txt",
-          openai_params = {
-            model = "gpt-4",
-            max_tokens = 1000
-          },
-          openai_edit_params = {
-            model = "gpt-4"
-          }
-        })
-      end,
-      requires = {
-        "MunifTanjim/nui.nvim",
-        "nvim-lua/plenary.nvim",
-        "nvim-telescope/telescope.nvim"
-      }
+    config = function()
+      require("chatgpt").setup({
+        api_key_cmd = "secret-tool lookup openai api-key",
+        openai_params = {
+          model = "gpt-4",
+          max_tokens = 1000
+        },
+        openai_edit_params = {
+          model = "gpt-4"
+        }
+      })
+    end,
+    requires = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim"
     }
-  end
+  }
 
   if packer_bootstrap then
     require('packer').sync()
@@ -399,3 +397,7 @@ vim.api.nvim_create_autocmd( "FileType", {
 })
 
 vim.g.strip_whitespace_confirm = 0
+
+require('treesitter-context').setup {
+  min_window_height = 60
+}

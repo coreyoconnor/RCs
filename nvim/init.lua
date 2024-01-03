@@ -44,15 +44,28 @@ require("packer").startup(function(use)
     config = function ()
       local cmp = require('cmp')
       cmp.setup {
-        sources = {
+        sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "vsnip" },
-        },
+        }, {
+            { name = "buffer" }
+        }),
         snippet = {
           expand = function(args)
             -- Comes from vsnip
             vim.fn["vsnip#anonymous"](args.body)
           end,
+        },
+        sorting = {
+          comparators = {
+            -- cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            cmp.config.compare.kind,
+            -- cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+          }
         },
         mapping = cmp.mapping.preset.insert {
           -- None of this made sense to me when first looking into this since there
@@ -60,6 +73,7 @@ require("packer").startup(function(use)
           -- also using the snippet stuff. So keep in mind that if you remove
           -- snippets you need to remove this select
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
+          ['<C-Space>'] = cmp.mapping.complete(),
           -- I use tabs... some say you should stick to ins-completion but this is just here as an example
           ["<Tab>"] = function(fallback)
             if cmp.visible() then
@@ -109,7 +123,13 @@ require("packer").startup(function(use)
     'nvim-treesitter/nvim-treesitter-context',
     requires = {
       'nvim-treesitter/nvim-treesitter'
-    }
+    },
+    config = function()
+      require('treesitter-context').setup {
+        max_lines = 4,
+        min_window_height = 30
+      }
+    end
   }
 
   use {
@@ -158,6 +178,11 @@ require("packer").startup(function(use)
   use {
     'rose-pine/neovim',
     as = 'rose-pine'
+  }
+
+  use {
+    'bignimbus/pop-punk.vim',
+    as = 'pop-punk'
   }
 
   if vim.fn.filereadable(vim.fn.expand("$HOME") .. "/.config/openai-key.txt") then
@@ -272,7 +297,8 @@ end)
 
 
 -- require('onedark').setup()
-vim.cmd[[colorscheme rose-pine]]
+-- vim.cmd[[colorscheme rose-pine]]
+vim.cmd[[colorscheme pop-punk]]
 
 require'nvim-treesitter.configs'.setup {
   ensure_installed = { "bash", "lua", "python", "scala", "hocon", "yaml", "sql", "dockerfile", "vim" },

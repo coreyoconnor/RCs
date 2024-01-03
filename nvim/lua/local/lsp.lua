@@ -155,6 +155,7 @@ local setup = function()
 
     -- mappings specific to Metals
     map("n", "<leader>t", require("metals.tvp").toggle_tree_view, { desc = "Open Metals tree view." })
+    map("n", "T", require("metals.tvp").toggle_tree_view, { desc = "Open Metals tree view." })
     map("n", "<leader>tr", require("metals.tvp").reveal_in_tree,
       { desc = "Open Metals tree view at currently highlighted symbol." })
     map("n", "<leader>ws", require "metals".hover_worksheet, { desc = "Metals hover worksheet." })

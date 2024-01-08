@@ -187,10 +187,10 @@ require("packer").startup(function(use)
 
   if vim.fn.filereadable(vim.fn.expand("$HOME") .. "/.config/openai-key.txt") then
     use {
-    "jackMort/ChatGPT.nvim",
+      "jackMort/ChatGPT.nvim",
       config = function()
         require("chatgpt").setup({
-          api_key_cmd = "cat " .. vim.fn.expand("$HOME") .. "/.config/openai-key.txt",
+          api_key_cmd = "secret-tool lookup openai api-key",
           openai_params = {
             model = "gpt-4",
             max_tokens = 1000
@@ -425,3 +425,7 @@ vim.api.nvim_create_autocmd( "FileType", {
 })
 
 vim.g.strip_whitespace_confirm = 0
+
+require('treesitter-context').setup {
+  min_window_height = 60
+}

@@ -1,6 +1,6 @@
 addSbtPlugin("com.glngn" % "sbt-alldocs" % "0.3.0")
 addSbtPlugin("com.github.duhemm" % "sbt-errors-summary" % "0.6.5")
-addSbtPlugin("ch.epfl.scala" % "sbt-debug-adapter" % "1.0.0")
+addSbtPlugin("ch.epfl.scala" % "sbt-debug-adapter" % "3.0.5")
 
 //addSbtPlugin("ch.epfl.scala"     % "sbt-scalafix"        % "0.9.26")
 //

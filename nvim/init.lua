@@ -110,6 +110,12 @@ require("packer").startup(function(use)
     requires = {
       'nvim-treesitter/nvim-treesitter'
     },
+    config = function()
+      require('treesitter-context').setup {
+        max_lines = 2,
+        min_window_height = 30
+      }
+    end
   }
 
   use {
@@ -167,7 +173,7 @@ require("packer").startup(function(use)
         api_key_cmd = "secret-tool lookup openai api-key",
         openai_params = {
           model = "gpt-4",
-          max_tokens = 1000
+          max_tokens = 8000
         },
         openai_edit_params = {
           model = "gpt-4"
@@ -179,6 +185,14 @@ require("packer").startup(function(use)
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim"
     }
+  }
+
+  use {
+    'nvimdev/hlsearch.nvim',
+    event = 'BufRead',
+    config = function()
+      require('hlsearch').setup()
+    end
   }
 
   if packer_bootstrap then

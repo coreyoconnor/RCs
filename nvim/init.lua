@@ -1,42 +1,48 @@
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd [[packadd packer.nvim]]
-    return true
-  end
-  return false
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
 
-local packer_bootstrap = ensure_packer()
+vim.opt.rtp:prepend(lazypath)
+
 
 local api = vim.api
 local cmd = vim.cmd
 local map = vim.keymap.set
 
+local lspconfig = require('local.lspconfig')
+local metals = require('local.metals')
+
 ----------------------------------
 -- PLUGINS -----------------------
 ----------------------------------
-cmd([[packadd packer.nvim]])
-require("packer").startup(function(use)
-  use 'wbthomason/packer.nvim'
+--
+require("lazy").setup({
+  'wbthomason/packer.nvim',
+  {
+    'nvim-telescope/telescope.nvim',
+     dependencies = {
+      'nvim-lua/plenary.nvim'
+    }
+  },
 
-  use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.2',
-     requires = { {'nvim-lua/plenary.nvim'} }
-  }
-
-  use {
+  {
     'hrsh7th/vim-vsnip',
-    requires = {
+    dependencies = {
       'hrsh7th/vim-vsnip-integ'
     }
-  }
+  },
 
-  use({
+  {
     "hrsh7th/nvim-cmp",
-    requires = {
+    dependencies = {
       { "hrsh7th/cmp-nvim-lsp" },
       { "hrsh7th/cmp-vsnip" },
       { "hrsh7th/vim-vsnip" },
@@ -92,36 +98,53 @@ require("packer").startup(function(use)
         }
       }
     end
-  })
+  },
 
-  use({
+  {
     "scalameta/nvim-metals",
-    requires = {
+    dependencies = {
       "nvim-lua/plenary.nvim",
       "mfussenegger/nvim-dap",
     },
-  })
+    ft = metals.ft,
+    opts = metals.opts,
+    config = metals.config
+  },
 
-  use {
+  {
     'neovim/nvim-lspconfig',
-    requires = {
+    dependencies = {
       'folke/neodev.nvim'
-    }
-  }
+    },
+    config = lspconfig.config
+  },
 
-  use({ 'monsonjeremy/onedark.nvim', branch = 'treesitter' })
+  {
+    'monsonjeremy/onedark.nvim',
+    branch = 'treesitter'
+  },
 
-  use {
+  {
     'nvim-treesitter/nvim-treesitter',
-    run = function()
-      local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-      ts_update()
-    end,
-  }
+    build = ":TSUpdate",
+    config = function ()
+      local configs = require("nvim-treesitter.configs")
 
-  use {
+      configs.setup({
+        -- ensure_installed = { "lua", "vim", "vimdoc", "bash", "scala", "javascript", "html", "dockerfile", "sql", "python", "hocon", "yaml" },
+        ensure_installed = { "scala", "javascript", "html", "dockerfile", "sql", "hocon", "yaml" },
+        auto_install = true,
+        -- sync_install = true,
+        highlight = { enable = true },
+        indent = { enable = true },
+      })
+    end
+
+  },
+
+  {
     'nvim-treesitter/nvim-treesitter-context',
-    requires = {
+    dependencies = {
       'nvim-treesitter/nvim-treesitter'
     },
     config = function()
@@ -130,57 +153,55 @@ require("packer").startup(function(use)
         min_window_height = 30
       }
     end
-  }
+  },
 
-  use {
+  {
     'nvim-tree/nvim-tree.lua',
-    requires = {
+    dependencies = {
       'nvim-tree/nvim-web-devicons',
     },
-  }
+  },
 
-  use {
+  {
     'NeogitOrg/neogit',
-    requires = {
+    dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope.nvim',
       'sindrets/diffview.nvim'
     }
-  }
-  use {
+  },
+
+  {
     'ntpeters/vim-better-whitespace',
-  }
+  },
 
-  use {
-    'HiPhish/rainbow-delimiters.nvim',
-    requires = {}
-  }
+  {
+    'HiPhish/rainbow-delimiters.nvim'
+  },
 
-  use {
+  {
     'HiPhish/jinja.vim',
-    requires = {}
-  }
+  },
 
-  use {
+  {
     'ahmedkhalf/project.nvim',
     config = function()
       require('project_nvim').setup {
         -- https://github.com/ahmedkhalf/project.nvim
       }
     end
-  }
+  },
 
-  use {
+  {
     'TamaMcGlinn/quickfixdd',
-    requires = {}
-  }
+  },
 
-  use {
+  {
     'rose-pine/neovim',
-    as = 'rose-pine'
-  }
+    name = 'rose-pine'
+  },
 
-  use {
+  {
     "jackMort/ChatGPT.nvim",
     config = function()
       require("chatgpt").setup({
@@ -194,30 +215,26 @@ require("packer").startup(function(use)
         }
       })
     end,
-    requires = {
+    dependencies = {
       "MunifTanjim/nui.nvim",
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim"
     }
-  }
+  },
 
-  use {
+  {
     'nvimdev/hlsearch.nvim',
     event = 'BufRead',
     config = function()
       require('hlsearch').setup()
     end
-  }
+  },
 
-  use {
+  {
     'bignimbus/pop-punk.vim',
-    as = 'pop-punk'
+    name = 'pop-punk'
   }
-
-  if packer_bootstrap then
-    require('packer').sync()
-  end
-end)
+})
 
 ----------------------------------
 -- OPTIONS -----------------------
@@ -306,17 +323,6 @@ end)
 -- vim.cmd[[colorscheme rose-pine]]
 vim.cmd[[colorscheme pop-punk]]
 
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "bash", "lua", "python", "scala", "hocon", "yaml", "sql", "dockerfile", "vim" },
-  auto_install = true,
-  highlight = {
-    enable = true
-  },
-  indent = {
-    enable = true
-  },
-}
-
 local function tree_on_attach(bufnr)
   local api = require "nvim-tree.api"
 
@@ -349,8 +355,6 @@ vim.api.nvim_create_autocmd(
   pattern={"qf"},
   command=[[nnoremap <buffer> <CR> <CR>:cclose<CR>]]}
 )
-
-require('local.lsp').setup()
 
 local telescope_actions = require("telescope.actions")
 local telescope_builtin = require('telescope.builtin')
@@ -432,6 +436,3 @@ vim.api.nvim_create_autocmd( "FileType", {
 
 vim.g.strip_whitespace_confirm = 0
 
-require('treesitter-context').setup {
-  min_window_height = 60
-}

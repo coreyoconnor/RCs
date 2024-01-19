@@ -64,3 +64,4 @@ emacs.d/chatgpt/history
 emacs.d/var/
 nvim/plugin
 nvim/spell
+nvim/lazy-lock.json

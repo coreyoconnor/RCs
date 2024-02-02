@@ -365,6 +365,7 @@ require("telescope").setup({
     layout_config = {
       center = { width = 130 }
     },
+    wrap_results = true,
     mappings = {
       i = {
         ["<esc>"] = telescope_actions.close,

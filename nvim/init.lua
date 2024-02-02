@@ -132,9 +132,9 @@ require("lazy").setup({
 
       configs.setup({
         -- ensure_installed = { "lua", "vim", "vimdoc", "bash", "scala", "javascript", "html", "dockerfile", "sql", "python", "hocon", "yaml" },
-        ensure_installed = { "scala", "javascript", "html", "dockerfile", "sql", "hocon", "yaml" },
-        auto_install = true,
-        -- sync_install = true,
+        ensure_installed = { "scala", "javascript", "html", "dockerfile", "sql", "hocon" },
+        auto_install = false,
+        sync_install = false,
         highlight = { enable = true },
         indent = { enable = true },
       })

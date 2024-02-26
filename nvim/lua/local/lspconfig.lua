@@ -152,9 +152,9 @@ local config = function()
   -- python lsp
   lspconfig.pylsp.setup {
     on_attach = attach_func,
-    -- cmd = { "/Users/brian.tracey/.pyenv/versions/pylsp/bin/pylsp" },
     settings = {
       pylsp = {
+        configurationSources = { "pylint", "pydocstyle" },
         plugins = {
           autopep8 = {
             enabled = false

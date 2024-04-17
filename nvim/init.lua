@@ -46,6 +46,7 @@ require("lazy").setup({
       { "hrsh7th/cmp-nvim-lsp" },
       { "hrsh7th/cmp-vsnip" },
       { "hrsh7th/vim-vsnip" },
+      { 'hrsh7th/cmp-nvim-lsp-signature-help' },
     },
     config = function ()
       local cmp = require('cmp')
@@ -53,6 +54,7 @@ require("lazy").setup({
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "vsnip" },
+          { name = "cmp-nvim-lsp-signature-help" },
         }, {
             { name = "buffer" }
         }),
@@ -233,7 +235,7 @@ require("lazy").setup({
   {
     'bignimbus/pop-punk.vim',
     name = 'pop-punk'
-  }
+  },
 })
 
 ----------------------------------

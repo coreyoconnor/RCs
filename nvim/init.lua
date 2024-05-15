@@ -120,7 +120,12 @@ require("lazy").setup({
     },
     config = lspconfig.config
   },
-
+  {
+    "j-hui/fidget.nvim",
+    opts = {
+      -- options
+    },
+  },
   {
     'monsonjeremy/onedark.nvim',
     branch = 'treesitter'

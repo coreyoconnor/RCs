@@ -11,7 +11,10 @@ local ft = { "scala", "sbt", "java" }
 local opts = function()
   local metals_config = require("metals").bare_config()
   metals_config.init_options.statusBarProvider = false
-  metals_config.settings.showImplicitArguments = true
+  metals_config.settings = {
+    showImplicitArguments = true,
+    defaultBspToBuildTool = true
+  }
   metals_config.tvp["icons"] = { enabled = true }
   metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
 

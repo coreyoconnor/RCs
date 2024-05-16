@@ -10,7 +10,7 @@ local attach_func = function(client, bufnr)
   -- LSP mappings
   map("n", "gd", telescope_builtin.lsp_definitions, { desc = "LSP go to definition of the symbol under the cursor." })
   map("n", "K", shiftk,
-    { desc = "First press, perform lsp hover action if avaialble; second press enter the hover window; third press exit the hover window." })
+    { desc = "First press, perform lsp hover action if available; second press enter the hover window; third press exit the hover window." })
   map("n", "gi", telescope_builtin.lsp_implementations,
     { desc = "LSP go to implementation of the symbol under the cursor." })
   -- map("n", "gr", vim.lsp.buf.references, { desc = "LSP go to references of the sumbol under the cursor." })

@@ -13,8 +13,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 
-local api = vim.api
-local cmd = vim.cmd
 local map = vim.keymap.set
 
 local lspconfig = require('local.lspconfig')
@@ -127,10 +125,17 @@ require("lazy").setup({
     },
   },
   {
-    'monsonjeremy/onedark.nvim',
-    branch = 'treesitter'
+    'sainnhe/sonokai',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      -- Optionally configure and load the colorscheme
+      -- directly inside the plugin declaration.
+      vim.g.sonokai_enable_italic = true
+      vim.g.sonokai_style = 'shusia'
+      vim.cmd.colorscheme('sonokai')
+    end
   },
-
   {
     'nvim-treesitter/nvim-treesitter',
     build = ":TSUpdate",
@@ -328,7 +333,7 @@ end)
 
 -- require('onedark').setup()
 -- vim.cmd[[colorscheme rose-pine]]
-vim.cmd[[colorscheme pop-punk]]
+-- vim.cmd[[colorscheme pop-punk]]
 
 local function tree_on_attach(bufnr)
   local api = require "nvim-tree.api"

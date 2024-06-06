@@ -15,6 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 
 local map = vim.keymap.set
 
+local folding = require('local.folding')
 local lspconfig = require('local.lspconfig')
 local metals = require('local.metals')
 
@@ -262,6 +263,13 @@ require("lazy").setup({
     'bignimbus/pop-punk.vim',
     name = 'pop-punk'
   },
+  -- {
+  --   'kevinhwang91/nvim-ufo',
+  --   dependencies = {
+  --     'kevinhwang91/promise-async'
+  --   },
+  --   config = folding.config
+  -- },
 })
 
 ----------------------------------
@@ -308,8 +316,6 @@ vim.cmd([[ filetype indent off ]])
 
 -- define custom symbols for non-printing chars
 vim.cmd([[ set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣ ]])
--- don't fold until the first request for a fold toggle
-vim.cmd([[ set nofoldenable ]])
 -- highlight column at max width
 vim.cmd([[ set colorcolumn=+1 ]])
 vim.cmd([[ set spell ]])
@@ -345,11 +351,6 @@ end)
 map("n", "]c", function()
   vim.diagnostic.goto_next({ wrap = false })
 end)
-
-
--- require('onedark').setup()
--- vim.cmd[[colorscheme rose-pine]]
--- vim.cmd[[colorscheme pop-punk]]
 
 local function tree_on_attach(bufnr)
   local api = require "nvim-tree.api"

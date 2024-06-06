@@ -89,6 +89,9 @@ local config = function(self, metals_config)
     end,
     group = nvim_metals_group,
   })
+
+  -- propagate all filetype failure messages
+  vim.opt_global.shortmess:remove("F")
 end
 
 return {

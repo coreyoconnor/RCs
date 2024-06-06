@@ -57,6 +57,9 @@ require("lazy").setup({
         }, {
             { name = "buffer" }
         }),
+        performance = {
+          fetching_timeout = 2000
+        },
         snippet = {
           expand = function(args)
             -- Comes from vsnip
@@ -144,8 +147,21 @@ require("lazy").setup({
       local configs = require("nvim-treesitter.configs")
 
       configs.setup({
-        -- ensure_installed = { "lua", "vim", "vimdoc", "bash", "scala", "javascript", "html", "dockerfile", "sql", "python", "hocon", "yaml" },
-        ensure_installed = { "scala", "javascript", "html", "dockerfile", "sql", "hocon" },
+        ensure_installed = {
+          "lua",
+          "vim",
+          "vimdoc",
+          "bash",
+          "scala",
+          "javascript",
+          "html",
+          "properties",
+          "sql",
+          "python",
+          "hocon",
+          "yaml"
+        },
+        -- ensure_installed = { "scala", "javascript", "html", "dockerfile", "sql", "hocon" },
         auto_install = false,
         sync_install = false,
         highlight = { enable = true },

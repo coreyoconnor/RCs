@@ -13,10 +13,17 @@ local opts = function()
   metals_config.init_options.statusBarProvider = false
   metals_config.settings = {
     showImplicitArguments = true,
-    defaultBspToBuildTool = true
+    defaultBspToBuildTool = true,
+    serverVersion = "latest.snapshot"
   }
   metals_config.tvp["icons"] = { enabled = true }
-  metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+  local capabilities = require("cmp_nvim_lsp").default_capabilities()
+  capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true
+  }
+  metals_config.capabilities = capabilities
 
   metals_config.on_attach = function(client, bufnr)
 

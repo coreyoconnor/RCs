@@ -1,18 +1,17 @@
-alias ll='ls -l'
-alias lla='ls -la'
+alias l='ls -l'
+alias la='ls -la'
 alias gcam='git commit -a -m'
 alias gp='git push'
 alias gpush=gp
 alias gpull='git pull -r && git submodule update --init'
 alias gs='git status'
 alias gfa='git fetch --all'
-alias t='foot'
+alias t='tmux'
 alias gpull='git pull -r && git submodule update --init'
+alias tstart="tmux new -s $(basename $(pwd))"
 
 alias e=$EDITOR
 
-alias project-screen='screen -dr $(basename $PWD) || screen -S $(basename $PWD)'
-alias cast-screen='screen -dr $(basename $PWD) || screen -c $RCS_DIR/cast-screenrc -S $(basename $PWD)'
 alias iso='date +"%Y-%m-%dT%H:%M:%S%z"'
 alias isoAlt='date +"%Y-%m-%dT%H-%M-%S%z"'
 

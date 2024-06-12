@@ -263,13 +263,13 @@ require("lazy").setup({
     'bignimbus/pop-punk.vim',
     name = 'pop-punk'
   },
-  -- {
-  --   'kevinhwang91/nvim-ufo',
-  --   dependencies = {
-  --     'kevinhwang91/promise-async'
-  --   },
-  --   config = folding.config
-  -- },
+  {
+    'kevinhwang91/nvim-ufo',
+    dependencies = {
+      'kevinhwang91/promise-async'
+    },
+    config = folding.config
+  },
 })
 
 ----------------------------------

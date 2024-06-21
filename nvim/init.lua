@@ -136,8 +136,15 @@ require("lazy").setup({
       -- Optionally configure and load the colorscheme
       -- directly inside the plugin declaration.
       vim.g.sonokai_enable_italic = true
-      vim.g.sonokai_style = 'shusia'
-      vim.cmd.colorscheme('sonokai')
+      -- vim.g.sonokai_style = 'shusia'
+      -- vim.cmd.colorscheme('sonokai')
+    end
+  },
+  {
+    'iagorrr/noctishc.nvim',
+    lazy = false,
+    config = function()
+      vim.cmd.colorscheme('noctishc')
     end
   },
   {

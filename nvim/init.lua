@@ -277,6 +277,12 @@ require("lazy").setup({
     },
     config = folding.config
   },
+  {
+    'gen740/SmoothCursor.nvim',
+    config = function()
+      require('smoothcursor').setup()
+    end
+  }
 })
 
 ----------------------------------

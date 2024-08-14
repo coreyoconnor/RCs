@@ -224,6 +224,7 @@ require("lazy").setup({
     config = function()
       require('project_nvim').setup {
         -- https://github.com/ahmedkhalf/project.nvim
+        scope_chdir = 'tab'
       }
     end
   },

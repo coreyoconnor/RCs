@@ -14,7 +14,7 @@ local opts = function()
   metals_config.settings = {
     showImplicitArguments = true,
     defaultBspToBuildTool = true,
-    serverVersion = "latest.snapshot"
+    -- serverVersion = "latest.snapshot"
   }
   metals_config.tvp["icons"] = { enabled = true }
 

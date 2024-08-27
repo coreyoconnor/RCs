@@ -61,8 +61,8 @@ for_window [title="^Messenger" app_id="^firefox$"] "Comms"
 assign [class="^discord$"] "Comms"
 assign [class="^Spotify$"] "Media"
 assign [class="^taskade$"] "Comms"
-assign [class="^Steam$"] 5
-assign [class="^steam_app"] 5
+# assign [class="^Steam$"] 5
+# assign [class="^steam_app"] 5
 
 ### key mappings ###
 

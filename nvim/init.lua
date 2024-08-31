@@ -225,15 +225,15 @@ require("lazy").setup({
     'HiPhish/jinja.vim',
   },
 
-  {
-    'ahmedkhalf/project.nvim',
-    config = function()
-      require('project_nvim').setup {
-        -- https://github.com/ahmedkhalf/project.nvim
-        scope_chdir = 'tab'
-      }
-    end
-  },
+  -- {
+  --   'ahmedkhalf/project.nvim',
+  --   config = function()
+  --     require('project_nvim').setup {
+  --       -- https://github.com/ahmedkhalf/project.nvim
+  --       scope_chdir = 'tab'
+  --     }
+  --   end
+  -- },
 
   {
     'TamaMcGlinn/quickfixdd',

@@ -13,7 +13,15 @@ fi
 
 if [[ -f $RCS_DIR/mill-completion.bash.inc ]] ; then
   function mill() {
-    test -f ./mill && ./mill "$@"
+    if [[ -f ./millw ]] ; then
+      ./millw "$@"
+    else
+      if [[ -f ./mill ]] ; then
+        ./mill "$@"
+      else
+        echo "Not in a mill project base directory" >&2
+      fi
+    fi
   }
   alias m=mill
   source $RCS_DIR/mill-completion.bash.inc

@@ -11,5 +11,13 @@ if [[ -f $HOME/.kube/completion.bash.inc ]] ; then
   source $HOME/.kube/completion.bash.inc
 fi
 
+if [[ -f $RCS_DIR/mill-completion.bash.inc ]] ; then
+  function mill() {
+    test -f ./mill && ./mill "$@"
+  }
+  alias m=mill
+  source $RCS_DIR/mill-completion.bash.inc
+fi
+
 export PS1='\n\[\033[1;32m\][\w]\$\[\033[0m\] '
 

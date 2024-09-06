@@ -150,7 +150,14 @@ require("lazy").setup({
     'iagorrr/noctishc.nvim',
     lazy = false,
     config = function()
-      vim.cmd.colorscheme('noctishc')
+      -- vim.cmd.colorscheme('noctishc')
+    end
+  },
+  {
+    'lunarvim/synthwave84.nvim',
+    lazy = false,
+    config = function()
+      vim.cmd.colorscheme('synthwave84')
     end
   },
   {

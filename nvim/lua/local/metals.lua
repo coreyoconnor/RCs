@@ -14,6 +14,9 @@ local opts = function()
   metals_config.settings = {
     showImplicitArguments = true,
     defaultBspToBuildTool = true,
+    serverProperties = {
+      "-Xmx4g",
+    },
   }
   metals_config.tvp["icons"] = { enabled = true }
 

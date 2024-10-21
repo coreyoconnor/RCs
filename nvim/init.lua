@@ -268,7 +268,8 @@ require("lazy").setup({
     dependencies = {
       "MunifTanjim/nui.nvim",
       "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim"
+      "nvim-telescope/telescope.nvim",
+      "folke/trouble.nvim"
     }
   },
 

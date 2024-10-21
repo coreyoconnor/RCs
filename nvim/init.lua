@@ -142,8 +142,8 @@ require("lazy").setup({
       -- Optionally configure and load the colorscheme
       -- directly inside the plugin declaration.
       vim.g.sonokai_enable_italic = true
-      -- vim.g.sonokai_style = 'shusia'
-      -- vim.cmd.colorscheme('sonokai')
+      vim.g.sonokai_style = 'shusia'
+      vim.cmd.colorscheme('sonokai')
     end
   },
   {
@@ -157,7 +157,7 @@ require("lazy").setup({
     'lunarvim/synthwave84.nvim',
     lazy = false,
     config = function()
-      vim.cmd.colorscheme('synthwave84')
+      -- vim.cmd.colorscheme('synthwave84')
     end
   },
   {

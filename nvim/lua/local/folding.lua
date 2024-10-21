@@ -7,7 +7,7 @@ return {
   config = function ()
     vim.opt.foldtext = ""
     vim.opt.foldlevel = 99
-    vim.opt.foldlevelstart = 99
+    vim.opt.foldlevelstart = 4
     vim.opt.foldenable = true
 
     vim.keymap.set('n', 'zR', require('ufo').openAllFolds)

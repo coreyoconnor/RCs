@@ -84,13 +84,8 @@ require("lazy").setup({
           }
         },
         mapping = cmp.mapping.preset.insert {
-          -- None of this made sense to me when first looking into this since there
-          -- is no vim docs, but you can't have select = true here _unless_ you are
-          -- also using the snippet stuff. So keep in mind that if you remove
-          -- snippets you need to remove this select
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
           ['<C-Space>'] = cmp.mapping.complete(),
-          -- I use tabs... some say you should stick to ins-completion but this is just here as an example
           ["<Tab>"] = function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
@@ -139,25 +134,9 @@ require("lazy").setup({
     lazy = false,
     priority = 1000,
     config = function()
-      -- Optionally configure and load the colorscheme
-      -- directly inside the plugin declaration.
       vim.g.sonokai_enable_italic = true
       vim.g.sonokai_style = 'shusia'
       vim.cmd.colorscheme('sonokai')
-    end
-  },
-  {
-    'iagorrr/noctishc.nvim',
-    lazy = false,
-    config = function()
-      -- vim.cmd.colorscheme('noctishc')
-    end
-  },
-  {
-    'lunarvim/synthwave84.nvim',
-    lazy = false,
-    config = function()
-      -- vim.cmd.colorscheme('synthwave84')
     end
   },
   {
@@ -181,7 +160,6 @@ require("lazy").setup({
           "hocon",
           "yaml"
         },
-        -- ensure_installed = { "scala", "javascript", "html", "dockerfile", "sql", "hocon" },
         auto_install = false,
         sync_install = false,
         highlight = { enable = true },
@@ -232,16 +210,6 @@ require("lazy").setup({
     'HiPhish/jinja.vim',
   },
 
-  -- {
-  --   'ahmedkhalf/project.nvim',
-  --   config = function()
-  --     require('project_nvim').setup {
-  --       -- https://github.com/ahmedkhalf/project.nvim
-  --       scope_chdir = 'tab'
-  --     }
-  --   end
-  -- },
-
   {
     'TamaMcGlinn/quickfixdd',
   },
@@ -254,16 +222,19 @@ require("lazy").setup({
   {
     "jackMort/ChatGPT.nvim",
     config = function()
-      require("chatgpt").setup({
-        api_key_cmd = "secret-tool lookup openai api-key",
-        openai_params = {
-          model = "gpt-4",
-          max_tokens = 8000
-        },
-        openai_edit_params = {
-          model = "gpt-4"
-        }
-      })
+      local secret_tool_execs = os.execute("secret-tool lookup openai api-key")
+      if secret_tool_execs == 0 then
+        require("chatgpt").setup({
+          api_key_cmd = "secret-tool lookup openai api-key",
+          openai_params = {
+            model = "gpt-4",
+            max_tokens = 8000
+          },
+          openai_edit_params = {
+            model = "gpt-4"
+          }
+        })
+      end
     end,
     dependencies = {
       "MunifTanjim/nui.nvim",

@@ -222,7 +222,7 @@ require("lazy").setup({
   {
     "jackMort/ChatGPT.nvim",
     config = function()
-      local secret_tool_execs = os.execute("type some-program >/dev/null 2>&1 && exit 0")
+      local secret_tool_execs = os.execute("type secret-tool >/dev/null 2>&1 && exit 0")
       if secret_tool_execs == 0 then
         require("chatgpt").setup({
           api_key_cmd = "secret-tool lookup openai api-key",

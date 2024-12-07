@@ -17,6 +17,7 @@ local opts = function()
     serverProperties = {
       "-Xmx4g",
     },
+    -- serverVersion = "latest.snapshot",
   }
   metals_config.tvp["icons"] = { enabled = true }
 

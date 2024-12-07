@@ -1,4 +1,5 @@
 Global / semanticdbEnabled := true
+Global / semanticdbVersion := "4.11.0"
 
 //addCompilerPlugin("com.github.cb372" % "scala-typed-holes" % "0.1.11" cross CrossVersion.full)
 Global / onChangedBuildSource := ReloadOnSourceChanges

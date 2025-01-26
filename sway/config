@@ -28,21 +28,11 @@ bar swaybar_command waybar
 
 ### output mapping ###
 
-#output DP-1 resolution 3840x2160 position 1920,0 scale 2
-#output DP-2 resolution 2560x1080 position 1920,1080
-#output HDMI-A-1 resolution 1920x1080 position 0,1080
-
 output "Dell Inc. DELL P2415Q 59JJ469O0KMB" resolution 3840x2160 position 3440,0 scale 2
 output "Dell Inc. AW3423DWF 57T42S3" resolution 3440x1440 position 0,0
-# output "ViewSonic Corporation VA2259 Series UKX174000921" resolution 1920x1080 position 0,1080
-
-#output "Dell Inc. DELL P2415Q 59JJ469O0KMB" resolution 3840x2160 position 2680,0 scale 2
-#output "Dell Inc. AW3423DWF 57T42S3" power off
-#output "ViewSonic Corporation VA2259 Series UKX174000921" power off
 
 ### workspaces ###
 workspace "Media" output "Dell Inc. DELL P2415Q 59JJ469O0KMB"
-# workspace "Comms" output "ViewSonic Corporation VA2259 Series UKX174000921"
 workspace "Comms" output "Dell Inc. DELL P2415Q 59JJ469O0KMB"
 workspace "Main" output "Dell Inc. AW3423DWF 57T42S3"
 
@@ -50,9 +40,11 @@ focus_wrapping workspace
 
 ### window mappings ###
 
-for_window [app_id="^launcher$"] floating enable, sticky enable, resize set 30 ppt 60 ppt, border pixel 10
-for_window [app_id="^[wW]aydroid.*"] floating enable, border pixel 10
-for_window [app_id="^firefox$" title="Picture-in-Picture"] floating enable, sticky enable, border pixel 10
+for_window [app_id="^launcher$"] floating enable, sticky enable, resize set 30 ppt 60 ppt, border pixel 20
+for_window [app_id="^[wW]aydroid.*"] floating enable, border pixel 20
+for_window [app_id="^firefox$" title="Picture-in-Picture"] floating enable, sticky enable, border pixel 20
+for_window [class="Beyond-All-Reason"] floating enable, border pixel 20
+for_window [class="spring" instance="spring" title="Beyond All Reason"] border pixel 0, floating enable, fullscreen enable
 
 for_window [title="^Inbox.*coreyoconnor.*Gmail" app_id="^firefox$"] "Comms"
 for_window [title="^Amazon WorkMail" app_id="^firefox$"] "Comms"
@@ -71,7 +63,7 @@ bindsym $mod+Return exec $term
 
 bindsym $mod+Shift+Delete exec wlogout
 
-# Kill focused windo
+# Kill focused window
 bindsym $mod+q kill
 
 # Start your launcher
@@ -90,6 +82,7 @@ bindsym $mod+Shift+c reload
 
 # screenshot selection
 bindsym $mod+Shift+Print exec grim -g "$(slurp -d)" - | wl-copy -t image/png
+bindsym $mod+Control+Shift+Print exec GRIM_DEFAULT_DIR=~/Pictures/screenshots grim -g "$(slurp -d)"
 
 # screenshot active output
 bindsym $mod+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') - | wl-copy -t image/png
@@ -158,6 +151,7 @@ bindsym $mod+Control+Shift+$down  move workspace to output down
 # respectively.
 bindsym $mod+b splith
 bindsym $mod+v splitv
+bindsym $mod+t split none
 
 # Switch the current container between different layout styles
 bindsym $mod+s layout stacking
@@ -213,6 +207,8 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+
+bindsym $mod+F12 exec --no-startup-id swaymsg output DP-2 toggle
 
 tiling_drag_threshold 30
 

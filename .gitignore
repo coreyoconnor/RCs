@@ -67,3 +67,4 @@ nvim/spell
 nvim/lazy-lock.json
 .scala-build
 sbt/1.0/preferences/1.10.0/
+sbt/1.0/.develocity

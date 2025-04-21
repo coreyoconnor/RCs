@@ -268,6 +268,17 @@ require("lazy").setup({
     config = function()
       require('smoothcursor').setup()
     end
+  },
+  {
+    'vala-lang/vala.vim',
+  },
+  {
+    'ranjithshegde/ccls.nvim',
+    config = function()
+      require("ccls").setup(
+        { filetypes = { "c", "cpp", "objc", "objcpp" } }
+      )
+    end
   }
 })
 

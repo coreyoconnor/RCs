@@ -5,6 +5,18 @@ local api = vim.api
 
 local lsp_group = api.nvim_create_augroup("lsp", { clear = true })
 
+local function is_executable(executable)
+  local handle = io.popen("command -v " .. executable)
+  if handle == nil then
+    return false
+  end
+
+  local result = handle:read("*a")
+  handle:close()
+
+  return result ~= ""
+end
+
 local attach_func = function(client, bufnr)
   local telescope_builtin = require("telescope.builtin")
   -- LSP mappings
@@ -197,6 +209,11 @@ local config = function()
   lspconfig.sqlls.setup({
     on_attach = attach_func,
   })
+
+  -- vala lsp
+  --if is_executable("vala-lanuage-server") then
+  lspconfig.vala_ls.setup({})
+  --end
 end
 
 

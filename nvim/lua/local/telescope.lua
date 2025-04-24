@@ -7,9 +7,9 @@ local api = vim.api
 local config = function ()
   require("telescope").setup({
     defaults = {
-      layout_strategy = 'vertical',
+      layout_strategy = 'flex',
       layout_config = {
-        center = { width = 130 }
+        width = 0.9
       },
       wrap_results = true,
       mappings = {

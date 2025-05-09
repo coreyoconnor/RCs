@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: sealed trait
-# key: st
-# --
-sealed trait $0

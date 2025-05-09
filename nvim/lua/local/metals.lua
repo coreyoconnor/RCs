@@ -10,7 +10,7 @@ local ft = { "scala", "sbt", "java" }
 
 local opts = function()
   local metals_config = require("metals").bare_config()
-  -- metals_config.init_options.statusBarProvider = false
+  metals_config.init_options.statusBarProvider = "off"
   metals_config.settings = {
     showImplicitArguments = true,
     defaultBspToBuildTool = true,

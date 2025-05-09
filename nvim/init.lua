@@ -268,7 +268,26 @@ require("lazy").setup({
     config = function()
       require('smoothcursor').setup()
     end
-  }
+  },
+  {
+    'github/copilot.vim',
+    config = function()
+      vim.g.copilot_filetypes = {
+        ['*'] = false
+      }
+    end
+  },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    dependencies = {
+      { "github/copilot.vim" },
+      { "nvim-lua/plenary.nvim" },
+    },
+    build = "make tiktoken",
+    opts = {
+      context = {}
+    },
+  },
 })
 
 ----------------------------------
@@ -324,7 +343,7 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 -- set termguicolors to enable highlight groups
-vim.opt.termguicolors = true
+-- vim.opt.termguicolors = true
 vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
 
 -- all workspace diagnostics

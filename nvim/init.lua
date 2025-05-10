@@ -18,12 +18,7 @@ local folding = require('local.folding')
 local lspconfig = require('local.lspconfig')
 local metals = require('local.metals')
 local telescope = require('local.telescope')
-
-----------------------------------
--- PLUGINS -----------------------
-----------------------------------
---
-require("lazy").setup({
+local to_install = {
   {
     'nvim-telescope/telescope.nvim', tag = '0.1.8',
     dependencies = { 'nvim-lua/plenary.nvim' },
@@ -281,15 +276,35 @@ require("lazy").setup({
   {
     'vala-lang/vala.vim',
   },
-  {
-    'ranjithshegde/ccls.nvim',
+}
+
+if vim.loop.os_uname().sysname == "Darwin" then
+  to_install.insert({
+    'github/copilot.vim',
     config = function()
-      require("ccls").setup(
-        { filetypes = { "c", "cpp", "objc", "objcpp" } }
-      )
+      vim.g.copilot_filetypes = {
+        ['*'] = false
+      }
     end
-  }
-})
+  })
+  to_install.insert({
+    "CopilotC-Nvim/CopilotChat.nvim",
+    dependencies = {
+      { "github/copilot.vim" },
+      { "nvim-lua/plenary.nvim" },
+    },
+    build = "make tiktoken",
+    opts = {
+      context = {}
+    },
+  })
+end
+
+----------------------------------
+-- PLUGINS -----------------------
+----------------------------------
+--
+require("lazy").setup(to_install)
 
 ----------------------------------
 -- OPTIONS -----------------------
@@ -344,7 +359,7 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 -- set termguicolors to enable highlight groups
-vim.opt.termguicolors = true
+-- vim.opt.termguicolors = true
 vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
 
 -- all workspace diagnostics

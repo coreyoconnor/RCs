@@ -25,7 +25,6 @@ local to_install = {
     config = telescope.config,
     lazy = false
   },
-  'wbthomason/packer.nvim',
   {
     'nvim-telescope/telescope.nvim',
      dependencies = {
@@ -279,7 +278,7 @@ local to_install = {
 }
 
 if vim.loop.os_uname().sysname == "Darwin" then
-  to_install.insert({
+  table.insert(to_install, {
     'github/copilot.vim',
     config = function()
       vim.g.copilot_filetypes = {
@@ -287,7 +286,7 @@ if vim.loop.os_uname().sysname == "Darwin" then
       }
     end
   })
-  to_install.insert({
+  table.insert(to_install, {
     "CopilotC-Nvim/CopilotChat.nvim",
     dependencies = {
       { "github/copilot.vim" },

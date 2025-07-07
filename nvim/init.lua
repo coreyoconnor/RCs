@@ -95,6 +95,12 @@ local to_install = {
             end
           end,
         },
+        formatting = {
+          format = function(entry, vim_item)
+            vim_item.menu = entry.source.name
+            return vim_item
+          end
+        },
         enabled = function()
           local disabled = false
           disabled = disabled or (vim.api.nvim_buf_get_option(0, "buftype") == "prompt")
@@ -269,11 +275,26 @@ local to_install = {
   {
     'gen740/SmoothCursor.nvim',
     config = function()
-      require('smoothcursor').setup()
+      require('smoothcursor').setup({})
     end
   },
   {
     'vala-lang/vala.vim',
+  },
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' },
+    ft = { "markdown", "codecompanion" },
+  },
+  {
+    "echasnovski/mini.diff",
+    config = function()
+      local diff = require("mini.diff")
+      diff.setup({
+        -- Disabled by default
+        source = diff.gen_source.none(),
+      })
+    end,
   },
 }
 
@@ -281,6 +302,7 @@ if vim.loop.os_uname().sysname == "Darwin" then
   table.insert(to_install, {
     'github/copilot.vim',
     config = function()
+      -- stop copilot completion. Ain't no vibe strong enough for me to accept this yet.
       vim.g.copilot_filetypes = {
         ['*'] = false
       }
@@ -294,8 +316,21 @@ if vim.loop.os_uname().sysname == "Darwin" then
     },
     build = "make tiktoken",
     opts = {
-      context = {}
     },
+  })
+  table.insert(to_install, {
+    "olimorris/codecompanion.nvim",
+    opts = {},
+    dependencies = {
+      "github/copilot.vim",
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "ravitemer/mcphub.nvim"
+    },
+    config = function()
+      require("codecompanion").setup()
+      vim.keymap.set({ "n", "v" }, "<leader>cc", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
+    end
   })
 end
 

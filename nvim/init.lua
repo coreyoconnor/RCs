@@ -20,7 +20,7 @@ local metals = require('local.metals')
 local telescope = require('local.telescope')
 local to_install = {
   {
-    'nvim-telescope/telescope.nvim', tag = '0.1.8',
+    'nvim-telescope/telescope.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = telescope.config,
     lazy = false

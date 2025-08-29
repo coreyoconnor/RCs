@@ -9,7 +9,9 @@ local nvim_metals_group = api.nvim_create_augroup("nvim-metals", { clear = true 
 local ft = { "scala", "sbt", "java" }
 
 local opts = function()
+  local capabilities = require("cmp_nvim_lsp").default_capabilities()
   local metals_config = require("metals").bare_config()
+
   metals_config.init_options.statusBarProvider = "off"
   metals_config.settings = {
     showImplicitArguments = true,
@@ -22,7 +24,6 @@ local opts = function()
   }
   metals_config.tvp["icons"] = { enabled = true }
 
-  local capabilities = require("cmp_nvim_lsp").default_capabilities()
   capabilities.textDocument.foldingRange = {
     dynamicRegistration = false,
     lineFoldingOnly = true
@@ -90,6 +91,15 @@ local config = function(self, metals_config)
     pattern = self.ft,
     callback = function()
       require("metals").initialize_or_attach(metals_config)
+    end,
+    group = nvim_metals_group,
+  })
+
+  -- turn on inlay hints for worksheets
+  api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    pattern = { "*.worksheet.sc" },
+    callback = function()
+      vim.lsp.inlay_hint.enable(true)
     end,
     group = nvim_metals_group,
   })

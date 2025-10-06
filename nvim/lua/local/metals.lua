@@ -12,7 +12,9 @@ local opts = function()
   local capabilities = require("cmp_nvim_lsp").default_capabilities()
   local metals_config = require("metals").bare_config()
 
+  -- use fidget
   metals_config.init_options.statusBarProvider = "off"
+
   metals_config.settings = {
     showImplicitArguments = true,
     defaultBspToBuildTool = true,
@@ -49,10 +51,10 @@ local opts = function()
 
   end
 
-  -- metals_config.handlers = {
-  --  ["metals/status"] = function()
-  --  end
-  -- }
+  metals_config.handlers = {
+    ["window/showMessage"] = function()
+    end
+  }
 
   return metals_config
 end

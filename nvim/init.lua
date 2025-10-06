@@ -135,7 +135,8 @@ local to_install = {
   {
     "j-hui/fidget.nvim",
     opts = {
-      -- options
+      ignore_done_already = true,
+      ignore_empty_message = true
     },
   },
   {

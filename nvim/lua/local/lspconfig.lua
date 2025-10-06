@@ -127,24 +127,21 @@ local config = function()
     virtual_text = false,
   })
 
-  local lspconfig = require("lspconfig")
-  --
-  -- lua lsp runtime path adjustments
-  local runtime_path = vim.split(package.path, ";")
-  table.insert(runtime_path, "lua/?.lua")
-  table.insert(runtime_path, "lua/?/init.lua")
+  vim.lsp.config('*', {
+    on_attach = attach_func,
+    root_markers = { '.git', '.scala-build' },
+  })
 
   -- extra Neovim Lua stuff
-  require("neodev").setup()
+  -- require("neodev").setup()
 
   -- lua lsp
-  lspconfig.lua_ls.setup({
-    on_attach = attach_func,
+  vim.lsp.config('lua_ls', {
     settings = {
       Lua = {
         runtime = {
           version = "LuaJIT",
-          path = runtime_path,
+          -- path = runtime_path,
         },
         diagnostics = {
           globals = { "vim", "require" }
@@ -160,10 +157,10 @@ local config = function()
       },
     },
   })
+  vim.lsp.enable('lua_ls')
 
   -- python lsp
-  lspconfig.pylsp.setup {
-    on_attach = attach_func,
+  vim.lsp.config('pylsp', {
     settings = {
       pylsp = {
         configurationSources = { "pylint", "pydocstyle" },
@@ -180,24 +177,23 @@ local config = function()
         }
       }
     }
-  }
+  })
+  vim.lsp.enable('pylsp')
 
   -- bash lsp
-  lspconfig.bashls.setup({
-    on_attach = attach_func,
+  vim.lsp.config('bashls', {
     filetypes = { "bash", "sh", "zsh" }
   })
+  vim.lsp.enable('bashls')
 
   -- html lsp
-  lspconfig.html.setup({
-    on_attach = attach_func,
+  vim.lsp.config('html', {
     filetypes = { "html", "htmldjango" }
   })
+  vim.lsp.enable('html')
 
   -- rust-analyzer
-  lspconfig.rust_analyzer.setup({
-    on_attach = attach_func,
-  })
+  vim.lsp.enable('rust_analyzer')
 
   -- yaml lsp
   -- lspconfig.yamlls.setup({
@@ -206,14 +202,12 @@ local config = function()
   -- })
 
   -- sql lsp
-  lspconfig.sqlls.setup({
-    on_attach = attach_func,
-  })
+  vim.lsp.enable('sqlls')
 
   -- vala lsp
-  --if is_executable("vala-lanuage-server") then
-  lspconfig.vala_ls.setup({})
-  --end
+  if is_executable("vala-language-server") then
+    vim.lsp.enable('vala_ls')
+  end
 end
 
 

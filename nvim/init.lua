@@ -288,6 +288,13 @@ local to_install = {
     'MeanderingProgrammer/render-markdown.nvim',
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' },
     ft = { "markdown", "codecompanion" },
+    config = function ()
+      require('render-markdown').setup({
+        code = {
+          border = 'thick',
+        },
+      })
+    end
   },
   {
     "echasnovski/mini.diff",

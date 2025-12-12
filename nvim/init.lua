@@ -319,17 +319,8 @@ if vim.loop.os_uname().sysname == "Darwin" then
     end
   })
   table.insert(to_install, {
-    "CopilotC-Nvim/CopilotChat.nvim",
-    dependencies = {
-      { "github/copilot.vim" },
-      { "nvim-lua/plenary.nvim" },
-    },
-    build = "make tiktoken",
-    opts = {
-    },
-  })
-  table.insert(to_install, {
     "olimorris/codecompanion.nvim",
+    tag = "v17.33.0",
     opts = {},
     dependencies = {
       "github/copilot.vim",
@@ -338,7 +329,16 @@ if vim.loop.os_uname().sysname == "Darwin" then
       "ravitemer/mcphub.nvim"
     },
     config = function()
-      require("codecompanion").setup()
+      require("codecompanion").setup({
+        mcphub = {
+          callback = "mcphub.extensions.codecompanion",
+          opts = {
+            make_vars = true,
+            make_slash_commands = true,
+            show_result_in_chat = true
+          }
+        }
+      })
       vim.keymap.set({ "n", "v" }, "<leader>cc", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
     end
   })

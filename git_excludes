@@ -27,3 +27,5 @@ conf/it.conf
 .bsp
 .ipynb_checkpoints
 .scala-build
+derby.log
+metastore_db

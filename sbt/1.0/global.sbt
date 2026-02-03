@@ -1,11 +1,12 @@
 Global / semanticdbEnabled := true
-// Global / semanticdbVersion := "4.11.0"
+Global / semanticdbVersion := "4.14.4"
 
 //addCompilerPlugin("com.github.cb372" % "scala-typed-holes" % "0.1.11" cross CrossVersion.full)
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
 ThisBuild  / watchBeforeCommand := Watch.clearScreen
 
+/*
 Global / allDocsSections ++= Seq(
     "akka-.*" -> (20, "Akka"),
     "cats-.*" -> (20, "Cats"),
@@ -16,3 +17,4 @@ Global / allDocsSections ++= Seq(
     ".*" -> (999, "Other Included Libraries")
 )
 
+*/

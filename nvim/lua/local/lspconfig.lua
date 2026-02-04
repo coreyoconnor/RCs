@@ -129,7 +129,7 @@ local config = function()
 
   vim.lsp.config('*', {
     on_attach = attach_func,
-    root_markers = { '.git', '.scala-build' },
+    root_markers = { '.git', '.scala-build', 'gradlew', 'settings.gradle' },
   })
 
   -- extra Neovim Lua stuff
@@ -207,6 +207,10 @@ local config = function()
   -- vala lsp
   if is_executable("vala-language-server") then
     vim.lsp.enable('vala_ls')
+  end
+
+  if is_executable("kotlin-language-server") then
+    vim.lsp.enable('kotlin_language_server')
   end
 end
 

@@ -306,6 +306,16 @@ local to_install = {
       })
     end,
   },
+  {
+    "AlexandrosAlexiou/kotlin.nvim",
+    ft = { "kotlin" },
+    dependencies = {
+        "mason-org/mason.nvim",
+        "mason-org/mason-lspconfig.nvim",
+        "stevearc/oil.nvim",
+        "folke/trouble.nvim",
+    }
+  },
 }
 
 if vim.loop.os_uname().sysname == "Darwin" then

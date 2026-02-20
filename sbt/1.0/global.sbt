@@ -1,5 +1,7 @@
+// typically set by metals auto added sbt
 Global / semanticdbEnabled := true
-Global / semanticdbVersion := "4.14.4"
+
+// Global / semanticdbVersion := "4.14.4"
 
 //addCompilerPlugin("com.github.cb372" % "scala-typed-holes" % "0.1.11" cross CrossVersion.full)
 Global / onChangedBuildSource := ReloadOnSourceChanges

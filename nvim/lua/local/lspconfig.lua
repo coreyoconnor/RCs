@@ -208,10 +208,6 @@ local config = function()
   if is_executable("vala-language-server") then
     vim.lsp.enable('vala_ls')
   end
-
-  if is_executable("kotlin-language-server") then
-    vim.lsp.enable('kotlin_language_server')
-  end
 end
 
 

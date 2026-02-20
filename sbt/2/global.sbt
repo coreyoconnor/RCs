@@ -1,0 +1,2 @@
+Global / semanticdbEnabled := true
+

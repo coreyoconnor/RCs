@@ -310,11 +310,22 @@ local to_install = {
     "AlexandrosAlexiou/kotlin.nvim",
     ft = { "kotlin" },
     dependencies = {
-        "mason-org/mason.nvim",
-        "mason-org/mason-lspconfig.nvim",
-        "stevearc/oil.nvim",
-        "folke/trouble.nvim",
-    }
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
+      "stevearc/oil.nvim",
+      "folke/trouble.nvim",
+    },
+    config = function ()
+      require("kotlin").setup {
+        jre_path = os.getenv("JAVA_HOME"),
+        jdk_for_symbol_resolution = os.getenv("JAVA_HOME"),
+        root_markers = {
+          "gradlew",
+          ".git",
+          "settings.gradle"
+        }
+      }
+    end
   },
 }
 
@@ -508,7 +519,7 @@ vim.g.rainbow_delimiters = {
 
 -- strip whitespace on save
 vim.api.nvim_create_autocmd( "FileType", {
-  pattern = { 'text', 'markdown', 'html', 'xhtml', 'javascript', 'typescript', 'scala', 'c', 'java', 'go', 'rust', 'c++', 'lua' },
+  pattern = { 'text', 'markdown', 'html', 'xhtml', 'javascript', 'typescript', 'scala', 'c', 'java', 'go', 'rust', 'c++', 'lua', 'kotlin' },
   command = 'EnableStripWhitespaceOnSave'
 })
 

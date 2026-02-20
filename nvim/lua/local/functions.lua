@@ -92,6 +92,19 @@ local function carriage_return()
   end
 end
 
+local function is_executable(executable)
+  local handle = io.popen("command -v " .. executable)
+  if handle == nil then
+    return false
+  end
+
+  local result = handle:read("*a")
+  handle:close()
+
+  return result ~= ""
+end
+
+
 return {
   carriage_return = carriage_return,
   cmd_map = cmd_map,
@@ -99,5 +112,6 @@ return {
   shiftk = shiftk,
   s_tab_complete = s_tab_complete,
   tab_complete = tab_complete,
-  toggleqf = toggleqf
+  toggleqf = toggleqf,
+  is_executable = is_executable,
 }

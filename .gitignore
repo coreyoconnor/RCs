@@ -68,3 +68,7 @@ nvim/lazy-lock.json
 .scala-build
 sbt/1.0/preferences/1.10.0/
 sbt/1.0/.develocity
+sbt/2/preferences
+sbt/2/server
+sbt/2/staging
+sbt/2/target

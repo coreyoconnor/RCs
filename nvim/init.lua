@@ -524,6 +524,12 @@ vim.keymap.set('n', ',t', ':tabe <C-R>=expand("%:p:h") . "/" <CR>', {})
 vim.keymap.set('n', ',s', ':split <C-R>=expand("%:p:h") . "/" <CR>', {})
 vim.keymap.set('n', ',v', ':vsplit <C-R>=expand("%:p:h") . "/" <CR>', {})
 
+vim.keymap.set('n', '<leader>yp', function()
+  local val = vim.fn.expand('%:p') .. ':' .. vim.fn.line('.')
+  vim.fn.setreg('+', val)
+  vim.notify('Copied: ' .. val)
+end, { desc = 'Copy path:line' })
+
 -- This module contains a number of default definitions
 local rainbow_delimiters = require 'rainbow-delimiters'
 

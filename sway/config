@@ -18,8 +18,8 @@ include /etc/sway/config-vars.d/*
 
 ### Idle configuration
 exec swayidle -w \
-     timeout 1200 'swaylock --daemonize --color 000000 --ignore-empty-password' \
-     timeout 2400 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+     timeout 800 'swaylock --daemonize --color 000000 --ignore-empty-password' \
+     timeout 1200 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
      before-sleep 'swaylock --daemonize --color 000000 --ignore-empty-password'
 
 exec swww init
@@ -28,36 +28,49 @@ bar swaybar_command waybar
 
 ### output mapping ###
 
-# output "Dell Inc. DELL P2415Q 59JJ469O0KMB" resolution 3840x2160 position 3440,0 scale 2
-output "Dell Inc. AW3423DWF 57T42S3" resolution 3440x1440 position 0,0
-output "ViewSonic Corporation VA2259 Series UKX174000921" resolution 1920x1080 position 3440,0
+output "Dell Inc. AW3423DWF 57T42S3" resolution 3440x1440 position 1920,0
+output "ViewSonic Corporation VA2259 Series UKX174000921" resolution 1920x1080 position 0,0
+bindsym $mod+Control+Shift+F12 exec --no-startup-id swaymsg output HDMI-A-1 toggle
 
 ### workspaces ###
 workspace "Media" output "ViewSonic Corporation VA2259 Series UKX174000921"
 workspace "Comms" output "ViewSonic Corporation VA2259 Series UKX174000921"
+workspace "Android" output "ViewSonic Corporation VA2259 Series UKX174000921"
 workspace "Main" output "Dell Inc. AW3423DWF 57T42S3"
+workspace "DHB" output "Dell Inc. AW3423DWF 57T42S3"
+workspace "Games" output "Dell Inc. AW3423DWF 57T42S3"
+workspace "Ops" output "Dell Inc. AW3423DWF 57T42S3"
 
 focus_wrapping workspace
 
 ### window mappings ###
+assign [class="^Spotify$"] "Media"
 
 for_window [app_id="^launcher$"] floating enable, sticky enable, resize set 30 ppt 60 ppt, border pixel 20
+#layer_effects launcher {
+#  blur enable;
+#  shadows enable;
+#}
 for_window [app_id="^[wW]aydroid.*"] floating enable, border pixel 20
 for_window [app_id="^firefox$" title="Picture-in-Picture"] floating enable, sticky enable, border pixel 20
-for_window [class="^Beyond-All-Reason"] floating enable, border pixel 20
-for_window [class="^spring" instance="spring" title="Beyond All Reason"] border pixel 0, floating enable, fullscreen enable
-for_window [instance="^NordPass"] border pixel 5, "Comms"
 
+for_window [instance="^NordPass"] border pixel 5, "Comms"
 for_window [title="^Inbox.*coreyoconnor.*Gmail" app_id="^firefox$"] "Comms"
 for_window [title="^Amazon WorkMail" app_id="^firefox$"] "Comms"
 for_window [title="^Messenger" app_id="^firefox$"] "Comms"
-for_window [class="^Keybase"] floating enable, border pixel 20, move position mouse
-
-assign [class="^discord$"] "Comms"
-assign [class="^Spotify$"] "Media"
+for_window [class="^Keybase"] floating enable, border pixel 20, move position mouse, "Comms"
 assign [class="^taskade$"] "Comms"
 assign [class="^NordPass$"] "Comms"
-# assign [class="^steam$"] 5
+assign [class="^discord$"] "Comms"
+
+for_window [class="^Beyond-All-Reason"] floating enable, border pixel 20
+for_window [class="^spring" instance="spring" title="Beyond All Reason"] border pixel 0, floating enable, fullscreen enable
+assign [class="^steam$"] "Games"
+for_window [class="^valheim"] fullscreen enable, inhibit_idle visible
+assign [class="^valheim"] "Games"
+
+assign [app_id="^Waydroid$"] "Android"
+for_window [app_id="^Waydroid$"] border pixel 0, fullscreen enable
 
 ### key mappings ###
 
@@ -80,15 +93,14 @@ bindsym $mod+d exec $menu
 floating_modifier $mod normal
 
 # Reload the configuration file
-bindsym $mod+Shift+c reload
-
+bindsym $mod+Control+Shift+F5 reload
 
 # screenshot selection
 bindsym $mod+Shift+Print exec grim -g "$(slurp -d)" - | wl-copy -t image/png
 bindsym $mod+Control+Shift+Print exec GRIM_DEFAULT_DIR=~/Pictures/screenshots grim -g "$(slurp -d)"
 
 # screenshot active output
-bindsym $mod+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') - | wl-copy -t image/png
+bindsym $mod+Print exec GRIM_DEFAULT_DIR=~/Pictures/screenshots grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name')
 #
 # Moving around:
 #
@@ -120,24 +132,25 @@ bindsym $mod+Shift+Right move right
 bindsym $mod+1 workspace "Media"
 bindsym $mod+2 workspace "Comms"
 bindsym $mod+3 workspace "Main"
-bindsym $mod+4 workspace number 4
-bindsym $mod+5 workspace number 5
-bindsym $mod+6 workspace number 6
-bindsym $mod+7 workspace number 7
+bindsym $mod+4 workspace "DHB"
+bindsym $mod+5 workspace "Games"
+bindsym $mod+6 workspace "Ops"
+bindsym $mod+7 workspace "Finance"
 bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
-bindsym $mod+0 workspace number 10
+bindsym $mod+0 workspace "Android"
+
 # Move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace "Media"
 bindsym $mod+Shift+2 move container to workspace "Comms"
 bindsym $mod+Shift+3 move container to workspace "Main"
-bindsym $mod+Shift+4 move container to workspace number 4
-bindsym $mod+Shift+5 move container to workspace number 5
-bindsym $mod+Shift+6 move container to workspace number 6
-bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+4 move container to workspace "DHB"
+bindsym $mod+Shift+5 move container to workspace "Games"
+bindsym $mod+Shift+6 move container to workspace "Ops"
+bindsym $mod+Shift+7 move container to workspace "Finance"
 bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
-bindsym $mod+Shift+0 move container to workspace number 10
+bindsym $mod+Shift+0 move container to workspace "Android"
 # move workspace to output
 bindsym $mod+Control+Shift+$left  move workspace to output left
 bindsym $mod+Control+Shift+$right move workspace to output right
@@ -211,9 +224,7 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-bindsym $mod+F12 exec --no-startup-id swaymsg output DP-2 toggle
-
-tiling_drag_threshold 30
+tiling_drag_threshold 40
 
 include /etc/sway/config.d/*
 

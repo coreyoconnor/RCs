@@ -153,11 +153,12 @@ local to_install = {
   },
   {
     'nvim-treesitter/nvim-treesitter',
+    lazy = false,
     build = ":TSUpdate",
     config = function ()
-      local configs = require("nvim-treesitter.configs")
+      local config = require("nvim-treesitter.config")
 
-      configs.setup({
+      config.setup({
         ensure_installed = {
           "lua",
           "vim",

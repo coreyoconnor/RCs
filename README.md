@@ -1,4 +1,1 @@
-# RCs
-
-Repo of all the RCs and configs I use.
-
+Now on gitlab: https://gitlab.com/coreyoconnor/RCs
